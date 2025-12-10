@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Connexion — CIZA GROUP App</title>
+
+<style>
+body{
+  background:#06142e;
+  color:white;
+  font-family:Arial;
+  text-align:center;
+  padding:60px 20px;
+}
+input{
+  width:90%;
+  padding:15px;
+  margin:12px 0;
+  border-radius:10px;
+  border:none;
+  background:#112544;
+  color:white;
+}
+button{
+  width:90%;
+  padding:15px;
+  background:#F2B840;
+  color:#06142e;
+  border:none;
+  border-radius:10px;
+  font-weight:bold;
+  cursor:pointer;
+}
+button:hover{background:#c99933;}
+.box{
+  background:#0b1c34cc;
+  padding:25px;
+  border-radius:18px;
+  max-width:400px;
+  margin:auto;
+}
+</style>
+</head>
+
+<body>
+
+<h1>CIZA GROUP — Connexion</h1>
+<p>Entrez votre email pour recevoir un lien magique de connexion.</p>
+
+<div class="box">
+  <input id="email" type="email" placeholder="Votre email" required>
+  <button onclick="sendLink()">Recevoir le lien</button>
+  <p id="msg"></p>
+</div>
+
+<script type="module">
+import { auth, actionCodeSettings } from "./firebase-init.js";
+import { sendSignInLinkToEmail } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+
+window.sendLink = function(){
+    const email = document.getElementById("email").value;
+    const msg = document.getElementById("msg");
+
+    sendSignInLinkToEmail(auth, email, actionCodeSettings)
+      .then(() => {
+          localStorage.setItem("emailForLogin", email);
+          msg.innerHTML = "✔️ Lien envoyé ! Vérifiez votre email.";
+          msg.style.color = "#F2B840";
+      })
+      .catch(error => {
+          msg.innerHTML = "❌ Erreur : " + error.message;
+          msg.style.color = "red";
+      });
+}
+</script>
+
+</body>
+</html>
