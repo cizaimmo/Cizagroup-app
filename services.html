@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Services — CizaGroup App</title>
+<link rel="icon" href="logotransparent.png">
+
+<style>
+/* GLOBAL APP */
+body{
+    margin:0;
+    background:#06142e;
+    color:white;
+    font-family:Arial, sans-serif;
+}
+a{text-decoration:none;color:#F2B840;}
+
+header{
+    padding:18px;
+    text-align:center;
+    background:#020a16cc;
+    border-bottom:1px solid #12335c;
+}
+header img{height:55px;}
+
+/* APP MENU */
+.app-menu{
+    position:fixed;bottom:0;left:0;width:100%;
+    background:#020a16e0;backdrop-filter:blur(5px);
+    display:flex;justify-content:space-around;
+    padding:10px 0;border-top:1px solid #12335c;
+}
+.app-menu a{
+    color:white;font-size:14px;opacity:.8;
+}
+.app-menu a.active{color:#F2B840;opacity:1;font-weight:bold;}
+
+/* HERO */
+.hero{
+    padding:40px 20px 10px;
+    text-align:center;
+}
+.hero h1{
+    font-size:28px;color:#F2B840;margin:0 0 10px;
+}
+.hero p{opacity:.85;font-size:15px;}
+
+/* SERVICES LIST */
+.services{
+    padding:20px;
+}
+.service-card{
+    background:#0b1c34cc;
+    margin-bottom:18px;
+    padding:16px;
+    border-radius:14px;
+    border:1px solid #12335c;
+}
+.service-card h3{margin:0;color:#F2B840;font-size:18px;}
+.service-card p{
+    opacity:.85;font-size:14px;margin:8px 0 12px;
+}
+.service-card button{
+    width:100%;padding:12px;border:none;
+    border-radius:10px;background:#F2B840;
+    color:#06142e;font-weight:bold;
+    cursor:pointer;font-size:15px;
+}
+
+/* POPUP */
+.modal{
+    display:none;position:fixed;top:0;left:0;width:100%;height:100%;
+    background:#000000aa;backdrop-filter:blur(6px);
+    justify-content:center;align-items:center;
+}
+.modal-content{
+    background:#0b1c34;
+    width:90%;max-width:420px;
+    padding:22px;border-radius:16px;
+    border:1px solid #12335c;
+}
+.modal-content h2{margin-top:0;color:#F2B840;}
+.close{float:right;font-size:22px;cursor:pointer;color:#F2B840;}
+
+/* FOOTER */
+footer{
+    margin-bottom:70px;
+    text-align:center;
+    padding:15px;
+    opacity:.6;
+    font-size:12px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <img src="logotransparent.png">
+</header>
+
+<section class="hero">
+    <h1>Nos Services</h1>
+    <p>Des solutions rapides, fiables et adaptées à votre quotidien.</p>
+</section>
+
+<div class="services">
+
+    <!-- CARWASH -->
+    <div class="service-card">
+        <h3>CizaCarWash+</h3>
+        <p>Lavage premium, abonnement mensuel, services entreprises.</p>
+        <button onclick="openModal('carwash')">Voir détails</button>
+    </div>
+
+    <!-- DELIVERY -->
+    <div class="service-card">
+        <h3>CizaDelivery</h3>
+        <p>Livraison express, courses rapides, services entreprises.</p>
+        <button onclick="openModal('delivery')">Voir détails</button>
+    </div>
+
+    <!-- ASSIST -->
+    <div class="service-card">
+        <h3>CizaAssist</h3>
+        <p>Assistance administrative, missions urgentes, premium diaspora.</p>
+        <button onclick="openModal('assist')">Voir détails</button>
+    </div>
+
+    <!-- MARKET -->
+    <div class="service-card">
+        <h3>CizaMarket</h3>
+        <p>Achats locaux & Canada, packs diaspora, livraison sécurisée.</p>
+        <button onclick="openModal('market')">Voir détails</button>
+    </div>
+
+    <!-- JOBS -->
+    <div class="service-card">
+        <h3>CizaJobs</h3>
+        <p>Postuler, emploi, recrutement — pour particuliers et entreprises.</p>
+        <button onclick="openModal('jobs')">Voir détails</button>
+    </div>
+
+</div>
+
+<!-- POPUPS -->
+
+<div class="modal" id="modal-carwash">
+<div class="modal-content">
+    <span class="close" onclick="closeModal('carwash')">&times;</span>
+    <h2>CizaCarWash+</h2>
+    <p>- Lavage premium<br>- Abonnements<br>- Packs entreprises<br>- Paiement en ligne (bientôt)</p>
+</div>
+</div>
+
+<div class="modal" id="modal-delivery">
+<div class="modal-content">
+    <span class="close" onclick="closeModal('delivery')">&times;</span>
+    <h2>CizaDelivery</h2>
+    <p>- Livraison express<br>- Courses<br>- Services entreprise</p>
+</div>
+</div>
+
+<div class="modal" id="modal-assist">
+<div class="modal-content">
+    <span class="close" onclick="closeModal('assist')">&times;</span>
+    <h2>CizaAssist</h2>
+    <p>- Assistance<br>- Dossiers<br>- Support premium diaspora</p>
+</div>
+</div>
+
+<div class="modal" id="modal-market">
+<div class="modal-content">
+    <span class="close" onclick="closeModal('market')">&times;</span>
+    <h2>CizaMarket</h2>
+    <p>- Achats<br>- Packs diaspora<br>- Livraison locale</p>
+</div>
+</div>
+
+<div class="modal" id="modal-jobs">
+<div class="modal-content">
+    <span class="close" onclick="closeModal('jobs')">&times;</span>
+    <h2>CizaJobs</h2>
+    <p>- Déposer CV<br>- Recrutement<br>- Opportunités</p>
+</div>
+</div>
+
+<footer>
+    © 2026 CIZA GROUP — App Version • Tous droits réservés.
+</footer>
+
+<!-- SCRIPT -->
+<script>
+function openModal(id){ document.getElementById("modal-"+id).style.display="flex"; }
+function closeModal(id){ document.getElementById("modal-"+id).style.display="none"; }
+</script>
+
+<!-- BOTTOM APP MENU -->
+<div class="app-menu">
+    <a href="index.html">Accueil</a>
+    <a href="services.html" class="active">Services</a>
+    <a href="contact.html">Contact</a>
+</div>
+
+</body>
+</html>
