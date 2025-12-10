@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>CIZA GROUP — Application</title>
+<link rel="icon" href="https://cizaimmo.github.io/cizagroup-website/logotransparent.png">
+
+<style>
+    body{
+        margin:0;
+        background:#06142e;
+        color:white;
+        font-family:Arial, sans-serif;
+        text-align:center;
+    }
+    header{
+        padding:25px 10px;
+    }
+    header img{
+        width:85px;
+        opacity:.95;
+    }
+    h1{
+        color:#F2B840;
+        font-size:26px;
+        margin-top:10px;
+    }
+
+    .services{
+        margin-top:40px;
+        padding:15px;
+    }
+
+    .card{
+        background:#0b1c34;
+        border:1px solid #12335c;
+        border-radius:16px;
+        padding:25px;
+        margin:20px auto;
+        width:85%;
+        max-width:400px;
+        transition:.3s;
+        cursor:pointer;
+    }
+    .card:hover{
+        transform:scale(1.02);
+        border-color:#F2B840;
+    }
+    .card h2{
+        color:#F2B840;
+        margin-bottom:8px;
+        font-size:20px;
+    }
+    .card p{
+        opacity:.85;
+        font-size:15px;
+    }
+
+    footer{
+        margin-top:60px;
+        padding:20px;
+        font-size:12px;
+        opacity:.55;
+    }
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <img src="https://cizaimmo.github.io/cizagroup-website/logotransparent.png" alt="Ciza Group Logo">
+    <h1>Application CIZA GROUP</h1>
+    <p>Services rapides — Automobiles — Conciergerie</p>
+</header>
+
+<div class="services">
+
+    <div class="card" onclick="window.location.href='carwash.html'">
+        <h2>CizaCarWash</h2>
+        <p>Nettoyage auto premium, abonnements, interventions rapides.</p>
+    </div>
+
+    <div class="card" onclick="window.location.href='assist.html'">
+        <h2>CizaAssist+</h2>
+        <p>Services personnels & conciergerie pour particuliers et entreprises.</p>
+    </div>
+
+    <div class="card" onclick="window.location.href='delivery.html'">
+        <h2>CizaDelivery</h2>
+        <p>Livraison locale rapide — commerces, particuliers & PME.</p>
+    </div>
+
+</div>
+
+<footer>
+    © 2026 CIZA GROUP — Application en développement.
+</footer>
+
+</body>
+</html>
