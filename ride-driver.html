@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CizaRide+ — Interface Chauffeur</title>
 
-    <!-- Styles -->
     <style>
         body {
             margin: 0;
@@ -56,14 +55,6 @@
             margin: 0;
             color: #f2b840;
             font-size: 22px;
-        }
-
-        .course {
-            background: #0f1a2a;
-            padding: 15px;
-            border-radius: 10px;
-            border-left: 4px solid #f2b840;
-            margin-top: 12px;
         }
 
         .logout-btn {
@@ -120,9 +111,6 @@
         }
     </style>
 
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
 </head>
 
 <body>
@@ -156,18 +144,27 @@
     </div>
 </div>
 
+<!-- SCRIPT FIREBASE CORRIGÉ -->
+
 <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut }
+        from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { getFirestore, doc, getDoc }
+        from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
     import { firebaseConfig } from "./firebase-config.js";
 
-    const app = firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const db = firebase.firestore();
+    // Initialisation Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
 
     const loader = document.getElementById("loader");
     const loginPopup = document.getElementById("loginPopup");
 
-    // Vérifier si chauffeur connecté
-    auth.onAuthStateChanged(async user => {
+    // Vérifier connexion chauffeur
+    onAuthStateChanged(auth, async user => {
         loader.style.display = "none";
 
         if (!user) {
@@ -175,15 +172,18 @@
             return;
         }
 
-        // Vérifier si user est chauffeur
-        const doc = await db.collection("drivers").doc(user.uid).get();
+        // Vérifier si utilisateur = chauffeur
+        const ref = doc(db, "drivers", user.uid);
+        const snap = await getDoc(ref);
 
-        if (!doc.exists || doc.data().role !== "driver") {
+        if (!snap.exists() || snap.data().role !== "driver") {
             alert("Accès refusé — Vous n'êtes pas chauffeur CizaRide+");
-            auth.signOut();
+            await signOut(auth);
             loginPopup.style.display = "flex";
             return;
         }
+
+        console.log("Chauffeur connecté :", user.uid);
     });
 
     // Connexion chauffeur
@@ -192,15 +192,16 @@
         const pass = document.getElementById("password").value;
 
         try {
-            await auth.signInWithEmailAndPassword(mail, pass);
+            await signInWithEmailAndPassword(auth, mail, pass);
             loginPopup.style.display = "none";
         } catch (e) {
             alert("Erreur : " + e.message);
         }
     }
+    window.loginDriver = loginDriver;
 
     // Déconnexion
-    document.getElementById("logoutBtn").onclick = () => auth.signOut();
+    document.getElementById("logoutBtn").onclick = () => signOut(auth);
 </script>
 
 </body>
