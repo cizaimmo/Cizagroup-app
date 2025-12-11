@@ -1,187 +1,125 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Créer un compte — CIZA GROUP</title>
-<link rel="icon" href="logotransparent.png">
+
+<title>CIZA GROUP — Inscription</title>
+<link rel="icon" href="../logotransparent.png">
 
 <style>
-body {
-    margin: 0;
-    background: #06142e;
-    font-family: Arial, sans-serif;
-    color: white;
-}
-
-/* HEADER */
-header {
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid #0e2a50;
-    background: #06142e;
-}
-header img {
-    height: 55px;
-}
-
-/* CONTAINER */
-.container {
-    max-width: 400px;
-    margin: auto;
-    margin-top: 50px;
-    padding: 25px;
-    background: #0b1c34cc;
-    border-radius: 16px;
-    border: 1px solid #12335c;
-}
-
-h2 {
-    text-align: center;
-    color: #F2B840;
-    margin-bottom: 10px;
-}
-p {
-    text-align: center;
-    opacity: .8;
-    margin-bottom: 20px;
-}
-
-/* FORM */
-input {
-    width: 100%;
-    padding: 14px;
-    margin: 8px 0;
-    border-radius: 10px;
-    border: none;
-    background: #112544;
-    color: white;
-}
-
-button {
-    width: 100%;
-    padding: 14px;
-    margin-top: 12px;
-    background: #F2B840;
-    color: #06142e;
-    border: none;
-    border-radius: 10px;
-    font-weight: bold;
-    cursor: pointer;
-}
-button:hover {
-    background: #c99933;
-}
-
-.error {
-    color: #ff5c5c;
-    text-align: center;
-    margin-top: 10px;
-}
-.success {
-    color: #67ff9a;
-    text-align: center;
-    margin-top: 10px;
-}
-
-.login-link {
-    text-align: center;
-    margin-top: 18px;
-}
-.login-link a {
-    color: #F2B840;
-}
-
+    body{
+        margin:0;
+        background:#06142E;
+        color:white;
+        font-family:Arial, sans-serif;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        height:100vh;
+    }
+    .box{
+        width:90%;
+        max-width:380px;
+        background:#0B1C34;
+        padding:30px;
+        border-radius:14px;
+        border:1px solid #12335C;
+        text-align:center;
+    }
+    .box img{
+        width:100px;
+        margin-bottom:15px;
+    }
+    .box h2{
+        color:#F2B840;
+        margin:0 0 20px;
+    }
+    input{
+        width:100%;
+        padding:12px;
+        margin-top:10px;
+        border:none;
+        border-radius:8px;
+        background:#112544;
+        color:white;
+    }
+    button{
+        width:100%;
+        padding:12px;
+        margin-top:14px;
+        background:#0b84ff;
+        color:white;
+        border:none;
+        border-radius:8px;
+        font-weight:bold;
+        cursor:pointer;
+    }
+    button:hover{background:#0466c8;}
+    a{
+        color:#F2B840;
+        text-decoration:none;
+    }
 </style>
 </head>
 
 <body>
 
-<header>
-    <img src="logotransparent.png">
-</header>
-
-<div class="container">
-
+<div class="box">
+    <img src="../logotransparent.png" alt="CIZA GROUP">
     <h2>Créer un compte</h2>
-    <p>Rejoignez la plateforme officielle CIZA GROUP</p>
 
-    <input type="text" id="name" placeholder="Nom complet" required>
-    <input type="email" id="email" placeholder="Adresse email" required>
-    <input type="password" id="password" placeholder="Mot de passe" required>
-    <button onclick="register()">Créer mon compte</button>
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Mot de passe">
 
-    <div id="msg"></div>
+    <button onclick="registerUser()">Créer un compte</button>
 
-    <div class="login-link">
-        <p>Déjà un compte ? <a href="index.html">Connexion</a></p>
-    </div>
-
+    <p style="margin-top:12px;">Déjà un compte ?
+        <a href="login.html">Connexion</a>
+    </p>
 </div>
 
-<!-- FIREBASE -->
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { 
-    getAuth, 
-    createUserWithEmailAndPassword,
-    updateProfile,
-    sendEmailVerification 
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { initializeApp } 
+        from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { 
+        getAuth,
+        createUserWithEmailAndPassword
+    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBAiJHbBvRO6cDFpm6C-5mQk6SiTtzcI8o",
-  authDomain: "cizagroup-app.firebaseapp.com",
-  projectId: "cizagroup-app",
-  storageBucket: "cizagroup-app.firebasestorage.app",
-  messagingSenderId: "930936264084",
-  appId: "1:930936264084:web:5395360e54bf17bf492b81",
-  measurementId: "G-1KX6EN1KST"
-};
+    /* Config Firebase */
+    const firebaseConfig = {
+        apiKey: "AIzaSyBAiJHbBvRO6cDFpm6C-5mQk6SiTtzcI8o",
+        authDomain: "cizagroup-app.firebaseapp.com",
+        projectId: "cizagroup-app",
+        storageBucket: "cizagroup-app.firebasestorage.app",
+        messagingSenderId: "930936264084",
+        appId: "1:930936264084:web:5395360e54bf17bf492b81",
+        measurementId: "G-1KX6EN1KST"
+    };
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
 
-window.register = function () {
-    const name = document.getElementById("name").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value.trim();
-    const msgBox = document.getElementById("msg");
+    /* Création de compte */
+    window.registerUser = function(){
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
 
-    msgBox.innerHTML = "";
+        if(!email || !password){
+            alert("Veuillez remplir les champs.");
+            return;
+        }
 
-    if (!name || !email || !password) {
-        msgBox.innerHTML = "<p class='error'>Veuillez remplir tous les champs.</p>";
-        return;
-    }
-
-    createUserWithEmailAndPassword(auth, email, password)
-        .then(async (userCredential) => {
-            const user = userCredential.user;
-
-            // Ajout du nom dans Firebase Auth
-            await updateProfile(user, { displayName: name });
-
-            // Vérification email
-            await sendEmailVerification(user);
-
-            msgBox.innerHTML = `
-                <p class='success'>
-                    ✔ Compte créé avec succès !<br>
-                    Un email de vérification vous a été envoyé.
-                </p>
-            `;
-
-            setTimeout(() => {
-                window.location.href = "dashboard.html";
-            }, 1500);
+        createUserWithEmailAndPassword(auth, email, password)
+        .then(()=>{
+            alert("Compte créé avec succès !");
+            window.location.href = "login.html";
         })
-        .catch((error) => {
-            msgBox.innerHTML = "<p class='error'>" + error.message + "</p>";
+        .catch(err=>{
+            alert("Erreur : " + err.message);
         });
-};
+    };
 </script>
 
 </body>
