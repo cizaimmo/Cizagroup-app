@@ -4,49 +4,52 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>CIZA GROUP — Dashboard</title>
-<link rel="icon" href="icon-512.png">
+<title>Dashboard — CIZA GROUP App</title>
 
 <style>
 body{
     margin:0;
     background:#06142E;
-    color:white;
     font-family:Arial, sans-serif;
+    color:white;
 }
 
 /* HEADER */
 header{
     background:#06142E;
     padding:18px;
-    border-bottom:2px solid #F2B840;
     text-align:center;
+    border-bottom:2px solid #F2B840;
 }
-header h1{
+header h2{
     margin:0;
+    color:#F2B840;
     font-size:22px;
-    color:white;
 }
 
 /* USER BOX */
-#user-box{
-    background:#0B1C34;
-    padding:20px;
-    margin:20px;
-    border-radius:12px;
-    border:1px solid #12335c;
+.user-box{
     text-align:center;
+    padding:25px 10px;
 }
-#user-box h2{
-    margin:0 0 5px;
-    color:#F2B840;
+.avatar{
+    width:80px;height:80px;
+    background:#F2B840;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:#06142E;
+    font-weight:bold;
+    font-size:28px;
+    margin:auto;
 }
-#user-email{
-    opacity:.8;
-    font-size:14px;
+.user-box h3{
+    margin-top:12px;
+    font-size:20px;
 }
 
-/* GRID SERVICES */
+/* GRID */
 .grid{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
@@ -54,110 +57,86 @@ header h1{
     padding:20px;
 }
 .card{
-    background:#0B1C34CC;
-    border:1px solid #12335C;
-    border-radius:12px;
+    background:#0B1C34;
     padding:20px;
+    border-radius:12px;
     text-align:center;
-    cursor:pointer;
+    border:1px solid #12335C;
     transition:.3s;
 }
 .card:hover{
     transform:translateY(-5px);
     border-color:#F2B840;
 }
-.card h3{
-    margin-top:10px;
+.card h4{
     color:#F2B840;
-    font-size:18px;
 }
 
-/* FOOTER */
-footer{
-    margin-top:40px;
-    padding:20px;
-    background:#020A16;
-    text-align:center;
-    font-size:13px;
-    opacity:.75;
-}
-
-/* LOGOUT BUTTON */
-#logout{
-    margin:20px auto;
-    display:block;
-    width:200px;
+/* LOGOUT */
+.logout{
+    width:90%;
+    margin:25px auto;
     padding:12px;
-    background:#F2B840;
-    color:#06142E;
+    background:#D9534F;
     border:none;
-    border-radius:8px;
+    color:white;
     font-weight:bold;
+    border-radius:8px;
     cursor:pointer;
 }
-#logout:hover{
-    background:#cfa035;
-}
+.logout:hover{background:#b63c38;}
 </style>
 </head>
 
 <body>
 
 <header>
-    <h1>CIZA GROUP — Dashboard</h1>
+    <h2>CIZA GROUP — App</h2>
 </header>
 
-<!-- USER INFO -->
-<div id="user-box">
-    <h2 id="welcome-text">Bienvenue</h2>
-    <p id="user-email"></p>
+<div class="user-box">
+    <div class="avatar" id="avatar">?</div>
+    <h3 id="welcome">Bienvenue</h3>
 </div>
 
-<!-- SERVICE GRID -->
 <div class="grid">
     <div class="card" onclick="go('carwash.html')">
-        <img src="icons/carwash.png" width="50">
-        <h3>CizaCarWash+</h3>
+        <h4>CizaCarWash+</h4>
+        <p>Lavage & abonnement</p>
     </div>
 
     <div class="card" onclick="go('delivery.html')">
-        <img src="icons/delivery.png" width="50">
-        <h3>CizaDelivery</h3>
+        <h4>CizaDelivery</h4>
+        <p>Livraison express</p>
     </div>
 
     <div class="card" onclick="go('assist.html')">
-        <img src="icons/assist.png" width="50">
-        <h3>CizaAssist</h3>
+        <h4>CizaAssist</h4>
+        <p>Assistance & missions</p>
     </div>
 
     <div class="card" onclick="go('market.html')">
-        <img src="icons/market.png" width="50">
-        <h3>CizaMarket</h3>
+        <h4>CizaMarket</h4>
+        <p>Achats & packs diaspora</p>
     </div>
 
     <div class="card" onclick="go('jobs.html')">
-        <img src="icons/jobs.png" width="50">
-        <h3>CizaJobs</h3>
+        <h4>CizaJobs</h4>
+        <p>Emploi & recrutement</p>
     </div>
 </div>
 
-<!-- LOGOUT -->
-<button id="logout" onclick="logoutUser()">Déconnexion</button>
+<button class="logout" onclick="logoutUser()">Déconnexion</button>
 
-<footer>
-    © 2026 CIZA GROUP • Mentions légales • Confidentialité • Cookies
-</footer>
-
-<!-- FIREBASE AUTH -->
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { 
-    getAuth,
-    onAuthStateChanged,
-    signOut
+    getAuth, 
+    onAuthStateChanged, 
+    signOut 
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 
-/* CONFIG */
+/* FIREBASE */
 const firebaseConfig = {
     apiKey: "AIzaSyBAiJHbBvRO6cDFpm6C-5mQk6SiTtzcI8o",
     authDomain: "cizagroup-app.firebaseapp.com",
@@ -171,14 +150,18 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-/* REDIRECTION SI NON CONNECTÉ */
+/* AUTH CHECK */
 onAuthStateChanged(auth, user=>{
     if(!user){
         window.location.href = "index.html";
-    }else{
-        document.getElementById("user-email").innerText = user.email;
-        document.getElementById("welcome-text").innerText = "Bienvenue 👋";
+        return;
     }
+
+    let email = user.email;
+    let initial = email.charAt(0).toUpperCase();
+
+    document.getElementById("avatar").innerHTML = initial;
+    document.getElementById("welcome").innerHTML = "Bienvenue, " + email;
 });
 
 /* LOGOUT */
@@ -188,10 +171,10 @@ window.logoutUser = function(){
     });
 };
 
-/* NAVIGATION */
+/* OPEN PAGES */
 window.go = function(page){
     window.location.href = page;
-}
+};
 </script>
 
 </body>
