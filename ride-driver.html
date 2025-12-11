@@ -1,207 +1,183 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CizaRide+ — Interface Chauffeur</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CizaRide+ — Chauffeur</title>
 
-    <style>
-        body {
-            margin: 0;
-            font-family: system-ui, sans-serif;
-            background: #0b1623;
-            color: white;
-        }
+<!-- Leaflet MAP CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
-        /* Loader premium */
-        #loader {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-        }
-        #loader img {
-            width: 120px;
-            opacity: 0.9;
-            filter: drop-shadow(0 0 8px #f2b840);
-        }
+<style>
+    body {
+        margin: 0;
+        background: #06142E;
+        color: white;
+        font-family: system-ui, sans-serif;
+    }
 
-        header {
-            background: #0d1b2e;
-            padding: 18px;
-            text-align: center;
-            font-size: 22px;
-            font-weight: 700;
-            border-bottom: 3px solid #f2b840;
-        }
+    header {
+        background: #06142E;
+        padding: 18px;
+        text-align: center;
+        font-size: 22px;
+        font-weight: 700;
+        border-bottom: 3px solid #F2B840;
+    }
 
-        .container {
-            padding: 20px;
-        }
+    /* --- MAP --- */
+    #map {
+        width: 100%;
+        height: calc(100vh - 120px);
+    }
 
-        .card {
-            background: #112033;
-            border: 2px solid #23395b;
-            padding: 20px;
-            border-radius: 14px;
-            margin-top: 20px;
-        }
+    /* Popup login */
+    #loginPopup {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        backdrop-filter: blur(4px);
+        background: rgba(0,0,0,0.7);
+    }
 
-        .card h2 {
-            margin: 0;
-            color: #f2b840;
-            font-size: 22px;
-        }
+    #loginPopup .box {
+        background: #112033;
+        padding: 25px;
+        width: 85%;
+        max-width: 330px;
+        border-radius: 14px;
+        text-align: center;
+    }
 
-        .logout-btn {
-            margin-top: 25px;
-            display: inline-block;
-            padding: 10px 20px;
-            background: #f2b840;
-            border-radius: 8px;
-            color: #0d1b2e;
-            text-decoration: none;
-            font-weight: 700;
-        }
+    #loginPopup input {
+        width: 100%;
+        padding: 12px;
+        margin-top: 10px;
+        background: #0F1A2A;
+        border: none;
+        border-radius: 8px;
+        color: white;
+    }
 
-        /* Popup connexion */
-        #loginPopup {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            backdrop-filter: blur(4px);
-            background: rgba(0,0,0,0.7);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 99999;
-        }
+    #loginPopup button {
+        width: 100%;
+        padding: 12px;
+        background: #F2B840;
+        color: #06142E;
+        border: none;
+        margin-top: 14px;
+        border-radius: 8px;
+        font-weight: 700;
+        cursor: pointer;
+    }
 
-        #loginPopup .box {
-            background: #112033;
-            padding: 25px;
-            width: 85%;
-            max-width: 330px;
-            border-radius: 14px;
-            text-align: center;
-        }
-
-        #loginPopup input {
-            width: 100%;
-            padding: 12px;
-            margin-top: 10px;
-            border: none;
-            border-radius: 8px;
-            background: #0f1a2a;
-            color: white;
-        }
-
-        #loginPopup button {
-            width: 100%;
-            padding: 12px;
-            background: #f2b840;
-            border: none;
-            border-radius: 8px;
-            margin-top: 15px;
-            font-weight: 700;
-        }
-    </style>
-
+    /* Loader (premium logo) */
+    #loader {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.85);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 99999;
+    }
+    #loader img {
+        width: 130px;
+        filter: drop-shadow(0 0 8px #F2B840);
+        opacity: 0.9;
+    }
+</style>
 </head>
 
 <body>
 
 <!-- Loader premium -->
 <div id="loader">
-    <img src="logotransparent.png" alt="CizaRide Loader" />
+    <img src="logotransparent.png" alt="Loading..." />
 </div>
 
 <header>CizaRide+ — Interface Chauffeur</header>
 
-<div class="container">
-    <div class="card">
-        <h2>Courses reçues</h2>
-        <p>Ici apparaîtront les demandes clients.</p>
-        <div id="coursesList">
-            <p style="opacity: 0.7;">Aucune course reçue pour le moment.</p>
-        </div>
-    </div>
+<!-- Map Container -->
+<div id="map"></div>
 
-    <a class="logout-btn" href="#" id="logoutBtn">Déconnexion</a>
-</div>
-
-<!-- Pop-up Connexion -->
+<!-- Popup Login -->
 <div id="loginPopup">
     <div class="box">
-        <h2>Connexion requise</h2>
+        <h2>Connexion Chauffeur</h2>
         <input id="email" type="email" placeholder="Email">
         <input id="password" type="password" placeholder="Mot de passe">
         <button onclick="loginDriver()">Se connecter</button>
     </div>
 </div>
 
-<!-- SCRIPT FIREBASE CORRIGÉ -->
+<!-- Leaflet MAP JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
+<!-- Firebase -->
 <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut }
-        from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-    import { getFirestore, doc, getDoc }
-        from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { auth } from "./firebase-config.js";
+import { 
+    signInWithEmailAndPassword,
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-    import { firebaseConfig } from "./firebase-config.js";
+/* Elements */
+const loginPopup = document.getElementById("loginPopup");
+const loader = document.getElementById("loader");
 
-    // Initialisation Firebase
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
+/* Show map only after login */
+let map;
 
-    const loader = document.getElementById("loader");
-    const loginPopup = document.getElementById("loginPopup");
+/* Auth state listener */
+onAuthStateChanged(auth, user => {
+    loader.style.display = "none";
 
-    // Vérifier connexion chauffeur
-    onAuthStateChanged(auth, async user => {
-        loader.style.display = "none";
-
-        if (!user) {
-            loginPopup.style.display = "flex";
-            return;
-        }
-
-        // Vérifier si utilisateur = chauffeur
-        const ref = doc(db, "drivers", user.uid);
-        const snap = await getDoc(ref);
-
-        if (!snap.exists() || snap.data().role !== "driver") {
-            alert("Accès refusé — Vous n'êtes pas chauffeur CizaRide+");
-            await signOut(auth);
-            loginPopup.style.display = "flex";
-            return;
-        }
-
-        console.log("Chauffeur connecté :", user.uid);
-    });
-
-    // Connexion chauffeur
-    async function loginDriver() {
-        const mail = document.getElementById("email").value;
-        const pass = document.getElementById("password").value;
-
-        try {
-            await signInWithEmailAndPassword(auth, mail, pass);
-            loginPopup.style.display = "none";
-        } catch (e) {
-            alert("Erreur : " + e.message);
-        }
+    if (!user) {
+        loginPopup.style.display = "flex";
+        return;
     }
-    window.loginDriver = loginDriver;
 
-    // Déconnexion
-    document.getElementById("logoutBtn").onclick = () => signOut(auth);
+    loginPopup.style.display = "none";
+    initMap(); // load map
+});
+
+/* Login function */
+window.loginDriver = async function () {
+    const mail = document.getElementById("email").value;
+    const pass = document.getElementById("password").value;
+
+    try {
+        await signInWithEmailAndPassword(auth, mail, pass);
+        loginPopup.style.display = "none";
+    } catch (e) {
+        alert("Erreur : " + e.message);
+    }
+};
+
+/* Init MAP (Leaflet + OpenStreetMap custom dark) */
+function initMap() {
+    map = L.map('map').setView([-3.3822, 29.3644], 13); // Bujumbura center
+
+    L.tileLayer(
+        "https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png",
+        {
+            attribution: "CizaRide+ Map",
+        }
+    ).addTo(map);
+
+    // Blue premium marker for driver
+    L.marker([-3.3822, 29.3644], {
+        icon: L.icon({
+            iconUrl: "https://cdn-icons-png.flaticon.com/512/684/684908.png",
+            iconSize: [40, 40]
+        })
+    }).addTo(map);
+}
 </script>
 
 </body>
