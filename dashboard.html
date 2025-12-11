@@ -14,24 +14,36 @@ body{
     font-family:Arial, sans-serif;
 }
 
+/* HEADER */
 header{
     background:#06142e;
     padding:18px;
-    text-align:center;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
     border-bottom:2px solid #F2B840;
 }
-header h1{
-    color:#F2B840;
-    margin:0;
+header img{
+    height:45px;
+}
+header .profile-btn{
+    background:#F2B840;
+    border:none;
+    padding:10px 16px;
+    border-radius:8px;
+    color:#06142e;
+    font-weight:bold;
+    cursor:pointer;
 }
 
+/* WRAPPER */
 .wrapper{
     padding:20px;
     max-width:1100px;
     margin:auto;
 }
 
-/* Greeting box */
+/* GREETING */
 .greeting{
     background:#0b1c34cc;
     padding:20px;
@@ -42,32 +54,33 @@ header h1{
 .greeting h2{
     margin:0;
     color:#F2B840;
-    font-size:22px;
 }
-.greeting p{opacity:.8;}
 
 /* GRID SERVICES */
 .services-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
     gap:20px;
-    margin-top:20px;
 }
 .service-card{
     background:#0b1c34cc;
     border:1px solid #12335c;
-    border-radius:14px;
+    border-radius:16px;
     padding:20px;
     text-align:center;
     transition:.3s;
     cursor:pointer;
 }
 .service-card:hover{
-    transform:translateY(-4px);
+    transform:translateY(-6px);
     border-color:#F2B840;
 }
+.service-card .icon{
+    font-size:42px;
+    margin-bottom:12px;
+}
 .service-card h3{
-    margin:0 0 8px;
+    margin:0 0 10px;
     color:#F2B840;
 }
 .service-card p{
@@ -107,45 +120,52 @@ header h1{
 
 <body>
 
+<!-- HEADER -->
 <header>
-    <h1>CIZA GROUP — Tableau de bord</h1>
+    <img src="logotransparent.png">
+    <button class="profile-btn" onclick="logout()">Déconnexion</button>
 </header>
 
 <div class="wrapper">
 
     <div class="greeting">
-        <h2>Bienvenue 👋</h2>
+        <h2 id="welcome-text">Bienvenue 👋</h2>
         <p>Choisissez un service pour continuer.</p>
     </div>
 
-    <!-- SERVICES -->
+    <!-- SERVICES GRID -->
     <div class="services-grid">
 
         <div class="service-card">
+            <div class="icon">🚗</div>
             <h3>CizaCarWash+</h3>
             <p>Lavage premium & abonnements</p>
             <button onclick="alert('CarWash — bientôt disponible')">Ouvrir</button>
         </div>
 
         <div class="service-card">
+            <div class="icon">📦</div>
             <h3>CizaDelivery</h3>
             <p>Livraison rapide & entreprises</p>
             <button onclick="alert('Delivery — bientôt disponible')">Ouvrir</button>
         </div>
 
         <div class="service-card">
+            <div class="icon">🤝</div>
             <h3>CizaAssist</h3>
             <p>Support & missions personnalisées</p>
             <button onclick="alert('Assist — bientôt disponible')">Ouvrir</button>
         </div>
 
         <div class="service-card">
+            <div class="icon">🛒</div>
             <h3>CizaMarket</h3>
             <p>Achat Burundi/Canada & diaspora</p>
             <button onclick="alert('Market — bientôt disponible')">Ouvrir</button>
         </div>
 
         <div class="service-card">
+            <div class="icon">👔</div>
             <h3>CizaJobs</h3>
             <p>Emploi & recrutement</p>
             <button onclick="alert('Jobs — bientôt disponible')">Ouvrir</button>
@@ -153,18 +173,22 @@ header h1{
 
     </div>
 
-    <div class="logout-btn">
-        <button onclick="logout()">Se déconnecter</button>
-    </div>
+</div>
 
+<div class="logout-btn">
+    <button onclick="logout()">Se déconnecter</button>
 </div>
 
 <!-- =============================
-    FIREBASE LOGOUT SYSTEM
+    FIREBASE AUTH SYSTEM
 ============================= -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { 
+    getAuth, 
+    signOut,
+    onAuthStateChanged 
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBAiJHbBvRO6cDFpm6C-5mQk6SiTtzcI8o",
@@ -179,16 +203,22 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
+/* 🔒 Sécurité : si pas connecté → retour à index */
+onAuthStateChanged(auth, user=>{
+    if(!user){
+        window.location.href = "index.html";
+    } else {
+        document.getElementById("welcome-text").innerHTML =
+            "Bienvenue " + (user.email.split("@")[0]) + " 👋";
+    }
+});
+
 /* LOGOUT */
 window.logout = function(){
-    signOut(auth)
-    .then(()=>{
+    signOut(auth).then(()=>{
         window.location.href = "index.html";
-    })
-    .catch(err=>{
-        alert(err.message);
     });
-};
+}
 </script>
 
 </body>
