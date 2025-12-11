@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>CizaRide+ — Client</title>
+<style>
+body{
+    margin:0;
+    background:#06142E;
+    color:white;
+    font-family:Arial;
+}
+
+/* HEADER */
+header{
+    padding:18px;
+    background:#06142E;
+    border-bottom:2px solid #F2B840;
+    text-align:center;
+    font-size:22px;
+}
+
+/* FORM */
+.container{
+    padding:20px;
+}
+input, select{
+    width:100%;
+    padding:14px;
+    margin-top:12px;
+    background:#0B1C34;
+    border:none;
+    color:white;
+    border-radius:8px;
+}
+button{
+    width:100%;
+    padding:14px;
+    margin-top:18px;
+    background:#F2B840;
+    border:none;
+    color:#06142E;
+    font-weight:bold;
+    cursor:pointer;
+    border-radius:8px;
+}
+
+/* POPUP LOGIN */
+.popup{
+    position:fixed;
+    top:0;left:0;
+    width:100%;height:100%;
+    background:#000A;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    backdrop-filter:blur(5px);
+}
+.popup-box{
+    background:#0B1C34;
+    padding:25px;
+    border-radius:12px;
+    width:85%;
+    max-width:330px;
+}
+.popup-box input{
+    background:#112544;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>CizaRide+ — Client</header>
+
+<div class="container">
+    <h2>Réserver un trajet</h2>
+
+    <input id="pickup" placeholder="Lieu de départ">
+    <input id="destination" placeholder="Destination">
+
+    <select id="vehicle">
+        <option value="moto">Moto</option>
+        <option value="voiture">Voiture</option>
+        <option value="premium">Premium</option>
+    </select>
+
+    <button onclick="sendRide()">Commander</button>
+</div>
+
+<!-- POPUP LOGIN -->
+<div id="popup-login" class="popup">
+    <div class="popup-box">
+        <h3>Connexion requise</h3>
+        <input id="email" type="email" placeholder="Email">
+        <input id="password" type="password" placeholder="Mot de passe">
+        <button onclick="loginUser()">Se connecter</button>
+    </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import {
+    getAuth,
+    onAuthStateChanged,
+    signInWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import {
+    getFirestore,
+    collection,
+    addDoc,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+/* FIREBASE CONFIG */
+const firebaseConfig = {
+    apiKey: "AIzaSyBAiJHbBvRO6cDFpm6C-5mQk6SiTtzcI8o",
+    authDomain: "cizagroup-app.firebaseapp.com",
+    projectId: "cizagroup-app",
+    storageBucket: "cizagroup-app.firebasestorage.app",
+    messagingSenderId: "930936264084",
+    appId: "1:930936264084:web:5395360e54bf17bf492b81",
+    measurementId: "G-1KX6EN1KST"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+/* CHECK LOGIN */
+let currentUser = null;
+onAuthStateChanged(auth, user=>{
+    if(!user){
+        document.getElementById("popup-login").style.display="flex";
+    } else {
+        currentUser = user;
+    }
+});
+
+/* LOGIN */
+window.loginUser = function(){
+    let email = document.getElementById("email").value;
+    let pass = document.getElementById("password").value;
+
+    signInWithEmailAndPassword(auth, email, pass)
+    .then(()=>{
+        document.getElementById("popup-login").style.display="none";
+    })
+    .catch(e=>alert("Erreur : " + e.message));
+};
+
+/* SEND RIDE */
+window.sendRide = async function(){
+    if(!currentUser){
+        document.getElementById("popup-login").style.display="flex";
+        return;
+    }
+
+    let p = document.getElementById("pickup").value;
+    let d = document.getElementById("destination").value;
+    let v = document.getElementById("vehicle").value;
+
+    if(!p || !d){
+        alert("Veuillez remplir les champs.");
+        return;
+    }
+
+    await addDoc(collection(db,"rides"),{
+        pickup:p,
+        destination:d,
+        vehicle:v,
+        status:"pending",
+        timestamp:serverTimestamp()
+    });
+
+    alert("Votre course a été envoyée !");
+};
+</script>
+
+</body>
+</html>
