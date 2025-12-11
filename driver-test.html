@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test Chauffeur</title>
+
+<!-- Firebase -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+  // 🔥 CONFIG FIREBASE — mets le même que dans ton fichier firebase-config.js
+  const firebaseConfig = {
+    apiKey: "AIzaSyDv5mJb0rjvQqKRtkEtFYOeOTpgzGrd-6A",
+    authDomain: "cizagroup-app.firebaseapp.com",
+    projectId: "cizagroup-app",
+    storageBucket: "cizagroup-app.appspot.com",
+    messagingSenderId: "106203751994",
+    appId: "1:106203751994:web:1ce7ec749aca8b20db109a"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  // 🔍 Vérification connexion
+  onAuthStateChanged(auth, async (user) => {
+    const statusDiv = document.getElementById("status");
+
+    if (!user) {
+      statusDiv.innerHTML = "❌ Aucun utilisateur connecté.<br><a href='login.html'>Se connecter</a>";
+      return;
+    }
+
+    statusDiv.innerHTML = "Utilisateur Firebase détecté : " + user.email;
+
+    // Vérif du rôle dans Firestore
+    const ref = doc(db, "drivers", user.uid);
+    const snapshot = await getDoc(ref);
+
+    if (!snapshot.exists()) {
+      statusDiv.innerHTML += "<br>⚠️ Le compte existe mais pas dans /drivers !";
+      return;
+    }
+
+    const data = snapshot.data();
+    statusDiv.innerHTML += "<br>Rôle Firestore : " + data.role;
+
+    if (data.role === "driver") {
+      statusDiv.innerHTML += "<br><br>✅ Test réussi ! Vous êtes un chauffeur.";
+    } else {
+      statusDiv.innerHTML += "<br><br>❌ Rôle invalide. Ce n’est pas un chauffeur.";
+    }
+  });
+</script>
+
+<style>
+body {
+  background: #001028;
+  color: white;
+  font-family: Arial;
+  text-align: center;
+  padding: 30px;
+}
+#status {
+  margin-top: 40px;
+  font-size: 20px;
+  line-height: 1.6;
+}
+</style>
+
+</head>
+<body>
+
+<h1>🚕 Test Connexion Chauffeur</h1>
+<div id="status">Chargement...</div>
+
+</body>
+</html>
