@@ -5,64 +5,98 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>CIZA GROUP — App</title>
+<link rel="icon" href="icon-512.png">
 
 <style>
+/* GLOBAL */
 body{
     margin:0;
-    background:#06142e;
+    background:#06142E;
     color:white;
     font-family:Arial, sans-serif;
+    overflow:hidden;
 }
 
-/* HERO / SCREEN */
-.hero{
-    padding:120px 20px 40px;
-    text-align:center;
+/* SPLASH SCREEN */
+#splash{
+    position:fixed;
+    top:0;left:0;
+    width:100%;height:100%;
+    background:#06142E;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    animation:fadeOut 1.4s ease 2.8s forwards;
 }
-.hero h1{
-    font-size:32px;
-    margin-bottom:12px;
+
+#splash img{
+    width:140px;
+    opacity:0;
+    animation:logoFade 1.9s ease forwards;
+}
+
+#splash p{
+    margin-top:15px;
+    font-size:14px;
+    opacity:0;
     color:#F2B840;
-}
-.hero p{
-    opacity:.8;
-    font-size:16px;
+    animation:txtFade 1.8s ease 1.4s forwards;
 }
 
-/* GRID SERVICES */
-.app-grid{
+@keyframes logoFade{
+    0%{opacity:0; transform:scale(0.75);}
+    100%{opacity:1; transform:scale(1);}
+}
+@keyframes txtFade{
+    0%{opacity:0;}
+    100%{opacity:0.75;}
+}
+@keyframes fadeOut{
+    to{opacity:0; visibility:hidden;}
+}
+
+/* HEADER APP */
+header{
+    display:none;
+    background:#06142E;
+    padding:18px;
+    text-align:center;
+    color:white;
+    border-bottom:2px solid #F2B840;
+}
+
+/* MAIN MENU AFTER SPLASH */
+#main{
+    display:none;
     padding:20px;
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-    gap:16px;
-}
-.app-card{
-    background:#0b1c34cc;
-    padding:22px;
-    border-radius:14px;
-    border:1px solid #12335c;
-    text-align:center;
-    cursor:pointer;
-    transition:.3s;
-}
-.app-card:hover{
-    transform:translateY(-4px);
-    border-color:#F2B840;
-}
-.app-card h3{
-    color:#F2B840;
-    margin:0 0 8px;
-    font-size:16px;
-}
-.app-card p{
-    opacity:.7;
-    font-size:13px;
 }
 
-/* LOGIN POPUP */
+.menu{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    justify-content:center;
+    margin-top:20px;
+}
+.menu button{
+    background:#F2B840;
+    border:none;
+    padding:14px 20px;
+    border-radius:10px;
+    font-weight:bold;
+    color:#06142E;
+    cursor:pointer;
+}
+.menu button:hover{
+    background:#cfa035;
+}
+
+/* POPUPS (LOGIN / REGISTER) */
 .popup{
     display:none;
-    position:fixed;top:0;left:0;width:100%;height:100%;
+    position:fixed;
+    top:0;left:0;width:100%;height:100%;
     background:#000000AA;
     backdrop-filter:blur(6px);
     justify-content:center;
@@ -70,181 +104,128 @@ body{
     z-index:9999;
 }
 .popup-content{
-    background:#0b1c34;
+    background:#0B1C34;
     padding:25px;
-    width:90%;max-width:350px;
+    width:90%;
+    max-width:330px;
     border-radius:14px;
     border:1px solid #12335c;
-}
-.popup-content h2{
+    color:white;
     text-align:center;
-    color:#F2B840;
-    margin-top:0;
 }
 .popup-content input{
     width:100%;
     padding:12px;
-    margin:8px 0;
-    border:none;
+    margin-top:10px;
     background:#112544;
-    color:white;
+    border:none;
     border-radius:8px;
+    color:white;
 }
 .popup-content button{
     width:100%;
     padding:12px;
-    margin-top:10px;
+    margin-top:14px;
     border:none;
+    border-radius:8px;
     background:#F2B840;
-    color:#06142e;
+    color:#06142E;
     font-weight:bold;
     cursor:pointer;
-    border-radius:8px;
 }
 .close{
     float:right;
     cursor:pointer;
-    color:#F2B840;
     font-size:22px;
+    color:#F2B840;
 }
 </style>
 </head>
 
 <body>
 
-<!-- ============================
-       SCREEN BIENVENUE
-============================ -->
-<section class="hero">
-    <h1>CIZA GROUP APP</h1>
-    <p>Bienvenue — choisissez un service pour continuer</p>
-</section>
-
-<div class="app-grid">
-
-    <div class="app-card" onclick="openPopup('login')">
-        <h3>CizaCarWash+</h3>
-        <p>Lavage premium & abonnements</p>
-    </div>
-
-    <div class="app-card" onclick="openPopup('login')">
-        <h3>CizaDelivery</h3>
-        <p>Livraison rapide & entreprises</p>
-    </div>
-
-    <div class="app-card" onclick="openPopup('login')">
-        <h3>CizaAssist</h3>
-        <p>Assistance & missions</p>
-    </div>
-
-    <div class="app-card" onclick="openPopup('login')">
-        <h3>CizaMarket</h3>
-        <p>Achat & packs diaspora</p>
-    </div>
-
-    <div class="app-card" onclick="openPopup('login')">
-        <h3>CizaJobs</h3>
-        <p>Emploi & recrutement</p>
-    </div>
-
+<!-- SPLASH -->
+<div id="splash">
+    <img src="app-logo.png" alt="CIZA GROUP">
+    <p>App officielle — CIZA GROUP</p>
 </div>
 
+<!-- HEADER -->
+<header id="header">
+    <h2>CIZA GROUP — App</h2>
+</header>
 
-<!-- ============================
-        POPUP LOGIN
-============================ -->
+<!-- MAIN -->
+<div id="main">
+
+    <h2 style="text-align:center;margin-top:10px;">Choisissez un service</h2>
+
+    <div class="menu">
+        <button onclick="requireLogin()">CizaCarWash+</button>
+        <button onclick="requireLogin()">CizaDelivery</button>
+        <button onclick="requireLogin()">CizaAssist</button>
+        <button onclick="requireLogin()">CizaMarket</button>
+        <button onclick="requireLogin()">CizaJobs</button>
+    </div>
+</div>
+
+<!-- POPUP LOGIN -->
 <div id="popup-login" class="popup">
     <div class="popup-content">
-
         <span class="close" onclick="closePopup('login')">&times;</span>
 
         <h2>Connexion</h2>
+
         <input type="email" id="login-email" placeholder="Email">
         <input type="password" id="login-password" placeholder="Mot de passe">
 
         <button onclick="loginUser()">Se connecter</button>
 
-        <p style="text-align:center;opacity:.7;margin-top:10px;">
-            Pas de compte ?
-            <a href="#" onclick="switchPopup('login','register')" style="color:#F2B840;">Créer un compte</a>
+        <p style="opacity:.7;font-size:14px;margin-top:10px;">
+            Pas de compte ? <a href="#" onclick="switchPopup('login','register')">Créer un compte</a>
         </p>
     </div>
 </div>
 
-
-<!-- ============================
-        POPUP REGISTER
-============================ -->
+<!-- POPUP REGISTER -->
 <div id="popup-register" class="popup">
     <div class="popup-content">
-
         <span class="close" onclick="closePopup('register')">&times;</span>
 
         <h2>Créer un compte</h2>
+
         <input type="email" id="reg-email" placeholder="Email">
         <input type="password" id="reg-password" placeholder="Mot de passe">
 
-        <button onclick="registerUser()">Créer mon compte</button>
+        <button onclick="registerUser()">Créer un compte</button>
 
-        <p style="text-align:center;opacity:.7;margin-top:10px;">
-            Vous avez déjà un compte ?
-            <a href="#" onclick="switchPopup('register','login')" style="color:#F2B840;">Connexion</a>
+        <p style="opacity:.7;font-size:14px;margin-top:10px;">
+            Déjà un compte ? <a href="#" onclick="switchPopup('register','login')">Connexion</a>
         </p>
     </div>
 </div>
 
-
-<!-- ============================
-        JS POPUP SYSTEM
-============================ -->
 <script>
-function openPopup(name){ document.getElementById("popup-"+name).style.display="flex"; }
-function closePopup(name){ document.getElementById("popup-"+name).style.display="none"; }
-function switchPopup(old, now){ closePopup(old); openPopup(now); }
-</script>
+setTimeout(()=>{
+    document.getElementById("splash").style.display="none";
+    document.getElementById("header").style.display="block";
+    document.getElementById("main").style.display="block";
+}, 3000);
 
-
-<!-- ============================
-      FIREBASE AUTH
-============================ -->
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { 
-    getAuth,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword 
-} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBAiJHbBvRO6cDFpm6C-5mQk6SiTtzcI8o",
-  authDomain: "cizagroup-app.firebaseapp.com",
-  projectId: "cizagroup-app",
-  storageBucket: "cizagroup-app.firebasestorage.app",
-  messagingSenderId: "930936264084",
-  appId: "1:930936264084:web:5395360e54bf17bf492b81",
-  measurementId: "G-1KX6EN1KST"
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-
-window.loginUser = function(){
-    const email = document.getElementById("login-email").value;
-    const pass  = document.getElementById("login-password").value;
-
-    signInWithEmailAndPassword(auth, email, pass)
-        .then(()=>{ window.location.href="dashboard.html"; })
-        .catch(err=>alert(err.message));
-};
-
-window.registerUser = function(){
-    const email = document.getElementById("reg-email").value;
-    const pass  = document.getElementById("reg-password").value;
-
-    createUserWithEmailAndPassword(auth, email, pass)
-        .then(()=>{ window.location.href="dashboard.html"; })
-        .catch(err=>alert(err.message));
-};
+/* POPUPS */
+function requireLogin(){
+    openPopup("login");
+}
+function openPopup(id){
+    document.getElementById("popup-"+id).style.display="flex";
+}
+function closePopup(id){
+    document.getElementById("popup-"+id).style.display="none";
+}
+function switchPopup(oldPopup,newPopup){
+    closePopup(oldPopup);
+    openPopup(newPopup);
+}
 </script>
 
 </body>
