@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>CIZA GROUP — Dashboard</title>
+<link rel="icon" href="icon-512.png">
+
+<style>
+/* GLOBAL */
+body{
+    margin:0;
+    background:#06142E;
+    color:white;
+    font-family:Arial, sans-serif;
+}
+
+/* HEADER */
+header{
+    background:#06142E;
+    padding:20px;
+    text-align:center;
+    border-bottom:2px solid #F2B840;
+}
+header img{
+    width:90px;
+    opacity:.95;
+}
+
+/* TITLE */
+h2{
+    text-align:center;
+    margin:20px 0;
+    font-size:22px;
+    color:#F2B840;
+}
+
+/* GRID */
+.dashboard-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    gap:18px;
+    padding:20px;
+}
+
+/* CARDS */
+.card{
+    background:#0B1C34;
+    border:1px solid #12335C;
+    border-radius:16px;
+    padding:20px;
+    text-align:center;
+    cursor:pointer;
+    transition:.25s;
+}
+.card:hover{
+    transform:translateY(-6px);
+    border-color:#F2B840;
+}
+
+.card-icon{
+    font-size:38px;
+    margin-bottom:12px;
+    color:#F2B840;
+}
+
+.card h3{
+    margin:0;
+    font-size:17px;
+    color:white;
+}
+
+/* FOOTER */
+footer{
+    text-align:center;
+    padding:18px;
+    background:#020A16;
+    margin-top:25px;
+    font-size:13px;
+    opacity:.7;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+    <img src="logotransparent.png" alt="CIZA GROUP">
+</header>
+
+<h2>Bienvenue dans votre espace — Choisissez un service</h2>
+
+<!-- GRID -->
+<div class="dashboard-grid">
+
+    <!-- 1 CARWASH -->
+    <div class="card" onclick="alert('Module CarWash bientôt disponible')">
+        <div class="card-icon">🚗</div>
+        <h3>CizaCarWash+</h3>
+    </div>
+
+    <!-- 2 DELIVERY -->
+    <div class="card" onclick="alert('Module Delivery bientôt disponible')">
+        <div class="card-icon">📦</div>
+        <h3>CizaDelivery</h3>
+    </div>
+
+    <!-- 3 ASSIST -->
+    <div class="card" onclick="alert('Module Assist bientôt disponible')">
+        <div class="card-icon">🤝</div>
+        <h3>CizaAssist</h3>
+    </div>
+
+    <!-- 4 MARKET -->
+    <div class="card" onclick="alert('Module Market bientôt disponible')">
+        <div class="card-icon">🛒</div>
+        <h3>CizaMarket</h3>
+    </div>
+
+    <!-- 5 JOBS -->
+    <div class="card" onclick="alert('Module Jobs bientôt disponible')">
+        <div class="card-icon">💼</div>
+        <h3>CizaJobs</h3>
+    </div>
+
+    <!-- 6 SERVICE AUTO -->
+    <div class="card" onclick="alert('Module Service Auto bientôt disponible')">
+        <div class="card-icon">🔧</div>
+        <h3>Service Auto</h3>
+    </div>
+
+</div>
+
+<footer>
+    © 2026 CIZA GROUP — App officielle
+</footer>
+
+</body>
+</html>
