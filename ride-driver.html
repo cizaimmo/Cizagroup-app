@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CizaRide+ — Interface Chauffeur</title>
+
+    <!-- Styles -->
+    <style>
+        body {
+            margin: 0;
+            font-family: system-ui, sans-serif;
+            background: #0b1623;
+            color: white;
+        }
+
+        /* Loader premium */
+        #loader {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        #loader img {
+            width: 120px;
+            opacity: 0.9;
+            filter: drop-shadow(0 0 8px #f2b840);
+        }
+
+        header {
+            background: #0d1b2e;
+            padding: 18px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: 700;
+            border-bottom: 3px solid #f2b840;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .card {
+            background: #112033;
+            border: 2px solid #23395b;
+            padding: 20px;
+            border-radius: 14px;
+            margin-top: 20px;
+        }
+
+        .card h2 {
+            margin: 0;
+            color: #f2b840;
+            font-size: 22px;
+        }
+
+        .course {
+            background: #0f1a2a;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #f2b840;
+            margin-top: 12px;
+        }
+
+        .logout-btn {
+            margin-top: 25px;
+            display: inline-block;
+            padding: 10px 20px;
+            background: #f2b840;
+            border-radius: 8px;
+            color: #0d1b2e;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        /* Popup connexion */
+        #loginPopup {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            backdrop-filter: blur(4px);
+            background: rgba(0,0,0,0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 99999;
+        }
+
+        #loginPopup .box {
+            background: #112033;
+            padding: 25px;
+            width: 85%;
+            max-width: 330px;
+            border-radius: 14px;
+            text-align: center;
+        }
+
+        #loginPopup input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 8px;
+            background: #0f1a2a;
+            color: white;
+        }
+
+        #loginPopup button {
+            width: 100%;
+            padding: 12px;
+            background: #f2b840;
+            border: none;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-weight: 700;
+        }
+    </style>
+
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+</head>
+
+<body>
+
+<!-- Loader premium -->
+<div id="loader">
+    <img src="logotransparent.png" alt="CizaRide Loader" />
+</div>
+
+<header>CizaRide+ — Interface Chauffeur</header>
+
+<div class="container">
+    <div class="card">
+        <h2>Courses reçues</h2>
+        <p>Ici apparaîtront les demandes clients.</p>
+        <div id="coursesList">
+            <p style="opacity: 0.7;">Aucune course reçue pour le moment.</p>
+        </div>
+    </div>
+
+    <a class="logout-btn" href="#" id="logoutBtn">Déconnexion</a>
+</div>
+
+<!-- Pop-up Connexion -->
+<div id="loginPopup">
+    <div class="box">
+        <h2>Connexion requise</h2>
+        <input id="email" type="email" placeholder="Email">
+        <input id="password" type="password" placeholder="Mot de passe">
+        <button onclick="loginDriver()">Se connecter</button>
+    </div>
+</div>
+
+<script type="module">
+    import { firebaseConfig } from "./firebase-config.js";
+
+    const app = firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    const loader = document.getElementById("loader");
+    const loginPopup = document.getElementById("loginPopup");
+
+    // Vérifier si chauffeur connecté
+    auth.onAuthStateChanged(async user => {
+        loader.style.display = "none";
+
+        if (!user) {
+            loginPopup.style.display = "flex";
+            return;
+        }
+
+        // Vérifier si user est chauffeur
+        const doc = await db.collection("drivers").doc(user.uid).get();
+
+        if (!doc.exists || doc.data().role !== "driver") {
+            alert("Accès refusé — Vous n'êtes pas chauffeur CizaRide+");
+            auth.signOut();
+            loginPopup.style.display = "flex";
+            return;
+        }
+    });
+
+    // Connexion chauffeur
+    async function loginDriver() {
+        const mail = document.getElementById("email").value;
+        const pass = document.getElementById("password").value;
+
+        try {
+            await auth.signInWithEmailAndPassword(mail, pass);
+            loginPopup.style.display = "none";
+        } catch (e) {
+            alert("Erreur : " + e.message);
+        }
+    }
+
+    // Déconnexion
+    document.getElementById("logoutBtn").onclick = () => auth.signOut();
+</script>
+
+</body>
+</html>
