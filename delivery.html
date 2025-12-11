@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>CizaDelivery — CIZA GROUP</title>
+<title>CizaDelivery — CIZA GROUP App</title>
 <link rel="icon" href="icon-512.png">
 
 <style>
@@ -15,114 +15,223 @@ body{
     font-family:Arial, sans-serif;
 }
 
-header{
-    background:#06142E;
-    padding:16px;
+h2{
     text-align:center;
     color:#F2B840;
-    font-size:22px;
-    border-bottom:2px solid #F2B840;
+    margin-top:25px;
 }
 
-/* CONTENT */
 .container{
     padding:20px;
-    max-width:600px;
+    max-width:900px;
     margin:auto;
 }
 
-.section{
+/* CARDS */
+.card{
     background:#0B1C34;
     border:1px solid #12335C;
-    padding:20px;
-    border-radius:14px;
+    padding:22px;
+    border-radius:16px;
     margin-bottom:20px;
+    transition:.3s;
 }
-
-.section h2{
-    margin-top:0;
+.card:hover{
+    transform:translateY(-5px);
+    border-color:#F2B840;
+}
+.card h3{
+    margin:0;
     color:#F2B840;
+    font-size:20px;
+}
+.card p{
+    opacity:.8;
+    margin-top:8px;
 }
 
-.section p{
-    opacity:.85;
-    line-height:1.6;
-}
-
-/* BUTTON */
-button{
-    width:100%;
-    padding:14px;
+.card button{
     background:#F2B840;
     border:none;
-    border-radius:10px;
-    font-weight:bold;
     color:#06142E;
-    margin-top:10px;
+    padding:12px 18px;
+    font-weight:bold;
+    border-radius:10px;
+    margin-top:14px;
     cursor:pointer;
+    width:100%;
 }
-button:hover{
+.card button:hover{
     background:#cfa035;
 }
 
-/* BACK */
-.back{
-    margin-top:20px;
-    text-align:center;
+/* POPUP */
+.popup{
+    display:none;
+    position:fixed;
+    top:0;left:0;
+    width:100%;height:100%;
+    background:#000000AA;
+    backdrop-filter:blur(6px);
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
 }
-.back a{
+
+.popup-content{
+    background:#0B1C34;
+    width:90%;
+    max-width:400px;
+    padding:25px;
+    border-radius:14px;
+    border:1px solid #12335c;
+}
+.popup-content h3{
     color:#F2B840;
-    font-size:15px;
-    text-decoration:none;
+    margin-top:0;
+}
+
+input,textarea{
+    width:100%;
+    padding:12px;
+    background:#112544;
+    border:none;
+    border-radius:8px;
+    margin-top:10px;
+    color:white;
+}
+textarea{height:120px;resize:none;}
+
+button.send-btn{
+    margin-top:15px;
+    background:#F2B840;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    color:#06142E;
+    font-weight:bold;
+    cursor:pointer;
+}
+.close{
+    float:right;
+    cursor:pointer;
+    font-size:22px;
+    color:#F2B840;
 }
 </style>
 </head>
 
 <body>
 
-<header>
-    CizaDelivery
-</header>
-
+<h2>CizaDelivery</h2>
 <div class="container">
 
-    <div class="section">
-        <h2>🚚 Livraison Express & Courses Rapides</h2>
-        <p>
-            • Livraison express dans Bujumbura <br>
-            • Courses rapides (documents, achats, colis) <br>
-            • Service entreprises & flottes <br>
-            • Suivi WhatsApp <br>
-            • Paiement mobile (bientôt)
-        </p>
-
-        <button onclick="alert('La commande Delivery sera activée dans une prochaine mise à jour !')">
-            Commander une livraison
-        </button>
+    <!-- EXPRESS -->
+    <div class="card">
+        <h3>⚡ Delivery Express</h3>
+        <p>Courses rapides, documents, petits colis. Service instantané.</p>
+        <button onclick="openPopup('express')">Commander</button>
     </div>
 
-    <div class="section">
-        <h2>📍 Zones de service</h2>
-        <p>
-            Bujumbura Mairie — Tous les quartiers principaux.
-        </p>
+    <!-- STANDARD -->
+    <div class="card">
+        <h3>📦 Delivery Standard</h3>
+        <p>Livraisons classiques en ville. Suivi WhatsApp.</p>
+        <button onclick="openPopup('standard')">Commander</button>
     </div>
 
-    <div class="section">
-        <h2>📦 Types de livraison</h2>
-        <p>
-            • Documents<br>
-            • Petits colis<br>
-            • Médicaments (pharmacies) — <strong>bientôt</strong><br>
-            • Courses spéciales
-        </p>
-    </div>
-
-    <div class="back">
-        <a href="dashboard.html">← Retour au Dashboard</a>
+    <!-- PRO -->
+    <div class="card">
+        <h3>🏢 Delivery Pro — Entreprises</h3>
+        <p>Livraisons régulières, partenaires business, facturations mensuelles.</p>
+        <button onclick="openPopup('pro')">Commander</button>
     </div>
 
 </div>
+
+<!-- ========= POPUPS ========= -->
+
+<!-- EXPRESS -->
+<div id="popup-express" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup('express')">&times;</span>
+        <h3>Delivery Express</h3>
+
+        <form action="https://formsubmit.co/infos@cizagroup.com" method="POST">
+            <input type="hidden" name="service" value="Delivery Express">
+
+            <input type="text" name="nom" placeholder="Nom complet" required>
+            <input type="text" name="phone" placeholder="Téléphone" required>
+            <input type="text" name="depart" placeholder="Adresse de départ" required>
+            <input type="text" name="arrivee" placeholder="Adresse d’arrivée" required>
+
+            <textarea name="details" placeholder="Description du colis"></textarea>
+
+            <label style="font-size:13px;opacity:.8;">
+                <input type="checkbox" required>
+                J’accepte la politique de confidentialité.
+            </label>
+
+            <button class="send-btn">Envoyer</button>
+        </form>
+    </div>
+</div>
+
+<!-- STANDARD -->
+<div id="popup-standard" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup('standard')">&times;</span>
+        <h3>Delivery Standard</h3>
+
+        <form action="https://formsubmit.co/infos@cizagroup.com" method="POST">
+            <input type="hidden" name="service" value="Delivery Standard">
+
+            <input type="text" name="nom" placeholder="Nom complet" required>
+            <input type="text" name="phone" placeholder="Téléphone" required>
+            <input type="text" name="depart" placeholder="Adresse de départ" required>
+            <input type="text" name="arrivee" placeholder="Adresse d’arrivée" required>
+
+            <textarea name="details" placeholder="Description du colis + instructions"></textarea>
+
+            <label style="font-size:13px;opacity:.8;">
+                <input type="checkbox" required>
+                J’accepte la politique de confidentialité.
+            </label>
+
+            <button class="send-btn">Envoyer</button>
+        </form>
+    </div>
+</div>
+
+<!-- PRO -->
+<div id="popup-pro" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup('pro')">&times;</span>
+        <h3>Delivery Pro — Entreprises</h3>
+
+        <form action="https://formsubmit.co/infos@cizagroup.com" method="POST">
+            <input type="hidden" name="service" value="Delivery Pro">
+
+            <input type="text" name="entreprise" placeholder="Nom de l’entreprise" required>
+            <input type="text" name="nom" placeholder="Nom complet" required>
+            <input type="text" name="phone" placeholder="Téléphone" required>
+
+            <textarea name="besoin" placeholder="Décrivez vos besoins (volume, zones, fréquence)" required></textarea>
+
+            <label style="font-size:13px;opacity:.8;">
+                <input type="checkbox" required>
+                J’accepte la politique de confidentialité.
+            </label>
+
+            <button class="send-btn">Envoyer</button>
+        </form>
+    </div>
+</div>
+
+<script>
+function openPopup(name){ document.getElementById("popup-"+name).style.display="flex"; }
+function closePopup(name){ document.getElementById("popup-"+name).style.display="none"; }
+</script>
 
 </body>
 </html>
