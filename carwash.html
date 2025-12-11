@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>CizaCarWash+ — Premium</title>
+<title>CizaCarWash+</title>
 <link rel="icon" href="icon-512.png">
 
 <style>
@@ -15,166 +15,226 @@ body{
     font-family:Arial, sans-serif;
 }
 
-header{
-    background:#06142E;
-    padding:18px;
+h2{
     text-align:center;
-    color:white;
-    border-bottom:2px solid #F2B840;
-    font-size:20px;
+    color:#F2B840;
+    margin-top:25px;
 }
 
 .container{
     padding:20px;
-    max-width:480px;
+    max-width:900px;
     margin:auto;
 }
 
-h2{
+/* CARDS */
+.card{
+    background:#0B1C34;
+    border:1px solid #12335c;
+    padding:22px;
+    border-radius:16px;
+    margin-bottom:20px;
+    transition:.3s;
+}
+.card:hover{
+    transform:translateY(-5px);
+    border-color:#F2B840;
+}
+.card h3{
+    margin:0;
+    color:#F2B840;
+    font-size:20px;
+}
+.card p{
+    opacity:.8;
+    margin-top:8px;
+}
+
+.card button{
+    background:#F2B840;
+    border:none;
+    color:#06142E;
+    padding:12px 18px;
+    font-weight:bold;
+    border-radius:10px;
+    margin-top:14px;
+    cursor:pointer;
+    width:100%;
+}
+.card button:hover{
+    background:#cfa035;
+}
+
+/* POPUP */
+.popup{
+    display:none;
+    position:fixed;
+    top:0;left:0;
+    width:100%;height:100%;
+    background:#000000AA;
+    backdrop-filter:blur(6px);
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+
+.popup-content{
+    background:#0B1C34;
+    width:90%;
+    max-width:400px;
+    padding:25px;
+    border-radius:14px;
+    border:1px solid #12335c;
+}
+.popup-content h3{
     color:#F2B840;
     margin-top:0;
 }
 
-.card{
-    background:#0B1C34;
-    padding:18px;
-    border-radius:12px;
-    border:1px solid #12335C;
-    margin-bottom:18px;
-}
-
-.card h3{
-    margin:0;
-    color:#F2B840;
-}
-
-.card p{
-    opacity:.85;
-    line-height:1.5;
-}
-
-button{
-    width:100%;
-    padding:14px;
-    border:none;
-    border-radius:8px;
-    background:#F2B840;
-    color:#06142E;
-    font-weight:bold;
-    cursor:pointer;
-    margin-top:12px;
-}
-button:hover{
-    background:#cfa035;
-}
-
-/* Reservation form */
-input, select{
+input,select,textarea{
     width:100%;
     padding:12px;
-    margin-top:10px;
     background:#112544;
     border:none;
     border-radius:8px;
+    margin-top:10px;
     color:white;
+}
+textarea{height:120px;resize:none;}
+
+button.send-btn{
+    margin-top:15px;
+    background:#F2B840;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    color:#06142E;
+    font-weight:bold;
+    cursor:pointer;
+}
+.close{
+    float:right;
+    cursor:pointer;
+    font-size:22px;
+    color:#F2B840;
 }
 </style>
 </head>
 
 <body>
 
-<header>
-    CizaCarWash+ — Premium
-</header>
-
+<h2>CizaCarWash+</h2>
 <div class="container">
 
-    <h2>Nos Packs</h2>
-
+    <!-- SIMPLE -->
     <div class="card">
-        <h3>🚗 Pack Standard</h3>
-        <p>
-            - Lavage extérieur<br>
-            - Séchage rapide<br>
-            - Brillance simple
-        </p>
-        <button onclick="openReservation('Standard')">Réserver</button>
+        <h3>🚗 CarWash — Simple</h3>
+        <p>Lavage extérieur + intérieur rapide.</p>
+        <button onclick="openPopup('simple')">Réserver</button>
     </div>
 
+    <!-- AVANCÉ -->
     <div class="card">
-        <h3>✨ Pack Premium</h3>
-        <p>
-            - Extérieur + intérieur<br>
-            - Aspiration complète<br>
-            - Parfum premium<br>
-            - Jantes incluses
-        </p>
-        <button onclick="openReservation('Premium')">Réserver</button>
+        <h3>✨ CarWash — Avancé</h3>
+        <p>Lavage complet + protection rapide + finitions.</p>
+        <button onclick="openPopup('avance')">Réserver</button>
     </div>
 
+    <!-- PRO -->
     <div class="card">
-        <h3>🏢 Pack Entreprise</h3>
-        <p>
-            - Flottes entreprises<br>
-            - Tarifs préférentiels<br>
-            - Déplacement sur site
-        </p>
-        <button onclick="openReservation('Entreprise')">Réserver</button>
-    </div>
-
-    <br>
-    <h2>Réservation</h2>
-
-    <div class="card">
-
-        <label>Nom complet</label>
-        <input id="name" type="text">
-
-        <label>Téléphone</label>
-        <input id="phone" type="text">
-
-        <label>Pack choisi</label>
-        <select id="pack">
-            <option value="">Sélectionner</option>
-            <option>Standard</option>
-            <option>Premium</option>
-            <option>Entreprise</option>
-        </select>
-
-        <label>Lieu</label>
-        <input id="location" type="text" placeholder="Adresse ou lieu">
-
-        <label>Date souhaitée</label>
-        <input id="date" type="date">
-
-        <button onclick="submitReservation()">Envoyer la réservation</button>
-
-        <button style="background:#0B84FF;color:white;margin-top:8px;">
-            Paiement en ligne (bientôt)
-        </button>
-
+        <h3>👑 CarWash — Pro</h3>
+        <p>Abonnements, entreprises, traitements premium.</p>
+        <button onclick="openPopup('pro')">Réserver</button>
     </div>
 
 </div>
 
+<!-- POPUPS -->
+<!-- SIMPLE -->
+<div id="popup-simple" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup('simple')">&times;</span>
+        <h3>Réservation — CarWash Simple</h3>
+
+        <form action="https://formsubmit.co/infos@cizagroup.com" method="POST">
+            <input type="hidden" name="service" value="CarWash Simple">
+
+            <input type="text" name="nom" placeholder="Nom complet" required>
+            <input type="text" name="phone" placeholder="Téléphone" required>
+            <input type="text" name="vehicule" placeholder="Type de véhicule">
+            <input type="text" name="adresse" placeholder="Adresse / Quartier" required>
+            <input type="datetime-local" name="date" required>
+
+            <textarea name="details" placeholder="Commentaires"></textarea>
+
+            <label style="font-size:13px;opacity:.8;">
+                <input type="checkbox" required> J’accepte la politique de confidentialité.
+            </label>
+
+            <button class="send-btn">Envoyer</button>
+        </form>
+    </div>
+</div>
+
+<!-- AVANCE -->
+<div id="popup-avance" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup('avance')">&times;</span>
+        <h3>Réservation — CarWash Avancé</h3>
+
+        <form action="https://formsubmit.co/infos@cizagroup.com" method="POST">
+            <input type="hidden" name="service" value="CarWash Avancé">
+
+            <input type="text" name="nom" placeholder="Nom complet" required>
+            <input type="text" name="phone" placeholder="Téléphone" required>
+            <input type="text" name="vehicule" placeholder="Type de véhicule">
+            <input type="text" name="adresse" placeholder="Adresse / Quartier" required>
+            <input type="datetime-local" name="date" required>
+
+            <textarea name="details" placeholder="Commentaires / options"></textarea>
+
+            <label style="font-size:13px;opacity:.8;">
+                <input type="checkbox" required> J’accepte la politique de confidentialité.
+            </label>
+
+            <button class="send-btn">Envoyer</button>
+        </form>
+    </div>
+</div>
+
+<!-- PRO -->
+<div id="popup-pro" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup('pro')">&times;</span>
+        <h3>Réservation — CarWash Pro</h3>
+
+        <form action="https://formsubmit.co/infos@cizagroup.com" method="POST">
+            <input type="hidden" name="service" value="CarWash Pro">
+
+            <input type="text" name="nom" placeholder="Nom complet" required>
+            <input type="text" name="phone" placeholder="Téléphone" required>
+            <input type="text" name="vehicule" placeholder="Flotte / Nombre de véhicules">
+            <input type="text" name="entreprise" placeholder="Entreprise (optionnel)">
+            <input type="text" name="adresse" placeholder="Adresse / Quartier" required>
+            <input type="datetime-local" name="date" required>
+
+            <textarea name="details" placeholder="Commentaires / demandes professionnelles"></textarea>
+
+            <label style="font-size:13px;opacity:.8;">
+                <input type="checkbox" required> J’accepte la politique de confidentialité.
+            </label>
+
+            <button class="send-btn">Envoyer</button>
+        </form>
+    </div>
+</div>
+
 <script>
-function openReservation(pack){
-    document.getElementById("pack").value = pack;
+function openPopup(name){
+    document.getElementById("popup-"+name).style.display="flex";
 }
-
-function submitReservation(){
-    const name = document.getElementById("name").value;
-    const phone = document.getElementById("phone").value;
-    const pack = document.getElementById("pack").value;
-    const location = document.getElementById("location").value;
-    const date = document.getElementById("date").value;
-
-    if(!name || !phone || !pack){
-        alert("Veuillez remplir nom, téléphone et pack.");
-        return;
-    }
-
-    alert("Réservation envoyée !\nPack : " + pack);
+function closePopup(name){
+    document.getElementById("popup-"+name).style.display="none";
 }
 </script>
 
