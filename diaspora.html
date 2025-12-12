@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>CIZA GROUP — Diaspora Business+</title>
+<link rel="icon" href="logotransparent.png">
+
+<style>
+/* GLOBAL */
+body{
+    margin:0;
+    background:#06142E;
+    font-family:Arial, sans-serif;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* HEADER */
+header{
+    width:100%;
+    text-align:center;
+    padding:18px 0;
+    background:#06142E;
+    border-bottom:2px solid #F2B840;
+    font-size:20px;
+    font-weight:bold;
+    position:sticky;
+    top:0;
+    z-index:999;
+}
+
+/* LANG SWITCH */
+#lang-switch{
+    position:fixed;
+    top:15px;
+    right:15px;
+    background:#F2B840;
+    color:#06142E;
+    font-weight:bold;
+    padding:10px 16px;
+    border-radius:14px;
+    cursor:pointer;
+    z-index:20000;
+}
+
+/* ============ HERO 2030 ============ */
+.hero{
+    position:relative;
+    padding:120px 20px;
+    text-align:center;
+    overflow:hidden;
+}
+
+@keyframes gradientMove {
+    0% {background-position:0% 50%;}
+    50% {background-position:100% 50%;}
+    100% {background-position:0% 50%;}
+}
+
+.hero::before{
+    content:"";
+    position:absolute;
+    top:0;left:0;width:100%;height:100%;
+    background:linear-gradient(135deg,#051026,#0B1C34,#071A33,#0a2240);
+    background-size:300% 300%;
+    animation:gradientMove 12s ease infinite;
+    z-index:-3;
+}
+
+/* Particules */
+.hero canvas{
+    position:absolute;
+    top:0;left:0;
+    width:100%;
+    height:100%;
+    z-index:-1;
+    pointer-events:none;
+}
+
+/* HERO CARD */
+.hero-card{
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.15);
+    backdrop-filter:blur(12px);
+    padding:60px 25px;
+    max-width:900px;
+    margin:auto;
+    border-radius:28px;
+    box-shadow:0 0 45px rgba(0,0,0,0.45);
+    animation:fadeUp 1.4s ease forwards;
+    opacity:0;
+}
+
+@keyframes fadeUp {
+    from {transform:translateY(25px);opacity:0;}
+    to {transform:translateY(0);opacity:1;}
+}
+
+/* LOGO */
+.hero-logo{
+    width:180px;
+    height:180px;
+    margin:auto;
+    background:url('logotransparent.png') center/contain no-repeat;
+    animation:floatLogo 5s infinite ease-in-out;
+    filter:drop-shadow(0 0 12px #F2B84090);
+}
+
+@keyframes floatLogo{
+    0%{transform:translateY(0);}
+    50%{transform:translateY(-12px);}
+    100%{transform:translateY(0);}
+}
+
+.hero-title{
+    font-size:34px;
+    margin-top:18px;
+    font-weight:bold;
+    color:#F2B840;
+}
+.hero-sub{
+    font-size:18px;
+    margin-top:10px;
+    max-width:680px;
+    margin:auto;
+    opacity:0.9;
+}
+
+.hero-btn{
+    margin-top:25px;
+    background:#F2B840;
+    color:#06142E;
+    padding:14px 26px;
+    border:none;
+    border-radius:14px;
+    font-size:16px;
+    cursor:pointer;
+    font-weight:bold;
+    box-shadow:0 0 15px #F2B84070;
+    margin-left:6px;
+    margin-right:6px;
+}
+.hero-btn:hover{background:#cfa035}
+
+/* ============ SECTIONS ============ */
+.section{
+    padding:40px 20px;
+    max-width:900px;
+    margin:auto;
+}
+.section-title{
+    font-size:26px;
+    color:#F2B840;
+    margin-bottom:18px;
+}
+
+/* Cards */
+.card{
+    background:rgba(255,255,255,0.07);
+    border:1px solid rgba(255,255,255,0.14);
+    backdrop-filter:blur(7px);
+    padding:25px;
+    border-radius:20px;
+    margin-bottom:20px;
+}
+.card h3{color:#F2B840;margin-top:0;}
+.card p{opacity:.9;}
+
+/* FORMULAIRE */
+.form-box{
+    margin-top:40px;
+    background:rgba(255,255,255,0.07);
+    border:1px solid rgba(255,255,255,0.13);
+    padding:30px;
+    border-radius:18px;
+}
+input, textarea{
+    width:100%;
+    margin-top:12px;
+    background:#0B1C34;
+    border:none;
+    padding:12px;
+    border-radius:10px;
+    color:white;
+}
+textarea{height:130px;resize:none;}
+.submit-btn{
+    margin-top:14px;
+    background:#F2B840;
+    color:#06142E;
+    border:none;
+    width:100%;
+    padding:14px;
+    border-radius:12px;
+    font-weight:bold;
+}
+.submit-btn:hover{background:#cfa035}
+
+.back-btn{
+    background:#F2B840;
+    padding:12px 18px;
+    color:#06142E;
+    border:none;
+    border-radius:12px;
+    font-weight:bold;
+    cursor:pointer;
+    margin-bottom:20px;
+}
+</style>
+</head>
+
+<body>
+
+<header>CIZA GROUP — Diaspora Business+</header>
+<div id="lang-switch">FR</div>
+
+<!-- HERO -->
+<section class="hero">
+    <canvas id="particles"></canvas>
+    <div class="hero-card">
+        <div class="hero-logo"></div>
+        <h1 class="hero-title" id="hero-title"></h1>
+        <p class="hero-sub" id="hero-sub"></p>
+
+        <button class="hero-btn" onclick="history.back()" id="back-btn"></button>
+        <button class="hero-btn" id="contact-btn"></button>
+    </div>
+</section>
+
+<!-- SERVICES DIASPORA -->
+<section class="section">
+    <h2 class="section-title" id="services-title"></h2>
+
+    <div class="card">
+        <h3 id="s1-title"></h3>
+        <p id="s1-text"></p>
+    </div>
+
+    <div class="card">
+        <h3 id="s2-title"></h3>
+        <p id="s2-text"></p>
+    </div>
+
+    <div class="card">
+        <h3 id="s3-title"></h3>
+        <p id="s3-text"></p>
+    </div>
+
+    <div class="card">
+        <h3 id="s4-title"></h3>
+        <p id="s4-text"></p>
+    </div>
+</section>
+
+<!-- POURQUOI CIZA -->
+<section class="section">
+    <h2 class="section-title" id="why-title"></h2>
+
+    <div class="card">
+        <p id="why-text"></p>
+    </div>
+</section>
+
+<!-- AVANTAGES -->
+<section class="section">
+    <h2 class="section-title" id="advantages-title"></h2>
+
+    <div class="card"><p id="adv1"></p></div>
+    <div class="card"><p id="adv2"></p></div>
+    <div class="card"><p id="adv3"></p></div>
+    <div class="card"><p id="adv4"></p></div>
+</section>
+
+<!-- PROCESSUS -->
+<section class="section">
+    <h2 class="section-title" id="process-title"></h2>
+
+    <div class="card"><h3>1</h3><p id="step1"></p></div>
+    <div class="card"><h3>2</h3><p id="step2"></p></div>
+    <div class="card"><h3>3</h3><p id="step3"></p></div>
+    <div class="card"><h3>4</h3><p id="step4"></p></div>
+</section>
+
+<!-- FORMULAIRE -->
+<section class="section">
+    <h2 class="section-title" id="form-title"></h2>
+
+    <div class="form-box">
+        <form action="https://formsubmit.co/business@cizagroup.com" method="POST">
+            <input type="hidden" name="_cc" value="infos@cizagroup.com">
+            <input type="hidden" name="_captcha" value="false">
+
+            <input type="hidden" name="_autoresponse"
+value="Bonjour,
+Votre demande Diaspora Business+ a bien été reçue.
+Notre équipe vous contactera sous peu.
+Merci de ne pas répondre à cet email.
+— CIZA GROUP Business+">
+
+            <input type="text" id="f-name" name="nom" required>
+            <input type="email" id="f-email" name="email" required>
+            <input type="text" id="f-phone" name="telephone">
+
+            <textarea id="f-msg" name="message" required></textarea>
+
+            <label style="font-size:13px;opacity:.8;">
+                <input type="checkbox" required>
+                <span id="consent"></span>
+            </label>
+
+            <button class="submit-btn" id="submit-btn"></button>
+        </form>
+    </div>
+</section>
+
+<!-- TRADUCTION -->
+<script>
+let lang="fr";
+
+const T={
+    hero_title:{fr:"Services Premium pour la Diaspora",en:"Premium Services for the Diaspora"},
+    hero_sub:{fr:"Investissement, immobilier, assistance et solutions professionnelles pour les Burundais vivant à l’étranger.",
+              en:"Investment, real estate, assistance and professional solutions for Burundians living abroad."},
+    back:{fr:"Retour",en:"Back"},
+    contact:{fr:"Contacter un conseiller",en:"Contact Advisor"},
+
+    services_title:{fr:"Services dédiés à la Diaspora",en:"Services for the Diaspora"},
+
+    s1_title:{fr:"Immobilier & Investissement",en:"Real Estate & Investment"},
+    s1_text:{fr:"Achat, construction, gestion, visites vidéo, projets sécurisés pour diaspora Canada, Europe et USA.", 
+             en:"Purchase, construction, management, video visits, secure projects for diaspora in Canada, Europe and USA."},
+
+    s2_title:{fr:"Création d’entreprise à distance",en:"Remote Business Creation"},
+    s2_text:{fr:"RCCM, NIF, licences, accompagnement juridique et fiscal pour ouvrir votre entreprise depuis l’étranger.",
+             en:"RCCM, NIF, licenses, legal and tax support to open your business from abroad."},
+
+    s3_title:{fr:"Logistique Internationale",en:"International Logistics"},
+    s3_text:{fr:"Import/export, colis diaspora, gestion de commandes, transport sécurisée Burundi <-> Monde.",
+             en:"Import/export, diaspora parcels, order management, secure transport Burundi <-> World."},
+
+    s4_title:{fr:"Assistance administrative Premium",en:"Premium Administrative Support"},
+    s4_text:{fr:"Procédures locales, documents officiels, représentation sur place et suivi professionnel.",
+             en:"Local procedures, official documents, on-site representation and professional follow-up."},
+
+    why_title:{fr:"Pourquoi choisir CIZA GROUP ?",en:"Why choose CIZA GROUP?"},
+    why_text:{fr:"Nous offrons une solution fiable, complète et professionnelle conçue spécialement pour la diaspora. Nos équipes locales et internationales assurent transparence, efficacité et communication continue.",
+              en:"We offer a reliable, complete and professional solution designed specifically for the diaspora. Our local and international teams ensure transparency, efficiency and continuous communication."},
+
+    advantages_title:{fr:"Avantages Diaspora Business+",en:"Diaspora Business+ Advantages"},
+    adv1:{fr:"✔ Suivi en temps réel depuis l’étranger",en:"✔ Real-time monitoring from abroad"},
+    adv2:{fr:"✔ Transparence totale des opérations",en:"✔ Full operational transparency"},
+    adv3:{fr:"✔ Communication instantanée avec nos équipes",en:"✔ Instant communication with our teams"},
+    adv4:{fr:"✔ Sécurité et accompagnement premium",en:"✔ Security and premium support"},
+
+    process_title:{fr:"Comment ça fonctionne ?",en:"How it works?"},
+
+    step1:{fr:"Vous nous expliquez votre besoin diaspora (immobilier, business, assistance).",
+           en:"You explain your diaspora needs (real estate, business, assistance)."},
+    step2:{fr:"Nous analysons et vous envoyons une proposition professionnelle complète.",
+           en:"We analyze and send you a complete professional proposal."},
+    step3:{fr:"Vous validez et nous exécutons les opérations sur place.",
+           en:"You validate and we carry out the operations on-site."},
+    step4:{fr:"Vous recevez un suivi régulier + rapports + confirmations.",
+           en:"You receive regular follow-up + reports + confirmations."},
+
+    form_title:{fr:"Contact Diaspora Business+",en:"Diaspora Business+ Contact"},
+    cons:{fr:"J’accepte la politique de confidentialité.",en:"I accept the privacy policy."},
+    submit:{fr:"Envoyer",en:"Send"}
+};
+
+function translate(){
+    document.getElementById("hero-title").textContent=T.hero_title[lang];
+    document.getElementById("hero-sub").textContent=T.hero_sub[lang];
+    document.getElementById("back-btn").textContent=T.back[lang];
+    document.getElementById("contact-btn").textContent=T.contact[lang];
+    document.getElementById("services-title").textContent=T.services_title[lang];
+
+    document.getElementById("s1-title").textContent=T.s1_title[lang];
+    document.getElementById("s1-text").textContent=T.s1_text[lang];
+    document.getElementById("s2-title").textContent=T.s2_title[lang];
+    document.getElementById("s2-text").textContent=T.s2_text[lang];
+    document.getElementById("s3-title").textContent=T.s3_title[lang];
+    document.getElementById("s3-text").textContent=T.s3_text[lang];
+    document.getElementById("s4-title").textContent=T.s4_title[lang];
+    document.getElementById("s4-text").textContent=T.s4_text[lang];
+
+    document.getElementById("why-title").textContent=T.why_title[lang];
+    document.getElementById("why-text").textContent=T.why_text[lang];
+
+    document.getElementById("advantages-title").textContent=T.advantages_title[lang];
+    document.getElementById("adv1").textContent=T.adv1[lang];
+    document.getElementById("adv2").textContent=T.adv2[lang];
+    document.getElementById("adv3").textContent=T.adv3[lang];
+    document.getElementById("adv4").textContent=T.adv4[lang];
+
+    document.getElementById("process-title").textContent=T.process_title[lang];
+    document.getElementById("step1").textContent=T.step1[lang];
+    document.getElementById("step2").textContent=T.step2[lang];
+    document.getElementById("step3").textContent=T.step3[lang];
+    document.getElementById("step4").textContent=T.step4[lang];
+
+    document.getElementById("form-title").textContent=T.form_title[lang];
+    document.getElementById("f-name").placeholder=(lang==="fr")?"Nom complet":"Full name";
+    document.getElementById("f-email").placeholder="Email";
+    document.getElementById("f-phone").placeholder=(lang==="fr")?"Téléphone (optionnel)":"Phone (optional)";
+    document.getElementById("f-msg").placeholder=(lang==="fr")?"Votre message":"Your message";
+    document.getElementById("consent").textContent=T.cons[lang];
+    document.getElementById("submit-btn").textContent=T.submit[lang];
+}
+
+document.getElementById("lang-switch").onclick=()=>{
+    lang=(lang==="fr")?"en":"fr";
+    document.getElementById("lang-switch").textContent=(lang==="fr")?"FR":"EN";
+    translate();
+};
+
+translate();
+
+/* Particules */
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+let w,h;
+function resize(){
+    w=canvas.width=window.innerWidth;
+    h=canvas.height=document.querySelector('.hero').offsetHeight;
+}
+resize();
+window.onresize=resize;
+
+let particles=[];
+for(let i=0;i<70;i++){
+    particles.push({
+        x:Math.random()*w,
+        y:Math.random()*h,
+        r:Math.random()*2+0.6,
+        d:Math.random()*0.6+0.2
+    });
+}
+
+function draw(){
+    ctx.clearRect(0,0,w,h);
+    ctx.fillStyle="#F2B840";
+    particles.forEach(p=>{
+        ctx.globalAlpha=0.25;
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fill();
+    });
+}
+function update(){
+    particles.forEach(p=>{
+        p.y+=p.d;
+        if(p.y>h){p.y=0;p.x=Math.random()*w;}
+    });
+}
+function animate(){
+    draw();update();
+    requestAnimationFrame(animate);
+}
+animate();
+</script>
+
+</body>
+</html>
