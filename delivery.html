@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CizaDelivery+</title>
+
+<style>
+    body{
+        margin:0;
+        background:#06142E;
+        color:white;
+        font-family:Arial, sans-serif;
+    }
+
+    h1{
+        text-align:center;
+        color:#F2B840;
+        margin-top:25px;
+        font-size:28px;
+    }
+
+    .container{
+        padding:20px;
+        max-width:900px;
+        margin:auto;
+    }
+
+    /* CARDS SERVICES */
+    .card{
+        background:#0B1C34;
+        border:1px solid #12335c;
+        padding:20px;
+        border-radius:14px;
+        margin-bottom:18px;
+        transition:.3s;
+        cursor:pointer;
+    }
+    .card:hover{
+        transform:translateY(-4px);
+        border-color:#F2B840;
+    }
+    .card h3{
+        margin:0;
+        color:#F2B840;
+        font-size:20px;
+    }
+    .card p{
+        opacity:.8;
+        margin:8px 0 0;
+        font-size:15px;
+    }
+
+    /* POPUP BASE */
+    .popup{
+        display:none;
+        position:fixed;
+        top:0;left:0;
+        width:100%;height:100%;
+        background:#000000AA;
+        backdrop-filter:blur(6px);
+        justify-content:center;
+        align-items:center;
+        z-index:99999;
+    }
+
+    .popup-content{
+        background:#0B1C34;
+        width:90%;
+        max-width:420px;
+        padding:25px;
+        border-radius:14px;
+        border:1px solid #12335c;
+    }
+
+    .popup-content h3{
+        color:#F2B840;
+        margin-top:0;
+        text-align:center;
+    }
+
+    .close{
+        float:right;
+        font-size:22px;
+        cursor:pointer;
+        color:#F2B840;
+        margin-top:-10px;
+    }
+
+    input, textarea{
+        width:100%;
+        padding:12px;
+        margin-top:12px;
+        border:none;
+        border-radius:10px;
+        background:#112544;
+        color:white;
+    }
+
+    button{
+        width:100%;
+        padding:12px;
+        background:#F2B840;
+        border:none;
+        border-radius:10px;
+        color:#06142E;
+        font-weight:bold;
+        margin-top:16px;
+        cursor:pointer;
+        font-size:15px;
+    }
+    button:hover{
+        background:#d6a237;
+    }
+
+    /* TRACKING */
+    .tracking-box{
+        background:#0B1C34;
+        padding:20px;
+        border-radius:14px;
+        border:1px solid #12335c;
+        margin-top:20px;
+    }
+
+    .timeline-item{
+        display:flex;
+        align-items:flex-start;
+        margin-bottom:15px;
+    }
+
+    .icon-status{
+        width:18px;
+        height:18px;
+        border-radius:50%;
+        margin-right:12px;
+        background:#334a6d;
+    }
+
+    .icon-active{
+        background:#F2B840 !important;
+    }
+
+    .status-label{
+        font-size:15px;
+    }
+
+</style>
+</head>
+
+<body>
+
+<h1>CizaDelivery+</h1>
+
+<div class="container">
+
+    <!-- SERVICE 1 -->
+    <div class="card" onclick="openPopup('intl')">
+        <h3>🌍 Livraison Internationale</h3>
+        <p>Envoyez ou recevez des colis entre le Burundi et l’étranger.</p>
+    </div>
+
+    <!-- SERVICE 2 -->
+    <div class="card" onclick="openPopup('local')">
+        <h3>📦 Livraison Locale</h3>
+        <p>Livraison rapide à Bujumbura, Gitega, Ngozi...</p>
+    </div>
+
+    <!-- SERVICE 3 -->
+    <div class="card" onclick="openPopup('med')">
+        <h3>💊 Livraison Médicaments</h3>
+        <p>Service sécurisé, confidentialité obligatoire.</p>
+    </div>
+
+    <!-- SERVICE 4 -->
+    <div class="card" onclick="openPopup('export')">
+        <h3>🚚 Export & Logistique</h3>
+        <p>Expédition en gros, documents, business.</p>
+    </div>
+
+    <!-- TRACKING -->
+    <div class="card" onclick="openPopup('track')">
+        <h3>🔎 Suivre un colis</h3>
+        <p>Tapez votre numéro : CD-XXXX-XXXX</p>
+    </div>
+
+    <!-- RETOUR -->
+    <div class="card" onclick="window.location.href='index.html'">
+        <h3>⬅ Retour à l’accueil</h3>
+    </div>
+
+</div>
+
+
+<!-- POPUP — FORMULAIRE SIMPLE (DEV MODE) -->
+<div id="popup-intl" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup('intl')">&times;</span>
+        <h3>Livraison Internationale</h3>
+
+        <p style="opacity:.8;font-size:14px;">Phase de développement : formulaire complet en préparation.</p>
+        <button onclick="alert('Dev mode : la version finale sera connectée à CizaDelivery')">OK</button>
+    </div>
+</div>
+
+<div id="popup-local" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup('local')">&times;</span>
+        <h3>Livraison Locale</h3>
+
+        <p style="opacity:.8;font-size:14px;">Phase de développement : formulaire complet en préparation.</p>
+        <button onclick="alert('Dev mode : version finale bientôt prête')">OK</button>
+    </div>
+</div>
+
+<div id="popup-med" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup('med')">&times;</span>
+        <h3>Livraison Médicaments</h3>
+
+        <p>⚠ Confidentialité obligatoire.</p>
+        <label><input type="checkbox"> J’accepte la politique de confidentialité</label>
+        <button onclick="alert('Dev mode : module sécurisé en préparation')">Continuer</button>
+    </div>
+</div>
+
+<div id="popup-export" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup('export')">&times;</span>
+        <h3>Export & Logistique</h3>
+        <p>Grand volume, documents, entreprises.</p>
+        <button onclick="alert('Dev mode : service en construction')">OK</button>
+    </div>
+</div>
+
+
+<!-- POPUP — TRACKING -->
+<div id="popup-track" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup('track')">&times;</span>
+        <h3>Suivi d’un colis</h3>
+
+        <input id="trackingID" placeholder="Ex : CD-7F29-QA81" />
+        <button onclick="simulateTracking()">Suivre</button>
+
+        <div id="trackingResult"></div>
+    </div>
+</div>
+
+<script>
+function openPopup(name){
+    document.getElementById("popup-"+name).style.display="flex";
+}
+
+function closePopup(name){
+    document.getElementById("popup-"+name).style.display="none";
+}
+
+/* ----------------------------------------------------
+   TRACKING DEV MODE (en attendant ton API Google Sheet)
+-----------------------------------------------------*/
+function simulateTracking(){
+    let id = document.getElementById("trackingID").value.trim();
+
+    if(id === ""){
+        alert("Veuillez entrer un numéro de suivi.");
+        return;
+    }
+
+    // Simulation d’un colis en transit
+    let result = `
+        <div class='tracking-box'>
+            <div class='timeline-item'>
+                <div class='icon-status icon-active'></div>
+                <div class='status-label'>1. Reçu / Received</div>
+            </div>
+
+            <div class='timeline-item'>
+                <div class='icon-status icon-active'></div>
+                <div class='status-label'>2. Vérification / Verification</div>
+            </div>
+
+            <div class='timeline-item'>
+                <div class='icon-status icon-active'></div>
+                <div class='status-label'>3. Centre de tri / Sorting Center</div>
+            </div>
+
+            <div class='timeline-item'>
+                <div class='icon-status icon-active'></div>
+                <div class='status-label'>4. En transit / In Transit</div>
+            </div>
+
+            <div class='timeline-item'>
+                <div class='icon-status'></div>
+                <div class='status-label'>5. Arrivé dans la ville / Arrived in City</div>
+            </div>
+
+            <div class='timeline-item'>
+                <div class='icon-status'></div>
+                <div class='status-label'>6. En cours de livraison / Out for Delivery</div>
+            </div>
+
+            <div class='timeline-item'>
+                <div class='icon-status'></div>
+                <div class='status-label'>7. Livré / Delivered</div>
+            </div>
+        </div>
+    `;
+
+    document.getElementById("trackingResult").innerHTML = result;
+}
+
+</script>
+
+</body>
+</html>
