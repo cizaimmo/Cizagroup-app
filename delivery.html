@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>CizaDelivery+</title>
+<link rel="icon" href="logotransparent.png">
+
+<style>
+/* GLOBAL */
+body{
+    margin:0;
+    background:#06142E;
+    color:white;
+    font-family:Arial, sans-serif;
+}
+
+/* HEADER */
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px;
+    background:#06142E;
+    border-bottom:2px solid #F2B840;
+}
+header h1{
+    margin:0;
+    font-size:20px;
+    color:#F2B840;
+}
+.lang-switch{
+    background:#F2B840;
+    border:none;
+    padding:8px 12px;
+    border-radius:8px;
+    color:#06142E;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+/* HERO */
+.hero{
+    text-align:center;
+    padding:60px 20px;
+    background:linear-gradient(135deg,#06142E,#0B1C34,#06142E);
+    animation:gradientMove 8s infinite;
+}
+@keyframes gradientMove{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+.hero h2{
+    font-size:32px;
+    margin:0;
+    color:#F2B840;
+}
+.hero p{
+    margin-top:12px;
+    font-size:18px;
+    opacity:.9;
+}
+.hero button{
+    margin-top:20px;
+    background:#F2B840;
+    border:none;
+    padding:14px 22px;
+    border-radius:12px;
+    font-weight:bold;
+    color:#06142E;
+    cursor:pointer;
+}
+
+/* TITLE */
+.section-title{
+    text-align:center;
+    font-size:24px;
+    margin-top:50px;
+    color:#F2B840;
+}
+
+/* SERVICES BLOCK */
+.services{
+    max-width:900px;
+    margin:auto;
+    padding:20px;
+}
+.service-card{
+    background:#0B1C34;
+    padding:22px;
+    border-radius:14px;
+    margin-bottom:20px;
+    border:1px solid #12335c;
+}
+.service-card h3{
+    margin:0;
+    font-size:20px;
+    color:#F2B840;
+}
+.service-card p{
+    opacity:.85;
+    margin-top:10px;
+}
+.service-card button{
+    margin-top:12px;
+    background:#F2B840;
+    border:none;
+    padding:12px 18px;
+    border-radius:10px;
+    font-weight:bold;
+    color:#06142E;
+    cursor:pointer;
+}
+
+/* DETAILS TOGGLE */
+.details{
+    display:none;
+    background:#0B1C34;
+    padding:20px;
+    border-radius:14px;
+    margin-top:12px;
+    border:1px solid #F2B840;
+}
+
+/* POPUP FORM PREMIUM */
+.popup{
+    display:none;
+    position:fixed;
+    top:0;left:0;
+    width:100%;height:100%;
+    background:#000000AA;
+    backdrop-filter:blur(7px);
+    justify-content:center;
+    align-items:center;
+    z-index:99999;
+}
+.popup-content{
+    background:#0B1C34;
+    width:92%;
+    max-width:400px;
+    padding:25px;
+    border-radius:18px;
+    border:2px solid #F2B840;
+    animation:fadeIn .4s ease;
+}
+@keyframes fadeIn{
+    from{opacity:0;transform:scale(0.85);}
+    to{opacity:1;transform:scale(1);}
+}
+.popup-content h2{
+    color:#F2B840;
+    text-align:center;
+    margin-top:0;
+}
+.popup-content input,
+.popup-content textarea,
+.popup-content select{
+    width:100%;
+    margin-top:12px;
+    padding:12px;
+    background:#112544;
+    border:none;
+    border-radius:10px;
+    color:white;
+    font-size:15px;
+}
+.popup-content button{
+    width:100%;
+    background:#F2B840;
+    border:none;
+    padding:14px;
+    margin-top:18px;
+    color:#06142E;
+    font-weight:bold;
+    border-radius:12px;
+    cursor:pointer;
+}
+.close{
+    float:right;
+    font-size:24px;
+    cursor:pointer;
+    color:#F2B840;
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+    <h1 data-fr="CizaDelivery+" data-en="CizaDelivery+">CizaDelivery+</h1>
+    <button class="lang-switch" onclick="switchLang()"
+        data-fr="EN" data-en="FR">EN</button>
+</header>
+
+<div class="hero">
+    <h2 data-fr="Livraison rapide et sécurisée au Burundi"
+        data-en="Fast and secure delivery across Burundi">
+        Livraison rapide et sécurisée au Burundi
+    </h2>
+
+    <p data-fr="Le service premium de livraison développé par CIZA GROUP."
+       data-en="The premium delivery service powered by CIZA GROUP.">
+       Le service premium de livraison développé par CIZA GROUP.
+    </p>
+</div>
+
+<h2 class="section-title"
+    data-fr="Nos Services"
+    data-en="Our Services">Nos Services</h2>
+
+<div class="services">    <!-- EXPRESS -->
+    <div class="service-card">
+        <h3 data-fr="🚀 Livraison Express" data-en="🚀 Express Delivery">🚀 Livraison Express</h3>
+        <p data-fr="Moins de 1h dans les zones couvertes."
+           data-en="Under 1 hour in supported areas.">
+           Moins de 1h dans les zones couvertes.
+        </p>
+        <button onclick="toggleDetails('express')"
+            data-fr="Détails"
+            data-en="Details">Détails</button>
+
+        <div id="express" class="details">
+            <p data-fr="
+                • Livraison urgente  
+                • Idéal pour documents, médicaments, petits colis  
+                • Preuve photo + code PIN  
+                • Suivi par statut  
+            " data-en="
+                • Urgent delivery  
+                • Ideal for documents, medicine, small parcels  
+                • Photo proof + PIN code  
+                • Status tracking  
+            ">
+                • Livraison urgente<br>
+                • Idéal pour documents, médicaments, petits colis<br>
+                • Preuve photo + code PIN<br>
+                • Suivi par statut<br>
+            </p>
+        </div>
+    </div>
+
+    <!-- STANDARD -->
+    <div class="service-card">
+        <h3 data-fr="📦 Livraison Standard" data-en="📦 Standard Delivery">📦 Livraison Standard</h3>
+        <p data-fr="Livraison économique partout au Burundi."
+           data-en="Affordable delivery across Burundi.">
+           Livraison économique partout au Burundi.
+        </p>
+        <button onclick="toggleDetails('standard')" data-fr="Détails" data-en="Details">Détails</button>
+
+        <div id="standard" class="details">
+            <p data-fr="
+                • Livraison le jour-même  
+                • Pour colis, sacs, cadeaux  
+                • Preuve photo  
+                • Code PIN obligatoire  
+            " data-en="
+                • Same-day delivery  
+                • For parcels, bags, gifts  
+                • Photo proof  
+                • Mandatory PIN code  
+            ">
+                • Livraison le jour-même<br>
+                • Pour colis, sacs, cadeaux<br>
+                • Preuve photo<br>
+                • Code PIN obligatoire<br>
+            </p>
+        </div>
+    </div>
+
+    <!-- MEDICAMENTS -->
+    <div class="service-card">
+        <h3 data-fr="💊 Livraison Médicaments" data-en="💊 Medicine Delivery">💊 Livraison Médicaments</h3>
+        <p data-fr="Depuis des pharmacies autorisées. Service 100% confidentiel."
+           data-en="From authorized pharmacies. 100% confidential service.">
+           Depuis des pharmacies autorisées. Service 100% confidentiel.
+        </p>
+        <button onclick="toggleDetails('medicaments')" data-fr="Détails" data-en="Details">Détails</button>
+
+        <div id="medicaments" class="details">
+            <p data-fr="
+                • Ordonnance requise pour certains produits  
+                • Livraison confidentielle  
+                • Aucune vente — uniquement service de livraison  
+                • Code PIN + preuve photo  
+            " data-en="
+                • Prescription required for certain products  
+                • Confidential delivery  
+                • No selling — delivery service only  
+                • PIN code + photo proof  
+            ">
+                • Ordonnance requise pour certains produits<br>
+                • Livraison confidentielle<br>
+                • Aucune vente — uniquement service de livraison<br>
+                • Code PIN + preuve photo<br>
+            </p>
+        </div>
+    </div>
+
+    <!-- DOCUMENTS -->
+    <div class="service-card">
+        <h3 data-fr="📄 Documents Importants" data-en="📄 Important Documents">📄 Documents Importants</h3>
+        <p data-fr="Livraison sécurisée de documents sensibles."
+           data-en="Secure delivery of sensitive documents.">
+           Livraison sécurisée de documents sensibles.
+        </p>
+        <button onclick="toggleDetails('documents')" data-fr="Détails" data-en="Details">Détails</button>
+
+        <div id="documents" class="details">
+            <p data-fr="
+                • Vérification d'identité  
+                • Preuve photo  
+                • Code PIN obligatoire  
+                • Suivi par statut  
+            " data-en="
+                • Identity verification  
+                • Photo proof  
+                • Mandatory PIN  
+                • Status tracking  
+            ">
+                • Vérification d'identité<br>
+                • Preuve photo<br>
+                • Code PIN obligatoire<br>
+                • Suivi par statut<br>
+            </p>
+        </div>
+    </div>
+
+    <!-- ENTREPRISES -->
+    <div class="service-card">
+        <h3 data-fr="🏢 Entreprises" data-en="🏢 Business Delivery">🏢 Entreprises</h3>
+        <p data-fr="Solutions professionnelles pour boutiques, bureaux et restaurants."
+           data-en="Professional solutions for shops, offices and restaurants.">
+           Solutions professionnelles pour boutiques, bureaux et restaurants.
+        </p>
+        <button onclick="toggleDetails('entreprise')" data-fr="Détails" data-en="Details">Détails</button>
+
+        <div id="entreprise" class="details">
+            <p data-fr="
+                • Livraison planifiée  
+                • Facturation mensuelle  
+                • Service premium entreprises  
+                • Comptes business (Phase 2 Firebase)  
+            " data-en="
+                • Scheduled delivery  
+                • Monthly invoicing  
+                • Premium business service  
+                • Business accounts (Phase 2 Firebase)  
+            ">
+                • Livraison planifiée<br>
+                • Facturation mensuelle<br>
+                • Service premium entreprises<br>
+                • Comptes business (Phase 2 Firebase)<br>
+            </p>
+        </div>
+    </div>
+
+    <!-- INTERNATIONAL -->
+    <div class="service-card">
+        <h3 data-fr="🌍 International (Diaspora → Burundi)"
+            data-en="🌍 International (Diaspora → Burundi)">
+            🌍 International (Diaspora → Burundi)
+        </h3>
+        <p data-fr="Retrait de colis DHL, Cargo, UPS et livraison locale."
+           data-en="Pickup DHL, Cargo, UPS shipments and local delivery.">
+           Retrait de colis DHL, Cargo, UPS et livraison locale.
+        </p>
+        <button onclick="toggleDetails('international')" data-fr="Détails" data-en="Details">Détails</button>
+
+        <div id="international" class="details">
+            <p data-fr="
+                • Retrait avec autorisation client  
+                • Livraison sécurisée  
+                • Preuve photo + PIN  
+                • Aucun partenariat nécessaire  
+            " data-en="
+                • Pickup with client authorization  
+                • Secure delivery  
+                • Photo proof + PIN  
+                • No partnership required  
+            ">
+                • Retrait avec autorisation client<br>
+                • Livraison sécurisée<br>
+                • Preuve photo + PIN<br>
+                • Aucun partenariat nécessaire<br>
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- COMMENT ÇA MARCHE -->
+<h2 class="section-title"
+    data-fr="Comment ça marche ?"
+    data-en="How it works?">Comment ça marche ?</h2>
+
+<div class="services">
+    <div class="service-card">
+        <div class="details" style="display:block;">
+            <p data-fr="
+                1. Le client passe une demande  
+                2. CizaDelivery+ confirme et attribue un livreur  
+                3. Retrait du colis  
+                4. Suivi par statut  
+                5. Livraison sécurisée avec PIN  
+            " data-en="
+                1. Client sends request  
+                2. CizaDelivery+ assigns courier  
+                3. Package pickup  
+                4. Status tracking  
+                5. Secure delivery with PIN  
+            ">
+                1. Le client passe une demande<br>
+                2. CizaDelivery+ confirme et attribue un livreur<br>
+                3. Retrait du colis<br>
+                4. Suivi par statut<br>
+                5. Livraison sécurisée avec PIN<br>
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- BUTTON COMMANDER -->
+<div style="text-align:center;margin-bottom:40px;">
+    <button onclick="openPopup()" style="font-size:18px;padding:16px 26px;">
+        Passer une commande
+    </button>
+</div><!-- POPUP FORMULAIRE PREMIUM -->
+<div id="popup" class="popup">
+    <div class="popup-content">
+
+        <span class="close" onclick="closePopup()">&times;</span>
+
+        <h2 data-fr="Passer une commande"
+            data-en="Place an order">
+            Passer une commande
+        </h2>
+
+        <form action="https://formsubmit.co/infos@cizagroup.com" method="POST">
+
+            <!-- COPIE VERS ALIAS (CizaDelivery+) -->
+            <input type="hidden" name="_cc" value="cizadelivery@cizagroup.com">
+
+            <!-- AUTO REPONSE -->
+            <input type="hidden" name="_autoresponse"
+            value="Merci pour votre commande ! CizaDelivery+ vous contactera rapidement. — Thank you! CizaDelivery+ will contact you shortly.">
+
+            <!-- REDIRECTION (NE PAS RECHARGER LA PAGE) -->
+            <input type="hidden" name="_redirect" value="https://cizagroup.com/success.html">
+
+            <!-- NOM -->
+            <label data-fr="Nom complet" data-en="Full name">Nom complet</label>
+            <input type="text" name="nom" required>
+
+            <!-- TELEPHONE -->
+            <label data-fr="Téléphone" data-en="Phone">Téléphone</label>
+            <input type="text" name="telephone" required>
+
+            <!-- EMAIL -->
+            <label data-fr="Adresse email" data-en="Email address">Adresse email</label>
+            <input type="email" name="email" required>
+
+            <!-- ADRESSE RETRAIT -->
+            <label data-fr="Adresse de retrait" data-en="Pickup address">
+                Adresse de retrait
+            </label>
+            <input type="text" name="pickup" required>
+
+            <!-- ADRESSE LIVRAISON -->
+            <label data-fr="Adresse de livraison" data-en="Delivery address">
+                Adresse de livraison
+            </label>
+            <input type="text" name="delivery" required>
+
+            <!-- TYPE SERVICE -->
+            <label data-fr="Type de livraison" data-en="Delivery type">
+                Type de livraison
+            </label>
+            <select name="service">
+                <option data-fr="Express" data-en="Express">Express</option>
+                <option data-fr="Standard" data-en="Standard">Standard</option>
+                <option data-fr="Médicaments" data-en="Medicine">Médicaments</option>
+                <option data-fr="Documents" data-en="Documents">Documents</option>
+                <option data-fr="Entreprise" data-en="Business">Entreprise</option>
+                <option data-fr="International" data-en="International">International</option>
+            </select>
+
+            <!-- DÉTAILS COLIS -->
+            <label data-fr="Détails du colis" data-en="Package details">
+                Détails du colis
+            </label>
+            <textarea name="details" rows="4"
+                data-fr="Ex: Poids, nature du colis, instructions…"
+                data-en="Ex: Weight, package type, instructions…">
+            </textarea>
+
+            <!-- CASE MÉDICAMENTS -->
+            <div style="margin-top:15px;">
+                <label style="font-size:14px;">
+                    <input type="checkbox" name="med-policy">
+                    <span data-fr="(Pour livraison médicaments) J’accepte de fournir une ordonnance si nécessaire."
+                          data-en="(For medicine delivery) I agree to provide a prescription if required.">
+                        (Pour livraison médicaments) J’accepte de fournir une ordonnance si nécessaire.
+                    </span>
+                </label>
+            </div>
+
+            <!-- MESSAGE -->
+            <label data-fr="Message" data-en="Message">Message</label>
+            <textarea name="message" rows="3"></textarea>
+
+            <!-- CONFIDENTIALITÉ -->
+            <label style="margin-top:15px; font-size:14px;">
+                <input type="checkbox" required>
+                <span data-fr="J’accepte la politique de confidentialité."
+                      data-en="I accept the privacy policy.">
+                    J’accepte la politique de confidentialité.
+                </span>
+            </label>
+
+            <!-- SUBMIT -->
+            <button type="submit"
+                data-fr="Envoyer la commande"
+                data-en="Send order">Envoyer la commande</button>
+        </form>
+
+    </div>
+</div><!-- FOOTER -->
+<footer style="text-align:center;padding:20px;margin-top:50px;opacity:.7;">
+    <p data-fr="CIZA GROUP — Tous droits réservés"
+       data-en="CIZA GROUP — All rights reserved">
+       CIZA GROUP — Tous droits réservés
+    </p>
+</footer>
+
+
+<!-- SCRIPT COMPLET -->
+<script>
+/* 🔶 OUVRIR / FERMER POPUP */
+function openPopup(){
+    document.getElementById("popup").style.display = "flex";
+}
+function closePopup(){
+    document.getElementById("popup").style.display = "none";
+}
+
+/* 🔶 AFFICHAGE DES DÉTAILS */
+function toggleDetails(id){
+    let el = document.getElementById(id);
+    el.style.display = (el.style.display === "block") ? "none" : "block";
+}
+
+/* 🔶 SWITCH LANG FR/EN */
+function switchLang(){
+
+    let html = document.documentElement;
+    let current = html.lang;
+    let newLang = (current === "fr") ? "en" : "fr";
+    html.lang = newLang;
+
+    /* Textes qui ont data-fr et data-en */
+    document.querySelectorAll("[data-fr]").forEach(el=>{
+        el.innerHTML = (newLang === "fr")
+            ? el.getAttribute("data-fr")
+            : el.getAttribute("data-en");
+    });
+
+    /* Placeholders */
+    document.querySelectorAll("input, textarea, select").forEach(el=>{
+        if(el.getAttribute("data-fr")){
+            el.placeholder = (newLang === "fr")
+                ? el.getAttribute("data-fr")
+                : el.getAttribute("data-en");
+        }
+    });
+}
+</script>
+
+</body>
+</html>
