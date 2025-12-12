@@ -7,6 +7,7 @@
 <title>CizaDelivery — CIZA GROUP</title>
 
 <style>
+/* GLOBAL */
 body{
     margin:0;
     background:#06142E;
@@ -57,6 +58,7 @@ header h2{
     font-weight:600;
 }
 
+/* CARDS */
 .card{
     background:#0B1C34;
     border:1px solid #12335c;
@@ -78,7 +80,6 @@ header h2{
     opacity:.8;
     margin-top:8px;
 }
-
 .card svg{
     width:40px;
     height:40px;
@@ -87,18 +88,17 @@ header h2{
 }
 
 /* BUTTON */
-.card button{
+.card button, .track-btn{
     background:#F2B840;
     border:none;
     color:#06142E;
     padding:12px 18px;
     font-weight:bold;
     border-radius:10px;
-    margin-top:14px;
     cursor:pointer;
     width:100%;
 }
-.card button:hover{
+.card button:hover, .track-btn:hover{
     background:#cfa035;
 }
 
@@ -114,7 +114,6 @@ header h2{
     align-items:center;
     z-index:9999;
 }
-
 .popup-content{
     background:#0B1C34;
     width:90%;
@@ -124,15 +123,15 @@ header h2{
     border:1px solid #12335c;
     animation:fadeIn .3s ease;
 }
-
 @keyframes fadeIn{
     from{opacity:0;transform:scale(.95);}
     to{opacity:1;transform:scale(1);}
 }
-
-.popup-content h3{
+.close{
+    float:right;
+    cursor:pointer;
+    font-size:22px;
     color:#F2B840;
-    margin-top:0;
 }
 
 input,textarea{
@@ -157,14 +156,8 @@ textarea{height:120px;resize:none;}
     cursor:pointer;
     width:100%;
 }
-.close{
-    float:right;
-    cursor:pointer;
-    font-size:22px;
-    color:#F2B840;
-}
 
-/* TRACKING */
+/* TRACKING BOX */
 .track-box{
     margin-top:25px;
     background:#0B1C34;
@@ -175,16 +168,33 @@ textarea{height:120px;resize:none;}
 .track-box input{
     margin-top:10px;
 }
-.track-btn{
+
+/* TIMELINE */
+.timeline{
+    margin-top:20px;
+    padding-left:10px;
+    border-left:3px solid #F2B840;
+}
+.step{
+    margin-bottom:20px;
+    position:relative;
+}
+.step::before{
+    content:'';
+    width:14px;height:14px;
     background:#F2B840;
-    color:#06142E;
-    width:100%;
-    padding:12px;
-    margin-top:12px;
-    border:none;
-    border-radius:8px;
-    font-weight:bold;
-    cursor:pointer;
+    border-radius:50%;
+    position:absolute;
+    left:-11px;
+    top:4px;
+}
+.step h4{
+    margin:0;
+    color:#F2B840;
+}
+.step p{
+    margin:3px 0 0;
+    opacity:.8;
 }
 </style>
 </head>
@@ -237,7 +247,27 @@ textarea{height:120px;resize:none;}
 <div class="track-box">
     <label>ID du colis :</label>
     <input type="text" id="trackID" placeholder="CIZA-DEL-2025-00001">
-    <button class="track-btn">Rechercher</button>
+    <button class="track-btn" onclick="showTracking()">Rechercher</button>
+
+    <!-- RESULT -->
+    <div id="trackingResult" style="display:none;">
+        <h3 style="color:#F2B840;margin-top:20px;">Statut du colis</h3>
+
+        <div class="timeline">
+            <div class="step">
+                <h4>Colis reçu</h4>
+                <p>Votre colis a été enregistré par CizaDelivery.</p>
+            </div>
+            <div class="step">
+                <h4>En transit</h4>
+                <p>Le colis est en cours de livraison.</p>
+            </div>
+            <div class="step">
+                <h4>Livré</h4>
+                <p>Le colis est arrivé à destination.</p>
+            </div>
+        </div>
+    </div>
 </div>
 
 </div>
@@ -256,7 +286,6 @@ textarea{height:120px;resize:none;}
         <input type="text" name="nom" placeholder="Nom complet" required>
         <input type="text" name="phone" placeholder="Téléphone" required>
         <input type="text" name="pays" placeholder="Pays d'origine" required>
-        <input type="text" name="destinataire" placeholder="Nom du destinataire">
         <textarea name="details" placeholder="Description du colis"></textarea>
 
         <button class="send-btn">Envoyer</button>
@@ -296,7 +325,7 @@ textarea{height:120px;resize:none;}
         <input type="text" name="phone" placeholder="Téléphone" required>
         <input type="text" name="pickup" placeholder="Adresse de départ" required>
         <input type="text" name="dropoff" placeholder="Adresse d'arrivée" required>
-        <textarea name="details" placeholder="Détails"></textarea>
+        <textarea name="details" placeholder="Détails supplémentaires"></textarea>
 
         <button class="send-btn">Envoyer</button>
     </form>
@@ -335,6 +364,10 @@ function openPopup(name){
 }
 function closePopup(name){
     document.getElementById("popup-"+name).style.display="none";
+}
+
+function showTracking(){
+    document.getElementById("trackingResult").style.display="block";
 }
 </script>
 
