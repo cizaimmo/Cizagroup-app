@@ -4,138 +4,93 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>CizaRide+ — Super App Mobility</title>
+<title>CizaRide+ — Choisissez votre niveau</title>
 <link rel="icon" href="logotransparent.png">
 
 <style>
 body{
     margin:0;
     background:#06142E;
-    color:white;
     font-family:Arial, sans-serif;
-    overflow-x:hidden;
+    color:white;
 }
 
-/* SPLASH ANIMATION */
-#splash{
-    position:fixed;
-    top:0; left:0;
-    width:100%; height:100%;
-    background:#06142E;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    z-index:9999;
-    animation:fadeOut 1.5s ease 2.5s forwards;
-}
-
-#splash img{
-    width:150px;
-    opacity:0;
-    animation:logo 2s ease forwards;
-}
-
-#splash p{
-    margin-top:12px;
-    opacity:0;
-    color:#F2B840;
-    animation:textfade 1.6s ease 1s forwards;
-}
-
-@keyframes logo{
-    0%{opacity:0; transform:scale(0.7);}
-    100%{opacity:1; transform:scale(1);}
-}
-@keyframes textfade{
-    0%{opacity:0;}
-    100%{opacity:.8;}
-}
-@keyframes fadeOut{
-    to{opacity:0; visibility:hidden;}
-}
-
-/* MAIN */
-#main{
-    display:none;
-    padding:20px;
-}
-
-h2{
+/* HEADER */
+.header{
     text-align:center;
-    margin-top:10px;
+    padding:20px;
+    background:#06142E;
+    border-bottom:2px solid #F2B840;
+}
+.header h1{
+    margin:0;
+    font-size:22px;
     color:#F2B840;
 }
 
-/* VEHICLE GRID */
-.vehicles{
+/* TITLE */
+.title{
+    text-align:center;
+    margin-top:20px;
+    font-size:18px;
+    opacity:.85;
+}
+
+/* LEVEL CARDS */
+.levels{
+    width:90%;
+    margin:25px auto;
     display:flex;
-    flex-wrap:wrap;
-    gap:15px;
-    justify-content:center;
-    margin-top:25px;
+    flex-direction:column;
+    gap:18px;
 }
 
 .card{
-    width:42%;
-    background:rgba(255,255,255,0.05);
+    background:rgba(255,255,255,0.06);
     border:1px solid rgba(255,255,255,0.12);
-    border-radius:16px;
+    backdrop-filter:blur(12px);
     padding:18px;
-    text-align:center;
+    border-radius:18px;
+    display:flex;
+    align-items:center;
+    gap:15px;
     cursor:pointer;
     transition:.3s;
-    backdrop-filter:blur(10px);
+    box-shadow:0 0 15px rgba(0,0,0,0.2);
 }
 
 .card:hover{
-    transform:translateY(-5px);
-    border-color:#F2B840;
-    box-shadow:0 0 12px #F2B84055;
+    transform:translateY(-4px);
+    box-shadow:0 0 20px rgba(242,184,64,0.25);
 }
 
 .card img{
-    width:60px;
+    width:55px;
+    filter:drop-shadow(0 0 6px #000);
 }
 
+.card h3{
+    margin:0;
+    font-size:17px;
+    color:#F2B840;
+}
 .card p{
-    margin-top:8px;
-}
-
-/* VIP BUTTON */
-.vip-btn{
-    margin:auto;
-    margin-top:25px;
-    display:block;
-    width:90%;
-    padding:15px;
-    background:linear-gradient(120deg,#F2B840,#c9982f);
-    color:#06142E;
-    font-weight:bold;
-    text-align:center;
-    border-radius:14px;
-    border:none;
-    font-size:16px;
-    cursor:pointer;
-    box-shadow:0 0 15px #F2B84055;
-    transition:.3s;
-}
-
-.vip-btn:hover{
-    background:linear-gradient(120deg,#ffcc5a,#e0a837);
-    transform:translateY(-3px);
+    margin:0;
+    font-size:13px;
+    opacity:.85;
 }
 
 /* LANGUAGE BUTTON */
 .lang-btn{
     position:fixed;
-    bottom:20px; right:20px;
-    background:#F2B840;
-    color:#06142E;
-    border:none;
+    bottom:20px;
+    right:20px;
     padding:12px 16px;
+    background:#F2B840;
+    border:none;
     border-radius:50px;
     font-weight:bold;
+    color:#06142E;
     cursor:pointer;
     z-index:999;
 }
@@ -144,103 +99,75 @@ h2{
 
 <body>
 
-<!-- SPLASH -->
-<div id="splash">
-    <img src="logotransparent.png">
-    <p data-fr="Chargement..." data-en="Loading...">Chargement...</p>
+<!-- HEADER -->
+<div class="header">
+    <h1 data-fr="CizaRide+ — Choisissez votre niveau"
+        data-en="CizaRide+ — Choose your level">
+        CizaRide+ — Choisissez votre niveau
+    </h1>
 </div>
 
-<!-- MAIN -->
-<div id="main">
+<!-- SUBTITLE -->
+<div class="title"
+     data-fr="Sélectionnez l'expérience qui vous convient"
+     data-en="Select the experience that fits you">
+     Sélectionnez l'expérience qui vous convient
+</div>
 
-    <h2 data-fr="Choisissez votre trajet" data-en="Choose your ride">
-        Choisissez votre trajet
-    </h2>
+<!-- LEVELS -->
+<div class="levels">
 
-    <div class="vehicles">
-
-        <div class="card" onclick="openPopup()">
-            <img src="https://img.icons8.com/fluency/96/car.png">
-            <p data-fr="Standard" data-en="Standard">Standard</p>
+    <!-- STANDARD -->
+    <div class="card" onclick="location.href='cizaride-standard.html'">
+        <img src="https://img.icons8.com/fluency/96/car.png">
+        <div>
+            <h3 data-fr="Standard" data-en="Standard">Standard</h3>
+            <p data-fr="Rapide, fiable et accessible"
+               data-en="Fast, reliable and accessible">
+               Rapide, fiable et accessible
+            </p>
         </div>
-
-        <div class="card" onclick="openPopup()">
-            <img src="https://img.icons8.com/fluency/96/sedan.png">
-            <p data-fr="Confort" data-en="Comfort">Confort</p>
-        </div>
-
-        <div class="card" onclick="openPopup()">
-            <img src="https://img.icons8.com/fluency/96/motorcycle.png">
-            <p data-fr="Moto Taxi" data-en="Moto Taxi">Moto Taxi</p>
-        </div>
-
-        <div class="card" onclick="openPopup()">
-            <img src="https://img.icons8.com/fluency/96/van.png">
-            <p data-fr="Van (6–8 places)" data-en="Van (6–8 seats)">Van (6–8 places)</p>
-        </div>
-
     </div>
 
-    <!-- BUTTON VIP / ROYAL -->
-    <button class="vip-btn" onclick="location.href='cizaride-vipmenu.html'">
-        👑 VIP / Royal — Services Premium
-    </button>
+    <!-- VIP -->
+    <div class="card" onclick="location.href='cizaride-vip.html'">
+        <img src="https://img.icons8.com/fluency/96/business-class.png">
+        <div>
+            <h3 data-fr="VIP" data-en="VIP">VIP</h3>
+            <p data-fr="Confort supérieur & chauffeur premium"
+               data-en="Superior comfort & premium driver">
+               Confort supérieur & chauffeur premium
+            </p>
+        </div>
+    </div>
+
+    <!-- VIP ROYAL -->
+    <div class="card" onclick="location.href='cizaride-vip-royal.html'">
+        <img src="https://img.icons8.com/fluency/96/crown.png">
+        <div>
+            <h3 data-fr="VIP Royal" data-en="VIP Royal">VIP Royal</h3>
+            <p data-fr="Luxe absolu, sécurité & protocole"
+               data-en="Ultimate luxury, security & protocol">
+               Luxe absolu, sécurité & protocole
+            </p>
+        </div>
+    </div>
 
 </div>
 
 <!-- LANGUAGE BUTTON -->
 <button class="lang-btn" onclick="switchLang()">FR</button>
 
-<!-- POPUP TEMPORARY FORM (STANDARD) -->
-<div id="popup" class="popup" style="
-display:none;
-position:fixed;top:0;left:0;width:100%;height:100%;
-background:#00000088;backdrop-filter:blur(6px);
-justify-content:center;align-items:center;padding:20px;z-index:999;">
-    <div style="background:#0B1C34;padding:20px;border-radius:16px;border:1px solid #F2B840;width:90%;max-width:400px;max-height:85vh;overflow-y:auto;">
-        <span onclick="closePopup()" style="float:right;font-size:22px;cursor:pointer;color:#F2B840;">&times;</span>
-        <h3 data-fr="Réserver un trajet" data-en="Book a ride" style="text-align:center;color:#F2B840;">Réserver un trajet</h3>
-
-        <form action="https://formsubmit.co/infos@cizagroup.com" method="POST">
-
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_cc" value="cizaride@cizagroup.com">
-            <input type="hidden" name="_autoresponse" value="Merci pour votre réservation CizaRide+.">
-            <input type="hidden" name="_next" value="success.html">
-
-            <input name="nom" placeholder="Nom complet" required style="width:100%;padding:12px;border-radius:10px;background:#112544;color:white;border:none;margin-top:10px;">
-            <input name="telephone" placeholder="Téléphone" required style="width:100%;padding:12px;border-radius:10px;background:#112544;color:white;border:none;margin-top:10px;">
-            <input name="depart" placeholder="Point de départ" required style="width:100%;padding:12px;border-radius:10px;background:#112544;color:white;border:none;margin-top:10px;">
-            <input name="destination" placeholder="Destination" required style="width:100%;padding:12px;border-radius:10px;background:#112544;color:white;border:none;margin-top:10px;">
-            <input type="datetime-local" name="heure" required style="width:100%;padding:12px;border-radius:10px;background:#112544;color:white;border:none;margin-top:10px;">
-
-            <button style="margin-top:15px;width:100%;padding:12px;background:#F2B840;border:none;border-radius:12px;color:#06142E;font-weight:bold;">
-                Envoyer
-            </button>
-
-        </form>
-    </div>
-</div>
-
 <script>
-// Splash hide
-setTimeout(()=>{
-    document.getElementById("splash").style.display="none";
-    document.getElementById("main").style.display="block";
-},3000);
-
-// Popup
-function openPopup(){ document.getElementById("popup").style.display="flex"; }
-function closePopup(){ document.getElementById("popup").style.display="none"; }
-
-// Language switcher
 function switchLang(){
     const html = document.documentElement;
     html.lang = (html.lang === "fr") ? "en" : "fr";
-    document.querySelector(".lang-btn").innerHTML = (html.lang === "fr") ? "FR" : "EN";
+    document.querySelector(".lang-btn").textContent = (html.lang === "fr") ? "FR" : "EN";
 
     document.querySelectorAll("[data-fr]").forEach(el=>{
-        el.innerHTML = (html.lang === "fr") ? el.getAttribute("data-fr") : el.getAttribute("data-en");
+        el.innerHTML = (html.lang === "fr")
+            ? el.getAttribute("data-fr")
+            : el.getAttribute("data-en");
     });
 }
 </script>
