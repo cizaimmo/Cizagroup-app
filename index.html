@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="widthwidth=device-width, initial-scale=1">
+
+<title>CIZA GROUP — Super App 2030</title>
+<link rel="icon" href="logotransparent.png">
+
+<style>
+body{
+    margin:0;
+    padding:0;
+    background:#06142E;
+    font-family:Arial, sans-serif;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* ANIMATION INTRO */
+#intro{
+    position:fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background:#06142E;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    z-index:9999;
+    animation:fadeOut 1.8s ease 1.8s forwards;
+}
+
+#intro img{
+    width:160px;
+    opacity:0;
+    animation:logoFade 1.8s ease forwards;
+}
+
+@keyframes logoFade{
+    0%{opacity:0; transform:scale(0.7);}
+    60%{opacity:1; transform:scale(1.05);}
+    100%{opacity:1; transform:scale(1);}
+}
+
+@keyframes fadeOut{
+    to{opacity:0; visibility:hidden;}
+}
+
+/* HERO GLASSMORPHISM */
+.hero{
+    margin-top:40px;
+    width:90%;
+    margin-left:auto;
+    margin-right:auto;
+    padding:25px;
+    border-radius:20px;
+    backdrop-filter:blur(18px);
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.15);
+    box-shadow:0 0 25px rgba(242,184,64,0.15);
+    text-align:center;
+    animation:heroFade 1.2s ease;
+}
+
+@keyframes heroFade{
+    0%{opacity:0; transform:translateY(20px);}
+    100%{opacity:1; transform:translateY(0);}
+}
+
+.hero h1{
+    font-size:24px;
+    margin:0;
+    color:#F2B840;
+}
+
+.hero p{
+    opacity:.8;
+    margin-top:8px;
+    font-size:15px;
+}
+
+/* SECTION TITLES */
+.section-title{
+    font-size:20px;
+    margin-left:20px;
+    margin-top:40px;
+    color:#F2B840;
+}
+
+/* CARDS (Glassmorphism) */
+.card{
+    width:90%;
+    margin:12px auto;
+    padding:18px;
+    background:rgba(255,255,255,0.05);
+    border-radius:16px;
+    border:1px solid rgba(255,255,255,0.12);
+    backdrop-filter:blur(16px);
+    box-shadow:0 0 18px rgba(0,0,0,0.2);
+    cursor:pointer;
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 0 25px rgba(242,184,64,0.25);
+}
+
+.card span{
+    font-size:22px;
+    margin-right:10px;
+}
+
+/* GRID for Local Services */
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    width:90%;
+    margin:0 auto;
+}
+
+.grid .card{
+    width:100%;
+}
+
+/* FOOTER */
+footer{
+    text-align:center;
+    padding:30px 10px;
+    opacity:.6;
+    font-size:14px;
+    margin-top:40px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- INTRO ANIMATION -->
+<div id="intro">
+    <img src="logotransparent.png" alt="CIZA GROUP">
+</div>
+
+<!-- HERO -->
+<div class="hero">
+    <h1>CIZA GROUP — Super App 2030</h1>
+    <p>Votre écosystème multiservices premium — diaspora, local & entreprises.</p>
+</div>
+
+<!-- SECTION DIASPORA -->
+<h2 class="section-title">🌍 CIZA DIASPORA+</h2>
+
+<div class="card" onclick="window.location.href='diaspora.html'">
+    <span>🌍</span> Services Mondiaux pour la Diaspora
+</div>
+
+<!-- SERVICES LOCAUX -->
+<h2 class="section-title">🇧🇮 Services Locaux</h2>
+
+<div class="grid">
+    <div class="card" onclick="window.location.href='ride.html'">
+        <span>🚗</span> CizaRide+
+    </div>
+
+    <div class="card" onclick="window.location.href='delivery.html'">
+        <span>📦</span> CizaDelivery
+    </div>
+
+    <div class="card" onclick="window.location.href='carwash.html'">
+        <span>🧼</span> CarWash+
+    </div>
+
+    <div class="card" onclick="window.location.href='assist.html'">
+        <span>🤝</span> CizaAssist
+    </div>
+
+    <div class="card" onclick="window.location.href='market.html'">
+        <span>🛒</span> CizaMarket
+    </div>
+
+    <div class="card" onclick="window.location.href='jobs.html'">
+        <span>💼</span> CizaJobs
+    </div>
+</div>
+
+<!-- ENTREPRISES -->
+<h2 class="section-title">🏢 Solutions Entreprises</h2>
+
+<div class="card" onclick="window.location.href='business.html'">
+    <span>🏢</span> Services Professionnels & Partenariats
+</div>
+
+<footer>
+    CIZA GROUP © 2030 — Innovation, Diaspora & Excellence
+</footer>
+
+</body>
+</html>
