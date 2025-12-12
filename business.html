@@ -3,14 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CIZA BUSINESS+</title>
+
+<title>CIZA BUSINESS+ — 2030 Edition</title>
+<link rel="icon" href="logotransparent.png">
 
 <style>
+/* GLOBAL */
 body{
     margin:0;
     background:#06142E;
     font-family:Arial, sans-serif;
     color:white;
+    overflow-x:hidden;
 }
 
 /* LANG SWITCH */
@@ -19,55 +23,76 @@ body{
     top:15px;
     right:15px;
     background:#F2B840;
-    padding:10px 14px;
-    border-radius:12px;
-    cursor:pointer;
-    font-weight:bold;
     color:#06142E;
-    z-index:99999;
+    font-weight:bold;
+    padding:10px 16px;
+    border-radius:14px;
+    cursor:pointer;
+    z-index:20000;
 }
 
-/* HERO ULTRA TECH */
+/* ============ HERO 2030 ANIMÉ ============ */
 .hero{
-    padding:80px 20px;
-    text-align:center;
-    max-width:900px;
-    margin:auto;
     position:relative;
+    padding:120px 20px;
+    text-align:center;
+    overflow:hidden;
 }
 
-.hero-bg{
+/* Gradient animé */
+@keyframes gradientMove {
+    0% {background-position:0% 50%;}
+    50% {background-position:100% 50%;}
+    100% {background-position:0% 50%;}
+}
+
+.hero::before{
+    content:"";
     position:absolute;
-    top:0;left:0;right:0;bottom:0;
-    background:linear-gradient(135deg,#0B1C34,#06142E,#0d2040);
-    opacity:0.35;
-    filter:blur(35px);
+    top:0;left:0;width:100%;height:100%;
+    background:linear-gradient(135deg,#051026,#0B1C34,#071A33,#0a2240);
+    background-size:300% 300%;
+    animation:gradientMove 12s ease infinite;
+    z-index:-3;
+}
+
+/* Particules dorées subtiles */
+.hero canvas{
+    position:absolute;
+    top:0;left:0;
+    width:100%;
+    height:100%;
     z-index:-1;
+    pointer-events:none;
 }
 
+/* Carte HERO */
 .hero-card{
-    background:rgba(255,255,255,0.06);
-    border:1px solid rgba(255,255,255,0.12);
-    backdrop-filter:blur(9px);
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.15);
+    backdrop-filter:blur(12px);
     padding:60px 25px;
-    border-radius:24px;
-    box-shadow:0 0 45px rgba(0,0,0,0.4);
-    animation:fadeHero 1.2s ease-out;
-}
-
-@keyframes fadeHero{
-    0%{opacity:0; transform:translateY(25px);}
-    100%{opacity:1; transform:translateY(0);}
-}
-
-.hero-logo{
-    width:160px;
-    height:160px;
+    max-width:850px;
     margin:auto;
-    background:url('logotransparent.png');
-    background-size:contain;
-    background-repeat:no-repeat;
-    animation:floatLogo 4s infinite ease-in-out;
+    border-radius:28px;
+    box-shadow:0 0 45px rgba(0,0,0,0.45);
+    animation:fadeUp 1.4s ease forwards;
+    opacity:0;
+}
+
+@keyframes fadeUp {
+    from {transform:translateY(25px);opacity:0;}
+    to {transform:translateY(0);opacity:1;}
+}
+
+/* LOGO FLOTTANT + halo */
+.hero-logo{
+    width:180px;
+    height:180px;
+    margin:auto;
+    background:url('logotransparent.png') center/contain no-repeat;
+    animation:floatLogo 5s infinite ease-in-out;
+    filter:drop-shadow(0 0 12px #F2B84090);
 }
 
 @keyframes floatLogo{
@@ -76,42 +101,108 @@ body{
     100%{transform:translateY(0);}
 }
 
+/* TITRES */
 .hero-title{
-    font-size:36px;
-    margin-top:20px;
-    color:#F2B840;
+    font-size:34px;
+    margin-top:18px;
     font-weight:bold;
+    color:#F2B840;
 }
-
 .hero-sub{
-    font-size:20px;
+    font-size:18px;
     margin-top:10px;
-    max-width:700px;
+    max-width:680px;
     margin:auto;
-    opacity:.9;
+    opacity:0.9;
 }
 
-.hero-buttons{
-    margin-top:30px;
-    display:flex;
-    justify-content:center;
-    gap:15px;
-    flex-wrap:wrap;
-}
-
+/* Boutons HERO */
 .hero-btn{
+    margin-top:25px;
     background:#F2B840;
     color:#06142E;
-    padding:14px 25px;
+    padding:14px 26px;
     border:none;
-    border-radius:12px;
+    border-radius:14px;
     font-size:16px;
     cursor:pointer;
     font-weight:bold;
-    transition:.3s;
+    box-shadow:0 0 15px #F2B84070;
 }
 .hero-btn:hover{
-    background:#dca437;
+    background:#cfa035;
+}
+
+/* SECTIONS */
+.section{
+    padding:50px 20px;
+    max-width:900px;
+    margin:auto;
+}
+.section-title{
+    font-size:26px;
+    color:#F2B840;
+    margin-bottom:22px;
+}
+
+/* PROGRAM CARDS */
+.program-card{
+    background:rgba(255,255,255,0.07);
+    border:1px solid rgba(255,255,255,0.14);
+    backdrop-filter:blur(7px);
+    padding:25px;
+    border-radius:20px;
+    margin-bottom:20px;
+    transition:0.3s;
+}
+.program-card:hover{
+    transform:translateY(-6px);
+    border-color:#F2B840;
+}
+.program-card h3{
+    color:#F2B840;
+    margin:0;
+}
+.program-btn{
+    margin-top:15px;
+    width:100%;
+    background:#F2B840;
+    border:none;
+    padding:12px;
+    border-radius:12px;
+    font-weight:bold;
+    color:#06142E;
+    cursor:pointer;
+}
+.program-btn:hover{background:#cfa035}
+
+/* FORMULAIRE */
+.form-box{
+    margin-top:40px;
+    background:rgba(255,255,255,0.07);
+    border:1px solid rgba(255,255,255,0.13);
+    padding:30px;
+    border-radius:18px;
+}
+input, textarea{
+    width:100%;
+    margin-top:12px;
+    background:#0B1C34;
+    border:none;
+    padding:12px;
+    border-radius:10px;
+    color:white;
+}
+textarea{height:130px;resize:none;}
+.submit-btn{
+    margin-top:14px;
+    background:#F2B840;
+    color:#06142E;
+    border:none;
+    width:100%;
+    padding:14px;
+    border-radius:12px;
+    font-weight:bold;
 }
 </style>
 </head>
@@ -120,260 +211,217 @@ body{
 
 <div id="lang-switch">FR</div>
 
-<!-- ======================= -->
-<!--   HERO ULTRA TECH 2030   -->
-<!-- ======================= -->
-
+<!-- ============ HERO ============ -->
 <section class="hero">
-    <div class="hero-bg"></div>
+    <canvas id="particles"></canvas>
 
     <div class="hero-card">
         <div class="hero-logo"></div>
-
         <h1 class="hero-title" id="hero-title"></h1>
         <p class="hero-sub" id="hero-sub"></p>
 
-        <div class="hero-buttons">
-            <button class="hero-btn" id="advisor-btn"></button>
-            <button class="hero-btn" id="programs-btn"></button>
-        </div>
-    </div>
-</section><!-- ======================= -->
-<!--   SECTION PROGRAMMES    -->
-<!-- ======================= -->
-
-<section id="programmes" style="padding:40px 20px; max-width:900px; margin:auto;">
-
-    <h2 data-t-fr="Programmes Business+"
-        data-t-en="Business+ Programs"
-        style="text-align:center; color:#F2B840; margin-bottom:25px;">
-        Programmes Business+
-    </h2>
-
-    <!-- PROGRAMME 1 — IMMOBILIER -->
-    <div class="card">
-        <h3 data-t-fr="Investissement Immobilier Premium"
-            data-t-en="Premium Real Estate Investment">
-            Investissement Immobilier Premium
-        </h3>
-
-        <p data-t-fr="Investissez dans des projets immobiliers sécurisés : maisons, immeubles, terrains et promotions immobilières, avec un accompagnement complet."
-           data-t-en="Invest in secure real estate projects: houses, buildings, land, and development, with full professional support.">
-           ...
-        </p>
-
-        <button class="card-btn" data-t-fr="En savoir plus" data-t-en="Learn more">
-            En savoir plus
-        </button>
-    </div>
-
-    <!-- PROGRAMME 2 — CREATION ENTREPRISE -->
-    <div class="card">
-        <h3 data-t-fr="Création d’Entreprise & Services Juridiques"
-            data-t-en="Business Formation & Legal Services">
-            Création d’Entreprise & Services Juridiques
-        </h3>
-
-        <p data-t-fr="Accompagnement complet pour démarrer votre entreprise au Burundi : RCCM, licences, fiscalité, comptabilité, et support administratif premium."
-           data-t-en="Full support to start your company in Burundi: registration, licenses, taxation, accounting, and premium administrative assistance.">
-            ...
-        </p>
-
-        <button class="card-btn" data-t-fr="Démarrer un projet" data-t-en="Start a project">
-            Démarrer un projet
-        </button>
-    </div>
-
-    <!-- PROGRAMME 3 — INVESTISSEMENT & PARTENARIATS -->
-    <div class="card">
-        <h3 data-t-fr="Investissements & Partenariats"
-            data-t-en="Investments & Partnerships">
-            Investissements & Partenariats
-        </h3>
-
-        <p data-t-fr="Opportunités d’investissement, co-développement, projets stratégiques et partenariats professionnels pour la diaspora."
-           data-t-en="Investment opportunities, co-development, strategic projects, and professional partnerships for the diaspora.">
-            ...
-        </p>
-
-        <button class="card-btn" data-t-fr="Explorer les options" data-t-en="Explore options">
-            Explorer les options
-        </button>
-    </div>
-
-    <!-- PROGRAMME 4 — LOGISTIQUE -->
-    <div class="card">
-        <h3 data-t-fr="Logistique Internationale — Import & Export"
-            data-t-en="International Logistics — Import & Export">
-            Logistique Internationale — Import & Export
-        </h3>
-
-        <p data-t-fr="Solutions complètes pour entreprises : transport, entrepôt, clearing & forwarding, import/export, distribution et support logistique."
-           data-t-en="Complete business logistics: transport, warehousing, clearing & forwarding, import/export, distribution and operational support.">
-            ...
-        </p>
-
-        <button class="card-btn" data-t-fr="Contacter le service" data-t-en="Contact service">
-            Contacter le service
-        </button>
-    </div>
-
-</section>
-
-
-<!-- ======================= -->
-<!--   SECTION CORPORATE     -->
-<!-- ======================= -->
-
-<section style="padding:40px 20px; max-width:900px; margin:auto;">
-    <div class="card">
-        <h3 data-t-fr="Solutions Entreprises — Corporate"
-            data-t-en="Corporate Solutions">
-            Solutions Entreprises — Corporate
-        </h3>
-
-        <p data-t-fr="CIZA GROUP propose des solutions dédiées aux entreprises : partenariats, services professionnels, outsourcing, technologie, et logistique."
-           data-t-en="CIZA GROUP offers dedicated business solutions: partnerships, professional services, outsourcing, technology, and logistics.">
-            ...
-        </p>
+        <button class="hero-btn" id="discover-btn"></button>
+        <button class="hero-btn" id="contact-btn"></button>
     </div>
 </section>
 
+<!-- ============ PROGRAMMES ============ -->
+<section class="section" id="programs">
+    <h2 class="section-title" id="program-section-title"></h2>
 
-<!-- ======================= -->
-<!--   SUPPORT BUSINESS+     -->
-<!-- ======================= -->
+    <!-- Immobilier -->
+    <div class="program-card">
+        <h3 id="p1-title"></h3>
+        <p id="p1-text"></p>
+        <button onclick="location.href='business-immobilier.html'" class="program-btn" id="p1-btn"></button>
+    </div>
 
-<section style="padding:40px 20px; max-width:900px; margin:auto;">
-<div class="support-box">
-    <h3 data-t-fr="Support Business Premium"
-        data-t-en="Business Premium Support">
-        Support Business Premium
-    </h3>
+    <!-- Création d’entreprise -->
+    <div class="program-card">
+        <h3 id="p2-title"></h3>
+        <p id="p2-text"></p>
+        <button onclick="location.href='business-creation.html'" class="program-btn" id="p2-btn"></button>
+    </div>
 
-    <div class="support-item"><b>Email :</b> business@cizagroup.com</div>
-    <div class="support-item"><b>Email secondaire :</b> infos@cizagroup.com</div>
-    <div class="support-item"><b>WhatsApp Canada :</b> +1 514 502 9503</div>
-    <div class="support-item"><b>WhatsApp Burundi :</b> +257 79 94 50 07</div>
-    <div class="support-item"><b>Téléphone Canada :</b> +1 514 502 9503</div>
-    <div class="support-item"><b>Téléphone Burundi :</b> +257 79 94 50 07</div>
-</div>
+    <!-- Investissements -->
+    <div class="program-card">
+        <h3 id="p3-title"></h3>
+        <p id="p3-text"></p>
+        <button onclick="location.href='business-investissements.html'" class="program-btn" id="p3-btn"></button>
+    </div>
+
+    <!-- Logistique -->
+    <div class="program-card">
+        <h3 id="p4-title"></h3>
+        <p id="p4-text"></p>
+        <button onclick="location.href='business-logistique.html'" class="program-btn" id="p4-btn"></button>
+    </div>
 </section>
 
+<!-- ============ FORMULAIRE ============ -->
+<section class="section" id="form">
+    <h2 class="section-title" id="form-title"></h2>
 
-<!-- ======================= -->
-<!--   FORMULAIRE BUSINESS   -->
-<!-- ======================= -->
+    <div class="form-box">
+        <form action="https://formsubmit.co/business@cizagroup.com" method="POST">
+            <input type="hidden" name="_cc" value="infos@cizagroup.com">
+            <input type="hidden" name="_captcha" value="false">
 
-<section style="padding:40px 20px; max-width:900px; margin:auto;">
-<div class="form-box">
+            <input type="hidden" name="_autoresponse"
+value="Bonjour,  
+Votre demande Business+ a bien été reçue.  
+Notre équipe vous contactera sous peu.  
+Merci de ne pas répondre à cet email.  
+— CIZA GROUP Business+">
 
-    <h3 data-t-fr="Contact Business Premium"
-        data-t-en="Premium Business Contact">
-        Contact Business Premium
-    </h3>
+            <input id="f-name" type="text" name="nom" required>
+            <input id="f-email" type="email" name="email" required>
+            <input id="f-phone" type="text" name="telephone">
 
-    <form action="https://formsubmit.co/business@cizagroup.com" method="POST">
+            <textarea id="f-msg" name="message" required></textarea>
 
-        <input type="hidden" name="_cc" value="infos@cizagroup.com">
-        <input type="hidden" name="_captcha" value="false">
+            <label style="font-size:13px;opacity:.8;">
+                <input type="checkbox" required>
+                <span id="consent-text"></span>
+            </label>
 
-        <input type="hidden" name="_autoresponse" 
-        value="Bonjour,
-Votre demande Business+ a bien été reçue.
-Notre équipe vous contactera très prochainement.
-
-Merci de ne pas répondre à cet email (DO NOT REPLY).
-— CIZA GROUP Business+
-www.cizagroup.com">
-
-        <input type="text" name="nom" placeholder="Nom complet" data-t-fr="Nom complet" data-t-en="Full name" required>
-        <input type="email" name="email" placeholder="Email" data-t-fr="Email" data-t-en="Email" required>
-        <input type="text" name="telephone" placeholder="Téléphone (optionnel)" data-t-fr="Téléphone (optionnel)" data-t-en="Phone (optional)">
-        <input type="text" name="projet" placeholder="Type de projet" data-t-fr="Type de projet" data-t-en="Project type">
-        <textarea name="message" placeholder="Votre message" data-t-fr="Votre message" data-t-en="Your message" required></textarea>
-
-        <label class="consent">
-            <input type="checkbox" required>
-            <span data-t-fr="J’accepte la politique de confidentialité."
-                  data-t-en="I accept the privacy policy.">
-                J’accepte la politique de confidentialité.
-            </span>
-        </label>
-
-        <button class="submit-btn" data-t-fr="Envoyer" data-t-en="Send">Envoyer</button>
-    </form>
-
-</div>
+            <button class="submit-btn" id="submit-btn"></button>
+        </form>
+    </div>
 </section>
 
-
-<!-- ======================= -->
-<!--   SYSTEME TRADUCTION    -->
-<!-- ======================= -->
-
+<!-- ============ TRADUCTION JS ============ -->
 <script>
 let lang="fr";
 
-const textIDs={
- "hero-title":{fr:"CIZA BUSINESS+",en:"CIZA BUSINESS+"},
- "hero-sub":{
-     fr:"Plateforme Business Internationale — Investissez, créez, développez.",
-     en:"International Business Platform — Invest, build, grow."
- },
- "advisor-btn":{
-     fr:"Parler à un conseiller",
-     en:"Talk to an advisor"
- },
- "programs-btn":{
-     fr:"Découvrir les programmes",
-     en:"Explore programs"
- }
+const T={
+    hero_title:{fr:"CIZA Business+ — Services Premium",en:"CIZA Business+ — Premium Services"},
+    hero_sub:{fr:"Solutions professionnelles pour diaspora, entreprises et investisseurs.",
+              en:"Professional solutions for diaspora, companies and investors."},
+    discover:{fr:"Découvrir les programmes",en:"Discover Programs"},
+    talk:{fr:"Parler à un conseiller",en:"Talk to an Advisor"},
+    programs:{fr:"Programmes Business+",en:"Business+ Programs"},
+
+    p1_title:{fr:"Immobilier Premium",en:"Premium Real Estate"},
+    p1_text:{fr:"Projets immobiliers, constructions, gestion et investissements diaspora.",
+             en:"Real estate projects, construction, management and diaspora investment."},
+    p1_btn:{fr:"Explorer",en:"Explore"},
+
+    p2_title:{fr:"Création d’Entreprise",en:"Business Formation"},
+    p2_text:{fr:"RCCM, licences, fiscalité, juridique et accompagnement complet.",
+             en:"Registration, licensing, taxation, legal and full support."},
+    p2_btn:{fr:"Explorer",en:"Explore"},
+
+    p3_title:{fr:"Investissements & Partenariats",
+              en:"Investments & Partnerships"},
+    p3_text:{fr:"Opportunités structurées pour diaspora, entreprises et investisseurs.",
+             en:"Structured opportunities for diaspora, companies and investors."},
+    p3_btn:{fr:"Explorer",en:"Explore"},
+
+    p4_title:{fr:"Logistique Internationale",en:"International Logistics"},
+    p4_text:{fr:"Import, export, transport, stockage et solutions entreprises.",
+             en:"Import, export, transport, storage and business logistics."},
+    p4_btn:{fr:"Explorer",en:"Explore"},
+
+    form_title:{fr:"Contact Business+",en:"Business+ Contact"},
+    name:{fr:"Nom complet",en:"Full Name"},
+    email:{fr:"Email",en:"Email"},
+    phone:{fr:"Téléphone (optionnel)",en:"Phone (optional)"},
+    msg:{fr:"Votre message",en:"Your message"},
+    consent:{fr:"J’accepte la politique de confidentialité.",
+            en:"I accept the privacy policy."},
+    send:{fr:"Envoyer",en:"Send"}
 };
 
-function updateAllText(){
-    // Text ID elements
-    for(const id in textIDs){
-        if(document.getElementById(id)){
-            document.getElementById(id).textContent=textIDs[id][lang];
-        }
-    }
+function translate(){
+    document.getElementById("hero-title").textContent=T.hero_title[lang];
+    document.getElementById("hero-sub").textContent=T.hero_sub[lang];
+    document.getElementById("discover-btn").textContent=T.discover[lang];
+    document.getElementById("contact-btn").textContent=T.talk[lang];
+    document.getElementById("program-section-title").textContent=T.programs[lang];
 
-    // Elements with data attributes
-    document.querySelectorAll("[data-t-fr]").forEach(el=>{
-        el.textContent=(lang==="fr")
-            ? el.getAttribute("data-t-fr")
-            : el.getAttribute("data-t-en");
-    });
+    document.getElementById("p1-title").textContent=T.p1_title[lang];
+    document.getElementById("p1-text").textContent=T.p1_text[lang];
+    document.getElementById("p1-btn").textContent=T.p1_btn[lang];
 
-    // Placeholder translation
-    document.querySelectorAll("[data-t-fr]").forEach(el=>{
-        if(el.placeholder!==undefined){
-            el.placeholder=(lang==="fr")
-                ? el.getAttribute("data-t-fr")
-                : el.getAttribute("data-t-en");
-        }
-    });
+    document.getElementById("p2-title").textContent=T.p2_title[lang];
+    document.getElementById("p2-text").textContent=T.p2_text[lang];
+    document.getElementById("p2-btn").textContent=T.p2_btn[lang];
+
+    document.getElementById("p3-title").textContent=T.p3_title[lang];
+    document.getElementById("p3-text").textContent=T.p3_text[lang];
+    document.getElementById("p3-btn").textContent=T.p3_btn[lang];
+
+    document.getElementById("p4-title").textContent=T.p4_title[lang];
+    document.getElementById("p4-text").textContent=T.p4_text[lang];
+    document.getElementById("p4-btn").textContent=T.p4_btn[lang];
+
+    document.getElementById("form-title").textContent=T.form_title[lang];
+    document.getElementById("f-name").placeholder=T.name[lang];
+    document.getElementById("f-email").placeholder=T.email[lang];
+    document.getElementById("f-phone").placeholder=T.phone[lang];
+    document.getElementById("f-msg").placeholder=T.msg[lang];
+    document.getElementById("consent-text").textContent=T.consent[lang];
+    document.getElementById("submit-btn").textContent=T.send[lang];
 }
 
-// Switch language
 document.getElementById("lang-switch").onclick=()=>{
     lang=(lang==="fr")?"en":"fr";
     document.getElementById("lang-switch").textContent=(lang==="fr")?"FR":"EN";
-    updateAllText();
+    translate();
 };
 
-// Auto scroll to Programmes
-document.getElementById("programs-btn").onclick=()=>{
-    document.getElementById("programmes").scrollIntoView({behavior:"smooth"});
+translate();
+
+document.getElementById("discover-btn").onclick=()=>{
+    document.getElementById("programs").scrollIntoView({behavior:"smooth"});
+};
+document.getElementById("contact-btn").onclick=()=>{
+    document.getElementById("form").scrollIntoView({behavior:"smooth"});
 };
 
-// Scroll to form on "advisor"
-document.getElementById("advisor-btn").onclick=()=>{
-    document.querySelector(".form-box").scrollIntoView({behavior:"smooth"});
-};
+/* ============ PARTICULES OR SUBTILES ============ */
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+let w,h;
+function resize(){
+    w=canvas.width=window.innerWidth;
+    h=canvas.height=document.querySelector('.hero').offsetHeight;
+}
+resize();
+window.onresize=resize;
 
-window.onload=updateAllText;
+let particles=[];
+for(let i=0;i<70;i++){
+    particles.push({
+        x:Math.random()*w,
+        y:Math.random()*h,
+        r:Math.random()*2+0.6,
+        d:Math.random()*0.6+0.2
+    });
+}
+
+function draw(){
+    ctx.clearRect(0,0,w,h);
+    ctx.fillStyle="#F2B840";
+    particles.forEach(p=>{
+        ctx.globalAlpha=0.25;
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fill();
+    });
+}
+function update(){
+    particles.forEach(p=>{
+        p.y+=p.d;
+        if(p.y>h){p.y=0;p.x=Math.random()*w;}
+    });
+}
+function animate(){
+    draw();update();
+    requestAnimationFrame(animate);
+}
+animate();
 </script>
 
 </body>
