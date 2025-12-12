@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CIZA BUSINESS+</title>
+
+<style>
+body{
+    margin:0;
+    background:#06142E;
+    font-family:Arial, sans-serif;
+    color:white;
+}
+
+/* LANG SWITCH */
+#lang-switch{
+    position:fixed;
+    top:15px;
+    right:15px;
+    background:#F2B840;
+    padding:10px 14px;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:bold;
+    color:#06142E;
+    z-index:99999;
+}
+
+/* HERO ULTRA TECH */
+.hero{
+    padding:80px 20px;
+    text-align:center;
+    max-width:900px;
+    margin:auto;
+    position:relative;
+}
+
+.hero-bg{
+    position:absolute;
+    top:0;left:0;right:0;bottom:0;
+    background:linear-gradient(135deg,#0B1C34,#06142E,#0d2040);
+    opacity:0.35;
+    filter:blur(35px);
+    z-index:-1;
+}
+
+.hero-card{
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.12);
+    backdrop-filter:blur(9px);
+    padding:60px 25px;
+    border-radius:24px;
+    box-shadow:0 0 45px rgba(0,0,0,0.4);
+    animation:fadeHero 1.2s ease-out;
+}
+
+@keyframes fadeHero{
+    0%{opacity:0; transform:translateY(25px);}
+    100%{opacity:1; transform:translateY(0);}
+}
+
+.hero-logo{
+    width:160px;
+    height:160px;
+    margin:auto;
+    background:url('logotransparent.png');
+    background-size:contain;
+    background-repeat:no-repeat;
+    animation:floatLogo 4s infinite ease-in-out;
+}
+
+@keyframes floatLogo{
+    0%{transform:translateY(0);}
+    50%{transform:translateY(-12px);}
+    100%{transform:translateY(0);}
+}
+
+.hero-title{
+    font-size:36px;
+    margin-top:20px;
+    color:#F2B840;
+    font-weight:bold;
+}
+
+.hero-sub{
+    font-size:20px;
+    margin-top:10px;
+    max-width:700px;
+    margin:auto;
+    opacity:.9;
+}
+
+.hero-buttons{
+    margin-top:30px;
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.hero-btn{
+    background:#F2B840;
+    color:#06142E;
+    padding:14px 25px;
+    border:none;
+    border-radius:12px;
+    font-size:16px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:.3s;
+}
+.hero-btn:hover{
+    background:#dca437;
+}
+</style>
+</head>
+
+<body>
+
+<div id="lang-switch">FR</div>
+
+<!-- ======================= -->
+<!--   HERO ULTRA TECH 2030   -->
+<!-- ======================= -->
+
+<section class="hero">
+    <div class="hero-bg"></div>
+
+    <div class="hero-card">
+        <div class="hero-logo"></div>
+
+        <h1 class="hero-title" id="hero-title"></h1>
+        <p class="hero-sub" id="hero-sub"></p>
+
+        <div class="hero-buttons">
+            <button class="hero-btn" id="advisor-btn"></button>
+            <button class="hero-btn" id="programs-btn"></button>
+        </div>
+    </div>
+</section><!-- ======================= -->
+<!--   SECTION PROGRAMMES    -->
+<!-- ======================= -->
+
+<section id="programmes" style="padding:40px 20px; max-width:900px; margin:auto;">
+
+    <h2 data-t-fr="Programmes Business+"
+        data-t-en="Business+ Programs"
+        style="text-align:center; color:#F2B840; margin-bottom:25px;">
+        Programmes Business+
+    </h2>
+
+    <!-- PROGRAMME 1 — IMMOBILIER -->
+    <div class="card">
+        <h3 data-t-fr="Investissement Immobilier Premium"
+            data-t-en="Premium Real Estate Investment">
+            Investissement Immobilier Premium
+        </h3>
+
+        <p data-t-fr="Investissez dans des projets immobiliers sécurisés : maisons, immeubles, terrains et promotions immobilières, avec un accompagnement complet."
+           data-t-en="Invest in secure real estate projects: houses, buildings, land, and development, with full professional support.">
+           ...
+        </p>
+
+        <button class="card-btn" data-t-fr="En savoir plus" data-t-en="Learn more">
+            En savoir plus
+        </button>
+    </div>
+
+    <!-- PROGRAMME 2 — CREATION ENTREPRISE -->
+    <div class="card">
+        <h3 data-t-fr="Création d’Entreprise & Services Juridiques"
+            data-t-en="Business Formation & Legal Services">
+            Création d’Entreprise & Services Juridiques
+        </h3>
+
+        <p data-t-fr="Accompagnement complet pour démarrer votre entreprise au Burundi : RCCM, licences, fiscalité, comptabilité, et support administratif premium."
+           data-t-en="Full support to start your company in Burundi: registration, licenses, taxation, accounting, and premium administrative assistance.">
+            ...
+        </p>
+
+        <button class="card-btn" data-t-fr="Démarrer un projet" data-t-en="Start a project">
+            Démarrer un projet
+        </button>
+    </div>
+
+    <!-- PROGRAMME 3 — INVESTISSEMENT & PARTENARIATS -->
+    <div class="card">
+        <h3 data-t-fr="Investissements & Partenariats"
+            data-t-en="Investments & Partnerships">
+            Investissements & Partenariats
+        </h3>
+
+        <p data-t-fr="Opportunités d’investissement, co-développement, projets stratégiques et partenariats professionnels pour la diaspora."
+           data-t-en="Investment opportunities, co-development, strategic projects, and professional partnerships for the diaspora.">
+            ...
+        </p>
+
+        <button class="card-btn" data-t-fr="Explorer les options" data-t-en="Explore options">
+            Explorer les options
+        </button>
+    </div>
+
+    <!-- PROGRAMME 4 — LOGISTIQUE -->
+    <div class="card">
+        <h3 data-t-fr="Logistique Internationale — Import & Export"
+            data-t-en="International Logistics — Import & Export">
+            Logistique Internationale — Import & Export
+        </h3>
+
+        <p data-t-fr="Solutions complètes pour entreprises : transport, entrepôt, clearing & forwarding, import/export, distribution et support logistique."
+           data-t-en="Complete business logistics: transport, warehousing, clearing & forwarding, import/export, distribution and operational support.">
+            ...
+        </p>
+
+        <button class="card-btn" data-t-fr="Contacter le service" data-t-en="Contact service">
+            Contacter le service
+        </button>
+    </div>
+
+</section>
+
+
+<!-- ======================= -->
+<!--   SECTION CORPORATE     -->
+<!-- ======================= -->
+
+<section style="padding:40px 20px; max-width:900px; margin:auto;">
+    <div class="card">
+        <h3 data-t-fr="Solutions Entreprises — Corporate"
+            data-t-en="Corporate Solutions">
+            Solutions Entreprises — Corporate
+        </h3>
+
+        <p data-t-fr="CIZA GROUP propose des solutions dédiées aux entreprises : partenariats, services professionnels, outsourcing, technologie, et logistique."
+           data-t-en="CIZA GROUP offers dedicated business solutions: partnerships, professional services, outsourcing, technology, and logistics.">
+            ...
+        </p>
+    </div>
+</section>
+
+
+<!-- ======================= -->
+<!--   SUPPORT BUSINESS+     -->
+<!-- ======================= -->
+
+<section style="padding:40px 20px; max-width:900px; margin:auto;">
+<div class="support-box">
+    <h3 data-t-fr="Support Business Premium"
+        data-t-en="Business Premium Support">
+        Support Business Premium
+    </h3>
+
+    <div class="support-item"><b>Email :</b> business@cizagroup.com</div>
+    <div class="support-item"><b>Email secondaire :</b> infos@cizagroup.com</div>
+    <div class="support-item"><b>WhatsApp Canada :</b> +1 514 502 9503</div>
+    <div class="support-item"><b>WhatsApp Burundi :</b> +257 79 94 50 07</div>
+    <div class="support-item"><b>Téléphone Canada :</b> +1 514 502 9503</div>
+    <div class="support-item"><b>Téléphone Burundi :</b> +257 79 94 50 07</div>
+</div>
+</section>
+
+
+<!-- ======================= -->
+<!--   FORMULAIRE BUSINESS   -->
+<!-- ======================= -->
+
+<section style="padding:40px 20px; max-width:900px; margin:auto;">
+<div class="form-box">
+
+    <h3 data-t-fr="Contact Business Premium"
+        data-t-en="Premium Business Contact">
+        Contact Business Premium
+    </h3>
+
+    <form action="https://formsubmit.co/business@cizagroup.com" method="POST">
+
+        <input type="hidden" name="_cc" value="infos@cizagroup.com">
+        <input type="hidden" name="_captcha" value="false">
+
+        <input type="hidden" name="_autoresponse" 
+        value="Bonjour,
+Votre demande Business+ a bien été reçue.
+Notre équipe vous contactera très prochainement.
+
+Merci de ne pas répondre à cet email (DO NOT REPLY).
+— CIZA GROUP Business+
+www.cizagroup.com">
+
+        <input type="text" name="nom" placeholder="Nom complet" data-t-fr="Nom complet" data-t-en="Full name" required>
+        <input type="email" name="email" placeholder="Email" data-t-fr="Email" data-t-en="Email" required>
+        <input type="text" name="telephone" placeholder="Téléphone (optionnel)" data-t-fr="Téléphone (optionnel)" data-t-en="Phone (optional)">
+        <input type="text" name="projet" placeholder="Type de projet" data-t-fr="Type de projet" data-t-en="Project type">
+        <textarea name="message" placeholder="Votre message" data-t-fr="Votre message" data-t-en="Your message" required></textarea>
+
+        <label class="consent">
+            <input type="checkbox" required>
+            <span data-t-fr="J’accepte la politique de confidentialité."
+                  data-t-en="I accept the privacy policy.">
+                J’accepte la politique de confidentialité.
+            </span>
+        </label>
+
+        <button class="submit-btn" data-t-fr="Envoyer" data-t-en="Send">Envoyer</button>
+    </form>
+
+</div>
+</section>
+
+
+<!-- ======================= -->
+<!--   SYSTEME TRADUCTION    -->
+<!-- ======================= -->
+
+<script>
+let lang="fr";
+
+const textIDs={
+ "hero-title":{fr:"CIZA BUSINESS+",en:"CIZA BUSINESS+"},
+ "hero-sub":{
+     fr:"Plateforme Business Internationale — Investissez, créez, développez.",
+     en:"International Business Platform — Invest, build, grow."
+ },
+ "advisor-btn":{
+     fr:"Parler à un conseiller",
+     en:"Talk to an advisor"
+ },
+ "programs-btn":{
+     fr:"Découvrir les programmes",
+     en:"Explore programs"
+ }
+};
+
+function updateAllText(){
+    // Text ID elements
+    for(const id in textIDs){
+        if(document.getElementById(id)){
+            document.getElementById(id).textContent=textIDs[id][lang];
+        }
+    }
+
+    // Elements with data attributes
+    document.querySelectorAll("[data-t-fr]").forEach(el=>{
+        el.textContent=(lang==="fr")
+            ? el.getAttribute("data-t-fr")
+            : el.getAttribute("data-t-en");
+    });
+
+    // Placeholder translation
+    document.querySelectorAll("[data-t-fr]").forEach(el=>{
+        if(el.placeholder!==undefined){
+            el.placeholder=(lang==="fr")
+                ? el.getAttribute("data-t-fr")
+                : el.getAttribute("data-t-en");
+        }
+    });
+}
+
+// Switch language
+document.getElementById("lang-switch").onclick=()=>{
+    lang=(lang==="fr")?"en":"fr";
+    document.getElementById("lang-switch").textContent=(lang==="fr")?"FR":"EN";
+    updateAllText();
+};
+
+// Auto scroll to Programmes
+document.getElementById("programs-btn").onclick=()=>{
+    document.getElementById("programmes").scrollIntoView({behavior:"smooth"});
+};
+
+// Scroll to form on "advisor"
+document.getElementById("advisor-btn").onclick=()=>{
+    document.querySelector(".form-box").scrollIntoView({behavior:"smooth"});
+};
+
+window.onload=updateAllText;
+</script>
+
+</body>
+</html>
