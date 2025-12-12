@@ -168,6 +168,40 @@ header{
 .card h3{color:#F2B840;margin-top:0;}
 .card p{opacity:.9;}
 
+/* DETAILS EXPANDABLE */
+.details{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .45s ease;
+    opacity:0;
+}
+.details.open{
+    max-height:300px;
+    opacity:1;
+    margin-top:10px;
+}
+.details p{
+    opacity:.85;
+    font-size:15px;
+}
+
+/* DETAILS BUTTON */
+.more-btn{
+    margin-top:12px;
+    background:none;
+    border:1px solid #F2B840;
+    color:#F2B840;
+    padding:10px 14px;
+    border-radius:10px;
+    cursor:pointer;
+    width:100%;
+    font-weight:bold;
+}
+.more-btn:hover{
+    background:#F2B840;
+    color:#06142E;
+}
+
 /* FORMULAIRE */
 .form-box{
     margin-top:40px;
@@ -236,21 +270,41 @@ textarea{height:130px;resize:none;}
     <div class="card">
         <h3 id="s1-title"></h3>
         <p id="s1-text"></p>
+
+        <button class="more-btn" onclick="toggleDetails('d1')" id="more1"></button>
+        <div class="details" id="d1">
+            <p id="d1-text"></p>
+        </div>
     </div>
 
     <div class="card">
         <h3 id="s2-title"></h3>
         <p id="s2-text"></p>
+
+        <button class="more-btn" onclick="toggleDetails('d2')" id="more2"></button>
+        <div class="details" id="d2">
+            <p id="d2-text"></p>
+        </div>
     </div>
 
     <div class="card">
         <h3 id="s3-title"></h3>
         <p id="s3-text"></p>
+
+        <button class="more-btn" onclick="toggleDetails('d3')" id="more3"></button>
+        <div class="details" id="d3">
+            <p id="d3-text"></p>
+        </div>
     </div>
 
     <div class="card">
         <h3 id="s4-title"></h3>
         <p id="s4-text"></p>
+
+        <button class="more-btn" onclick="toggleDetails('d4')" id="more4"></button>
+        <div class="details" id="d4">
+            <p id="d4-text"></p>
+        </div>
     </div>
 </section>
 
@@ -284,7 +338,7 @@ textarea{height:130px;resize:none;}
 </section>
 
 <!-- FORMULAIRE -->
-<section class="section">
+<section class="section" id="contact-section">
     <h2 class="section-title" id="form-title"></h2>
 
     <div class="form-box">
@@ -329,42 +383,63 @@ const T={
     services_title:{fr:"Services dédiés à la Diaspora",en:"Services for the Diaspora"},
 
     s1_title:{fr:"Immobilier & Investissement",en:"Real Estate & Investment"},
-    s1_text:{fr:"Achat, construction, gestion, visites vidéo, projets sécurisés pour diaspora Canada, Europe et USA.", 
-             en:"Purchase, construction, management, video visits, secure projects for diaspora in Canada, Europe and USA."},
+    s1_text:{fr:"Achat, construction, gestion, visites vidéo et projets sécurisés pour la diaspora au Canada, Europe et USA.",
+             en:"Purchase, construction, management, video visits and secure projects for diaspora in Canada, Europe and USA."},
 
     s2_title:{fr:"Création d’entreprise à distance",en:"Remote Business Creation"},
-    s2_text:{fr:"RCCM, NIF, licences, accompagnement juridique et fiscal pour ouvrir votre entreprise depuis l’étranger.",
-             en:"RCCM, NIF, licenses, legal and tax support to open your business from abroad."},
+    s2_text:{fr:"RCCM, NIF, licences et accompagnement juridique pour lancer votre entreprise depuis l’étranger.",
+             en:"RCCM, NIF, licenses and legal support to launch your business from abroad."},
 
     s3_title:{fr:"Logistique Internationale",en:"International Logistics"},
-    s3_text:{fr:"Import/export, colis diaspora, gestion de commandes, transport sécurisée Burundi <-> Monde.",
-             en:"Import/export, diaspora parcels, order management, secure transport Burundi <-> World."},
+    s3_text:{fr:"Colis diaspora, import/export, transport sécurisé et gestion de commandes Burundi ↔ Monde.",
+             en:"Diaspora parcels, import/export, secure transport and order management Burundi ↔ World."},
 
     s4_title:{fr:"Assistance administrative Premium",en:"Premium Administrative Support"},
-    s4_text:{fr:"Procédures locales, documents officiels, représentation sur place et suivi professionnel.",
-             en:"Local procedures, official documents, on-site representation and professional follow-up."},
+    s4_text:{fr:"Documents officiels, mandats locaux, représentation sur place et suivi professionnel.",
+             en:"Official documents, local representation, mandates and professional follow-up."},
 
+    /* DETAILS */
+    more:{fr:"En savoir plus",en:"Learn more"},
+    less:{fr:"Fermer",en:"Close"},
+
+    d1_text:{fr:"Nous accompagnons la diaspora dans l’achat, la construction et la gestion de biens immobiliers au Burundi. Nous organisons des visites vidéo en direct, préparons des rapports complets et garantissons un suivi transparent pour chaque projet.", 
+             en:"We assist the diaspora in purchasing, building and managing real estate in Burundi. We organize live video visits, prepare complete reports and ensure transparent follow-up for each project."},
+
+    d2_text:{fr:"Nous réalisons toutes les démarches administratives pour la création d’entreprise : RCCM, NIF, licences, domiciliation et assistance juridique. Vous pouvez lancer votre activité au Burundi sans être physiquement présent.",
+             en:"We handle all administrative steps for business creation: RCCM, NIF, licenses, domiciliation and legal assistance. You can launch your business in Burundi without being physically present."},
+
+    d3_text:{fr:"Solutions logistiques pour la diaspora : envoi de colis, commandes en ligne, transport international, import/export, transit et stockage. Nous garantissons sécurité, rapidité et traçabilité.",
+             en:"Logistics solutions for the diaspora: parcel delivery, online orders, international transport, import/export, transit and storage. We guarantee security, speed and traceability."},
+
+    d4_text:{fr:"Nous représentons la diaspora dans toutes les démarches administratives locales : documents officiels, certificats, autorisations, suivi sur place et assistance complète en votre absence.",
+             en:"We represent the diaspora in all local administrative procedures: official documents, certificates, authorizations, on-site follow-up and complete assistance in your absence."},
+
+    /* WHY */
     why_title:{fr:"Pourquoi choisir CIZA GROUP ?",en:"Why choose CIZA GROUP?"},
-    why_text:{fr:"Nous offrons une solution fiable, complète et professionnelle conçue spécialement pour la diaspora. Nos équipes locales et internationales assurent transparence, efficacité et communication continue.",
-              en:"We offer a reliable, complete and professional solution designed specifically for the diaspora. Our local and international teams ensure transparency, efficiency and continuous communication."},
 
+    why_text:{fr:"Une équipe présente au Burundi et à l’international, une communication transparente et un accompagnement conçu pour la diaspora moderne. Nous garantissons sécurité, fiabilité et résultats.",
+              en:"A team present in Burundi and internationally, transparent communication and support designed for the modern diaspora. We ensure security, reliability and results."},
+
+    /* ADVANTAGES */
     advantages_title:{fr:"Avantages Diaspora Business+",en:"Diaspora Business+ Advantages"},
     adv1:{fr:"✔ Suivi en temps réel depuis l’étranger",en:"✔ Real-time monitoring from abroad"},
     adv2:{fr:"✔ Transparence totale des opérations",en:"✔ Full operational transparency"},
     adv3:{fr:"✔ Communication instantanée avec nos équipes",en:"✔ Instant communication with our teams"},
     adv4:{fr:"✔ Sécurité et accompagnement premium",en:"✔ Security and premium support"},
 
+    /* PROCESS */
     process_title:{fr:"Comment ça fonctionne ?",en:"How it works?"},
 
-    step1:{fr:"Vous nous expliquez votre besoin diaspora (immobilier, business, assistance).",
-           en:"You explain your diaspora needs (real estate, business, assistance)."},
-    step2:{fr:"Nous analysons et vous envoyons une proposition professionnelle complète.",
-           en:"We analyze and send you a complete professional proposal."},
-    step3:{fr:"Vous validez et nous exécutons les opérations sur place.",
-           en:"You validate and we carry out the operations on-site."},
-    step4:{fr:"Vous recevez un suivi régulier + rapports + confirmations.",
-           en:"You receive regular follow-up + reports + confirmations."},
+    step1:{fr:"Expliquez votre besoin diaspora (immobilier, business, assistance).",
+           en:"Explain your diaspora needs (real estate, business, assistance)."},
+    step2:{fr:"Nous analysons et vous proposons une solution professionnelle adaptée.",
+           en:"We analyze and propose a professional tailored solution."},
+    step3:{fr:"Validation de votre part et exécution sur place au Burundi.",
+           en:"You validate and we execute operations on-site in Burundi."},
+    step4:{fr:"Vous recevez un suivi + rapports + confirmations continues.",
+           en:"You receive continuous updates, reports and confirmations."},
 
+    /* FORM */
     form_title:{fr:"Contact Diaspora Business+",en:"Diaspora Business+ Contact"},
     cons:{fr:"J’accepte la politique de confidentialité.",en:"I accept the privacy policy."},
     submit:{fr:"Envoyer",en:"Send"}
@@ -377,6 +452,7 @@ function translate(){
     document.getElementById("contact-btn").textContent=T.contact[lang];
     document.getElementById("services-title").textContent=T.services_title[lang];
 
+    /* SERVICES */
     document.getElementById("s1-title").textContent=T.s1_title[lang];
     document.getElementById("s1-text").textContent=T.s1_text[lang];
     document.getElementById("s2-title").textContent=T.s2_title[lang];
@@ -386,21 +462,37 @@ function translate(){
     document.getElementById("s4-title").textContent=T.s4_title[lang];
     document.getElementById("s4-text").textContent=T.s4_text[lang];
 
+    /* MORE BUTTON */
+    document.getElementById("more1").textContent=T.more[lang];
+    document.getElementById("more2").textContent=T.more[lang];
+    document.getElementById("more3").textContent=T.more[lang];
+    document.getElementById("more4").textContent=T.more[lang];
+
+    /* DETAILS */
+    document.getElementById("d1-text").textContent=T.d1_text[lang];
+    document.getElementById("d2-text").textContent=T.d2_text[lang];
+    document.getElementById("d3-text").textContent=T.d3_text[lang];
+    document.getElementById("d4-text").textContent=T.d4_text[lang];
+
+    /* WHY */
     document.getElementById("why-title").textContent=T.why_title[lang];
     document.getElementById("why-text").textContent=T.why_text[lang];
 
+    /* ADVANTAGES */
     document.getElementById("advantages-title").textContent=T.advantages_title[lang];
     document.getElementById("adv1").textContent=T.adv1[lang];
     document.getElementById("adv2").textContent=T.adv2[lang];
     document.getElementById("adv3").textContent=T.adv3[lang];
     document.getElementById("adv4").textContent=T.adv4[lang];
 
+    /* PROCESS */
     document.getElementById("process-title").textContent=T.process_title[lang];
     document.getElementById("step1").textContent=T.step1[lang];
     document.getElementById("step2").textContent=T.step2[lang];
     document.getElementById("step3").textContent=T.step3[lang];
     document.getElementById("step4").textContent=T.step4[lang];
 
+    /* FORM */
     document.getElementById("form-title").textContent=T.form_title[lang];
     document.getElementById("f-name").placeholder=(lang==="fr")?"Nom complet":"Full name";
     document.getElementById("f-email").placeholder="Email";
@@ -417,6 +509,25 @@ document.getElementById("lang-switch").onclick=()=>{
 };
 
 translate();
+
+/* MORE DETAILS */
+function toggleDetails(id){
+    let el=document.getElementById(id);
+    let btn=document.getElementById("more"+id.replace("d",""));
+
+    if(el.classList.contains("open")){
+        el.classList.remove("open");
+        btn.textContent=T.more[lang];
+    } else {
+        el.classList.add("open");
+        btn.textContent=T.less[lang];
+    }
+}
+
+/* CONTACT BUTTON → SCROLL */
+document.getElementById("contact-btn").onclick=()=>{
+    document.getElementById("contact-section").scrollIntoView({behavior:"smooth"});
+};
 
 /* Particules */
 const canvas=document.getElementById("particles");
