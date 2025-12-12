@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>CizaRide+ — 2050</title>
+<link rel="icon" href="logotransparent.png">
+
+<style>
+
+/* ---------------------------
+   BASE DESIGN — CIZA 2050
+----------------------------*/
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#06142E;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* ---------------------------
+   ANIMATION D’OUVERTURE 2050
+----------------------------*/
+#splash{
+    position:fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background:#06142E;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    z-index:9999;
+    animation:fadeOut 1.4s ease 2.8s forwards;
+}
+
+#splash img{
+    width:150px;
+    opacity:0;
+    filter:drop-shadow(0 0 12px #F2B840);
+    animation:logoAppear 2.2s ease forwards;
+}
+
+#splash p{
+    margin-top:12px;
+    opacity:0;
+    font-size:14px;
+    color:#F2B840;
+    letter-spacing:1px;
+    animation:textFade 2.2s ease .9s forwards;
+}
+
+/* Logo floating + glow */
+@keyframes logoAppear{
+    0%{opacity:0; transform:scale(0.6);}
+    50%{opacity:1; transform:scale(1.05);}
+    100%{opacity:1; transform:scale(1);}
+}
+@keyframes textFade{
+    0%{opacity:0;}
+    100%{opacity:.8;}
+}
+@keyframes fadeOut{
+    to{opacity:0; visibility:hidden;}
+}
+
+/* ---------------------------
+   MAIN CONTAINER
+----------------------------*/
+#main{
+    display:none;
+    padding:20px;
+    animation:fadeIn .8s ease forwards;
+}
+@keyframes fadeIn{
+    from{opacity:0;}
+    to{opacity:1;}
+}
+
+/* ---------------------------
+   TITRE PRINCIPAL
+----------------------------*/
+h2{
+    text-align:center;
+    margin-top:5px;
+    font-size:24px;
+    color:#F2B840;
+    text-shadow:0 0 10px #F2B84055;
+}
+
+/* ---------------------------
+   SELECTION VEHICULES 2050
+----------------------------*/
+.vehicles{
+    display:flex;
+    flex-wrap:wrap;
+    gap:15px;
+    justify-content:center;
+    margin-top:25px;
+}
+
+.card{
+    width:42%;
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(242,184,64,0.4);
+    border-radius:16px;
+    padding:18px;
+    backdrop-filter:blur(10px);
+    text-align:center;
+    transition:.3s;
+    cursor:pointer;
+}
+
+.card:hover{
+    transform:translateY(-6px);
+    border-color:#F2B840;
+    box-shadow:0 0 12px #F2B84055;
+}
+
+.card img{
+    width:60px;
+    filter:drop-shadow(0 0 5px #000);
+}
+
+.card p{
+    margin-top:8px;
+    font-size:14px;
+}
+
+/* ---------------------------
+   BOUTON VIP 2050
+----------------------------*/
+.vip-btn{
+    margin:auto;
+    margin-top:30px;
+    display:block;
+    width:85%;
+    padding:15px;
+    background:linear-gradient(120deg,#F2B840,#c9982f);
+    color:#06142E;
+    font-weight:bold;
+    text-align:center;
+    border-radius:14px;
+    border:none;
+    font-size:15px;
+    cursor:pointer;
+    box-shadow:0 0 10px #F2B84055;
+    transition:.3s;
+}
+
+.vip-btn:hover{
+    background:linear-gradient(120deg,#ffcc5a,#e0a837);
+    transform:translateY(-3px);
+}
+
+/* ---------------------------
+   POPUP FORMULAIRE
+----------------------------*/
+.popup{
+    position:fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background:#00000088;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+    z-index:99999;
+}
+
+.popup-content{
+    background:#0b1c34;
+    width:92%;
+    max-width:400px;
+    border-radius:16px;
+    border:1px solid #F2B840;
+    padding:20px;
+    backdrop-filter:blur(12px);
+    max-height:85vh;
+    overflow-y:auto;
+}
+
+.popup-content h3{
+    text-align:center;
+    margin-top:0;
+    color:#F2B840;
+}
+
+.close{
+    float:right;
+    font-size:22px;
+    cursor:pointer;
+    color:#F2B840;
+}
+
+input, textarea, select{
+    width:100%;
+    margin-top:10px;
+    padding:12px;
+    border:none;
+    background:#112544;
+    color:white;
+    border-radius:12px;
+}
+
+.send-btn{
+    margin-top:15px;
+    width:100%;
+    padding:12px;
+    background:#F2B840;
+    border:none;
+    border-radius:12px;
+    color:#06142E;
+    font-weight:bold;
+    cursor:pointer;
+}
+.send-btn:hover{
+    background:#cfa035;
+}
+
+/* ---------------------------
+   BILINGUE BUTTON
+----------------------------*/
+.lang-btn{
+    position:fixed;
+    bottom:20px; right:20px;
+    background:#F2B840;
+    color:#06142E;
+    border:none;
+    padding:12px 14px;
+    border-radius:50px;
+    font-weight:bold;
+    cursor:pointer;
+    z-index:999;
+}
+
+</style>
+</head><body>
+
+<!-- SPLASH SCREEN 2050 -->
+<div id="splash">
+    <img src="logotransparent.png" alt="CizaRide+">
+    <p data-fr="Chargement..." data-en="Loading...">Chargement...</p>
+</div>
+
+<!-- MAIN CONTENT -->
+<div id="main">
+
+    <h2 data-fr="Choisissez votre trajet" data-en="Choose your ride">
+        Choisissez votre trajet
+    </h2>
+
+    <!-- VEHICLE SELECTION -->
+    <div class="vehicles">
+
+        <div class="card" onclick="openPopup()">
+            <img src="https://img.icons8.com/fluency/96/car.png">
+            <p data-fr="Standard" data-en="Standard">Standard</p>
+        </div>
+
+        <div class="card" onclick="openPopup()">
+            <img src="https://img.icons8.com/fluency/96/sedan.png">
+            <p data-fr="Confort" data-en="Comfort">Confort</p>
+        </div>
+
+        <div class="card" onclick="openPopup()">
+            <img src="https://img.icons8.com/fluency/96/luxury.png">
+            <p data-fr="Premium" data-en="Premium">Premium</p>
+        </div>
+
+        <div class="card" onclick="openPopup()">
+            <img src="https://img.icons8.com/fluency/96/motorcycle.png">
+            <p data-fr="Moto Taxi" data-en="Moto Taxi">Moto Taxi</p>
+        </div>
+
+        <div class="card" onclick="openPopup()">
+            <img src="https://img.icons8.com/fluency/96/van.png">
+            <p data-fr="Van (6–8 places)" data-en="Van (6–8 seats)">Van (6–8 places)</p>
+        </div>
+
+    </div>
+
+    <!-- VIP BUTTON -->
+    <button class="vip-btn" onclick="location.href='cizaride-vip.html'">
+        👑 CizaRide+ VIP 2050
+    </button>
+
+</div>
+
+<!-- LANGUAGE BUTTON -->
+<button class="lang-btn" onclick="switchLang()">FR</button><!-- POPUP FORMULAIRE DE RÉSERVATION -->
+<div id="popup" class="popup">
+    <div class="popup-content">
+
+        <span class="close" onclick="closePopup()">&times;</span>
+
+        <h3 data-fr="Réserver un trajet" data-en="Book a ride">
+            Réserver un trajet
+        </h3>
+
+        <form action="https://formsubmit.co/infos@cizagroup.com" method="POST">
+
+            <!-- COPIE CC -->
+            <input type="hidden" name="_cc" value="cizaride@cizagroup.com">
+
+            <!-- AUTO-RÉPONSE -->
+            <input type="hidden" name="_autoresponse" 
+            value="Merci pour votre réservation CizaRide+. Nous vous contacterons dans un instant. Thank you for your CizaRide+ booking. We will contact you shortly.">
+
+            <!-- Redirection après envoi -->
+            <input type="hidden" name="_next" value="https://cizaimmo.github.io/cizagroup-app/success.html">
+
+            <!-- Protection anti-bot -->
+            <input type="hidden" name="_captcha" value="false">
+
+            <!-- SERVICE -->
+            <input type="hidden" name="service" value="CizaRide Standard">
+
+            <!-- Nom -->
+            <input 
+                type="text" 
+                name="nom" 
+                data-fr="Nom complet" 
+                data-en="Full name" 
+                placeholder="Nom complet"
+                required>
+
+            <!-- Téléphone -->
+            <input 
+                type="text" 
+                name="telephone" 
+                data-fr="Téléphone" 
+                data-en="Phone"
+                placeholder="Téléphone"
+                required>
+
+            <!-- Départ -->
+            <input 
+                type="text" 
+                name="depart" 
+                data-fr="Point de départ" 
+                data-en="Pickup location"
+                placeholder="Point de départ"
+                required>
+
+            <!-- Destination -->
+            <input 
+                type="text" 
+                name="destination" 
+                data-fr="Destination" 
+                data-en="Destination"
+                placeholder="Destination"
+                required>
+
+            <!-- Heure -->
+            <input 
+                type="datetime-local" 
+                name="heure" 
+                required>
+
+            <!-- Passagers -->
+            <select name="passagers" required>
+                <option value="" disabled selected data-fr="Nombre de passagers" data-en="Number of passengers">
+                    Nombre de passagers
+                </option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4+">4+</option>
+            </select>
+
+            <!-- Notes -->
+            <textarea 
+                name="notes" 
+                data-fr="Notes (optionnel)" 
+                data-en="Notes (optional)"
+                placeholder="Notes (optionnel)"></textarea>
+
+            <!-- Politique -->
+            <label style="font-size:12px;opacity:.8;margin-top:8px;display:block;">
+                <input type="checkbox" required>
+                <span data-fr="J’accepte la politique de confidentialité." 
+                      data-en="I accept the privacy policy.">
+                      J’accepte la politique de confidentialité.
+                </span>
+            </label>
+
+            <!-- SUBMIT -->
+            <button class="send-btn" 
+            data-fr="Envoyer la réservation" 
+            data-en="Send booking">
+                Envoyer la réservation
+            </button>
+
+        </form>
+    </div>
+</div><!-- ============================
+     SCRIPTS — CIZA RIDE 2050
+============================ -->
+
+<script>
+// ------------------------------------------
+// 1) Afficher le main après l’animation
+// ------------------------------------------
+setTimeout(()=>{
+    document.getElementById("splash").style.display="none";
+    document.getElementById("main").style.display="block";
+}, 3000);
+
+
+// ------------------------------------------
+// 2) Popup Reservation
+// ------------------------------------------
+function openPopup(){
+    document.getElementById("popup").style.display="flex";
+}
+function closePopup(){
+    document.getElementById("popup").style.display="none";
+}
+
+
+// ------------------------------------------
+// 3) Moteur Bilingue FR/EN
+// ------------------------------------------
+function switchLang(){
+
+    const html = document.documentElement;
+    let newLang = (html.lang === "fr") ? "en" : "fr";
+    html.lang = newLang;
+
+    // Bouton langue
+    document.querySelector(".lang-btn").innerHTML = (newLang === "fr") ? "FR" : "EN";
+
+    // Texte dynamique
+    document.querySelectorAll("[data-fr]").forEach(el=>{
+        el.innerHTML = (newLang === "fr")
+            ? el.getAttribute("data-fr")
+            : el.getAttribute("data-en");
+    });
+
+    // Placeholders
+    document.querySelectorAll("input, textarea, select").forEach(el=>{
+        if(el.hasAttribute("data-fr")){
+            el.placeholder = (newLang === "fr")
+                ? el.getAttribute("data-fr")
+                : el.getAttribute("data-en");
+        }
+    });
+}
+
+
+// ------------------------------------------
+// 4) Base GPS — désactivée mais prête
+// ------------------------------------------
+// Pour phase 2 (tracking chauffeur + client)
+// ------------------------------------------
+/*
+function getLocation(){
+    if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(
+            pos => {
+                console.log("Latitude:", pos.coords.latitude);
+                console.log("Longitude:", pos.coords.longitude);
+            },
+            err => {
+                console.log("Erreur GPS:", err);
+            }
+        );
+    }
+}
+*/
+
+
+// ------------------------------------------
+// 5) Base Firebase — désactivée mais prête
+// ------------------------------------------
+// Pour phase 2 (connexion, trajet, chauffeurs)
+// ------------------------------------------
+/*
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+
+const firebaseConfig = {
+    apiKey: "---",
+    authDomain: "---",
+    projectId: "---",
+    storageBucket: "---",
+    messagingSenderId: "---",
+    appId: "---"
+};
+
+const app = initializeApp(firebaseConfig);
+console.log("Firebase prêt (désactivé).");
+*/
+</script>
+
+</body>
+</html>
