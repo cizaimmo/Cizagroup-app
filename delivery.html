@@ -1,314 +1,618 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <title>CizaDelivery+</title>
+<link rel="icon" href="logotransparent.png">
 
 <style>
-    body{
-        margin:0;
-        background:#06142E;
-        color:white;
-        font-family:Arial, sans-serif;
-    }
+/* GLOBAL */
+body{
+    margin:0;
+    background:#06142E;
+    color:white;
+    font-family:Arial, sans-serif;
+}
 
-    h1{
-        text-align:center;
-        color:#F2B840;
-        margin-top:25px;
-        font-size:28px;
-    }
+/* HEADER */
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px;
+    background:#06142E;
+    border-bottom:2px solid #F2B840;
+}
+header h1{
+    margin:0;
+    font-size:20px;
+    color:#F2B840;
+}
+.lang-switch{
+    background:#F2B840;
+    border:none;
+    padding:8px 12px;
+    border-radius:8px;
+    color:#06142E;
+    cursor:pointer;
+    font-weight:bold;
+}
 
-    .container{
-        padding:20px;
-        max-width:900px;
-        margin:auto;
-    }
+/* HERO 2030 */
+.hero{
+    text-align:center;
+    padding:60px 20px;
+    background:linear-gradient(135deg,#06142E,#0B1C34,#06142E);
+    animation:gradientMove 8s infinite;
+}
+@keyframes gradientMove{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
 
-    /* CARDS SERVICES */
-    .card{
-        background:#0B1C34;
-        border:1px solid #12335c;
-        padding:20px;
-        border-radius:14px;
-        margin-bottom:18px;
-        transition:.3s;
-        cursor:pointer;
-    }
-    .card:hover{
-        transform:translateY(-4px);
-        border-color:#F2B840;
-    }
-    .card h3{
-        margin:0;
-        color:#F2B840;
-        font-size:20px;
-    }
-    .card p{
-        opacity:.8;
-        margin:8px 0 0;
-        font-size:15px;
-    }
+.hero h2{
+    font-size:32px;
+    margin:0;
+    color:#F2B840;
+}
+.hero p{
+    margin-top:12px;
+    font-size:18px;
+    opacity:.9;
+}
+.hero button{
+    margin-top:20px;
+    background:#F2B840;
+    border:none;
+    padding:14px 22px;
+    border-radius:12px;
+    font-weight:bold;
+    color:#06142E;
+    cursor:pointer;
+}
 
-    /* POPUP BASE */
-    .popup{
-        display:none;
-        position:fixed;
-        top:0;left:0;
-        width:100%;height:100%;
-        background:#000000AA;
-        backdrop-filter:blur(6px);
-        justify-content:center;
-        align-items:center;
-        z-index:99999;
-    }
+/* SECTION TITLE */
+.section-title{
+    text-align:center;
+    font-size:24px;
+    margin-top:50px;
+    color:#F2B840;
+}
 
-    .popup-content{
-        background:#0B1C34;
-        width:90%;
-        max-width:420px;
-        padding:25px;
-        border-radius:14px;
-        border:1px solid #12335c;
-    }
+/* SERVICES GRID */
+.services{
+    max-width:900px;
+    margin:auto;
+    padding:20px;
+}
+.service-card{
+    background:#0B1C34;
+    padding:22px;
+    border-radius:14px;
+    margin-bottom:20px;
+    border:1px solid #12335c;
+}
+.service-card h3{
+    margin:0;
+    font-size:20px;
+    color:#F2B840;
+}
+.service-card p{
+    opacity:.85;
+    margin-top:10px;
+}
+.service-card button{
+    margin-top:12px;
+    background:#F2B840;
+    border:none;
+    padding:12px 18px;
+    border-radius:10px;
+    font-weight:bold;
+    color:#06142E;
+    cursor:pointer;
+}
 
-    .popup-content h3{
-        color:#F2B840;
-        margin-top:0;
-        text-align:center;
-    }
-
-    .close{
-        float:right;
-        font-size:22px;
-        cursor:pointer;
-        color:#F2B840;
-        margin-top:-10px;
-    }
-
-    input, textarea{
-        width:100%;
-        padding:12px;
-        margin-top:12px;
-        border:none;
-        border-radius:10px;
-        background:#112544;
-        color:white;
-    }
-
-    button{
-        width:100%;
-        padding:12px;
-        background:#F2B840;
-        border:none;
-        border-radius:10px;
-        color:#06142E;
-        font-weight:bold;
-        margin-top:16px;
-        cursor:pointer;
-        font-size:15px;
-    }
-    button:hover{
-        background:#d6a237;
-    }
-
-    /* TRACKING */
-    .tracking-box{
-        background:#0B1C34;
-        padding:20px;
-        border-radius:14px;
-        border:1px solid #12335c;
-        margin-top:20px;
-    }
-
-    .timeline-item{
-        display:flex;
-        align-items:flex-start;
-        margin-bottom:15px;
-    }
-
-    .icon-status{
-        width:18px;
-        height:18px;
-        border-radius:50%;
-        margin-right:12px;
-        background:#334a6d;
-    }
-
-    .icon-active{
-        background:#F2B840 !important;
-    }
-
-    .status-label{
-        font-size:15px;
-    }
-
+/* DETAILS POPUP */
+.details{
+    display:none;
+    background:#0B1C34;
+    padding:20px;
+    border-radius:14px;
+    margin-top:12px;
+    border:1px solid #F2B840;
+}
 </style>
+
 </head>
 
 <body>
 
-<h1>CizaDelivery+</h1>
+<header>
+    <h1 data-fr="CizaDelivery+" data-en="CizaDelivery+">CizaDelivery+</h1>
+    <button class="lang-switch" onclick="switchLang()"
+        data-fr="EN" data-en="FR">EN</button>
+</header>
 
-<div class="container">
+<div class="hero">
+    <h2 data-fr="CizaDelivery+ — Livraison rapide et sécurisée au Burundi"
+        data-en="CizaDelivery+ — Fast and secure delivery across Burundi">
+        CizaDelivery+ — Livraison rapide et sécurisée au Burundi
+    </h2>
 
-    <!-- SERVICE 1 -->
-    <div class="card" onclick="openPopup('intl')">
-        <h3>🌍 Livraison Internationale</h3>
-        <p>Envoyez ou recevez des colis entre le Burundi et l’étranger.</p>
-    </div>
+    <p data-fr="Des livraisons fiables, rapides et professionnelles partout au Burundi."
+       data-en="Fast, reliable and professional delivery across Burundi.">
+       Des livraisons fiables, rapides et professionnelles partout au Burundi.
+    </p>
 
-    <!-- SERVICE 2 -->
-    <div class="card" onclick="openPopup('local')">
-        <h3>📦 Livraison Locale</h3>
-        <p>Livraison rapide à Bujumbura, Gitega, Ngozi...</p>
-    </div>
-
-    <!-- SERVICE 3 -->
-    <div class="card" onclick="openPopup('med')">
-        <h3>💊 Livraison Médicaments</h3>
-        <p>Service sécurisé, confidentialité obligatoire.</p>
-    </div>
-
-    <!-- SERVICE 4 -->
-    <div class="card" onclick="openPopup('export')">
-        <h3>🚚 Export & Logistique</h3>
-        <p>Expédition en gros, documents, business.</p>
-    </div>
-
-    <!-- TRACKING -->
-    <div class="card" onclick="openPopup('track')">
-        <h3>🔎 Suivre un colis</h3>
-        <p>Tapez votre numéro : CD-XXXX-XXXX</p>
-    </div>
-
-    <!-- RETOUR -->
-    <div class="card" onclick="window.location.href='index.html'">
-        <h3>⬅ Retour à l’accueil</h3>
-    </div>
-
+    <button onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})"
+        data-fr="Contacter un conseiller"
+        data-en="Contact Support">
+        Contacter un conseiller
+    </button>
 </div>
 
+<h2 class="section-title" 
+    data-fr="Nos Services"
+    data-en="Our Services">Nos Services</h2>
 
-<!-- POPUP — FORMULAIRE SIMPLE (DEV MODE) -->
-<div id="popup-intl" class="popup">
-    <div class="popup-content">
-        <span class="close" onclick="closePopup('intl')">&times;</span>
-        <h3>Livraison Internationale</h3>
+<div class="services">    <!-- SERVICE 1 : EXPRESS -->
+    <div class="service-card">
+        <h3 data-fr="🚀 Livraison Express" data-en="🚀 Express Delivery">🚀 Livraison Express</h3>
+        <p data-fr="Livraison rapide en moins de 1h dans les zones couvertes."
+           data-en="Fast delivery in under 1 hour in supported zones.">
+           Livraison rapide en moins de 1h dans les zones couvertes.
+        </p>
+        <button onclick="toggleDetails('express')"
+            data-fr="En savoir plus"
+            data-en="Learn more">En savoir plus</button>
 
-        <p style="opacity:.8;font-size:14px;">Phase de développement : formulaire complet en préparation.</p>
-        <button onclick="alert('Dev mode : la version finale sera connectée à CizaDelivery')">OK</button>
-    </div>
-</div>
-
-<div id="popup-local" class="popup">
-    <div class="popup-content">
-        <span class="close" onclick="closePopup('local')">&times;</span>
-        <h3>Livraison Locale</h3>
-
-        <p style="opacity:.8;font-size:14px;">Phase de développement : formulaire complet en préparation.</p>
-        <button onclick="alert('Dev mode : version finale bientôt prête')">OK</button>
-    </div>
-</div>
-
-<div id="popup-med" class="popup">
-    <div class="popup-content">
-        <span class="close" onclick="closePopup('med')">&times;</span>
-        <h3>Livraison Médicaments</h3>
-
-        <p>⚠ Confidentialité obligatoire.</p>
-        <label><input type="checkbox"> J’accepte la politique de confidentialité</label>
-        <button onclick="alert('Dev mode : module sécurisé en préparation')">Continuer</button>
-    </div>
-</div>
-
-<div id="popup-export" class="popup">
-    <div class="popup-content">
-        <span class="close" onclick="closePopup('export')">&times;</span>
-        <h3>Export & Logistique</h3>
-        <p>Grand volume, documents, entreprises.</p>
-        <button onclick="alert('Dev mode : service en construction')">OK</button>
-    </div>
-</div>
-
-
-<!-- POPUP — TRACKING -->
-<div id="popup-track" class="popup">
-    <div class="popup-content">
-        <span class="close" onclick="closePopup('track')">&times;</span>
-        <h3>Suivi d’un colis</h3>
-
-        <input id="trackingID" placeholder="Ex : CD-7F29-QA81" />
-        <button onclick="simulateTracking()">Suivre</button>
-
-        <div id="trackingResult"></div>
-    </div>
-</div>
-
-<script>
-function openPopup(name){
-    document.getElementById("popup-"+name).style.display="flex";
-}
-
-function closePopup(name){
-    document.getElementById("popup-"+name).style.display="none";
-}
-
-/* ----------------------------------------------------
-   TRACKING DEV MODE (en attendant ton API Google Sheet)
------------------------------------------------------*/
-function simulateTracking(){
-    let id = document.getElementById("trackingID").value.trim();
-
-    if(id === ""){
-        alert("Veuillez entrer un numéro de suivi.");
-        return;
-    }
-
-    // Simulation d’un colis en transit
-    let result = `
-        <div class='tracking-box'>
-            <div class='timeline-item'>
-                <div class='icon-status icon-active'></div>
-                <div class='status-label'>1. Reçu / Received</div>
-            </div>
-
-            <div class='timeline-item'>
-                <div class='icon-status icon-active'></div>
-                <div class='status-label'>2. Vérification / Verification</div>
-            </div>
-
-            <div class='timeline-item'>
-                <div class='icon-status icon-active'></div>
-                <div class='status-label'>3. Centre de tri / Sorting Center</div>
-            </div>
-
-            <div class='timeline-item'>
-                <div class='icon-status icon-active'></div>
-                <div class='status-label'>4. En transit / In Transit</div>
-            </div>
-
-            <div class='timeline-item'>
-                <div class='icon-status'></div>
-                <div class='status-label'>5. Arrivé dans la ville / Arrived in City</div>
-            </div>
-
-            <div class='timeline-item'>
-                <div class='icon-status'></div>
-                <div class='status-label'>6. En cours de livraison / Out for Delivery</div>
-            </div>
-
-            <div class='timeline-item'>
-                <div class='icon-status'></div>
-                <div class='status-label'>7. Livré / Delivered</div>
-            </div>
+        <div id="express" class="details">
+            <p data-fr="
+                • Livraison en 1h selon disponibilité.  
+                • Idéal pour urgences, documents, petits colis.  
+                • Suivi en temps réel (Phase 2).  
+                • Code PIN de confirmation.  
+            " data-en="
+                • Delivery within 1 hour depending on availability.  
+                • Ideal for emergencies, documents, small packages.  
+                • Real-time tracking (Phase 2).  
+                • PIN confirmation code.  
+            ">
+                • Livraison en 1h selon disponibilité.<br>
+                • Idéal pour urgences, documents, petits colis.<br>
+                • Suivi en temps réel (Phase 2).<br>
+                • Code PIN de confirmation.<br>
+            </p>
         </div>
-    `;
+    </div>
 
-    document.getElementById("trackingResult").innerHTML = result;
+    <!-- SERVICE 2 : STANDARD -->
+    <div class="service-card">
+        <h3 data-fr="📦 Livraison Standard" data-en="📦 Standard Delivery">📦 Livraison Standard</h3>
+        <p data-fr="Livraison de colis, sacs, cadeaux, documents et plus."
+           data-en="Delivery of parcels, bags, gifts, documents and more.">
+           Livraison de colis, sacs, cadeaux, documents et plus.
+        </p>
+        <button onclick="toggleDetails('standard')"
+            data-fr="En savoir plus"
+            data-en="Learn more">En savoir plus</button>
+
+        <div id="standard" class="details">
+            <p data-fr="
+                • Livraison économique dans tout le Burundi.  
+                • Preuve photo disponible.  
+                • Code PIN pour validation.  
+                • Suivi par statut (Reçu → En route → Livré).  
+            " data-en="
+                • Affordable delivery across Burundi.  
+                • Delivery proof with photo.  
+                • PIN confirmation for security.  
+                • Tracking by status (Received → On the way → Delivered).  
+            ">
+                • Livraison économique dans tout le Burundi.<br>
+                • Preuve photo disponible.<br>
+                • Code PIN pour validation.<br>
+                • Suivi par statut (Reçu → En route → Livré).<br>
+            </p>
+        </div>
+    </div>
+
+    <!-- SERVICE 3 : MÉDICAMENTS -->
+    <div class="service-card">
+        <h3 data-fr="💊 Livraison Médicaments" data-en="💊 Medicine Delivery">💊 Livraison Médicaments</h3>
+        <p data-fr="Livraison sécurisée depuis des pharmacies autorisées."
+           data-en="Secure delivery from authorized pharmacies.">
+           Livraison sécurisée depuis des pharmacies autorisées.
+        </p>
+        <button onclick="toggleDetails('medicaments')"
+            data-fr="En savoir plus"
+            data-en="Learn more">En savoir plus</button>
+
+        <div id="medicaments" class="details">
+            <p data-fr="
+                • Livraison confidentielle.  
+                • Ordonnance requise pour certains médicaments.  
+                • Ne vend pas de médicaments — service de livraison uniquement.  
+                • PIN + preuve photo pour sécurité.  
+            " data-en="
+                • Confidential delivery.  
+                • Prescription required for certain medications.  
+                • CizaDelivery+ does not sell medicine — delivery only.  
+                • PIN + photo proof for security.  
+            ">
+                • Livraison confidentielle.<br>
+                • Ordonnance requise pour certains médicaments.<br>
+                • Ne vend pas de médicaments — service de livraison uniquement.<br>
+                • PIN + preuve photo pour sécurité.<br>
+            </p>
+        </div>
+    </div>
+
+    <!-- SERVICE 4 : DOCUMENTS IMPORTANTS -->
+    <div class="service-card">
+        <h3 data-fr="📄 Documents Importants" data-en="📄 Important Documents">📄 Documents Importants</h3>
+        <p data-fr="Livraison sécurisée de passeports, dossiers et contrats."
+           data-en="Secure delivery of passports, files and contracts.">
+           Livraison sécurisée de passeports, dossiers et contrats.
+        </p>
+        <button onclick="toggleDetails('documents')"
+            data-fr="En savoir plus"
+            data-en="Learn more">En savoir plus</button>
+
+        <div id="documents" class="details">
+            <p data-fr="
+                • Livraison ultra sécurisée.  
+                • Vérification identité du destinataire.  
+                • Suivi par statut + PIN obligatoire.  
+            " data-en="
+                • Ultra-secure delivery.  
+                • Receiver identity verification.  
+                • Status tracking + mandatory PIN.  
+            ">
+                • Livraison ultra sécurisée.<br>
+                • Vérification identité du destinataire.<br>
+                • Suivi par statut + PIN obligatoire.<br>
+            </p>
+        </div>
+    </div>
+
+    <!-- SERVICE 5 : ENTREPRISES -->
+    <div class="service-card">
+        <h3 data-fr="🏢 Livraison Entreprises" data-en="🏢 Business Delivery">🏢 Livraison Entreprises</h3>
+        <p data-fr="Solutions professionnelles pour bureaux, boutiques et restaurants."
+           data-en="Professional solutions for offices, shops and restaurants.">
+           Solutions professionnelles pour bureaux, boutiques et restaurants.
+        </p>
+        <button onclick="toggleDetails('entreprises')"
+            data-fr="En savoir plus"
+            data-en="Learn more">En savoir plus</button>
+
+        <div id="entreprises" class="details">
+            <p data-fr="
+                • Livraison quotidienne ou planifiée.  
+                • Facturation mensuelle disponible.  
+                • Compte entreprise (Phase 2 Firebase).  
+            " data-en="
+                • Daily or scheduled delivery.  
+                • Monthly billing available.  
+                • Business account (Phase 2 Firebase).  
+            ">
+                • Livraison quotidienne ou planifiée.<br>
+                • Facturation mensuelle disponible.<br>
+                • Compte entreprise (Phase 2 Firebase).<br>
+            </p>
+        </div>
+    </div>
+
+    <!-- SERVICE 6 : INTERNATIONAL -->
+    <div class="service-card">
+        <h3 data-fr="🌍 Livraison Internationale (Diaspora → Burundi)"
+            data-en="🌍 International Delivery (Diaspora → Burundi)">
+            🌍 Livraison Internationale (Diaspora → Burundi)
+        </h3>
+
+        <p data-fr="Retrait DHL / Cargo / UPS et livraison au destinataire."
+           data-en="Pickup DHL / Cargo / UPS and local delivery to the receiver.">
+           Retrait DHL / Cargo / UPS et livraison au destinataire.
+        </p>
+
+        <button onclick="toggleDetails('international')"
+            data-fr="En savoir plus"
+            data-en="Learn more">En savoir plus</button>
+
+        <div id="international" class="details">
+            <p data-fr="
+                • Retrait avec autorisation client.  
+                • Livraison sécurisée avec PIN.  
+                • Preuve photo et suivi.  
+                • Aucun partenariat obligatoire — service local.  
+            " data-en="
+                • Pickup with client authorization.  
+                • Secure delivery with PIN.  
+                • Photo proof and tracking.  
+                • No partnership required — local last-mile service.  
+            ">
+                • Retrait avec autorisation client.<br>
+                • Livraison sécurisée avec PIN.<br>
+                • Preuve photo et suivi.<br>
+                • Aucun partenariat obligatoire — service local.<br>
+            </p>
+        </div>
+    </div>
+
+</div> <!-- end services --><!-- TRACKING SECTION -->
+<h2 class="section-title"
+    data-fr="Suivi & Sécurité"
+    data-en="Tracking & Security">
+    Suivi & Sécurité
+</h2>
+
+<div class="services">
+    <div class="service-card">
+        <h3 data-fr="🔒 Suivi du colis (Phase 1)"
+            data-en="🔒 Package Tracking (Phase 1)">
+            🔒 Suivi du colis (Phase 1)
+        </h3>
+
+        <p data-fr="Chaque livraison suit un processus clair et transparent pour garantir une expérience premium."
+           data-en="Each delivery follows a clear and transparent process to ensure a premium experience.">
+           Chaque livraison suit un processus clair et transparent pour garantir une expérience premium.
+        </p>
+
+        <div class="details" style="display:block;">
+            <p data-fr="
+                • Reçu par CizaDelivery+  
+                • En préparation  
+                • En route  
+                • Presque arrivé  
+                • Livré  
+                • Échec (si destinataire absent)  
+
+                • Code PIN pour confirmer la livraison  
+                • Preuve photo pour chaque livraison  
+                • Signature digitale (Phase 2)  
+                • GPS temps réel (Phase 2 Firebase)  
+            " data-en="
+                • Received by CizaDelivery+  
+                • Preparing  
+                • On the way  
+                • Almost there  
+                • Delivered  
+                • Failed attempt (if no response)  
+
+                • PIN code to confirm delivery  
+                • Photo proof for each delivery  
+                • Digital signature (Phase 2)  
+                • Live GPS tracking (Phase 2 Firebase)  
+            ">
+                • Reçu par CizaDelivery+<br>
+                • En préparation<br>
+                • En route<br>
+                • Presque arrivé<br>
+                • Livré<br>
+                • Échec (si destinataire absent)<br><br>
+
+                • Code PIN pour confirmer la livraison<br>
+                • Preuve photo pour chaque livraison<br>
+                • Signature digitale (Phase 2)<br>
+                • GPS temps réel (Phase 2 Firebase)<br>
+            </p>
+        </div>
+    </div>
+</div>
+
+
+<!-- PAYMENT SECTION -->
+<h2 class="section-title"
+    data-fr="Paiements"
+    data-en="Payments">Paiements</h2>
+
+<div class="services">
+    <div class="service-card">
+        <h3 data-fr="💳 Moyens de Paiement"
+            data-en="💳 Payment Methods">
+            💳 Moyens de Paiement
+        </h3>
+
+        <div class="details" style="display:block;">
+            <p data-fr="
+                • Lumicash  
+                • Ecocash  
+                • Inoti (Bancobu)  
+                • Paiement à la livraison  
+                • CizaPay+ (bientôt disponible)  
+            " data-en="
+                • Lumicash  
+                • Ecocash  
+                • Inoti (Bancobu)  
+                • Pay on delivery  
+                • CizaPay+ (coming soon)  
+            ">
+                • Lumicash<br>
+                • Ecocash<br>
+                • Inoti (Bancobu)<br>
+                • Paiement à la livraison<br>
+                • CizaPay+ (bientôt disponible)<br>
+            </p>
+        </div>
+    </div>
+</div>
+
+
+<!-- WHY CHOOSE US -->
+<h2 class="section-title"
+    data-fr="Pourquoi choisir CizaDelivery+ ?"
+    data-en="Why choose CizaDelivery+?">
+    Pourquoi choisir CizaDelivery+ ?
+</h2>
+
+<div class="services">
+    <div class="service-card">
+        <div class="details" style="display:block;">
+            <p data-fr="
+                ✔ Service premium  
+                ✔ Livreurs professionnels  
+                ✔ Sécurité maximale  
+                ✔ Livraison 1h disponible  
+                ✔ Support WhatsApp 24/7  
+                ✔ Service adapté diaspora & entreprises  
+            " data-en="
+                ✔ Premium service  
+                ✔ Professional couriers  
+                ✔ Maximum security  
+                ✔ 1-hour delivery available  
+                ✔ 24/7 WhatsApp support  
+                ✔ Suitable for diaspora & businesses  
+            ">
+                ✔ Service premium<br>
+                ✔ Livreurs professionnels<br>
+                ✔ Sécurité maximale<br>
+                ✔ Livraison 1h disponible<br>
+                ✔ Support WhatsApp 24/7<br>
+                ✔ Service adapté diaspora & entreprises<br>
+            </p>
+        </div>
+    </div>
+</div>
+
+
+<!-- DELIVERY PROCESS -->
+<h2 class="section-title"
+    data-fr="Processus de Livraison 2030"
+    data-en="Delivery Process 2030">
+    Processus de Livraison 2030
+</h2>
+
+<div class="services">
+    <div class="service-card">
+        <div class="details" style="display:block;">
+            <p data-fr="
+                1. Le client passe une demande  
+                2. CizaDelivery+ confirme et attribue un livreur  
+                3. Le livreur récupère le colis  
+                4. Le suivi commence (statuts + preuve)  
+                5. Livraison sécurisée avec code PIN  
+            " data-en="
+                1. Client submits a request  
+                2. CizaDelivery+ confirms and assigns a courier  
+                3. Courier collects the package  
+                4. Tracking starts (status + proof)  
+                5. Secure delivery with PIN code  
+            ">
+                1. Le client passe une demande<br>
+                2. CizaDelivery+ confirme et attribue un livreur<br>
+                3. Le livreur récupère le colis<br>
+                4. Le suivi commence (statuts + preuve)<br>
+                5. Livraison sécurisée avec code PIN<br>
+            </p>
+        </div>
+    </div>
+</div>
+
+
+<!-- BECOME DRIVER -->
+<h2 class="section-title"
+    data-fr="Devenir Livreur CizaDelivery+"
+    data-en="Become a CizaDelivery+ Courier">
+    Devenir Livreur CizaDelivery+
+</h2>
+
+<div class="services">
+    <div class="service-card">
+        <p data-fr="
+            Rejoignez notre équipe et travaillez avec un service premium.
+            Soumettez votre candidature (Phase 2).
+        " data-en="
+            Join our team and work with a premium service.
+            Submit your application (Phase 2).
+        ">
+            Rejoignez notre équipe et travaillez avec un service premium.<br>
+            Soumettez votre candidature (Phase 2).
+        </p>
+    </div>
+</div><!-- CONTACT FORM -->
+<h2 class="section-title"
+    data-fr="Contact"
+    data-en="Contact">
+    Contact
+</h2>
+
+<div class="services" id="contact">
+    <div class="service-card">
+        <h3 data-fr="Formulaire de Contact"
+            data-en="Contact Form">
+            Formulaire de Contact
+        </h3>
+
+        <form action="https://formsubmit.co/cizadelivery@cizagroup.com" method="POST">
+
+            <!-- EMAIL COPIE À INFOS@CIZAGROUP.COM -->
+            <input type="hidden" name="_cc" value="infos@cizagroup.com">
+
+            <!-- AUTO-RÉPONSE -->
+            <input type="hidden" name="_autoresponse"
+            value="Merci d'avoir contacté CizaDelivery+. Nous avons bien reçu votre message et nous vous répondrons rapidement.">
+
+            <!-- LANGUE FR/EN POUR FORMULAIRE -->
+            <label data-fr="Nom complet" data-en="Full Name">Nom complet</label>
+            <input type="text" name="nom" required>
+
+            <label data-fr="Téléphone" data-en="Phone">Téléphone</label>
+            <input type="text" name="telephone" required>
+
+            <label data-fr="E-mail" data-en="Email">E-mail</label>
+            <input type="email" name="email" required>
+
+            <label data-fr="Message" data-en="Message">Message</label>
+            <textarea name="message" rows="5"></textarea>
+
+            <button type="submit"
+                data-fr="Envoyer"
+                data-en="Send">
+                Envoyer
+            </button>
+        </form>
+    </div>
+</div>
+
+
+<!-- FOOTER -->
+<footer style="text-align:center;padding:20px;margin-top:40px;opacity:.7;">
+    <p data-fr="CIZA GROUP — Tous droits réservés"
+       data-en="CIZA GROUP — All rights reserved">
+       CIZA GROUP — Tous droits réservés
+    </p>
+</footer>
+
+
+<!-- SCRIPTS -->
+<script>
+/* TOGGLE DETAILS */
+function toggleDetails(id){
+    let el = document.getElementById(id);
+    el.style.display = (el.style.display === "block") ? "none" : "block";
 }
 
+/* LANG SWITCH */
+function switchLang(){
+    let current = document.documentElement.lang;
+    let newLang = (current === "fr") ? "en" : "fr";
+    document.documentElement.lang = newLang;
+
+    document.querySelectorAll("[data-fr]").forEach(el=>{
+        el.innerHTML = (newLang === "fr") ? el.getAttribute("data-fr") : el.getAttribute("data-en");
+    });
+
+    // update placeholder + button text
+    document.querySelectorAll("input, textarea, button").forEach(el=>{
+        if(el.getAttribute("data-fr")){
+            el.innerHTML = (newLang === "fr") ? el.getAttribute("data-fr") : el.getAttribute("data-en");
+        }
+    });
+}
 </script>
 
 </body>
