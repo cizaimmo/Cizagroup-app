@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>CizaRide+ — VIP & Royal</title>
+<link rel="icon" href="logotransparent.png">
+
+<style>
+body{
+    margin:0;
+    background:#06142E;
+    color:white;
+    font-family:Arial, sans-serif;
+    overflow-x:hidden;
+}
+
+/* HERO */
+.hero{
+    text-align:center;
+    margin-top:35px;
+    padding:20px;
+}
+.hero h1{
+    font-size:24px;
+    color:#F2B840;
+    text-shadow:0 0 12px #F2B84055;
+}
+.hero p{
+    opacity:.85;
+    margin-top:8px;
+    font-size:14px;
+}
+
+/* CARD VIP / ROYAL */
+.card{
+    width:88%;
+    margin:20px auto;
+    padding:22px;
+    border-radius:18px;
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(242,184,64,0.4);
+    backdrop-filter:blur(14px);
+    box-shadow:0 0 18px rgba(242,184,64,0.25);
+    transition:.3s;
+    cursor:pointer;
+}
+
+.card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 0 30px rgba(242,184,64,0.45);
+}
+
+.card-icon{
+    text-align:center;
+    margin-bottom:10px;
+}
+.card-icon img{
+    width:70px;
+    filter:drop-shadow(0 0 8px #F2B84055);
+}
+
+.card-title{
+    text-align:center;
+    font-size:20px;
+    font-weight:bold;
+    color:#F2B840;
+}
+
+.card-sub{
+    text-align:center;
+    opacity:.8;
+    margin-top:5px;
+    font-size:14px;
+}
+
+/* ACTION BUTTON */
+.btn{
+    margin-top:15px;
+    width:100%;
+    padding:12px;
+    background:#F2B840;
+    color:#06142E;
+    border:none;
+    border-radius:12px;
+    font-weight:bold;
+    cursor:pointer;
+}
+.btn:hover{
+    background:#dca63b;
+}
+</style>
+</head>
+
+<body>
+
+<div class="hero">
+    <h1 data-fr="CizaRide+ Services Premium" data-en="CizaRide+ Premium Services">
+        CizaRide+ Services Premium
+    </h1>
+
+    <p data-fr="Choisissez votre niveau d'excellence"
+       data-en="Choose your level of excellence">
+       Choisissez votre niveau d'excellence
+    </p>
+</div>
+
+<!-- VIP CARD -->
+<div class="card">
+    <div class="card-icon">
+        <img src="https://img.icons8.com/fluency/96/limousine.png">
+    </div>
+
+    <div class="card-title"
+         data-fr="CizaRide+ VIP — Executive Gold Service"
+         data-en="CizaRide+ VIP — Executive Gold Service">
+         CizaRide+ VIP — Executive Gold Service
+    </div>
+
+    <div class="card-sub"
+         data-fr="Confort supérieur, chauffeur premium, expérience business."
+         data-en="Superior comfort, premium driver, business-class experience.">
+         Confort supérieur, chauffeur premium, expérience business.
+    </div>
+
+    <button class="btn"
+            onclick="location.href='cizaride-vip.html'"
+            data-fr="Voir les détails"
+            data-en="See details">
+            Voir les détails
+    </button>
+</div>
+
+<!-- VIP ROYAL CARD -->
+<div class="card" style="border-color:#F2B840; box-shadow:0 0 22px #F2B84055;">
+    <div class="card-icon">
+        <img src="https://img.icons8.com/fluency/96/crown.png">
+    </div>
+
+    <div class="card-title"
+         data-fr="CizaRide+ VIP ROYAL — Royal Gold Experience 2050"
+         data-en="CizaRide+ VIP ROYAL — Royal Gold Experience 2050">
+         CizaRide+ VIP ROYAL — Royal Gold Experience 2050
+    </div>
+
+    <div class="card-sub"
+         data-fr="Service présidentiel, excellence totale, expérience royale."
+         data-en="Presidential-level service, total excellence, royal experience.">
+         Service présidentiel, excellence totale, expérience royale.
+    </div>
+
+    <button class="btn"
+            onclick="location.href='cizaride-royal.html'"
+            data-fr="Voir les détails"
+            data-en="See details">
+            Voir les détails
+    </button>
+</div>
+
+<!-- LANGUAGE BUTTON -->
+<button onclick="switchLang()" style="
+position:fixed;bottom:20px;right:20px;
+background:#F2B840;color:#06142E;border:none;
+padding:12px 16px;border-radius:50px;font-weight:bold;">
+FR
+</button>
+
+<script>
+function switchLang(){
+    const html = document.documentElement;
+    html.lang = (html.lang === "fr") ? "en" : "fr";
+    document.querySelector("button[onclick='switchLang()']").innerHTML =
+        (html.lang === "fr") ? "FR" : "EN";
+
+    document.querySelectorAll("[data-fr]").forEach(el=>{
+        el.innerHTML = (html.lang === "fr")
+            ? el.getAttribute("data-fr")
+            : el.getAttribute("data-en");
+    });
+}
+</script>
+
+</body>
+</html>
