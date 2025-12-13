@@ -4,123 +4,106 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>CizaRide+ Standard — 2050 Experience</title>
+<title>CizaRide+ — Choix du Service</title>
 <link rel="icon" href="logotransparent.png">
 
 <style>
 body{
     margin:0;
     background:#06142E;
-    font-family:Arial, sans-serif;
     color:white;
+    font-family:Arial, sans-serif;
+}
+
+/* SPLASH */
+#splash{
+    position:fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background:#06142E;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    z-index:9999;
+    animation:fadeOut 1.6s ease 2.6s forwards;
+}
+
+#splash img{
+    width:150px;
+    opacity:0;
+    filter:drop-shadow(0 0 14px #F2B840AA);
+    animation:logoFade 2.2s ease forwards;
+}
+@keyframes logoFade{
+    0%{opacity:0; transform:scale(0.7);}
+    60%{opacity:1; transform:scale(1.05);}
+    100%{opacity:1; transform:scale(1);}
+}
+@keyframes fadeOut{
+    to{opacity:0; visibility:hidden;}
+}
+
+/* MAIN */
+#main{
+    display:none;
+    padding:20px;
 }
 
 /* HEADER */
-.header{
+h1{
     text-align:center;
-    padding:20px;
-    background:#06142E;
-    border-bottom:2px solid #004AAD;
-}
-.header h1{
-    margin:0;
-    font-size:22px;
-    color:#4FA3FF;
-    text-shadow:0 0 10px #004AAD44;
+    color:#F2B840;
+    text-shadow:0 0 10px #F2B84055;
 }
 
-/* HERO */
-.hero{
+/* SUBTITLE */
+.subtitle{
     text-align:center;
-    padding:30px 20px;
-}
-.hero img{
-    width:100px;
-    filter:drop-shadow(0 0 12px #004AAD);
-    animation:float 3s ease-in-out infinite;
-}
-@keyframes float{
-    0%{transform:translateY(0);}
-    50%{transform:translateY(-10px);}
-    100%{transform:translateY(0);}
+    opacity:.8;
+    margin-top:-10px;
 }
 
-.hero h2{
-    color:#4FA3FF;
-    margin-top:15px;
-}
-.hero p{
-    opacity:.7;
-}
-
-/* SECTION */
-.section{
-    width:90%;
-    margin:20px auto;
-    padding:18px;
-    border-radius:16px;
-    background:rgba(255,255,255,0.05);
-    border:1px solid rgba(0,102,255,0.3);
-    backdrop-filter:blur(12px);
-    box-shadow:0 0 20px #004AAD33;
-}
-.section h3{
-    margin:0 0 12px;
-    color:#4FA3FF;
+/* SERVICE CARDS */
+.cards{
+    margin-top:30px;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
 }
 
-/* VEHICLE GRID */
-.vehicle-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:14px;
-}
-.vehicle-card{
+.card{
     background:rgba(255,255,255,0.06);
-    border-radius:14px;
-    padding:15px;
-    text-align:center;
-    border:1px solid rgba(0,102,255,0.25);
+    border:1px solid rgba(242,184,64,0.3);
+    border-radius:18px;
+    padding:20px;
+    display:flex;
+    align-items:center;
+    gap:15px;
+    cursor:pointer;
+    backdrop-filter:blur(14px);
     transition:.3s;
-    cursor:pointer;
+    box-shadow:0 0 18px rgba(0,0,0,0.3);
 }
-.vehicle-card:hover{
+.card:hover{
     transform:translateY(-4px);
-    box-shadow:0 0 18px #004AAD55;
-}
-.vehicle-card img{
-    width:50px;
-    margin-bottom:6px;
+    box-shadow:0 0 25px rgba(242,184,64,0.35);
+    border-color:#F2B840;
 }
 
-/* INPUTS */
-input, textarea, select{
-    width:100%;
-    padding:14px;
-    margin-top:12px;
-    border-radius:12px;
-    border:none;
-    background:#0C1A33;
-    color:white;
-    border:1px solid #004AAD55;
+.card img{
+    width:55px;
 }
-textarea{height:100px;}
 
-/* BUTTON */
-.send-btn{
-    width:100%;
-    padding:15px;
-    margin-top:18px;
-    background:#4FA3FF;
-    color:#06142E;
+.card-title{
+    font-size:18px;
     font-weight:bold;
-    border:none;
-    border-radius:14px;
-    cursor:pointer;
-    box-shadow:0 0 15px #004AAD66;
+    color:#F2B840;
 }
-.send-btn:hover{
-    background:#6AB9FF;
+
+.card-desc{
+    opacity:.75;
+    font-size:14px;
 }
 
 /* LANG BUTTON */
@@ -128,9 +111,9 @@ textarea{height:100px;}
     position:fixed;
     bottom:20px;
     right:20px;
-    padding:12px 14px;
-    background:#4FA3FF;
+    background:#F2B840;
     color:#06142E;
+    padding:12px 16px;
     border:none;
     border-radius:50px;
     font-weight:bold;
@@ -142,114 +125,78 @@ textarea{height:100px;}
 
 <body>
 
-<!-- HEADER -->
-<div class="header">
-    <h1 data-fr="CizaRide+ Standard" data-en="CizaRide+ Standard">CizaRide+ Standard</h1>
+<!-- SPLASH -->
+<div id="splash">
+    <img src="logotransparent.png">
 </div>
 
-<!-- HERO -->
-<div class="hero">
-    <img src="https://img.icons8.com/fluency/96/car.png">
-    <h2 data-fr="Transport rapide et fiable" data-en="Fast and reliable transport">
-        Transport rapide et fiable
-    </h2>
-    <p data-fr="Le service idéal pour vos déplacements quotidiens."
-       data-en="The ideal service for your daily transportation.">
-       Le service idéal pour vos déplacements quotidiens.
+<!-- MAIN CONTENT -->
+<div id="main">
+
+    <h1 data-fr="CizaRide+" data-en="CizaRide+">CizaRide+</h1>
+    <p class="subtitle" data-fr="Choisissez votre niveau de service" data-en="Choose your service level">
+        Choisissez votre niveau de service
     </p>
-</div>
 
-<!-- VEHICLE CHOICE -->
-<div class="section">
-    <h3 data-fr="Choisissez votre véhicule" data-en="Choose your vehicle">
-        Choisissez votre véhicule
-    </h3>
+    <div class="cards">
 
-    <div class="vehicle-grid">
-        <div class="vehicle-card"><img src="https://img.icons8.com/fluency/96/car.png"><p>Standard</p></div>
-        <div class="vehicle-card"><img src="https://img.icons8.com/fluency/96/motorcycle.png"><p>Moto</p></div>
-        <div class="vehicle-card"><img src="https://img.icons8.com/fluency/96/sedan.png"><p>Confort</p></div>
-        <div class="vehicle-card"><img src="https://img.icons8.com/fluency/96/van.png"><p>Van</p></div>
+        <!-- STANDARD -->
+        <div class="card" onclick="location.href='cizaride-standard.html'">
+            <img src="https://img.icons8.com/fluency/96/car.png">
+            <div>
+                <div class="card-title" data-fr="Standard" data-en="Standard">Standard</div>
+                <div class="card-desc" data-fr="Transport rapide et fiable" data-en="Fast and reliable transport">
+                    Transport rapide et fiable
+                </div>
+            </div>
+        </div>
+
+        <!-- VIP -->
+        <div class="card" onclick="location.href='cizaride-vip.html'">
+            <img src="https://img.icons8.com/fluency/96/crown.png">
+            <div>
+                <div class="card-title" data-fr="VIP" data-en="VIP">VIP</div>
+                <div class="card-desc" data-fr="Confort premium & services exclusifs" data-en="Premium comfort & exclusive services">
+                    Confort premium & services exclusifs
+                </div>
+            </div>
+        </div>
+
+        <!-- VIP ROYAL -->
+        <div class="card" onclick="location.href='cizaride-vip-royal.html'">
+            <img src="https://img.icons8.com/fluency/96/diamond.png">
+            <div>
+                <div class="card-title" data-fr="VIP Royal" data-en="VIP Royal">VIP Royal</div>
+                <div class="card-desc" data-fr="Niveau ultime : PDG, diplomates, personnalités" data-en="Ultimate level: CEOs, diplomats, public figures">
+                    Niveau ultime : PDG, diplomates, personnalités
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 
-<!-- TRIP DETAILS -->
-<div class="section">
-    <h3 data-fr="Détails du trajet" data-en="Trip details">
-        Détails du trajet
-    </h3>
-
-    <input type="text" id="depart" placeholder="Point de départ" data-fr="Point de départ" data-en="Pickup location" required>
-    <input type="text" id="destination" placeholder="Destination" data-fr="Destination" data-en="Destination" required>
-    <input type="datetime-local" id="heure" required>
-
-    <select id="passagers">
-        <option value="" disabled selected data-fr="Nombre de passagers" data-en="Number of passengers">
-            Nombre de passagers
-        </option>
-        <option>1</option><option>2</option><option>3</option><option>4+</option>
-    </select>
-
-    <!-- Estimation visuelle -->
-    <div style="margin-top:15px;padding:12px;border-radius:12px;background:rgba(255,255,255,0.07);border:1px solid #004AAD44;text-align:center;">
-        <p data-fr="Temps estimé : 10–20 minutes" data-en="Estimated time: 10–20 minutes">
-            Temps estimé : 10–20 minutes
-        </p>
-        <p data-fr="Distance approximative : 3–7 km" data-en="Approx. distance: 3–7 km">
-            Distance approximative : 3–7 km
-        </p>
-    </div>
-</div>
-
-<!-- FORMULAIRE -->
-<div class="section">
-    <h3 data-fr="Finaliser la réservation" data-en="Finalize booking">Finaliser la réservation</h3>
-
-    <form action="https://formsubmit.co/infos@cizagroup.com" method="POST">
-
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_cc" value="cizaride@cizagroup.com">
-        <input type="hidden" name="_next" value="success.html">
-
-        <input type="text" name="nom" placeholder="Nom complet" data-fr="Nom complet" data-en="Full name" required>
-        <input type="text" name="telephone" placeholder="Téléphone" data-fr="Téléphone" data-en="Phone" required>
-
-        <textarea name="notes" placeholder="Notes (optionnel)" data-fr="Notes (optionnel)" data-en="Notes (optional)"></textarea>
-
-        <label style="font-size:12px;opacity:.7;">
-            <input type="checkbox" required>
-            <span data-fr="J'accepte la politique de confidentialité." data-en="I accept the privacy policy.">
-                J'accepte la politique de confidentialité.
-            </span>
-        </label>
-
-        <button class="send-btn" data-fr="Envoyer" data-en="Send">Envoyer</button>
-    </form>
-</div>
-
-<!-- LANGUAGE BUTTON -->
+<!-- LANG BUTTON -->
 <button class="lang-btn" onclick="switchLang()">FR</button>
 
 <script>
+// SHOW MAIN AFTER SPLASH
+setTimeout(()=>{
+    document.getElementById("splash").style.display="none";
+    document.getElementById("main").style.display="block";
+}, 3000);
+
+// LANGUAGE SWITCH
 function switchLang(){
-    const html = document.documentElement;
-    html.lang = (html.lang === "fr") ? "en" : "fr";
-    document.querySelector(".lang-btn").textContent =
-        (html.lang === "fr") ? "FR" : "EN";
+    const html=document.documentElement;
+    html.lang = (html.lang==="fr") ? "en" : "fr";
+    document.querySelector(".lang-btn").innerHTML = (html.lang==="fr") ? "FR" : "EN";
 
     document.querySelectorAll("[data-fr]").forEach(el=>{
-        el.innerHTML = (html.lang === "fr")
+        el.innerHTML =
+            (html.lang==="fr")
             ? el.getAttribute("data-fr")
             : el.getAttribute("data-en");
-    });
-
-    document.querySelectorAll("input, textarea").forEach(el=>{
-        if(el.hasAttribute("data-fr")){
-            el.placeholder =
-                (html.lang === "fr")
-                ? el.getAttribute("data-fr")
-                : el.getAttribute("data-en");
-        }
     });
 }
 </script>
