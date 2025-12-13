@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>CarWash Avancé</title>
+
+<style>
+body{
+    margin:0;
+    background:#06142E;
+    color:white;
+    font-family:Arial, sans-serif;
+}
+
+/* CONTAINER */
+.container{
+    width:90%;
+    margin:40px auto;
+    background:rgba(255,255,255,0.06);
+    border-radius:16px;
+    border:1px solid rgba(255,255,255,0.15);
+    padding:20px;
+    backdrop-filter:blur(12px);
+}
+
+/* TITLE */
+h2{
+    text-align:center;
+    color:#A8C7FF;
+    margin-bottom:15px;
+}
+
+/* TEXT */
+p{
+    opacity:.85;
+    line-height:1.6;
+    font-size:16px;
+}
+
+/* BACK BUTTON */
+.back{
+    display:block;
+    text-align:center;
+    margin-top:22px;
+    color:#A8C7FF;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+/* LANG SWITCH */
+.lang-btn{
+    position:fixed;
+    bottom:18px; right:18px;
+    background:#A8C7FF;
+    color:#06142E;
+    padding:12px;
+    border-radius:50px;
+    border:none;
+    cursor:pointer;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2 data-fr="CarWash — Avancé" data-en="CarWash — Advanced">
+        CarWash — Avancé
+    </h2>
+
+    <p data-fr="
+        Le service Avancé inclut un lavage complet intérieur + extérieur avec finitions détaillées.
+        Service idéal pour un résultat plus profond et professionnel.
+        (Mode Développement — Phase Firebase)
+        "
+       data-en="
+        The Advanced service includes full interior + exterior wash with detailed finishing.
+        Ideal for a deeper and more professional result.
+        (Development Mode — Firebase Phase)
+        ">
+        Le service Avancé inclut un lavage complet intérieur + extérieur avec finitions détaillées.
+        Service idéal pour un résultat plus profond et professionnel.
+        (Mode Développement — Phase Firebase)
+    </p>
+
+</div>
+
+<a href="carwash.html" class="back"
+   data-fr="← Retour"
+   data-en="← Back">← Retour</a>
+
+<button class="lang-btn" onclick="switchLang()">FR</button>
+
+<script>
+function switchLang(){
+    let html = document.documentElement;
+    let newLang = (html.lang === "fr") ? "en" : "fr";
+    html.lang = newLang;
+
+    document.querySelector(".lang-btn").innerHTML = newLang.toUpperCase();
+
+    document.querySelectorAll("[data-fr]").forEach(el=>{
+        el.innerHTML = (newLang === "fr")
+            ? el.getAttribute("data-fr")
+            : el.getAttribute("data-en");
+    });
+}
+</script>
+
+</body>
+</html>
