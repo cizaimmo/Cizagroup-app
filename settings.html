@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Réglages — CIZA GROUP</title>
+<link rel="icon" href="logotransparent.png">
+
+<style>
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#06142E;
+    color:white;
+}
+
+/* HEADER */
+header{
+    display:flex;
+    align-items:center;
+    padding:15px;
+    border-bottom:1px solid rgba(255,255,255,0.15);
+    background:#06142E;
+}
+header img{
+    width:40px;
+    margin-right:10px;
+}
+header h1{
+    font-size:18px;
+    margin:0;
+    color:#F2B840;
+}
+
+/* SECTIONS */
+.section{
+    margin-top:25px;
+    width:92%;
+    margin-left:auto;
+    margin-right:auto;
+}
+.section h2{
+    font-size:15px;
+    opacity:.7;
+    margin-bottom:8px;
+}
+.card{
+    background:rgba(255,255,255,0.05);
+    padding:14px;
+    border-radius:12px;
+    margin-bottom:8px;
+    backdrop-filter:blur(10px);
+    border:1px solid rgba(255,255,255,0.1);
+    cursor:pointer;
+    transition:.3s;
+}
+.card:hover{
+    transform:translateX(5px);
+    border-color:#F2B840;
+}
+
+/* LANGUAGE BUTTON */
+.lang-btn{
+    position:fixed;
+    bottom:20px; left:20px;
+    padding:12px 16px;
+    background:#F2B840;
+    border-radius:50px;
+    border:none;
+    font-weight:bold;
+    color:#06142E;
+    cursor:pointer;
+    z-index:999;
+}
+
+/* FLOATING SETTINGS BUTTON (from index) */
+.settings-float{
+    position:fixed;
+    bottom:20px; right:20px;
+    width:60px; height:60px;
+    border-radius:50%;
+    background:#F2B840;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:#06142E;
+    font-size:26px;
+    font-weight:bold;
+    box-shadow:0 0 15px rgba(242,184,64,0.5);
+    cursor:pointer;
+    display:none;
+}
+
+/* RESPONSIVE TEXT */
+[data-fr]{ }
+</style>
+
+</head>
+<body>
+
+<header>
+    <img src="logotransparent.png" alt="">
+    <h1 data-fr="Réglages" data-en="Settings">Réglages</h1>
+</header>
+
+<!-- PROFIL -->
+<div class="section">
+    <h2 data-fr="PROFIL" data-en="PROFILE">PROFIL</h2>
+
+    <div class="card">Nom (bientôt disponible)</div>
+    <div class="card">Email (bientôt disponible)</div>
+    <div class="card">Numéro (bientôt disponible)</div>
+</div>
+
+<!-- PRÉFÉRENCES -->
+<div class="section">
+    <h2 data-fr="PRÉFÉRENCES" data-en="PREFERENCES"></h2>
+
+    <div class="card" onclick="toggleTheme()">
+        🎨 <span data-fr="Mode clair / sombre" data-en="Light / Dark mode"></span>
+    </div>
+
+    <div class="card">
+        📳 <span data-fr="Vibration" data-en="Haptics"></span>
+    </div>
+
+    <div class="card">
+        🔊 <span data-fr="Sons" data-en="Sounds"></span>
+    </div>
+
+    <div class="card">
+        📱 <span data-fr="Installer l’application" data-en="Install App"></span>
+    </div>
+
+    <div class="card">
+        📍 <span data-fr="Localisation (pour Ride)" data-en="Location (for Ride)"></span>
+    </div>
+</div>
+
+<!-- LANGUE -->
+<div class="section">
+    <h2 data-fr="LANGUE" data-en="LANGUAGE"></h2>
+    <div class="card" onclick="switchLang()">🌍 Français / English</div>
+</div>
+
+<!-- SUPPORT -->
+<div class="section">
+    <h2 data-fr="SUPPORT" data-en="SUPPORT"></h2>
+
+    <div class="card" onclick="window.location.href='https://wa.me/15145029503'">
+        💬 WhatsApp Support
+    </div>
+
+    <div class="card">
+        ✉ infos@cizagroup.com
+    </div>
+
+    <div class="card">
+        🇨🇦 +1 514 502 9503
+    </div>
+
+    <div class="card">
+        🇧🇮 +257 79 64 48 93
+    </div>
+</div>
+
+<!-- FAQ -->
+<div class="section">
+    <h2>FAQ</h2>
+
+    <div class="card" onclick="location.href='faq-ride.html'">🚗 CizaRide</div>
+    <div class="card" onclick="location.href='faq-vip.html'">👑 Ride VIP</div>
+    <div class="card" onclick="location.href='faq-royal.html'">💎 Ride Royal</div>
+    <div class="card" onclick="location.href='faq-delivery.html'">📦 Delivery</div>
+    <div class="card" onclick="location.href='faq-carwash.html'">🧼 CarWash</div>
+    <div class="card" onclick="location.href='faq-market.html'">🛒 Market</div>
+    <div class="card" onclick="location.href='faq-assist.html'">🤝 Assist</div>
+    <div class="card" onclick="location.href='faq-jobs.html'">💼 Jobs</div>
+    <div class="card" onclick="location.href='faq-diaspora.html'">🌍 Diaspora</div>
+    <div class="card" onclick="location.href='faq-business.html'">🏢 Business</div>
+</div>
+
+<!-- CONFIDENTIALITÉ -->
+<div class="section">
+    <h2 data-fr="CONFIDENTIALITÉ" data-en="PRIVACY"></h2>
+
+    <div class="card">🔐 Politique de confidentialité</div>
+    <div class="card">📘 Conditions d’utilisation</div>
+    <div class="card">🗑 Suppression du compte (bientôt)</div>
+</div>
+
+<!-- LANG BUTTON -->
+<button class="lang-btn" onclick="switchLang()">FR</button>
+
+<script>
+// LANG SWITCH
+function switchLang(){
+    const html = document.documentElement;
+    let newLang = (html.lang === "fr") ? "en" : "fr";
+    html.lang = newLang;
+
+    document.querySelector(".lang-btn").innerHTML = (newLang === "fr") ? "FR" : "EN";
+
+    document.querySelectorAll("[data-fr]").forEach(el=>{
+        el.innerHTML = (newLang === "fr") 
+            ? el.getAttribute("data-fr") 
+            : el.getAttribute("data-en");
+    });
+}
+
+// THEME
+function toggleTheme(){
+    document.body.classList.toggle("light");
+}
+</script>
+
+</body>
+</html>
