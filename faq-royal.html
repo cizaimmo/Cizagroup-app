@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>FAQ — CizaRide Royal</title>
+<link rel="icon" href="logotransparent.png">
+
+<style>
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#050E21;
+    color:white;
+}
+
+/* HEADER */
+header{
+    display:flex;
+    align-items:center;
+    padding:15px;
+    background:#050E21;
+    border-bottom:1px solid rgba(255,255,255,0.15);
+}
+.back{
+    font-size:22px;
+    margin-right:10px;
+    cursor:pointer;
+}
+header h1{
+    font-size:18px;
+    margin:0;
+    color:#F2B840;
+}
+
+/* TITLE BOX */
+.title-box{
+    width:90%;
+    margin:20px auto 10px;
+    padding:22px;
+    background:rgba(255,255,255,0.06);
+    border-radius:18px;
+    border:1px solid rgba(242,184,64,0.5);
+    backdrop-filter:blur(18px);
+    box-shadow:0 0 25px rgba(242,184,64,0.2);
+}
+.title-box h2{
+    margin:0;
+    color:#F2B840;
+    font-size:20px;
+    text-align:center;
+}
+
+/* FAQ BLOCKS */
+.faq{
+    width:90%;
+    margin:20px auto;
+}
+.q{
+    background:rgba(255,255,255,0.07);
+    padding:16px;
+    border-radius:14px;
+    margin-bottom:14px;
+    border:1px solid rgba(255,255,255,0.12);
+    cursor:pointer;
+    transition:.3s;
+}
+.q:hover{
+    border-color:#F2B840;
+    transform:translateX(6px);
+    box-shadow:0 0 15px rgba(242,184,64,0.25);
+}
+.q h3{
+    margin:0;
+    font-size:16px;
+    color:#F2B840;
+}
+.answer{
+    margin-top:10px;
+    font-size:14px;
+    opacity:.85;
+    display:none;
+    line-height:1.5;
+}
+
+/* LANG BUTTON */
+.lang-btn{
+    position:fixed;
+    bottom:20px; left:20px;
+    padding:12px 18px;
+    background:#F2B840;
+    color:#050E21;
+    border:none;
+    border-radius:50px;
+    font-weight:bold;
+    cursor:pointer;
+    z-index:999;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <span class="back" onclick="history.back()">←</span>
+    <h1 data-fr="FAQ Royal" data-en="Royal FAQ">FAQ Royal</h1>
+</header>
+
+<div class="title-box">
+    <h2 data-fr="CizaRide — Service Royal" data-en="CizaRide — Royal Service">
+        CizaRide — Service Royal
+    </h2>
+</div>
+
+<div class="faq">
+
+    <!-- 1 -->
+    <div class="q" onclick="toggleAnswer(1)">
+        <h3 data-fr="Qu’est-ce que le service Royal ?" data-en="What is the Royal service?">
+            Qu’est-ce que le service Royal ?
+        </h3>
+        <p id="a1" class="answer"
+           data-fr="Le niveau Royal est l’expérience la plus luxueuse de CizaRide+. Véhicules haute gamme avec chauffeur de prestige, protocole personnalisé, confidentialité totale et service sur-mesure 24/7."
+           data-en="The Royal level is CizaRide+'s highest luxury experience. High-end vehicles, elite chauffeurs, personalized protocol, full confidentiality, and 24/7 tailored service.">
+        </p>
+    </div>
+
+    <!-- 2 -->
+    <div class="q" onclick="toggleAnswer(2)">
+        <h3 data-fr="Quel type de véhicule Royal est utilisé ?" 
+            data-en="Which Royal vehicle is used?">
+            Quel type de véhicule Royal est utilisé ?
+        </h3>
+        <p id="a2" class="answer"
+           data-fr="Des véhicules très haut de gamme (selon disponibilité) : SUV premium, berline exécutive, véhicules protocolaire ou transport diplomatique."
+           data-en="Ultra-premium vehicles depending on availability: luxury SUVs, executive sedans, protocol vehicles, or diplomatic-grade transport.">
+        </p>
+    </div>
+
+    <!-- 3 -->
+    <div class="q" onclick="toggleAnswer(3)">
+        <h3 data-fr="Quels privilèges supplémentaires offre le Royal ?" 
+            data-en="What additional privileges does Royal offer?">
+            Quels privilèges supplémentaires offre le Royal ?
+        </h3>
+        <p id="a3" class="answer"
+           data-fr="Accueil VIP+, rafraîchissements, assistance bagages, discrétion renforcée, chauffeur dédié, priorisation des demandes et option ‘trajet silencieux’."
+           data-en="VIP+ reception, refreshments, baggage assistance, enhanced discretion, dedicated driver, priority handling, and optional ‘silent ride’.">
+        </p>
+    </div>
+
+    <!-- 4 -->
+    <div class="q" onclick="toggleAnswer(4)">
+        <h3 data-fr="Le service Royal peut-il accompagner des événements ?" 
+            data-en="Can Royal be used for events?">
+            Le service Royal peut-il accompagner des événements ?
+        </h3>
+        <p id="a4" class="answer"
+           data-fr="Oui. Mariages, événements officiels, escortes protocolaires, déplacements diplomatiques, entreprises VIP et accueil d'invités de marque."
+           data-en="Yes. Weddings, official events, protocol escorts, diplomatic movements, VIP company guests, and high-profile arrivals.">
+        </p>
+    </div>
+
+    <!-- 5 -->
+    <div class="q" onclick="toggleAnswer(5)">
+        <h3 data-fr="Comment fonctionne la réservation Royal ?" 
+            data-en="How does Royal booking work?">
+            Comment fonctionne la réservation Royal ?
+        </h3>
+        <p id="a5" class="answer"
+           data-fr="La demande est traitée avec priorité absolue. Une confirmation vous est envoyée immédiatement et un agent CizaRide Royal vous contacte pour finaliser les détails."
+           data-en="Your request is treated with absolute priority. A confirmation is sent instantly and a Royal agent contacts you to finalize details.">
+        </p>
+    </div>
+
+</div>
+
+<!-- LANG BUTTON -->
+<button class="lang-btn" onclick="switchLang()">FR</button>
+
+<script>
+// TOGGLE ANSWERS
+function toggleAnswer(n){
+    let a=document.getElementById("a"+n);
+    a.style.display = (a.style.display==="block") ? "none" : "block";
+}
+
+// LANG SWITCH
+function switchLang(){
+    const lang=document.documentElement.lang;
+    const newLang=(lang==="fr")?"en":"fr";
+    document.documentElement.lang=newLang;
+
+    document.querySelector(".lang-btn").innerHTML=(newLang==="fr")?"FR":"EN";
+
+    document.querySelectorAll("[data-fr]").forEach(el=>{
+        el.innerHTML=(newLang==="fr")?el.getAttribute("data-fr"):el.getAttribute("data-en");
+    });
+}
+</script>
+
+</body>
+</html>
