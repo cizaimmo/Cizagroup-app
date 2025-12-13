@@ -4,153 +4,163 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>CIZA GROUP — App Officielle</title>
+<title>CIZA GROUP — Super App</title>
 <link rel="icon" href="logotransparent.png">
 
 <style>
-/* ---------------------------------------------------
-   THEME VARIABLES
---------------------------------------------------- */
+/* ------------------------------------------------------------------
+   BASE THEME & MODE SOMBRE/CLAIR
+------------------------------------------------------------------ */
 :root{
     --bg:#06142E;
     --text:white;
-    --card:rgba(255,255,255,0.06);
-    --border:rgba(255,255,255,0.15);
+    --glass:rgba(255,255,255,0.06);
+    --border:rgba(255,255,255,0.18);
 }
+
 .light{
-    --bg:#f7f7f7;
+    --bg:#f4f4f4;
     --text:#1a1a1a;
-    --card:rgba(0,0,0,0.05);
+    --glass:rgba(0,0,0,0.06);
     --border:rgba(0,0,0,0.12);
 }
+
 body{
     margin:0;
     background:var(--bg);
     color:var(--text);
     font-family:Arial, sans-serif;
     overflow-x:hidden;
-    transition:.3s;
+    transition:.35s ease;
 }
 
-/* ---------------------------------------------------
-   SPLASH FULL SCREEN
---------------------------------------------------- */
+/* ------------------------------------------------------------------
+   SPLASH SCREEN PREMIUM XXL
+------------------------------------------------------------------ */
 #splash{
     position:fixed;
     top:0; left:0;
     width:100%; height:100%;
-    background:#06142E;
+    background:var(--bg);
     display:flex;
     justify-content:center;
     align-items:center;
+    flex-direction:column;
     z-index:99999;
-    animation:fadeOut 1.8s ease 2s forwards;
-}
-#splash img{
-    width:190px;
-    animation:zoomIn 1.2s ease forwards;
+    animation:hideSplash 1.8s ease 2.2s forwards;
 }
 
-@keyframes zoomIn{
-    0%{opacity:0; transform:scale(.6);}
-    70%{opacity:1; transform:scale(1.1);}
+#splash img{
+    width:200px;
+    filter:drop-shadow(0 0 15px #F2B840aa);
+    opacity:0;
+    animation:splashIn 1.8s ease forwards;
+}
+
+@keyframes splashIn{
+    0%{opacity:0; transform:scale(0.7);}
+    60%{opacity:1; transform:scale(1.12);}
     100%{opacity:1; transform:scale(1);}
 }
-@keyframes fadeOut{
+
+@keyframes hideSplash{
     to{opacity:0; visibility:hidden;}
 }
 
-/* ---------------------------------------------------
-   HEADER
---------------------------------------------------- */
+/* ------------------------------------------------------------------
+   HEADER + BOUTON REGLAGE
+------------------------------------------------------------------ */
 header{
     display:flex;
     justify-content:space-between;
     align-items:center;
     padding:15px 20px;
-    background:var(--card);
+    background:var(--glass);
     border-bottom:1px solid var(--border);
     backdrop-filter:blur(15px);
     position:sticky;
     top:0;
-    z-index:999;
+    z-index:9999;
 }
+
 header img{
     width:45px;
+    filter:drop-shadow(0 0 6px #F2B840);
 }
+
 header h1{
     margin:0;
     font-size:17px;
     font-weight:bold;
 }
+
 .settings-btn{
     background:none;
     border:none;
     font-size:26px;
-    cursor:pointer;
     color:#F2B840;
+    cursor:pointer;
 }
 
-/* ---------------------------------------------------
-   SETTINGS PANEL
---------------------------------------------------- */
-#panel{
+/* ------------------------------------------------------------------
+   PANEL DE RÉGLAGE (ENTIEREMENT FONCTIONNEL)
+------------------------------------------------------------------ */
+#settings{
     position:fixed;
-    top:-100%;
+    top:-450px;
     left:0;
     width:100%;
-    background:var(--card);
-    backdrop-filter:blur(25px);
+    background:var(--glass);
     border-bottom:1px solid var(--border);
+    backdrop-filter:blur(25px);
     padding:25px;
-    transition:.4s;
-    z-index:9999;
+    transition:.45s ease;
+    z-index:99999;
 }
-.panel-item{
+
+.settings-item{
     padding:14px 0;
     border-bottom:1px solid var(--border);
-    font-size:17px;
+    font-size:16px;
     cursor:pointer;
 }
-.close-btn{
-    text-align:right;
-    font-size:22px;
-    margin-bottom:10px;
+
+.close-settings{
+    font-size:28px;
+    float:right;
     cursor:pointer;
     color:#F2B840;
 }
 
-/* ---------------------------------------------------
-   HERO
---------------------------------------------------- */
+/* ------------------------------------------------------------------
+   HERO SECTION
+------------------------------------------------------------------ */
 .hero{
+    margin:30px auto;
     width:90%;
-    margin:25px auto;
     padding:25px;
     text-align:center;
-    background:var(--card);
+    background:var(--glass);
     border:1px solid var(--border);
     border-radius:18px;
     backdrop-filter:blur(15px);
-}
-.hero h2{
-    margin:0;
-    font-size:23px;
-    color:#F2B840;
+    animation:fadeInHero .8s ease;
 }
 
-/* ---------------------------------------------------
-   TITLES
---------------------------------------------------- */
+@keyframes fadeInHero{
+    from{opacity:0; transform:translateY(25px);}
+}
+
+/* ------------------------------------------------------------------
+   TITRES & GRIDS
+------------------------------------------------------------------ */
 .section-title{
-    margin:30px 0 10px 20px;
-    font-size:19px;
+    font-size:20px;
+    margin-left:20px;
+    margin-top:35px;
     color:#F2B840;
 }
 
-/* ---------------------------------------------------
-   CARDS
---------------------------------------------------- */
 .grid{
     display:grid;
     grid-template-columns:1fr 1fr;
@@ -160,30 +170,33 @@ header h1{
 }
 
 .card{
-    background:var(--card);
+    background:var(--glass);
     border:1px solid var(--border);
-    padding:18px;
-    border-radius:16px;
-    cursor:pointer;
+    padding:22px;
+    border-radius:18px;
     text-align:center;
-    transition:.25s;
-}
-.card:hover{
-    transform:scale(1.03);
-    box-shadow:0 0 15px rgba(242,184,64,0.25);
-}
-.card span{
-    display:block;
-    font-size:28px;
+    cursor:pointer;
+    transition:.25s ease;
 }
 
-/* ---------------------------------------------------
+.card:hover{
+    transform:scale(1.05);
+    box-shadow:0 0 15px rgba(242,184,64,0.25);
+}
+
+.card span{
+    display:block;
+    font-size:30px;
+    margin-bottom:8px;
+}
+
+/* ------------------------------------------------------------------
    FOOTER
---------------------------------------------------- */
+------------------------------------------------------------------ */
 footer{
     text-align:center;
     padding:25px;
-    opacity:.7;
+    opacity:.6;
     font-size:14px;
     margin-top:40px;
 }
@@ -192,7 +205,7 @@ footer{
 
 <body>
 
-<!-- SPLASH -->
+<!-- SPLASH XXL -->
 <div id="splash">
     <img src="logotransparent.png">
 </div>
@@ -201,63 +214,83 @@ footer{
 <header>
     <img src="logotransparent.png">
     <h1>CIZA GROUP — App Officielle</h1>
-    <button class="settings-btn" onclick="openPanel()">⚙️</button>
+    <button class="settings-btn" onclick="toggleSettings()">⚙️</button>
 </header>
 
 <!-- SETTINGS PANEL -->
-<div id="panel">
-    <div class="close-btn" onclick="closePanel()">✖</div>
+<div id="settings">
+    <span class="close-settings" onclick="toggleSettings()">×</span>
 
-    <div class="panel-item" onclick="toggleLang()">🌐 Changer de langue</div>
-    <div class="panel-item" onclick="toggleTheme()">🌙 Mode clair / sombre</div>
-    <div class="panel-item" onclick="location.href='faq.html'">❓ Aide & FAQ</div>
-    <div class="panel-item" onclick="location.href='assistant.html'">🤖 Assistant IA</div>
-    <div class="panel-item" onclick="location.href='mailto:infos@cizagroup.com'">✉️ Contact support</div>
-    <div class="panel-item" onclick="location.href='https://wa.me/15145029503'">💬 WhatsApp Support</div>
+    <div class="settings-item" onclick="toggleTheme()">Mode clair / sombre</div>
+    <div class="settings-item" onclick="location.href='help.html'">Aide & FAQ</div>
+    <div class="settings-item" onclick="location.href='ia.html'">Assistant IA</div>
+    <div class="settings-item" onclick="location.href='mailto:infos@cizagroup.com'">Support Email</div>
+    <div class="settings-item" onclick="location.href='https://wa.me/15145029503'">Support WhatsApp</div>
 </div>
 
 <!-- HERO -->
 <div class="hero">
-    <h2>CIZA GROUP</h2>
+    <h2 style="color:#F2B840;">CIZA GROUP</h2>
     <p>Écosystème de services dans vos mains</p>
 </div>
 
 <!-- DIASPORA -->
 <h2 class="section-title">🌍 CIZA DIASPORA+</h2>
-<div class="grid">
-    <div class="card" onclick="location.href='diaspora.html'">
-        <span>🌍</span> Services Mondiaux pour la Diaspora
-    </div>
+<div class="card" onclick="location.href='diaspora.html'">
+    <span>🌍</span> Services Mondiaux pour la Diaspora
 </div>
 
-<!-- LOCAUX -->
+<!-- SERVICES LOCAUX -->
 <h2 class="section-title">🇧🇮 Services Locaux</h2>
 <div class="grid">
-    <div class="card" onclick="location.href='ride.html'"><span>🚗</span>CizaRide+</div>
-    <div class="card" onclick="location.href='delivery.html'"><span>📦</span>CizaDelivery</div>
-    <div class="card" onclick="location.href='carwash.html'"><span>🧼</span>CarWash+</div>
-    <div class="card" onclick="location.href='assist.html'"><span>🤝</span>CizaAssist</div>
-    <div class="card" onclick="location.href='market.html'"><span>🛒</span>CizaMarket</div>
-    <div class="card" onclick="location.href='jobs.html'"><span>💼</span>CizaJobs</div>
-</div>
 
-<!-- ENTREPRISE -->
-<h2 class="section-title">🏢 Solutions Entreprises</h2>
-<div class="grid">
-    <div class="card" onclick="location.href='business.html'">
-        <span>🏢</span>Services Professionnels & Partenariats
+    <div class="card" onclick="location.href='ride.html'">
+        <span>🚗</span> CizaRide+
+    </div>
+
+    <div class="card" onclick="location.href='delivery.html'">
+        <span>📦</span> CizaDelivery
+    </div>
+
+    <div class="card" onclick="location.href='carwash.html'">
+        <span>🧼</span> CarWash+
+    </div>
+
+    <div class="card" onclick="location.href='assist.html'">
+        <span>🤝</span> CizaAssist
+    </div>
+
+    <div class="card" onclick="location.href='market.html'">
+        <span>🛒</span> CizaMarket
+    </div>
+
+    <div class="card" onclick="location.href='jobs.html'">
+        <span>💼</span> CizaJobs
     </div>
 </div>
 
+<!-- ENTREPRISES -->
+<h2 class="section-title">🏢 Solutions Entreprises</h2>
+<div class="card" onclick="location.href='business.html'">
+    <span>🏢</span> Services Professionnels & Partenariats
+</div>
+
+<!-- FOOTER -->
 <footer>
-© 2028 CIZA GROUP — Écosystème de services dans vos mains
+    © 2028 CIZA GROUP — Écosystème de services dans vos mains
 </footer>
 
 <script>
-function openPanel(){ document.getElementById("panel").style.top="0"; }
-function closePanel(){ document.getElementById("panel").style.top="-100%"; }
-function toggleTheme(){ document.body.classList.toggle("light"); }
-function toggleLang(){ alert("Bientôt multilingue complet."); }
+/* SETTINGS PANEL */
+function toggleSettings(){
+    const panel = document.getElementById("settings");
+    panel.style.top = (panel.style.top === "0px") ? "-450px" : "0px";
+}
+
+/* THEME */
+function toggleTheme(){
+    document.body.classList.toggle("light");
+}
 </script>
 
 </body>
