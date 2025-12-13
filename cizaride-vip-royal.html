@@ -4,16 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>CizaRide+ — VIP Royal</title>
+<title>CizaRide+ Royal</title>
+<link rel="icon" href="logotransparent.png">
 
 <style>
 body{
     margin:0;
-    padding:0;
     background:#06142E;
-    font-family:Arial, sans-serif;
     color:white;
-    overflow-x:hidden;
+    font-family:Arial, sans-serif;
 }
 
 /* Bouton retour */
@@ -30,138 +29,94 @@ body{
     backdrop-filter:blur(10px);
 }
 
-/* Bouton langue */
-.lang-btn{
-    position:absolute;
-    top:18px;
-    right:18px;
-    background:#F2B840;
-    color:black;
-    padding:10px 18px;
-    border-radius:25px;
-    font-weight:bold;
-    font-size:16px;
-    cursor:pointer;
+/* Image luxe */
+.header-img{
+    width:100%;
+    border-bottom:1px solid rgba(255,255,255,0.15);
 }
 
-h1{
-    text-align:center;
-    margin-top:80px;
-    color:#F2B840;
-    font-size:32px;
-}
-
-.section{
-    width:90%;
-    margin:20px auto;
-    background:rgba(255,255,255,0.05);
-    border:1px solid rgba(255,255,255,0.15);
-    border-radius:20px;
+/* Container */
+.container{
     padding:20px;
-    backdrop-filter:blur(12px);
 }
 
-.section-title{
+h2{
     color:#F2B840;
-    font-size:22px;
+    text-align:center;
 }
 
-.desc{
-    opacity:.85;
-    line-height:1.5;
+/* Form */
+input, textarea, select{
+    width:100%;
     margin-top:10px;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#112544;
+    color:white;
 }
+textarea{height:110px;}
 
-.royal-icon{
-    font-size:60px;
-    text-align:center;
-    margin-top:20px;
-}
-
-.btn{
-    width:90%;
-    margin:30px auto;
-    text-align:center;
+button{
+    width:100%;
+    padding:14px;
+    margin-top:16px;
+    border:none;
     background:#F2B840;
-    color:black;
-    padding:18px;
-    border-radius:16px;
-    font-size:20px;
+    color:#06142E;
     font-weight:bold;
+    border-radius:10px;
     cursor:pointer;
+}
+button:hover{
+    background:#d9a743;
 }
 </style>
 </head>
 
 <body>
 
-<!-- Boutons -->
+<!-- Bouton retour -->
 <div class="back-btn" onclick="history.back()">⬅️</div>
-<div class="lang-btn" onclick="switchLang()"><span id="langCode">FR</span></div>
 
-<h1 id="title">VIP Royal</h1>
+<!-- Image premium Mercedes S-Class -->
+<img src="https://cdn.pixabay.com/photo/2016/11/23/15/39/mercedes-1853530_1280.jpg" class="header-img">
 
-<div class="royal-icon">👑✨</div>
+<div class="container">
 
-<div class="section">
-    <div class="section-title" id="sectionTitle">Niveau ultime</div>
-    <div class="desc" id="sectionDesc">
-        Le service VIP Royal est conçu pour les PDG, diplomates, ministres, célébrités et clients nécessitant :
-        <br><br>
-        • Discrétion absolue <br>
-        • Chauffeurs certifiés et expérimentés <br>
-        • Véhicules haut de gamme blindés (si requis) <br>
-        • Service 24/7 avec priorisation automatique <br>
-        • Sécurité renforcée et protection rapprochée (option) <br>
-        • Accueil personnalisé aéroport (VIP Fast Track) <br>
-    </div>
+    <h2>✨ CizaRide+ Royal</h2>
+
+    <p style="opacity:.8;text-align:center;">
+        Chauffeur professionnel • Voiture haut de gamme • Service exclusif
+    </p>
+
+    <form action="https://formsubmit.co/infos@cizagroup.com" method="POST">
+
+        <!-- Email copie -->
+        <input type="hidden" name="_cc" value="cizaride@cizagroup.com">
+        <input type="hidden" name="_captcha" value="false">
+
+        <input type="hidden" name="_autoresponse" 
+        value="Merci pour votre demande CizaRide+ Royal. Nous revenons vers vous dans un instant.">
+
+        <input type="hidden" name="service" value="CizaRide Royal">
+
+        <input type="text" name="nom" placeholder="Nom complet" required>
+        <input type="text" name="telephone" placeholder="Téléphone" required>
+        <input type="text" name="depart" placeholder="Point de départ" required>
+        <input type="text" name="destination" placeholder="Destination" required>
+        <input type="datetime-local" name="heure" required>
+
+        <textarea name="notes" placeholder="Notes (optionnel)"></textarea>
+
+        <label style="font-size:13px;opacity:.8;">
+            <input type="checkbox" required> J’accepte la politique de confidentialité.
+        </label>
+
+        <button>Envoyer la demande Royal</button>
+
+    </form>
 </div>
-
-<div class="btn" id="ctaBtn">Réserver VIP Royal</div>
-
-<script>
-// Textes multilingues
-const translations = {
-    fr:{
-        title:"VIP Royal",
-        sectionTitle:"Niveau ultime",
-        sectionDesc:`Le service VIP Royal est conçu pour les PDG, diplomates, ministres, célébrités et clients nécessitant :
-        <br><br>
-        • Discrétion absolue <br>
-        • Chauffeurs certifiés et expérimentés <br>
-        • Véhicules haut de gamme blindés (si requis) <br>
-        • Service 24/7 avec priorisation automatique <br>
-        • Sécurité renforcée et protection rapprochée (option) <br>
-        • Accueil personnalisé aéroport (VIP Fast Track) <br>`,
-        cta:"Réserver VIP Royal"
-    },
-    en:{
-        title:"VIP Royal",
-        sectionTitle:"Ultimate Level",
-        sectionDesc:`The VIP Royal service is designed for CEOs, diplomats, ministers, celebrities and clients requiring:
-        <br><br>
-        • Absolute discretion <br>
-        • Certified and experienced drivers <br>
-        • Luxury armored vehicles (optional) <br>
-        • 24/7 service with priority handling <br>
-        • Enhanced security & protection (optional) <br>
-        • Personalized airport assistance (VIP Fast Track) <br>`,
-        cta:"Book VIP Royal"
-    }
-};
-
-let currentLang = "fr";
-
-function switchLang(){
-    currentLang = currentLang === "fr" ? "en" : "fr";
-
-    document.getElementById("langCode").innerText = currentLang.toUpperCase();
-    document.getElementById("title").innerHTML = translations[currentLang].title;
-    document.getElementById("sectionTitle").innerHTML = translations[currentLang].sectionTitle;
-    document.getElementById("sectionDesc").innerHTML = translations[currentLang].sectionDesc;
-    document.getElementById("ctaBtn").innerHTML = translations[currentLang].cta;
-}
-</script>
 
 </body>
 </html>
