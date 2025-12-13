@@ -4,144 +4,184 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>CizaMarket — CIZA GROUP</title>
-<link rel="icon" href="icon-512.png">
+<title>CizaMarket+ — Super App</title>
+<link rel="icon" href="logotransparent.png">
 
 <style>
 body{
     margin:0;
     background:#06142E;
-    color:white;
     font-family:Arial, sans-serif;
+    color:white;
 }
 
-/* HEADER */
-header{
-    background:#06142E;
-    padding:16px;
+/* HERO */
+.hero{
+    width:90%;
+    margin:35px auto;
+    padding:25px;
     text-align:center;
-    color:#F2B840;
-    font-size:22px;
-    border-bottom:2px solid #F2B840;
+    border-radius:18px;
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.15);
+    backdrop-filter:blur(18px);
+    box-shadow:0 0 22px rgba(242,184,64,0.15);
 }
-
-/* CONTENT */
-.container{
-    padding:20px;
-    max-width:700px;
-    margin:auto;
-}
-
-.section{
-    background:#0B1C34;
-    border:1px solid #12335C;
-    padding:20px;
-    border-radius:14px;
-    margin-bottom:22px;
-}
-
-.section h2{
-    margin-top:0;
+.hero h1{
+    font-size:24px;
+    margin:0;
     color:#F2B840;
 }
-
-.section p{
+.hero p{
     opacity:.85;
-    line-height:1.6;
-}
-
-/* BUTTON */
-button{
-    width:100%;
-    padding:14px;
-    background:#F2B840;
-    border:none;
-    border-radius:10px;
-    font-weight:bold;
-    color:#06142E;
-    margin-top:12px;
-    cursor:pointer;
-}
-button:hover{
-    background:#cfa035;
-}
-
-/* BACK */
-.back{
-    margin-top:20px;
-    text-align:center;
-}
-.back a{
-    color:#F2B840;
     font-size:15px;
-    text-decoration:none;
+    margin-top:8px;
 }
 
+/* SECTION TITLE */
+.section-title{
+    width:90%;
+    margin:25px auto 10px auto;
+    color:#F2B840;
+    font-size:18px;
+}
+
+/* CARDS */
+.card{
+    width:90%;
+    margin:12px auto;
+    padding:18px;
+    border-radius:16px;
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.15);
+    backdrop-filter:blur(12px);
+    cursor:pointer;
+    transition:.3s;
+}
+.card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 0 20px rgba(242,184,64,0.20);
+}
+.card span{
+    font-size:24px;
+    margin-right:10px;
+}
+
+/* LANG BUTTON */
+.lang-btn{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    padding:12px 16px;
+    background:#F2B840;
+    color:#06142E;
+    border:none;
+    font-weight:bold;
+    border-radius:50px;
+    cursor:pointer;
+    z-index:999;
+}
 </style>
 </head>
 
 <body>
 
-<header>
-    CizaMarket
-</header>
-
-<div class="container">
-
-    <!-- SECTION 1 -->
-    <div class="section">
-        <h2>🛒 Achats & Courses</h2>
-        <p>
-            CizaMarket gère vos achats au Burundi ou au Canada :  
-            • courses du quotidien  
-            • achats pour familles  
-            • produits locaux  
-            • commissions et petits achats  
-            • achats pour entreprises
-        </p>
-
-        <button onclick="alert('CizaMarket — Commande bientôt disponible')">
-            Commander un article
-        </button>
-    </div>
-
-    <!-- SECTION 2 -->
-    <div class="section">
-        <h2>🌍 Packs Diaspora</h2>
-        <p>
-            Solutions pour Burundais vivant à l’étranger :  
-            – panier alimentaire  
-            – packs cadeaux / événements  
-            – achats pour proches  
-            – gestion des commandes + livraison
-        </p>
-    </div>
-
-    <!-- SECTION 3 -->
-    <div class="section">
-        <h2>💊 Pharmacie (Bientôt)</h2>
-        <p>
-            Possibilité de commander des médicaments autorisés,  
-            ordonnance vérifiée, livraison sécurisée avec CizaDelivery.
-        </p>
-    </div>
-
-    <!-- SECTION 4 -->
-    <div class="section">
-        <h2>💼 Entreprises</h2>
-        <p>
-            – achats réguliers  
-            – packs bureaux  
-            – fournitures & consommables  
-            – commandes B2B
-        </p>
-    </div>
-
-    <div class="back">
-        <a href="dashboard.html">← Retour au Dashboard</a>
-    </div>
-
+<!-- HERO -->
+<div class="hero">
+    <h1 data-fr="CizaMarket+" data-en="CizaMarket+">CizaMarket+</h1>
+    <p data-fr="Commandez facilement vos packs, essentiels et services." 
+       data-en="Order packs, essentials and services easily.">
+       Commandez facilement vos packs, essentiels et services.
+    </p>
 </div>
+
+<!-- PACKS DIASPORA -->
+<h2 class="section-title" 
+    data-fr="🌍 Packs Diaspora" 
+    data-en="🌍 Diaspora Packs">
+    🌍 Packs Diaspora
+</h2>
+
+<div class="card" onclick="location.href='market-diaspora.html'">
+    <span>🌍</span>
+    <span data-fr="Envoyer un Pack à la famille" data-en="Send a Pack to Family">
+        Envoyer un Pack à la famille
+    </span>
+</div>
+
+<!-- PACKS MAISON -->
+<h2 class="section-title" 
+    data-fr="🏠 Packs Maison" 
+    data-en="🏠 Home Packs">
+    🏠 Packs Maison
+</h2>
+
+<div class="card" onclick="location.href='market-maison.html'">
+    <span>🏠</span>
+    <span data-fr="Packs Eau, Gaz, Hygiène" data-en="Water, Gas & Hygiene Packs">
+        Packs Eau, Gaz, Hygiène
+    </span>
+</div>
+
+<!-- ESSENTIELS -->
+<h2 class="section-title" 
+    data-fr="🛒 Produits Essentiels" 
+    data-en="🛒 Essential Products">
+    🛒 Produits Essentiels
+</h2>
+
+<div class="card" onclick="location.href='market-essentiels.html'">
+    <span>🛒</span>
+    <span data-fr="Produits du quotidien" data-en="Daily essentials">
+        Produits du quotidien
+    </span>
+</div>
+
+<!-- PARAPHARMACIE -->
+<h2 class="section-title" 
+    data-fr="💊 Parapharmacie" 
+    data-en="💊 Parapharmacy">
+    💊 Parapharmacie
+</h2>
+
+<div class="card" onclick="location.href='market-parapharmacie.html'">
+    <span>💊</span>
+    <span data-fr="Produits bien-être et bébé" data-en="Wellness & baby products">
+        Produits bien-être et bébé
+    </span>
+</div>
+
+<!-- ENTREPRISES -->
+<h2 class="section-title" 
+    data-fr="🏢 Solutions Entreprises" 
+    data-en="🏢 Business Solutions">
+    🏢 Solutions Entreprises
+</h2>
+
+<div class="card" onclick="location.href='market-business.html'">
+    <span>🏢</span>
+    <span data-fr="Approvisionnement & Packs" data-en="Supply & Packs">
+        Approvisionnement & Packs
+    </span>
+</div>
+
+<button class="lang-btn" onclick="switchLang()">FR</button>
+
+<script>
+function switchLang(){
+    let html = document.documentElement;
+    let newLang = (html.lang === "fr") ? "en" : "fr";
+    html.lang = newLang;
+
+    document.querySelector(".lang-btn").innerHTML = newLang.toUpperCase();
+
+    document.querySelectorAll("[data-fr]").forEach(el=>{
+        el.innerHTML = (newLang === "fr")
+            ? el.getAttribute("data-fr")
+            : el.getAttribute("data-en");
+    });
+}
+</script>
 
 </body>
 </html>
