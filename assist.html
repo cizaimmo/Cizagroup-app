@@ -4,128 +4,284 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>CizaAssist — CIZA GROUP</title>
-<link rel="icon" href="icon-512.png">
+<title>CizaAssist+ — 2030</title>
+<link rel="icon" href="logotransparent.png">
 
 <style>
+/* GLOBAL */
 body{
     margin:0;
     background:#06142E;
-    color:white;
     font-family:Arial, sans-serif;
+    color:white;
+    overflow-x:hidden;
 }
 
-header{
-    background:#06142E;
-    padding:16px;
+/* HERO GLASS — NO IMAGE */
+.hero{
+    width:90%;
+    margin:35px auto 0 auto;
+    padding:25px;
+    border-radius:20px;
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.12);
+    backdrop-filter:blur(18px);
+    box-shadow:0 0 25px rgba(242,184,64,0.12);
+    text-align:center;
+}
+
+.hero h1{
+    font-size:26px;
+    color:#F2B840;
+    margin:0;
+    text-shadow:0 0 10px #000;
+}
+.hero p{
+    opacity:.82;
+    margin-top:8px;
+}
+
+/* TITLES */
+.section-title{
+    color:#F2B840;
+    font-size:20px;
+    margin-top:30px;
+    margin-left:18px;
+}
+
+/* CARDS */
+.card{
+    width:90%;
+    margin:12px auto;
+    padding:18px;
+    border-radius:16px;
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.15);
+    backdrop-filter:blur(14px);
+    box-shadow:0 0 15px rgba(0,0,0,0.25);
+    cursor:pointer;
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 0 22px rgba(242,184,64,0.25);
+}
+
+.card span{
+    font-size:22px;
+    margin-right:10px;
+}
+
+/* POPUP */
+.popup{
+    position:fixed;
+    top:0;left:0;
+    width:100%;height:100%;
+    background:#00000088;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+    z-index:9999;
+}
+
+.popup-content{
+    background:#0b1c34;
+    width:92%;
+    max-width:400px;
+    max-height:85vh;
+    overflow-y:auto;
+    border-radius:16px;
+    border:1px solid #F2B840;
+    padding:22px;
+    backdrop-filter:blur(14px);
+}
+
+.close{
+    float:right;
+    cursor:pointer;
+    font-size:22px;
+    color:#F2B840;
+}
+
+.popup-content h3{
     text-align:center;
     color:#F2B840;
-    font-size:22px;
-    border-bottom:2px solid #F2B840;
-}
-
-/* CONTENT */
-.container{
-    padding:20px;
-    max-width:600px;
-    margin:auto;
-}
-
-.section{
-    background:#0B1C34;
-    border:1px solid #12335C;
-    padding:20px;
-    border-radius:14px;
-    margin-bottom:20px;
-}
-
-.section h2{
     margin-top:0;
-    color:#F2B840;
 }
 
-.section p{
-    opacity:.85;
-    line-height:1.6;
+/* INPUTS */
+input, textarea{
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    border:none;
+    border-radius:12px;
+    background:#112544;
+    color:white;
 }
+
+textarea{height:110px;}
 
 /* BUTTON */
-button{
+.send-btn{
+    margin-top:15px;
     width:100%;
-    padding:14px;
+    padding:12px;
     background:#F2B840;
     border:none;
-    border-radius:10px;
-    font-weight:bold;
     color:#06142E;
-    margin-top:10px;
-    cursor:pointer;
-}
-button:hover{
-    background:#cfa035;
+    font-weight:bold;
+    border-radius:12px;
 }
 
-/* BACK */
-.back{
-    margin-top:20px;
-    text-align:center;
+.lang-btn{
+    position:fixed;
+    bottom:20px; right:20px;
+    background:#F2B840;
+    border:none;
+    padding:12px;
+    font-weight:bold;
+    color:#06142E;
+    border-radius:50px;
+    z-index:99999;
 }
-.back a{
+
+.help-btn{
+    position:fixed;
+    bottom:20px; left:20px;
+    background:#0b1c34;
+    padding:12px 15px;
+    border-radius:12px;
+    border:1px solid #F2B840;
     color:#F2B840;
-    font-size:15px;
-    text-decoration:none;
+    cursor:pointer;
 }
 </style>
 </head>
 
 <body>
 
-<header>
-    CizaAssist
-</header>
-
-<div class="container">
-
-    <div class="section">
-        <h2>🛡️ Assistance & Services Premium</h2>
-        <p>
-            CizaAssist aide la diaspora, les particuliers et les entreprises dans :<br><br>
-            • Démarches administratives<br>
-            • Gestion de documents<br>
-            • Représentation locale au Burundi<br>
-            • Missions spéciales<br>
-            • Aide à domicile & accompagnement<br>
-            • Assistance premium pour la diaspora
-        </p>
-
-        <button onclick="alert('Le service CizaAssist sera activé bientôt !')">
-            Faire une demande d’assistance
-        </button>
-    </div>
-
-    <div class="section">
-        <h2>🌍 Spécial Diaspora</h2>
-        <p>
-            Nous réalisons vos missions au Burundi : achats, suivi de projets,
-            démarches familiales, documents, etc.
-        </p>
-    </div>
-
-    <div class="section">
-        <h2>💼 Services Entreprises</h2>
-        <p>
-            • Soutien administratif<br>
-            • Missions urgentes<br>
-            • Assistance RH<br>
-            • Gestion sur terrain
-        </p>
-    </div>
-
-    <div class="back">
-        <a href="dashboard.html">← Retour au Dashboard</a>
-    </div>
-
+<!-- HERO -->
+<div class="hero">
+    <h1 data-fr="CizaAssist+" data-en="CizaAssist+">CizaAssist+</h1>
+    <p data-fr="Votre service d’assistance premium, disponible à tout moment."
+       data-en="Your premium assistance service, available anytime.">
+       Votre service d’assistance premium, disponible à tout moment.
+    </p>
 </div>
+
+<h2 class="section-title">Nos Services</h2>
+
+<div class="card" onclick="openAssist('daily')">
+    <span>🤝</span> Assistance Quotidienne
+</div>
+
+<div class="card" onclick="openAssist('sos')">
+    <span>🚨</span> SOS Urgence (Non médical)
+</div>
+
+<div class="card" onclick="openAssist('admin')">
+    <span>📄</span> Services Administratifs
+</div>
+
+<div class="card" onclick="openAssist('diaspora')">
+    <span>🌍</span> Assistance Premium Diaspora
+</div>
+
+<button class="help-btn" onclick="openAssist('help')">❓ Aide</button>
+
+<button class="lang-btn" onclick="switchLang()">FR</button>
+
+<!-- POPUP -->
+<div id="popup" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closeAssist()">&times;</span>
+
+        <h3 id="popup-title"></h3>
+        <p id="popup-desc" style="opacity:.85;"></p>
+
+        <form action="https://formsubmit.co/cizaassist@cizagroup.com" method="POST">
+
+            <input type="hidden" name="_cc" value="infos@cizagroup.com">
+            <input type="hidden" name="_autoresponse" 
+                   value="Merci pour votre demande CizaAssist+. Notre équipe vous contactera rapidement.">
+            <input type="hidden" name="_next" 
+                   value="https://cizaimmo.github.io/cizagroup-app/success.html">
+            <input type="hidden" name="_captcha" value="false">
+
+            <input type="text" name="nom" required placeholder="Nom complet"
+                   data-fr="Nom complet" data-en="Full name">
+
+            <input type="text" name="telephone" required placeholder="Téléphone"
+                   data-fr="Téléphone" data-en="Phone">
+
+            <textarea name="details" placeholder="Votre demande"
+                      data-fr="Votre demande" data-en="Your request"></textarea>
+
+            <button class="send-btn" data-fr="Envoyer" data-en="Send">
+                Envoyer
+            </button>
+        </form>
+    </div>
+</div>
+
+<script>
+function openAssist(type){
+    document.getElementById("popup").style.display="flex";
+    const t = document.getElementById("popup-title");
+    const d = document.getElementById("popup-desc");
+
+    if(type==="daily"){
+        t.innerHTML="Assistance Quotidienne";
+        d.innerHTML="Courses urgentes, soutien personnel, assistance aux familles.";
+    }
+    if(type==="sos"){
+        t.innerHTML="SOS Urgence";
+        d.innerHTML="Aide immédiate non médicale : panne, blocage, perte d’objet.";
+    }
+    if(type==="admin"){
+        t.innerHTML="Services Administratifs";
+        d.innerHTML="Documents, certificats, démarches pour diaspora et locaux.";
+    }
+    if(type==="diaspora"){
+        t.innerHTML="Assistance Premium Diaspora";
+        d.innerHTML="Visite de maison, contrôle de travaux, supervision familiale.";
+    }
+    if(type==="help"){
+        t.innerHTML="Comment ça marche ?";
+        d.innerHTML="1) Choisissez un service <br>2) Expliquez votre besoin <br>3) Assistance immédiate <br><br>Service premium CIZA.";
+    }
+}
+
+function closeAssist(){
+    document.getElementById("popup").style.display="none";
+}
+
+/* LANG SWITCH */
+function switchLang(){
+    const html = document.documentElement;
+    const newLang = html.lang === "fr" ? "en" : "fr";
+    html.lang = newLang;
+
+    document.querySelector(".lang-btn").innerHTML = newLang === "fr" ? "FR" : "EN";
+
+    document.querySelectorAll("[data-fr]").forEach(el=>{
+        el.innerHTML = newLang === "fr"
+            ? el.getAttribute("data-fr")
+            : el.getAttribute("data-en");
+    });
+
+    document.querySelectorAll("input, textarea").forEach(el=>{
+        if(el.hasAttribute("data-fr")){
+            el.placeholder = newLang === "fr"
+                ? el.getAttribute("data-fr")
+                : el.getAttribute("data-en");
+        }
+    });
+}
+</script>
 
 </body>
 </html>
