@@ -3,289 +3,236 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>CIZA GROUP — Super App 2035</title>
-<link rel="icon" href="logotransparent.png">
+<title>CIZA GROUP — Super App</title>
 
 <style>
-/* ------------------------------
-      BASE : Super App 2035
-------------------------------*/
-body{
-    margin:0;
-    background:#06142E;
-    color:white;
-    font-family:Arial, sans-serif;
-    overflow-x:hidden;
-}
+    body {
+        margin: 0;
+        background: #06142E;
+        font-family: system-ui, sans-serif;
+        color: white;
+        overflow-x: hidden;
+    }
 
-/* ------------------------------
-      ANIMATION ROYAL 2035
-------------------------------*/
-#intro{
-    position:fixed;
-    top:0; left:0;
-    width:100%; height:100%;
-    background:#06142E;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    z-index:9999;
-    animation:fadeOut 2s ease 2.2s forwards;
-}
+    /* Fade-in global animation */
+    body.loaded {
+        animation: pageEnter 1.3s ease forwards;
+    }
+    @keyframes pageEnter {
+        from { opacity: 0; transform: scale(1.02); }
+        to { opacity: 1; transform: scale(1); }
+    }
 
-#intro img{
-    width:160px;
-    opacity:0;
-    animation:logoPulse 2.2s ease forwards;
-    filter: drop-shadow(0 0 12px #F2B840);
-}
+    /* TITRES */
+    h2 {
+        font-size: 24px;
+        font-weight: 700;
+        margin: 40px 20px 10px;
+        color: #F2B840;
+    }
 
-@keyframes logoPulse{
-    0%{opacity:0; transform:scale(0.6);}
-    50%{opacity:1; transform:scale(1.1);}
-    100%{opacity:1; transform:scale(1);}
-}
+    /* CARTES PREMIUM */
+    .card {
+        background: rgba(255,255,255,0.04);
+        border-radius: 18px;
+        margin: 12px 18px;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        border: 1px solid rgba(255,255,255,0.08);
+        box-shadow: 0 0 22px rgba(0,0,0,0.45);
+        backdrop-filter: blur(8px);
+        transition: 0.25s ease;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: reveal 0.9s ease forwards;
+    }
 
-#intro p{
-    color:#F2B840;
-    opacity:0;
-    font-size:14px;
-    margin-top:10px;
-    letter-spacing:1px;
-    animation:textFade 1.6s ease 1.2s forwards;
-}
+    /* Effet apparation cartes */
+    @keyframes reveal {
+        to { opacity: 1; transform: translateY(0); }
+    }
 
-@keyframes textFade{
-    0%{opacity:0;}
-    100%{opacity:.85;}
-}
+    /* Glow hover */
+    .card:hover {
+        transform: translateY(-4px) scale(1.02);
+        box-shadow: 0 0 30px rgba(242,184,64,0.55);
+    }
 
-@keyframes fadeOut{
-    to{opacity:0; visibility:hidden;}
-}
+    /* Icon + texte */
+    .icon {
+        font-size: 32px;
+    }
+    .label {
+        font-size: 20px;
+    }
 
-/* ------------------------------
-      HERO GLASS 2035
-------------------------------*/
-.hero{
-    margin-top:90px;
-    width:90%;
-    margin-left:auto;
-    margin-right:auto;
-    padding:30px;
-    border-radius:22px;
-    backdrop-filter:blur(20px);
-    background:rgba(255,255,255,0.07);
-    border:1px solid rgba(255,255,255,0.18);
-    text-align:center;
-    box-shadow:0 0 35px rgba(242,184,64,0.20);
-    animation:heroShow 1.8s ease;
-}
+    /* BOUTONS FLOTTANTS */
+    .float-btn {
+        position: fixed;
+        bottom: 26px;
+        right: 20px;
+        width: 58px;
+        height: 58px;
+        border-radius: 50%;
+        background: #F2B840;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 26px;
+        color: black;
+        box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        cursor: pointer;
+        transition: 0.25s ease;
+        z-index: 1000;
+    }
+    .float-btn:hover {
+        transform: scale(1.09);
+    }
 
-@keyframes heroShow{
-    0%{opacity:0; transform:translateY(20px);}
-    100%{opacity:1; transform:translateY(0);}
-}
+    /* Bouton WhatsApp flottant */
+    .float-wa {
+        bottom: 100px;
+        background: #25D366;
+        color: white;
+    }
 
-.hero h1{
-    color:#F2B840;
-    margin:0;
-    font-size:24px;
-}
+    /* PANEL RÉGLAGES PREMIUM */
+    #panel {
+        position: fixed;
+        top: 0;
+        right: -320px;
+        width: 320px;
+        height: 100%;
+        background: rgba(10,10,20,0.65);
+        border-left: 1px solid rgba(255,255,255,0.1);
+        backdrop-filter: blur(14px);
+        box-shadow: -4px 0 25px rgba(0,0,0,0.6);
+        transition: 0.35s ease;
+        padding: 25px;
+        z-index: 2000;
+    }
 
-.hero p{
-    font-size:15px;
-    opacity:.75;
-    margin-top:8px;
-}
+    .panel-title {
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
 
-/* ------------------------------
-      SECTION TITLES
-------------------------------*/
-.section-title{
-    margin-left:20px;
-    margin-top:45px;
-    font-size:20px;
-    color:#F2B840;
-}
+    .panel-item {
+        background: rgba(255,255,255,0.06);
+        padding: 16px;
+        border-radius: 12px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        border: 1px solid rgba(255,255,255,0.07);
+        transition: 0.25s;
+    }
+    .panel-item:hover {
+        background: rgba(255,255,255,0.15);
+    }
 
-/* ------------------------------
-      CARDS ULTRA PREMIUM
-------------------------------*/
-.card{
-    width:90%;
-    margin:15px auto;
-    padding:20px;
-    border-radius:18px;
-    background:rgba(255,255,255,0.06);
-    border:1px solid rgba(255,255,255,0.15);
-    backdrop-filter:blur(18px);
-    display:flex;
-    align-items:center;
-    gap:14px;
-    cursor:pointer;
-    transition:.25s;
-}
-
-.card:hover{
-    transform:translateY(-4px);
-    box-shadow:0 0 25px rgba(242,184,64,0.25);
-}
-
-.card span{
-    font-size:26px;
-}
-
-/* ------------------------------
-      GRID LUXE
-------------------------------*/
-.grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:15px;
-    width:90%;
-    margin:0 auto;
-}
-
-.grid .card{
-    width:100%;
-}
-
-/* ------------------------------
-      SETTINGS FLOAT BUTTON
-------------------------------*/
-.settings-btn{
-    position:fixed;
-    top:20px; right:20px;
-    background:#F2B840;
-    color:#06142E;
-    padding:12px 14px;
-    border-radius:50px;
-    cursor:pointer;
-    font-weight:bold;
-    z-index:999;
-}
-
-/* ------------------------------
-      FOOTER
-------------------------------*/
-footer{
-    text-align:center;
-    padding:40px 10px;
-    opacity:.6;
-    font-size:14px;
-    margin-top:50px;
-}
-
-/* ------------------------------
-      PARTICULES (luxury mode)
-------------------------------*/
-.particle{
-    position:fixed;
-    width:6px;
-    height:6px;
-    background:#F2B840;
-    border-radius:50%;
-    opacity:0.55;
-    animation:float 6s linear infinite;
-}
-
-@keyframes float{
-    from{transform:translateY(100vh);}
-    to{transform:translateY(-10vh);}
-}
+    /* FOOTER */
+    footer {
+        text-align: center;
+        color: #b8b8b8;
+        font-size: 13px;
+        margin: 40px 0 20px;
+        opacity: 0.65;
+    }
 </style>
 </head>
 
-<body ontouchstart="triggerHaptic()">
+<body>
 
-<!-- INTRO -->
-<div id="intro">
-    <img src="logotransparent.png" alt="CIZA GROUP">
-    <p>Écosystème multiservices — Premium & Innovation</p>
+<script>
+    /* Lancement animation page */
+    window.onload = () => {
+        document.body.classList.add('loaded');
+    };
+
+    /* Vibration haptic touch mobile */
+    function vib() {
+        if (navigator.vibrate) navigator.vibrate(10);
+    }
+
+    /* Ouvre panneau réglages */
+    function openPanel() {
+        vib();
+        document.getElementById("panel").style.right = "0px";
+    }
+
+    /* Ferme panneau */
+    function closePanel() {
+        document.getElementById("panel").style.right = "-320px";
+    }
+</script>
+
+<!-- PANEL RÉGLAGES -->
+<div id="panel">
+    <div class="panel-title">⚙️ Réglages</div>
+
+    <div class="panel-item" onclick="vib()">🌙 Mode sombre (auto)</div>
+    <div class="panel-item" onclick="vib()">📳 Vibration</div>
+    <div class="panel-item" onclick="vib()">🔔 Notifications</div>
+    <div class="panel-item" onclick="vib()">📍 Localisation</div>
+    <div class="panel-item" onclick="vib()">🌍 Français / English</div>
+    <div class="panel-item" onclick="vib()">📱 Installer l’application</div>
+
+    <div class="panel-item" onclick="closePanel()">❌ Fermer</div>
 </div>
 
-<!-- SETTINGS -->
-<div class="settings-btn" onclick="alert('Menu réglage — bientôt disponible')">⚙️</div>
+<!-- BOUTONS FLOTTANTS -->
+<div class="float-btn" onclick="openPanel()">⚙️</div>
+<div class="float-btn float-wa" onclick="window.location.href='https://wa.me/15145029503'">💬</div>
 
-<!-- HERO -->
-<div class="hero">
-    <h1>CIZA GROUP — Super App</h1>
-    <p>Écosystème multiservices — Premium & Innovation</p>
+
+<!-- SECTION DIASPORA -->
+<h2>🌍 Services Mondiaux pour la Diaspora</h2>
+<div class="card" onclick="vib()">
+    <span class="icon">🌍</span>
+    <span class="label">CIZA DIASPORA+</span>
 </div>
 
-<!-- DIASPORA -->
-<h2 class="section-title">🌍 CIZA DIASPORA+</h2>
+<!-- SERVICES LOCAUX -->
+<h2>🇧🇮 Services Locaux</h2>
 
-<div class="card" onclick="window.location.href='diaspora.html'">
-    <span>🌍</span> Services Mondiaux pour la Diaspora
+<div class="card" onclick="window.location='cizaride.html'; vib();">
+    <span class="icon">🚗</span> <span class="label">CizaRide+</span>
 </div>
 
-<!-- LOCAL SERVICES -->
-<h2 class="section-title">🇧🇮 Services Locaux</h2>
+<div class="card" onclick="window.location='delivery.html'; vib();">
+    <span class="icon">📦</span> <span class="label">CizaDelivery</span>
+</div>
 
-<div class="grid">
+<div class="card" onclick="window.location='carwash.html'; vib();">
+    <span class="icon">🧽</span> <span class="label">CizaCarWash+</span>
+</div>
 
-    <div class="card" onclick="window.location.href='ride.html'">
-        <span>🚗</span> CizaRide+
-    </div>
+<div class="card" onclick="window.location='assist.html'; vib();">
+    <span class="icon">🤝</span> <span class="label">CizaAssist</span>
+</div>
 
-    <div class="card" onclick="window.location.href='delivery.html'">
-        <span>📦</span> CizaDelivery
-    </div>
+<div class="card" onclick="window.location='market.html'; vib();">
+    <span class="icon">🛒</span> <span class="label">CizaMarket</span>
+</div>
 
-    <div class="card" onclick="window.location.href='carwash.html'">
-        <span>🧼</span> CizaCarWash+
-    </div>
-
-    <div class="card" onclick="window.location.href='assist.html'">
-        <span>🤝</span> CizaAssist
-    </div>
-
-    <div class="card" onclick="window.location.href='market.html'">
-        <span>🛒</span> CizaMarket
-    </div>
-
-    <div class="card" onclick="window.location.href='jobs.html'">
-        <span>💼</span> CizaJobs
-    </div>
-
+<div class="card" onclick="window.location='cizajobs.html'; vib();">
+    <span class="icon">💼</span> <span class="label">CizaJobs</span>
 </div>
 
 <!-- ENTREPRISES -->
-<h2 class="section-title">🏢 Solutions Entreprises</h2>
+<h2>🏢 Solutions Entreprises</h2>
 
-<div class="card" onclick="window.location.href='business.html'">
-    <span>🏢</span> Services Professionnels & Partenariats
+<div class="card" onclick="window.location='business.html'; vib();">
+    <span class="icon">🏢</span> 
+    <span class="label">Services Professionnels & Partenariats</span>
 </div>
 
 <footer>
     CIZA GROUP © — Excellence, Innovation & Diaspora
 </footer>
-
-<script>
-// ----------------------------
-//   HAPTIC FEEDBACK (iPhone)
-// ----------------------------
-function triggerHaptic(){
-    if(window.navigator.vibrate){
-        window.navigator.vibrate(10);
-    }
-}
-
-// ----------------------------
-//   PARTICLE SYSTEM
-// ----------------------------
-for(let i=0; i<25; i++){
-    let p = document.createElement("div");
-    p.classList.add("particle");
-    p.style.left = Math.random()*100+"vw";
-    p.style.animationDuration = (5 + Math.random()*5)+"s";
-    document.body.appendChild(p);
-}
-</script>
 
 </body>
 </html>
