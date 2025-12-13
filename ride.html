@@ -3,276 +3,156 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <title>CizaRide+</title>
-<link rel="icon" href="logotransparent.png">
-
 <style>
-/* ---------------------------
-   THEME + GLOBAL
-----------------------------*/
-:root{
-    --bg:#06142E;
-    --text:white;
-    --card:rgba(255,255,255,0.06);
-    --border:rgba(255,255,255,0.18);
-    --gold:#F2B840;
-}
-body{
-    margin:0;
-    background:var(--bg);
-    color:var(--text);
-    font-family:Arial, sans-serif;
-    overflow-x:hidden;
-}
+    body{
+        margin:0;
+        font-family:Arial, sans-serif;
+        background:#06142E;
+        color:white;
+    }
 
-/* ---------------------------
-   HEADER + RETOUR APP
-----------------------------*/
-header{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    padding:15px;
-    border-bottom:1px solid var(--border);
-    background:rgba(255,255,255,0.05);
-    backdrop-filter:blur(10px);
-}
-.back-app{
-    font-size:26px;
-    cursor:pointer;
-    color:var(--gold);
-    font-weight:bold;
-}
-header h1{
-    margin:0;
-    font-size:20px;
-}
+    /* Header */
+    .topbar{
+        display:flex;
+        align-items:center;
+        padding:15px;
+        gap:10px;
+        font-size:20px;
+        font-weight:bold;
+    }
 
-/* ---------------------------
-   LANG SWITCH
-----------------------------*/
-.lang-btn{
-    position:fixed;
-    bottom:20px; right:20px;
-    padding:10px 14px;
-    background:var(--gold);
-    border:none;
-    border-radius:50px;
-    font-weight:bold;
-    cursor:pointer;
-    z-index:999;
-}
+    .back-btn{
+        font-size:22px;
+        cursor:pointer;
+    }
 
-/* ---------------------------
-   MAIN CARDS
-----------------------------*/
-.container{
-    padding:20px;
-}
-.card{
-    background:var(--card);
-    border:1px solid var(--border);
-    padding:20px;
-    margin-bottom:15px;
-    border-radius:16px;
-    text-align:center;
-    cursor:pointer;
-    transition:0.3s;
-}
-.card:hover{
-    transform:scale(1.03);
-    box-shadow:0 0 12px rgba(242,184,64,0.25);
-}
-.card span{
-    font-size:28px;
-    display:block;
-    margin-bottom:8px;
-}
+    /* Title */
+    h1{
+        text-align:center;
+        margin-top:10px;
+        font-size:34px;
+        color:#F2B840;
+    }
 
-/* ---------------------------
-   POPUP BASE
-----------------------------*/
-.popup{
-    position:fixed;
-    top:0; left:0;
-    width:100%; height:100%;
-    background:#00000088;
-    backdrop-filter:blur(6px);
-    display:none;
-    justify-content:center;
-    align-items:center;
-    padding:20px;
-    z-index:9999;
-}
-.popup-content{
-    background:#0B1C34;
-    border:1px solid var(--gold);
-    width:92%;
-    max-width:430px;
-    padding:20px;
-    border-radius:16px;
-    max-height:90vh;
-    overflow-y:auto;
-}
-.popup-content h2{
-    text-align:center;
-    color:var(--gold);
-    margin-top:0;
-}
-.back-popup{
-    font-size:26px;
-    cursor:pointer;
-    color:var(--gold);
-    font-weight:bold;
-}
+    .subtitle{
+        text-align:center;
+        opacity:.8;
+        margin-bottom:25px;
+        font-size:18px;
+    }
 
-/* ---------------------------
-   FORM INPUTS
-----------------------------*/
-input,textarea,select{
-    width:100%;
-    padding:12px;
-    margin-top:10px;
-    border:none;
-    border-radius:10px;
-    background:#112544;
-    color:white;
-}
-textarea{height:110px;}
+    /* Service cards */
+    .card{
+        width:90%;
+        margin:15px auto;
+        padding:18px;
+        border-radius:18px;
+        background:rgba(255,255,255,0.07);
+        border:1px solid rgba(255,255,255,0.15);
+        transition:.25s;
+        cursor:pointer;
+    }
+    .card:hover{
+        transform:scale(1.03);
+        box-shadow:0 0 15px rgba(242,184,64,0.25);
+    }
 
-button.send{
-    margin-top:15px;
-    width:100%;
-    padding:12px;
-    background:var(--gold);
-    color:#06142E;
-    border:none;
-    border-radius:10px;
-    font-weight:bold;
-    cursor:pointer;
-}
+    .card-icon{
+        font-size:55px;
+        margin-bottom:8px;
+    }
 
-/* Image Royal */
-.royal-img{
-    width:100%;
-    border-radius:14px;
-    margin-bottom:10px;
-    border:1px solid var(--gold);
-}
+    .card-title{
+        font-size:24px;
+        color:#F2B840;
+        font-weight:bold;
+    }
+
+    .card-desc{
+        opacity:.8;
+        font-size:16px;
+        margin-top:4px;
+    }
+
+    /* Language Button */
+    .lang-btn{
+        position:fixed;
+        bottom:20px;
+        right:20px;
+        background:#F2B840;
+        border-radius:50px;
+        padding:12px 20px;
+        color:#06142E;
+        font-weight:bold;
+        cursor:pointer;
+    }
 </style>
 </head>
-
 <body>
 
 <!-- HEADER -->
-<header>
-    <span class="back-app" onclick="location.href='index.html'">←</span>
-    <h1 data-fr="CizaRide+" data-en="CizaRide+">CizaRide+</h1>
-</header>
+<div class="topbar">
+    <span class="back-btn" onclick="window.location.href='index.html'">←</span>
+    CizaRide+
+</div>
 
-<!-- MAIN -->
-<div class="container">
+<h1>CizaRide+</h1>
+<p class="subtitle" data-fr="Choisissez votre niveau de service"
+                     data-en="Choose your service level">
+    Choisissez votre niveau de service
+</p>
 
-    <div class="card" onclick="openPopup('standard')">
-        <span>🚗</span>
-        <b data-fr="Standard" data-en="Standard">Standard</b>
+<!-- STANDARD -->
+<div class="card" onclick="window.location.href='cizaride-standard.html'">
+    <div class="card-icon">🚙</div>
+    <div class="card-title"
+        data-fr="Standard"
+        data-en="Standard">Standard</div>
+    <div class="card-desc"
+        data-fr="Transport rapide et fiable"
+        data-en="Fast and reliable transport">Transport rapide et fiable</div>
+</div>
+
+<!-- VIP -->
+<div class="card" onclick="window.location.href='cizaride-vip.html'">
+    <div class="card-icon">👑</div>
+    <div class="card-title"
+        data-fr="VIP"
+        data-en="VIP">VIP</div>
+    <div class="card-desc"
+        data-fr="Confort premium & services exclusifs"
+        data-en="Premium comfort & exclusive services">
+        Confort premium & services exclusifs
     </div>
+</div>
 
-    <div class="card" onclick="openPopup('vip')">
-        <span>👑</span>
-        <b data-fr="VIP" data-en="VIP">VIP</b>
+<!-- VIP ROYAL -->
+<div class="card" onclick="window.location.href='cizaride-vip-royal.html'">
+    <div class="card-icon">💎</div>
+    <div class="card-title"
+        data-fr="VIP Royal"
+        data-en="VIP Royal">VIP Royal</div>
+    <div class="card-desc"
+        data-fr="Niveau ultime : PDG, diplomates, personnalités"
+        data-en="Ultimate level: CEOs, diplomats, VIP personalities">
+        Niveau ultime : PDG, diplomates, personnalités
     </div>
-
-    <div class="card" onclick="openPopup('royal')">
-        <span>💎</span>
-        <b data-fr="VIP Royal" data-en="VIP Royal">VIP Royal</b>
-    </div>
-
 </div>
 
 <!-- LANGUAGE BUTTON -->
-<button class="lang-btn" onclick="switchLang()">FR</button>
+<div class="lang-btn" onclick="toggleLang()">FR</div>
 
-<!-- POPUP STANDARD -->
-<div id="popup-standard" class="popup">
-    <div class="popup-content">
-        <span class="back-popup" onclick="closePopup('standard')">←</span>
-        <h2 data-fr="Course Standard" data-en="Standard Ride">Course Standard</h2>
-
-        <form action="https://formsubmit.co/infos@cizagroup.com" method="POST">
-
-            <input type="text" name="nom" data-fr="Nom complet" data-en="Full name" placeholder="Nom complet">
-            <input type="text" name="telephone" data-fr="Téléphone" data-en="Phone" placeholder="Téléphone">
-            <input type="text" name="depart" data-fr="Lieu de départ" data-en="Pickup location" placeholder="Lieu de départ">
-            <input type="text" name="destination" data-fr="Destination" data-en="Destination" placeholder="Destination">
-            <input type="datetime-local" name="heure">
-
-            <button class="send" data-fr="Envoyer" data-en="Send">Envoyer</button>
-        </form>
-    </div>
-</div>
-
-<!-- POPUP VIP -->
-<div id="popup-vip" class="popup">
-    <div class="popup-content">
-        <span class="back-popup" onclick="closePopup('vip')">←</span>
-        <h2>VIP</h2>
-
-        <form action="https://formsubmit.co/infos@cizagroup.com" method="POST">
-
-            <input type="text" name="nom" placeholder="Nom complet">
-            <input type="text" name="telephone" placeholder="Téléphone">
-            <input type="text" name="depart" placeholder="Lieu de départ">
-            <input type="text" name="destination" placeholder="Destination">
-            <input type="datetime-local" name="heure">
-
-            <button class="send">Envoyer</button>
-        </form>
-    </div>
-</div>
-
-<!-- POPUP ROYAL -->
-<div id="popup-royal" class="popup">
-    <div class="popup-content">
-        <span class="back-popup" onclick="closePopup('royal')">←</span>
-        <h2>VIP Royal</h2>
-
-        <img class="royal-img" src="https://i.imgur.com/1Xh4FHZ.jpeg">
-
-        <form action="https://formsubmit.co/infos@cizagroup.com" method="POST">
-
-            <input type="text" name="nom" placeholder="Nom complet">
-            <input type="text" name="telephone" placeholder="Téléphone">
-            <input type="text" name="depart" placeholder="Lieu de départ">
-            <input type="text" name="destination" placeholder="Destination">
-            <input type="datetime-local" name="heure">
-
-            <button class="send">Envoyer</button>
-        </form>
-    </div>
-</div>
-
-<!-- SCRIPTS -->
 <script>
-/* OPEN/CLOSE POPUP */
-function openPopup(name){
-    document.getElementById("popup-"+name).style.display="flex";
-}
-function closePopup(name){
-    document.getElementById("popup-"+name).style.display="none";
-}
+let lang = "fr";
 
-/* MULTILINGUE */
-function switchLang(){
-    let html = document.documentElement;
-    let newLang = (html.lang === "fr") ? "en" : "fr";
-    html.lang = newLang;
-
-    document.querySelector(".lang-btn").innerHTML = (newLang === "fr") ? "FR" : "EN";
+function toggleLang(){
+    lang = (lang === "fr") ? "en" : "fr";
+    document.querySelector(".lang-btn").innerText = lang.toUpperCase();
 
     document.querySelectorAll("[data-fr]").forEach(el=>{
-        el.innerHTML = (newLang === "fr") ? el.getAttribute("data-fr") : el.getAttribute("data-en");
-        el.placeholder = (newLang==="fr") ? el.getAttribute("data-fr") : el.getAttribute("data-en");
+        el.innerText = el.getAttribute("data-" + lang);
     });
 }
 </script>
