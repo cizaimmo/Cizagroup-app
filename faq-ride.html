@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FAQ — CizaRide Standard</title>
+<link rel="icon" href="logotransparent.png">
+
+<style>
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#06142E;
+    color:white;
+}
+
+/* HEADER */
+header{
+    display:flex;
+    align-items:center;
+    padding:15px;
+    background:#06142E;
+    border-bottom:1px solid rgba(255,255,255,0.15);
+}
+.back{
+    font-size:22px;
+    margin-right:10px;
+    cursor:pointer;
+}
+header h1{
+    font-size:18px;
+    margin:0;
+    color:#F2B840;
+}
+
+/* TITLE */
+.title-box{
+    width:90%;
+    margin:20px auto 10px;
+    padding:18px;
+    background:rgba(255,255,255,0.05);
+    border-radius:14px;
+    backdrop-filter:blur(8px);
+    border:1px solid rgba(255,255,255,0.15);
+}
+.title-box h2{
+    margin:0;
+    color:#F2B840;
+    font-size:18px;
+}
+
+/* QUESTIONS */
+.faq{
+    width:90%;
+    margin:15px auto;
+}
+.q{
+    background:rgba(255,255,255,0.06);
+    padding:14px;
+    border-radius:12px;
+    margin-bottom:12px;
+    border:1px solid rgba(255,255,255,0.12);
+    cursor:pointer;
+    transition:.3s;
+}
+.q:hover{
+    border-color:#F2B840;
+    transform:translateX(5px);
+}
+.q h3{
+    margin:0;
+    font-size:15px;
+}
+.answer{
+    margin-top:8px;
+    font-size:14px;
+    opacity:.85;
+    display:none;
+}
+
+/* LANG BUTTON */
+.lang-btn{
+    position:fixed;
+    bottom:20px; left:20px;
+    padding:12px 16px;
+    background:#F2B840;
+    color:#06142E;
+    font-weight:bold;
+    border:none;
+    border-radius:50px;
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <span class="back" onclick="history.back()">←</span>
+    <h1 data-fr="FAQ CizaRide" data-en="CizaRide FAQ">FAQ CizaRide</h1>
+</header>
+
+<div class="title-box">
+    <h2 data-fr="CizaRide — Niveau Standard" data-en="CizaRide — Standard Level">
+        CizaRide — Niveau Standard
+    </h2>
+</div>
+
+<div class="faq">
+
+    <!-- Q1 -->
+    <div class="q" onclick="toggleAnswer(1)">
+        <h3 data-fr="Comment fonctionne CizaRide Standard ?" 
+            data-en="How does CizaRide Standard work?">
+            Comment fonctionne CizaRide Standard ?
+        </h3>
+        <p id="a1" class="answer"
+           data-fr="Vous indiquez votre point de départ, votre destination et l’heure souhaitée. Votre réservation est envoyée à notre équipe qui vous assigne un chauffeur disponible."
+           data-en="You choose pickup, destination, and time. Your request is sent to our team who assigns you a driver.">
+        </p>
+    </div>
+
+    <!-- Q2 -->
+    <div class="q" onclick="toggleAnswer(2)">
+        <h3 data-fr="Quels types de véhicules sont disponibles ?" 
+            data-en="What type of vehicles are available?">
+            Quels types de véhicules sont disponibles ?
+        </h3>
+        <p id="a2" class="answer"
+           data-fr="Les véhicules standard incluent des voitures propres, sécurisées et vérifiées. Chaque chauffeur est contrôlé avant l’activation."
+           data-en="Standard vehicles include clean and safe cars, fully inspected before activation.">
+        </p>
+    </div>
+
+    <!-- Q3 -->
+    <div class="q" onclick="toggleAnswer(3)">
+        <h3 data-fr="Comment se passe le paiement ?" 
+            data-en="How is payment handled?">
+            Comment se passe le paiement ?
+        </h3>
+        <p id="a3" class="answer"
+           data-fr="En phase développement, le paiement se fait directement avec le chauffeur. Plus tard, l’app intégrera Mobile Money, Carte bancaire et CizaPay+."
+           data-en="During development, payment is handled with the driver. Later, Mobile Money, cards, and CizaPay+ will be added.">
+        </p>
+    </div>
+
+    <!-- Q4 -->
+    <div class="q" onclick="toggleAnswer(4)">
+        <h3 data-fr="Comment savoir si le chauffeur arrive ?" 
+            data-en="How do I know when the driver is coming?">
+            Comment savoir si le chauffeur arrive ?
+        </h3>
+        <p id="a4" class="answer"
+           data-fr="Vous recevrez une confirmation par message/app. Le suivi GPS sera activé dans la prochaine mise à jour avec Firebase."
+           data-en="You will receive a confirmation. GPS tracking will be activated later with Firebase.">
+        </p>
+    </div>
+
+    <!-- Q5 -->
+    <div class="q" onclick="toggleAnswer(5)">
+        <h3 data-fr="Est-ce que CizaRide est disponible 24/7 ?" 
+            data-en="Is CizaRide available 24/7?">
+            Est-ce que CizaRide est disponible 24/7 ?
+        </h3>
+        <p id="a5" class="answer"
+           data-fr="Oui, selon la disponibilité des chauffeurs actifs. Une flotte 24/7 sera déployée prochainement."
+           data-en="Yes, depending on available drivers. A full 24/7 fleet is planned.">
+        </p>
+    </div>
+
+</div>
+
+<!-- LANG BUTTON -->
+<button class="lang-btn" onclick="switchLang()">FR</button>
+
+<script>
+// TOGGLE ANSWERS
+function toggleAnswer(n){
+    let a = document.getElementById("a"+n);
+    a.style.display = (a.style.display === "block") ? "none" : "block";
+}
+
+// LANG SWITCH
+function switchLang(){
+    const lang = document.documentElement.lang;
+    const newLang = (lang === "fr") ? "en" : "fr";
+    document.documentElement.lang = newLang;
+
+    document.querySelector(".lang-btn").innerHTML = (newLang === "fr") ? "FR" : "EN";
+
+    document.querySelectorAll("[data-fr]").forEach(el=>{
+        el.innerHTML = (newLang === "fr") 
+            ? el.getAttribute("data-fr") 
+            : el.getAttribute("data-en");
+    });
+}
+</script>
+
+</body>
+</html>
