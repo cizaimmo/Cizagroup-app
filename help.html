@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CIZA GROUP — Aide & FAQ</title>
+
+<style>
+body{
+    background:#06142E;
+    color:white;
+    font-family:Arial;
+    margin:0;
+    padding:20px;
+}
+
+h2{
+    color:#F2B840;
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.faq-item{
+    background:rgba(255,255,255,0.06);
+    padding:16px;
+    border-radius:14px;
+    border:1px solid rgba(255,255,255,0.15);
+    margin-bottom:12px;
+}
+
+.faq-item h3{
+    margin:0;
+    cursor:pointer;
+    color:#F2B840;
+}
+
+.faq-item p{
+    display:none;
+    margin-top:10px;
+    line-height:1.5;
+}
+</style>
+</head>
+
+<body>
+
+<h2 data-fr="Aide & FAQ" data-en="Help & FAQ">Aide & FAQ</h2>
+
+<div class="faq-item">
+    <h3 data-fr="Comment fonctionne CizaRide ?" data-en="How does CizaRide work?" 
+        onclick="toggleFAQ(this)">
+        Comment fonctionne CizaRide ?
+    </h3>
+    <p data-fr="Choisissez un service, remplissez le formulaire et un agent vous contacte instantanément."
+       data-en="Choose a service, fill the form and an agent contacts you instantly.">
+       Choisissez un service, remplissez le formulaire et un agent vous contacte instantanément.
+    </p>
+</div>
+
+<div class="faq-item">
+    <h3 data-fr="Quels services propose CIZA GROUP ?" 
+        data-en="What services does CIZA GROUP offer?"
+        onclick="toggleFAQ(this)">
+        Quels services propose CIZA GROUP ?
+    </h3>
+    <p data-fr="Mobilité, livraison, carwash, assistance, marché, emplois, diaspora business."
+       data-en="Mobility, delivery, carwash, assistance, marketplace, jobs, diaspora services.">
+       Mobilité, livraison, carwash, assistance, marché, emplois, diaspora business.
+    </p>
+</div>
+
+<div class="faq-item">
+    <h3 data-fr="Comment contacter le support ?" 
+        data-en="How to contact support?"
+        onclick="toggleFAQ(this)">
+        Comment contacter le support ?
+    </h3>
+    <p data-fr="Via WhatsApp, email ou formulaire de contact."
+       data-en="Via WhatsApp, email or the contact form.">
+       Via WhatsApp, email ou formulaire de contact.
+    </p>
+</div>
+
+<script>
+// Toggle open/close FAQ answers
+function toggleFAQ(el){
+    const p = el.nextElementSibling;
+    p.style.display = (p.style.display === "block") ? "none" : "block";
+}
+
+// Apply language engine
+updateLanguage();
+</script>
+
+</body>
+</html>
