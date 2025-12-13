@@ -8,184 +8,149 @@
 <link rel="icon" href="logotransparent.png">
 
 <style>
-/* -------------------------------------------
+/* ---------------------------------------------------
    THEME VARIABLES
-------------------------------------------- */
+--------------------------------------------------- */
 :root{
     --bg:#06142E;
-    --text:#ffffff;
-    --glass:rgba(255,255,255,0.06);
-    --border:rgba(255,255,255,0.18);
+    --text:white;
+    --card:rgba(255,255,255,0.06);
+    --border:rgba(255,255,255,0.15);
 }
 .light{
-    --bg:#f4f4f4;
-    --text:#111;
-    --glass:rgba(0,0,0,0.05);
-    --border:rgba(0,0,0,0.18);
+    --bg:#f7f7f7;
+    --text:#1a1a1a;
+    --card:rgba(0,0,0,0.05);
+    --border:rgba(0,0,0,0.12);
 }
-
 body{
     margin:0;
     background:var(--bg);
     color:var(--text);
     font-family:Arial, sans-serif;
-    transition:.3s ease;
     overflow-x:hidden;
+    transition:.3s;
 }
 
-/* -------------------------------------------
-   SPLASH SCREEN
-------------------------------------------- */
+/* ---------------------------------------------------
+   SPLASH FULL SCREEN
+--------------------------------------------------- */
 #splash{
     position:fixed;
     top:0; left:0;
     width:100%; height:100%;
-    background:var(--bg);
+    background:#06142E;
     display:flex;
     justify-content:center;
     align-items:center;
-    flex-direction:column;
     z-index:99999;
-    animation:fadeOut 1.8s ease 2.2s forwards;
+    animation:fadeOut 1.8s ease 2s forwards;
 }
-
 #splash img{
-    width:200px;    /* PLUS GRAND */
-    opacity:0;
-    animation:logoZoom 1.9s ease forwards;
+    width:190px;
+    animation:zoomIn 1.2s ease forwards;
 }
 
-@keyframes logoZoom{
+@keyframes zoomIn{
     0%{opacity:0; transform:scale(.6);}
-    60%{opacity:1; transform:scale(1.15);}
+    70%{opacity:1; transform:scale(1.1);}
     100%{opacity:1; transform:scale(1);}
 }
 @keyframes fadeOut{
     to{opacity:0; visibility:hidden;}
 }
 
-/* -------------------------------------------
+/* ---------------------------------------------------
    HEADER
-------------------------------------------- */
+--------------------------------------------------- */
 header{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:14px 20px;
-    background:var(--glass);
+    padding:15px 20px;
+    background:var(--card);
     border-bottom:1px solid var(--border);
-    backdrop-filter:blur(16px);
+    backdrop-filter:blur(15px);
     position:sticky;
     top:0;
     z-index:999;
 }
-
 header img{
     width:45px;
-    filter:drop-shadow(0 0 7px #F2B840);
 }
-
 header h1{
-    font-size:16px;
     margin:0;
+    font-size:17px;
     font-weight:bold;
 }
-
 .settings-btn{
     background:none;
     border:none;
-    color:#F2B840;
     font-size:26px;
     cursor:pointer;
+    color:#F2B840;
 }
 
-/* -------------------------------------------
-   SETTINGS PANEL (réglages)
-------------------------------------------- */
-#settings{
+/* ---------------------------------------------------
+   SETTINGS PANEL
+--------------------------------------------------- */
+#panel{
     position:fixed;
-    top:-400px;
+    top:-100%;
     left:0;
     width:100%;
-    background:var(--glass);
+    background:var(--card);
+    backdrop-filter:blur(25px);
     border-bottom:1px solid var(--border);
-    backdrop-filter:blur(20px);
     padding:25px;
+    transition:.4s;
     z-index:9999;
-    transition:0.4s ease;
 }
-
-.close-settings{
+.panel-item{
+    padding:14px 0;
+    border-bottom:1px solid var(--border);
+    font-size:17px;
+    cursor:pointer;
+}
+.close-btn{
     text-align:right;
-    font-size:26px;
+    font-size:22px;
+    margin-bottom:10px;
     cursor:pointer;
     color:#F2B840;
-    margin-bottom:8px;
 }
 
-.settings-item{
-    padding:15px 0;
-    font-size:17px;
-    border-bottom:1px solid var(--border);
-    cursor:pointer;
-}
-
-/* TAP VIBRATION */
-.settings-item:active,
-.card:active{
-    animation:vibrate .09s linear;
-}
-
-@keyframes vibrate{
-    0%{transform:translateX(0);}
-    25%{transform:translateX(-2px);}
-    50%{transform:translateX(2px);}
-    100%{transform:translateX(0);}
-}
-
-/* -------------------------------------------
+/* ---------------------------------------------------
    HERO
-------------------------------------------- */
+--------------------------------------------------- */
 .hero{
     width:90%;
     margin:25px auto;
     padding:25px;
-    background:var(--glass);
+    text-align:center;
+    background:var(--card);
     border:1px solid var(--border);
     border-radius:18px;
-    text-align:center;
     backdrop-filter:blur(15px);
-    animation:fadeUp .7s ease;
 }
-
-@keyframes fadeUp{
-    from{opacity:0; transform:translateY(20px);}
-    to{opacity:1; transform:translateY(0);}
-}
-
 .hero h2{
     margin:0;
-    font-size:22px;
+    font-size:23px;
     color:#F2B840;
 }
 
-.hero p{
-    opacity:.85;
-    margin-top:8px;
-}
-
-/* -------------------------------------------
+/* ---------------------------------------------------
    TITLES
-------------------------------------------- */
+--------------------------------------------------- */
 .section-title{
-    font-size:20px;
-    margin:32px 0 5px 20px;
+    margin:30px 0 10px 20px;
+    font-size:19px;
     color:#F2B840;
 }
 
-/* -------------------------------------------
+/* ---------------------------------------------------
    CARDS
-------------------------------------------- */
+--------------------------------------------------- */
 .grid{
     display:grid;
     grid-template-columns:1fr 1fr;
@@ -195,41 +160,32 @@ header h1{
 }
 
 .card{
-    background:var(--glass);
-    padding:20px;
-    text-align:center;
-    border-radius:18px;
-    backdrop-filter:blur(14px);
+    background:var(--card);
     border:1px solid var(--border);
+    padding:18px;
+    border-radius:16px;
     cursor:pointer;
+    text-align:center;
     transition:.25s;
 }
-
 .card:hover{
-    transform:scale(1.04);
-    box-shadow:0 0 18px rgba(242,184,64,0.25);
+    transform:scale(1.03);
+    box-shadow:0 0 15px rgba(242,184,64,0.25);
 }
-
 .card span{
-    font-size:26px;
     display:block;
-    margin-bottom:5px;
+    font-size:28px;
 }
 
-.single-card{
-    width:90%;
-    margin:12px auto;
-}
-
-/* -------------------------------------------
+/* ---------------------------------------------------
    FOOTER
-------------------------------------------- */
+--------------------------------------------------- */
 footer{
     text-align:center;
-    opacity:.6;
-    margin-top:35px;
-    padding:30px 10px;
-    font-size:13px;
+    padding:25px;
+    opacity:.7;
+    font-size:14px;
+    margin-top:40px;
 }
 </style>
 </head>
@@ -238,24 +194,26 @@ footer{
 
 <!-- SPLASH -->
 <div id="splash">
-    <img src="logotransparent.png" alt="CIZA">
+    <img src="logotransparent.png">
 </div>
 
 <!-- HEADER -->
 <header>
     <img src="logotransparent.png">
     <h1>CIZA GROUP — App Officielle</h1>
-    <button class="settings-btn" onclick="toggleSettings()">⚙️</button>
+    <button class="settings-btn" onclick="openPanel()">⚙️</button>
 </header>
 
 <!-- SETTINGS PANEL -->
-<div id="settings">
-    <div class="close-settings" onclick="toggleSettings()">✖</div>
+<div id="panel">
+    <div class="close-btn" onclick="closePanel()">✖</div>
 
-    <div class="settings-item" onclick="toggleTheme()">Mode clair / sombre</div>
-    <div class="settings-item" onclick="location.href='help.html'">Aide & FAQ</div>
-    <div class="settings-item" onclick="location.href='ia.html'">Assistant IA</div>
-    <div class="settings-item" onclick="location.href='mailto:infos@cizagroup.com'">Contact Support</div>
+    <div class="panel-item" onclick="toggleLang()">🌐 Changer de langue</div>
+    <div class="panel-item" onclick="toggleTheme()">🌙 Mode clair / sombre</div>
+    <div class="panel-item" onclick="location.href='faq.html'">❓ Aide & FAQ</div>
+    <div class="panel-item" onclick="location.href='assistant.html'">🤖 Assistant IA</div>
+    <div class="panel-item" onclick="location.href='mailto:infos@cizagroup.com'">✉️ Contact support</div>
+    <div class="panel-item" onclick="location.href='https://wa.me/15145029503'">💬 WhatsApp Support</div>
 </div>
 
 <!-- HERO -->
@@ -266,61 +224,40 @@ footer{
 
 <!-- DIASPORA -->
 <h2 class="section-title">🌍 CIZA DIASPORA+</h2>
-<div class="single-card card" onclick="location.href='diaspora.html'">
-    <span>🌍</span> Services Mondiaux pour la Diaspora
-</div>
-
-<!-- SERVICES LOCAUX -->
-<h2 class="section-title">🇧🇮 Services Locaux</h2>
-
 <div class="grid">
-    <div class="card" onclick="location.href='ride.html'">
-        <span>🚗</span>CizaRide+
-    </div>
-
-    <div class="card" onclick="location.href='delivery.html'">
-        <span>📦</span>CizaDelivery
-    </div>
-
-    <div class="card" onclick="location.href='carwash.html'">
-        <span>🧼</span>CarWash+
-    </div>
-
-    <div class="card" onclick="location.href='assist.html'">
-        <span>🤝</span>CizaAssist
-    </div>
-
-    <div class="card" onclick="location.href='market.html'">
-        <span>🛒</span>CizaMarket
-    </div>
-
-    <div class="card" onclick="location.href='jobs.html'">
-        <span>💼</span>CizaJobs
+    <div class="card" onclick="location.href='diaspora.html'">
+        <span>🌍</span> Services Mondiaux pour la Diaspora
     </div>
 </div>
 
-<!-- ENTREPRISES -->
+<!-- LOCAUX -->
+<h2 class="section-title">🇧🇮 Services Locaux</h2>
+<div class="grid">
+    <div class="card" onclick="location.href='ride.html'"><span>🚗</span>CizaRide+</div>
+    <div class="card" onclick="location.href='delivery.html'"><span>📦</span>CizaDelivery</div>
+    <div class="card" onclick="location.href='carwash.html'"><span>🧼</span>CarWash+</div>
+    <div class="card" onclick="location.href='assist.html'"><span>🤝</span>CizaAssist</div>
+    <div class="card" onclick="location.href='market.html'"><span>🛒</span>CizaMarket</div>
+    <div class="card" onclick="location.href='jobs.html'"><span>💼</span>CizaJobs</div>
+</div>
+
+<!-- ENTREPRISE -->
 <h2 class="section-title">🏢 Solutions Entreprises</h2>
-<div class="single-card card" onclick="location.href='business.html'">
-    <span>🏢</span> Services Professionnels & Partenariats
+<div class="grid">
+    <div class="card" onclick="location.href='business.html'">
+        <span>🏢</span>Services Professionnels & Partenariats
+    </div>
 </div>
 
-<!-- FOOTER -->
 <footer>
-    © 2028 CIZA GROUP — Écosystème de services dans vos mains
+© 2028 CIZA GROUP — Écosystème de services dans vos mains
 </footer>
 
 <script>
-/* SETTINGS OPEN / CLOSE */
-function toggleSettings(){
-    const panel = document.getElementById("settings");
-    panel.style.top = (panel.style.top === "0px") ? "-400px" : "0px";
-}
-
-/* THEME */
-function toggleTheme(){
-    document.body.classList.toggle("light");
-}
+function openPanel(){ document.getElementById("panel").style.top="0"; }
+function closePanel(){ document.getElementById("panel").style.top="-100%"; }
+function toggleTheme(){ document.body.classList.toggle("light"); }
+function toggleLang(){ alert("Bientôt multilingue complet."); }
 </script>
 
 </body>
