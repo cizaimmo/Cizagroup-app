@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>CizaCarWash — Flottes & Entreprises</title>
+
+<style>
+body{
+    margin:0;
+    background:#06142E;
+    color:white;
+    font-family:Arial, sans-serif;
+}
+
+/* CONTAINER */
+.container{
+    width:90%;
+    margin:40px auto;
+    background:rgba(255,255,255,0.06);
+    border-radius:16px;
+    padding:25px;
+    border:1px solid rgba(255,255,255,0.15);
+    backdrop-filter:blur(12px);
+}
+
+/* TITLE */
+h2{
+    text-align:center;
+    color:#A8C7FF;
+    margin-bottom:15px;
+}
+
+/* SECTION BLOCKS */
+.block{
+    background:rgba(255,255,255,0.07);
+    border-radius:14px;
+    padding:15px;
+    margin-top:15px;
+    border:1px solid rgba(255,255,255,0.12);
+    backdrop-filter:blur(10px);
+}
+
+.block h3{
+    color:#A8C7FF;
+    margin-top:0;
+}
+
+.block p{
+    opacity:.85;
+    line-height:1.6;
+}
+
+/* BACK BUTTON */
+.back{
+    display:block;
+    text-align:center;
+    margin-top:25px;
+    color:#A8C7FF;
+    font-weight:bold;
+    text-decoration:none;
+}
+
+/* LANG SWITCH */
+.lang-btn{
+    position:fixed;
+    bottom:18px; right:18px;
+    background:#A8C7FF;
+    color:#06142E;
+    border:none;
+    padding:12px;
+    border-radius:50px;
+    cursor:pointer;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2 data-fr="Flottes & Entreprises" data-en="Fleets & Businesses">
+        Flottes & Entreprises
+    </h2>
+
+    <!-- BLOCK 1 -->
+    <div class="block">
+        <h3 data-fr="Excellence Professionnelle" data-en="Professional Excellence">
+            Excellence Professionnelle
+        </h3>
+        <p data-fr="
+            Solutions destinées aux entreprises, ONG, hôtels, flottes de taxis et sociétés.
+            CizaCarWash+ propose un service mobile rapide, fiable et structuré.
+            (Mode Développement — Phase Firebase)
+            "
+           data-en="
+            Solutions dedicated to companies, NGOs, hotels, taxi fleets and corporations.
+            CizaCarWash+ provides fast, reliable and structured mobile service.
+            (Development Mode — Firebase Phase)
+            ">
+            Solutions destinées aux entreprises, ONG, hôtels, flottes de taxis et sociétés.
+            CizaCarWash+ propose un service mobile rapide, fiable et structuré.
+            (Mode Développement — Phase Firebase)
+        </p>
+    </div>
+
+    <!-- BLOCK 2 -->
+    <div class="block">
+        <h3 data-fr="Performance & Planification" data-en="Performance & Planning">
+            Performance & Planification
+        </h3>
+        <p data-fr="
+            Gestion d'horaires, disponibilité prioritaire, équipe dédiée,
+            et optimisation des opérations selon vos besoins.
+            "
+           data-en="
+            Schedule management, priority availability, dedicated team,
+            and operational optimization according to your needs.
+            ">
+            Gestion d'horaires, disponibilité prioritaire, équipe dédiée,
+            et optimisation des opérations selon vos besoins.
+        </p>
+    </div>
+
+    <!-- BLOCK 3 -->
+    <div class="block">
+        <h3 data-fr="Contrat & Facturation" data-en="Contract & Billing">
+            Contrat & Facturation
+        </h3>
+        <p data-fr="
+            Options de facturation mensuelle, tarifs contractuels,
+            rapports PDF, et historique des interventions.
+            "
+           data-en="
+            Monthly billing options, contractual pricing,
+            PDF reports, and service history.
+            ">
+            Options de facturation mensuelle, tarifs contractuels,
+            rapports PDF, et historique des interventions.
+        </p>
+    </div>
+
+</div>
+
+<!-- BACK BUTTON -->
+<a href="carwash.html" class="back"
+   data-fr="← Retour"
+   data-en="← Back">← Retour</a>
+
+<!-- LANG BUTTON -->
+<button class="lang-btn" onclick="switchLang()">FR</button>
+
+<script>
+function switchLang(){
+    let html = document.documentElement;
+    let newLang = (html.lang === "fr") ? "en" : "fr";
+    html.lang = newLang;
+
+    document.querySelector(".lang-btn").innerHTML = newLang.toUpperCase();
+
+    document.querySelectorAll("[data-fr]").forEach(el=>{
+        el.innerHTML = (newLang === "fr")
+            ? el.getAttribute("data-fr")
+            : el.getAttribute("data-en");
+    });
+}
+</script>
+
+</body>
+</html>
