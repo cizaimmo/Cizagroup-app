@@ -3,236 +3,330 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <title>CIZA GROUP — Super App</title>
+<link rel="icon" href="logotransparent.png">
 
 <style>
-    body {
-        margin: 0;
-        background: #06142E;
-        font-family: system-ui, sans-serif;
-        color: white;
-        overflow-x: hidden;
+    body{
+        margin:0;
+        padding:0;
+        background:#06142E;
+        font-family:Arial, sans-serif;
+        color:white;
+        overflow-x:hidden;
     }
 
-    /* Fade-in global animation */
-    body.loaded {
-        animation: pageEnter 1.3s ease forwards;
-    }
-    @keyframes pageEnter {
-        from { opacity: 0; transform: scale(1.02); }
-        to { opacity: 1; transform: scale(1); }
-    }
-
-    /* TITRES */
-    h2 {
-        font-size: 24px;
-        font-weight: 700;
-        margin: 40px 20px 10px;
-        color: #F2B840;
-    }
-
-    /* CARTES PREMIUM */
-    .card {
-        background: rgba(255,255,255,0.04);
-        border-radius: 18px;
-        margin: 12px 18px;
-        padding: 20px;
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        border: 1px solid rgba(255,255,255,0.08);
-        box-shadow: 0 0 22px rgba(0,0,0,0.45);
-        backdrop-filter: blur(8px);
-        transition: 0.25s ease;
-        opacity: 0;
-        transform: translateY(20px);
-        animation: reveal 0.9s ease forwards;
+    /* ============================
+       INTRO ANIMATION PREMIUM
+    ============================= */
+    #intro{
+        position:fixed;
+        top:0; left:0;
+        width:100%; height:100%;
+        background:#06142E;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        flex-direction:column;
+        z-index:9999;
+        animation:fadeOut 1.8s ease 2.0s forwards;
     }
 
-    /* Effet apparation cartes */
-    @keyframes reveal {
-        to { opacity: 1; transform: translateY(0); }
+    #intro img{
+        width:160px;
+        opacity:0;
+        filter: drop-shadow(0 0 12px #F2B840);
+        animation:logoFade 2s ease forwards;
     }
 
-    /* Glow hover */
-    .card:hover {
-        transform: translateY(-4px) scale(1.02);
-        box-shadow: 0 0 30px rgba(242,184,64,0.55);
+    @keyframes logoFade{
+        0%{opacity:0; transform:scale(0.6);}
+        60%{opacity:1; transform:scale(1.08);}
+        100%{opacity:1; transform:scale(1);}
     }
 
-    /* Icon + texte */
-    .icon {
-        font-size: 32px;
-    }
-    .label {
-        font-size: 20px;
+    @keyframes fadeOut{
+        to{opacity:0; visibility:hidden;}
     }
 
-    /* BOUTONS FLOTTANTS */
-    .float-btn {
-        position: fixed;
-        bottom: 26px;
-        right: 20px;
-        width: 58px;
-        height: 58px;
-        border-radius: 50%;
-        background: #F2B840;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 26px;
-        color: black;
-        box-shadow: 0 0 20px rgba(0,0,0,0.5);
-        cursor: pointer;
-        transition: 0.25s ease;
-        z-index: 1000;
-    }
-    .float-btn:hover {
-        transform: scale(1.09);
+    /* ============================
+       HERO ROYAL++++
+    ============================= */
+    .hero{
+        margin-top:40px;
+        width:88%;
+        padding:28px;
+        margin-left:auto;
+        margin-right:auto;
+        border-radius:22px;
+        backdrop-filter:blur(22px);
+        background:rgba(255,255,255,0.05);
+        border:1px solid rgba(255,255,255,0.15);
+        box-shadow:0 0 35px rgba(242,184,64,0.25);
+        animation:heroFade 1.3s ease;
+        text-align:center;
     }
 
-    /* Bouton WhatsApp flottant */
-    .float-wa {
-        bottom: 100px;
-        background: #25D366;
-        color: white;
+    @keyframes heroFade{
+        0%{opacity:0; transform:translateY(25px);}
+        100%{opacity:1; transform:translateY(0);}
     }
 
-    /* PANEL RÉGLAGES PREMIUM */
-    #panel {
-        position: fixed;
-        top: 0;
-        right: -320px;
-        width: 320px;
-        height: 100%;
-        background: rgba(10,10,20,0.65);
-        border-left: 1px solid rgba(255,255,255,0.1);
-        backdrop-filter: blur(14px);
-        box-shadow: -4px 0 25px rgba(0,0,0,0.6);
-        transition: 0.35s ease;
-        padding: 25px;
-        z-index: 2000;
+    .hero h1{
+        font-size:25px;
+        margin:0;
+        color:#F2B840;
+        text-shadow:0 0 12px rgba(242,184,64,0.4);
     }
 
-    .panel-title {
-        font-size: 22px;
-        font-weight: 700;
-        margin-bottom: 20px;
+    .hero p{
+        opacity:.85;
+        margin-top:10px;
+        font-size:15px;
     }
 
-    .panel-item {
-        background: rgba(255,255,255,0.06);
-        padding: 16px;
-        border-radius: 12px;
-        margin-bottom: 12px;
-        cursor: pointer;
-        border: 1px solid rgba(255,255,255,0.07);
-        transition: 0.25s;
-    }
-    .panel-item:hover {
-        background: rgba(255,255,255,0.15);
+    /* ============================
+       TITRES DES SECTIONS
+    ============================= */
+    .section-title{
+        font-size:20px;
+        margin-left:20px;
+        margin-top:40px;
+        color:#F2B840;
+        text-shadow:0 0 10px rgba(242,184,64,0.4);
     }
 
-    /* FOOTER */
-    footer {
-        text-align: center;
-        color: #b8b8b8;
-        font-size: 13px;
-        margin: 40px 0 20px;
-        opacity: 0.65;
+    /* ============================
+       CARTES ROYAL++++
+    ============================= */
+    .card{
+        width:90%;
+        margin:14px auto;
+        padding:20px;
+        background:rgba(255,255,255,0.05);
+        border-radius:18px;
+        border:1px solid rgba(255,255,255,0.12);
+        backdrop-filter:blur(14px);
+        box-shadow:0 0 25px rgba(0,0,0,0.25);
+        cursor:pointer;
+        transition:.28s ease;
+        display:flex;
+        align-items:center;
+        font-size:19px;
     }
+
+    .card:hover{
+        transform:translateY(-5px) scale(1.02);
+        box-shadow:0 0 35px rgba(242,184,64,0.35);
+    }
+
+    .card span{
+        font-size:24px;
+        margin-right:12px;
+    }
+
+    /* GRID */
+    .grid{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:12px;
+        width:90%;
+        margin:0 auto;
+    }
+
+    .grid .card{
+        width:100%;
+    }
+
+    /* ============================
+       PANNEAU RÉGLAGES ROYAL
+    ============================= */
+    #panel{
+        position:fixed;
+        top:0;
+        right:-330px;
+        width:330px;
+        height:100%;
+        background:rgba(8,12,25,0.65);
+        border-left:1px solid rgba(255,255,255,0.12);
+        backdrop-filter:blur(18px);
+        padding:22px;
+        transition:.35s ease;
+        z-index:99999;
+        box-shadow:-4px 0 25px rgba(0,0,0,0.55);
+    }
+
+    .panel-title{
+        font-size:22px;
+        font-weight:700;
+        margin-bottom:18px;
+        color:#F2B840;
+    }
+
+    .panel-item{
+        background:rgba(255,255,255,0.07);
+        padding:15px;
+        border-radius:12px;
+        margin-bottom:12px;
+        border:1px solid rgba(255,255,255,.1);
+        cursor:pointer;
+        transition:.25s ease;
+    }
+
+    .panel-item:hover{
+        background:rgba(255,255,255,0.18);
+    }
+
+    /* ============================
+       BOUTONS FLOTTANTS
+    ============================= */
+    .float-btn{
+        position:fixed;
+        right:22px;
+        width:56px;
+        height:56px;
+        border-radius:50%;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        color:#06142E;
+        font-size:26px;
+        font-weight:bold;
+        cursor:pointer;
+        box-shadow:0 0 25px rgba(0,0,0,0.5);
+        transition:.22s ease;
+        z-index:3000;
+    }
+
+    .float-btn:hover{
+        transform:scale(1.08);
+    }
+
+    #btn-settings{
+        bottom:26px;
+        background:#F2B840;
+    }
+
+    #btn-ia{
+        bottom:95px;
+        background:#F2B840;
+    }
+
+    #btn-wa{
+        bottom:164px;
+        background:#25D366;
+        color:white;
+    }
+
+    /* ============================
+       FOOTER
+    ============================= */
+    footer{
+        text-align:center;
+        padding:35px 10px;
+        opacity:.7;
+        font-size:14px;
+    }
+
 </style>
 </head>
 
 <body>
 
-<script>
-    /* Lancement animation page */
-    window.onload = () => {
-        document.body.classList.add('loaded');
-    };
+<!-- INTRO -->
+<div id="intro">
+    <img src="logotransparent.png">
+</div>
 
-    /* Vibration haptic touch mobile */
-    function vib() {
-        if (navigator.vibrate) navigator.vibrate(10);
-    }
+<!-- HERO PREMIUM -->
+<div class="hero">
+    <h1>CIZA GROUP — Super App</h1>
+    <p>Votre écosystème multiservices premium — diaspora, local & entreprises.</p>
+</div>
 
-    /* Ouvre panneau réglages */
-    function openPanel() {
-        vib();
-        document.getElementById("panel").style.right = "0px";
-    }
+<!-- SECTION DIASPORA -->
+<h2 class="section-title">🌍 CIZA DIASPORA+</h2>
 
-    /* Ferme panneau */
-    function closePanel() {
-        document.getElementById("panel").style.right = "-320px";
-    }
-</script>
+<div class="card" onclick="navigate('diaspora.html')">
+    <span>🌍</span> Services Mondiaux pour la Diaspora
+</div>
 
-<!-- PANEL RÉGLAGES -->
+<!-- SERVICES LOCAUX -->
+<h2 class="section-title">🇧🇮 Services Locaux</h2>
+
+<div class="grid">
+    <div class="card" onclick="navigate('ride.html')">
+        <span>🚗</span> CizaRide+
+    </div>
+
+    <div class="card" onclick="navigate('delivery.html')">
+        <span>📦</span> CizaDelivery
+    </div>
+
+    <div class="card" onclick="navigate('carwash.html')">
+        <span>🧼</span> CizaCarWash+
+    </div>
+
+    <div class="card" onclick="navigate('assist.html')">
+        <span>🤝</span> CizaAssist
+    </div>
+
+    <div class="card" onclick="navigate('market.html')">
+        <span>🛒</span> CizaMarket
+    </div>
+
+    <div class="card" onclick="navigate('jobs.html')">
+        <span>💼</span> CizaJobs
+    </div>
+</div>
+
+<!-- ENTREPRISE -->
+<h2 class="section-title">🏢 Solutions Entreprises</h2>
+
+<div class="card" onclick="navigate('business.html')">
+    <span>🏢</span> Services Professionnels & Partenariats
+</div>
+
+<!-- PANNEAU RÉGLAGES -->
 <div id="panel">
     <div class="panel-title">⚙️ Réglages</div>
 
-    <div class="panel-item" onclick="vib()">🌙 Mode sombre (auto)</div>
-    <div class="panel-item" onclick="vib()">📳 Vibration</div>
-    <div class="panel-item" onclick="vib()">🔔 Notifications</div>
-    <div class="panel-item" onclick="vib()">📍 Localisation</div>
-    <div class="panel-item" onclick="vib()">🌍 Français / English</div>
-    <div class="panel-item" onclick="vib()">📱 Installer l’application</div>
+    <div class="panel-item">🌙 Mode sombre</div>
+    <div class="panel-item">📳 Vibration</div>
+    <div class="panel-item">🔔 Notifications</div>
+    <div class="panel-item">📍 Localisation</div>
+    <div class="panel-item">🌍 Français / English</div>
+    <div class="panel-item">📱 Installer l'application</div>
 
     <div class="panel-item" onclick="closePanel()">❌ Fermer</div>
 </div>
 
 <!-- BOUTONS FLOTTANTS -->
-<div class="float-btn" onclick="openPanel()">⚙️</div>
-<div class="float-btn float-wa" onclick="window.location.href='https://wa.me/15145029503'">💬</div>
+<div id="btn-settings" class="float-btn" onclick="openPanel()">⚙️</div>
+<div id="btn-ia" class="float-btn" onclick="alert('IA bientôt disponible')">🤖</div>
+<div id="btn-wa" class="float-btn" onclick="window.location='https://wa.me/15145029503'">💬</div>
 
-
-<!-- SECTION DIASPORA -->
-<h2>🌍 Services Mondiaux pour la Diaspora</h2>
-<div class="card" onclick="vib()">
-    <span class="icon">🌍</span>
-    <span class="label">CIZA DIASPORA+</span>
-</div>
-
-<!-- SERVICES LOCAUX -->
-<h2>🇧🇮 Services Locaux</h2>
-
-<div class="card" onclick="window.location='cizaride.html'; vib();">
-    <span class="icon">🚗</span> <span class="label">CizaRide+</span>
-</div>
-
-<div class="card" onclick="window.location='delivery.html'; vib();">
-    <span class="icon">📦</span> <span class="label">CizaDelivery</span>
-</div>
-
-<div class="card" onclick="window.location='carwash.html'; vib();">
-    <span class="icon">🧽</span> <span class="label">CizaCarWash+</span>
-</div>
-
-<div class="card" onclick="window.location='assist.html'; vib();">
-    <span class="icon">🤝</span> <span class="label">CizaAssist</span>
-</div>
-
-<div class="card" onclick="window.location='market.html'; vib();">
-    <span class="icon">🛒</span> <span class="label">CizaMarket</span>
-</div>
-
-<div class="card" onclick="window.location='cizajobs.html'; vib();">
-    <span class="icon">💼</span> <span class="label">CizaJobs</span>
-</div>
-
-<!-- ENTREPRISES -->
-<h2>🏢 Solutions Entreprises</h2>
-
-<div class="card" onclick="window.location='business.html'; vib();">
-    <span class="icon">🏢</span> 
-    <span class="label">Services Professionnels & Partenariats</span>
-</div>
-
+<!-- FOOTER -->
 <footer>
-    CIZA GROUP © — Excellence, Innovation & Diaspora
+    CIZA GROUP — Écosystème de services dans vos mains
 </footer>
+
+<script>
+function navigate(url){
+    if(navigator.vibrate) navigator.vibrate(10);
+    window.location.href = url;
+}
+
+function openPanel(){
+    if(navigator.vibrate) navigator.vibrate(10);
+    document.getElementById("panel").style.right = "0px";
+}
+
+function closePanel(){
+    document.getElementById("panel").style.right = "-330px";
+}
+</script>
 
 </body>
 </html>
