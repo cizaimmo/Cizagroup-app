@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>CizaRide+ — Choix du Service</title>
+<link rel="icon" href="logotransparent.png">
+
+<style>
+body{
+    margin:0;
+    background:#06142E;
+    color:white;
+    font-family:Arial, sans-serif;
+}
+
+/* HEADER + RETOUR */
+.header{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:18px;
+}
+.header a{
+    color:#F2B840;
+    font-size:26px;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+/* TITRE */
+h1{
+    text-align:center;
+    color:#F2B840;
+    margin-top:0;
+}
+
+.subtitle{
+    text-align:center;
+    opacity:.8;
+}
+
+/* CARDS */
+.cards{
+    padding:20px;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+.card{
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(242,184,64,0.3);
+    border-radius:18px;
+    padding:20px;
+    display:flex;
+    gap:15px;
+    cursor:pointer;
+}
+.card img{
+    width:55px;
+}
+.card-title{
+    font-size:18px;
+    color:#F2B840;
+    font-weight:bold;
+}
+
+/* LANG */
+.lang-btn{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    background:#F2B840;
+    color:#06142E;
+    padding:12px 16px;
+    border-radius:50px;
+    font-weight:bold;
+    border:none;
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<!-- BOUTON RETOUR -->
+<div class="header">
+    <a href="index.html">←</a>
+    <span style="font-size:20px;">CizaRide+</span>
+</div>
+
+<h1 data-fr="CizaRide+" data-en="CizaRide+">CizaRide+</h1>
+<p class="subtitle" data-fr="Choisissez votre niveau de service" data-en="Choose your service level">
+    Choisissez votre niveau de service
+</p>
+
+<div class="cards">
+
+    <div class="card" onclick="location.href='cizaride-standard.html'">
+        <img src="https://img.icons8.com/fluency/96/car.png">
+        <div>
+            <div class="card-title" data-fr="Standard" data-en="Standard">Standard</div>
+            <div data-fr="Transport rapide et fiable" data-en="Fast and reliable transport">Transport rapide et fiable</div>
+        </div>
+    </div>
+
+    <div class="card" onclick="location.href='cizaride-vip.html'">
+        <img src="https://img.icons8.com/fluency/96/crown.png">
+        <div>
+            <div class="card-title" data-fr="VIP" data-en="VIP">VIP</div>
+            <div data-fr="Confort premium & services exclusifs" data-en="Premium comfort & exclusive services">Confort premium & services exclusifs</div>
+        </div>
+    </div>
+
+    <div class="card" onclick="location.href='cizaride-vip-royal.html'">
+        <img src="https://img.icons8.com/fluency/96/diamond.png">
+        <div>
+            <div class="card-title" data-fr="VIP Royal" data-en="VIP Royal">VIP Royal</div>
+            <div data-fr="Niveau ultime : PDG, diplomates, personnalités" data-en="Ultimate level: CEOs, diplomats, personalities">
+                Niveau ultime : PDG, diplomates, personnalités
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<button class="lang-btn" onclick="switchLang()">FR</button>
+
+<script>
+function switchLang(){
+    let html=document.documentElement;
+    html.lang = (html.lang==="fr") ? "en" : "fr";
+    document.querySelector(".lang-btn").innerHTML = (html.lang==="fr")?"FR":"EN";
+    document.querySelectorAll("[data-fr]").forEach(el=>{
+        el.innerHTML=(html.lang==="fr")?el.dataset.fr:el.dataset.en;
+    });
+}
+</script>
+
+</body>
+</html>
