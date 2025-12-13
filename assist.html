@@ -4,24 +4,29 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>CizaAssist+ — 2030</title>
+<title>CizaAssist+ — Corporate 2030</title>
 <link rel="icon" href="logotransparent.png">
 
 <style>
-/* GLOBAL */
+/* ------------------------------
+   GLOBAL
+------------------------------ */
 body{
     margin:0;
     background:#06142E;
     font-family:Arial, sans-serif;
     color:white;
+    line-height:1.6;
     overflow-x:hidden;
 }
 
-/* HERO GLASS — NO IMAGE */
+/* ------------------------------
+   HERO (GLASS CORPORATE)
+------------------------------ */
 .hero{
     width:90%;
     margin:35px auto 0 auto;
-    padding:25px;
+    padding:30px;
     border-radius:20px;
     background:rgba(255,255,255,0.06);
     border:1px solid rgba(255,255,255,0.12);
@@ -29,51 +34,91 @@ body{
     box-shadow:0 0 25px rgba(242,184,64,0.12);
     text-align:center;
 }
-
 .hero h1{
-    font-size:26px;
+    font-size:28px;
     color:#F2B840;
     margin:0;
-    text-shadow:0 0 10px #000;
 }
 .hero p{
-    opacity:.82;
+    opacity:.85;
     margin-top:8px;
+    font-size:15px;
 }
 
-/* TITLES */
+/* ------------------------------
+   SECTION TITLES
+------------------------------ */
 .section-title{
     color:#F2B840;
     font-size:20px;
-    margin-top:30px;
+    margin-top:40px;
     margin-left:18px;
 }
 
-/* CARDS */
+/* ------------------------------
+   WHY SECTION
+------------------------------ */
+.why{
+    width:90%;
+    margin:15px auto;
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+.why-item{
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.12);
+    padding:15px;
+    border-radius:14px;
+    backdrop-filter:blur(14px);
+}
+.why-item strong{
+    color:#F2B840;
+}
+
+/* ------------------------------
+   SERVICE CARDS
+------------------------------ */
 .card{
     width:90%;
-    margin:12px auto;
+    margin:14px auto;
     padding:18px;
     border-radius:16px;
     background:rgba(255,255,255,0.05);
-    border:1px solid rgba(255,255,255,0.15);
+    border:1px solid rgba(255,255,255,0.12);
     backdrop-filter:blur(14px);
-    box-shadow:0 0 15px rgba(0,0,0,0.25);
     cursor:pointer;
     transition:.3s;
 }
-
 .card:hover{
     transform:translateY(-4px);
-    box-shadow:0 0 22px rgba(242,184,64,0.25);
+    box-shadow:0 0 20px rgba(242,184,64,0.25);
 }
-
 .card span{
-    font-size:22px;
-    margin-right:10px;
+    font-size:28px;
+    color:#F2B840;
 }
 
-/* POPUP */
+/* ------------------------------
+   EXAMPLES SECTION
+------------------------------ */
+.examples{
+    width:90%;
+    margin:15px auto;
+}
+.example{
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.12);
+    padding:15px;
+    border-radius:14px;
+    margin-bottom:12px;
+    backdrop-filter:blur(14px);
+    font-size:14px;
+}
+
+/* ------------------------------
+   POPUP (FORM)
+------------------------------ */
 .popup{
     position:fixed;
     top:0;left:0;
@@ -85,69 +130,54 @@ body{
     padding:20px;
     z-index:9999;
 }
-
 .popup-content{
     background:#0b1c34;
     width:92%;
     max-width:400px;
     max-height:85vh;
     overflow-y:auto;
-    border-radius:16px;
     border:1px solid #F2B840;
+    border-radius:16px;
     padding:22px;
-    backdrop-filter:blur(14px);
 }
-
 .close{
     float:right;
     cursor:pointer;
     font-size:22px;
     color:#F2B840;
 }
-
 .popup-content h3{
     text-align:center;
     color:#F2B840;
-    margin-top:0;
 }
 
-/* INPUTS */
+/* ------------------------------
+   FORM INPUTS
+------------------------------ */
 input, textarea{
     width:100%;
     padding:12px;
     margin-top:10px;
     border:none;
-    border-radius:12px;
     background:#112544;
     color:white;
-}
-
-textarea{height:110px;}
-
-/* BUTTON */
-.send-btn{
-    margin-top:15px;
-    width:100%;
-    padding:12px;
-    background:#F2B840;
-    border:none;
-    color:#06142E;
-    font-weight:bold;
     border-radius:12px;
 }
-
-.lang-btn{
-    position:fixed;
-    bottom:20px; right:20px;
+textarea{height:110px;}
+.send-btn{
+    width:100%;
+    padding:12px;
+    margin-top:15px;
     background:#F2B840;
     border:none;
-    padding:12px;
-    font-weight:bold;
+    border-radius:12px;
     color:#06142E;
-    border-radius:50px;
-    z-index:99999;
+    font-weight:bold;
 }
 
+/* ------------------------------
+   BUTTONS
+------------------------------ */
 .help-btn{
     position:fixed;
     bottom:20px; left:20px;
@@ -156,7 +186,16 @@ textarea{height:110px;}
     border-radius:12px;
     border:1px solid #F2B840;
     color:#F2B840;
-    cursor:pointer;
+}
+.lang-btn{
+    position:fixed;
+    bottom:20px; right:20px;
+    background:#F2B840;
+    padding:12px;
+    border:none;
+    font-weight:bold;
+    border-radius:50px;
+    color:#06142E;
 }
 </style>
 </head>
@@ -166,37 +205,92 @@ textarea{height:110px;}
 <!-- HERO -->
 <div class="hero">
     <h1 data-fr="CizaAssist+" data-en="CizaAssist+">CizaAssist+</h1>
-    <p data-fr="Votre service d’assistance premium, disponible à tout moment."
-       data-en="Your premium assistance service, available anytime.">
-       Votre service d’assistance premium, disponible à tout moment.
+    <p data-fr="Votre service d’assistance premium pour particuliers & diaspora."
+       data-en="Your premium assistance service for individuals & diaspora.">
+       Votre service d’assistance premium pour particuliers & diaspora.
     </p>
 </div>
 
-<h2 class="section-title">Nos Services</h2>
+<!-- WHY SECTION -->
+<h2 class="section-title" data-fr="Pourquoi CizaAssist+" data-en="Why CizaAssist+">
+    Pourquoi CizaAssist+
+</h2>
+
+<div class="why">
+    <div class="why-item"><strong>✔ Rapidité :</strong> Une équipe prête à intervenir immédiatement.</div>
+    <div class="why-item"><strong>✔ Discrétion :</strong> Nous protégeons votre vie privée et celle de vos proches.</div>
+    <div class="why-item"><strong>✔ Fiabilité :</strong> Service premium avec suivi personnalisé.</div>
+    <div class="why-item"><strong>✔ Diaspora-friendly :</strong> Pensé pour aider vos familles à distance.</div>
+</div>
+
+<!-- SERVICES -->
+<h2 class="section-title" data-fr="Nos Services" data-en="Our Services">Nos Services</h2>
 
 <div class="card" onclick="openAssist('daily')">
-    <span>🤝</span> Assistance Quotidienne
+    <span>🤝</span>
+    <strong data-fr="Assistance Quotidienne" data-en="Daily Assistance">Assistance Quotidienne</strong>
+    <p style="opacity:.8;font-size:14px;">
+        Courses, soutien quotidien, aide aux proches.
+    </p>
 </div>
 
 <div class="card" onclick="openAssist('sos')">
-    <span>🚨</span> SOS Urgence (Non médical)
+    <span>🚨</span>
+    <strong data-fr="SOS Urgence" data-en="SOS Emergency">SOS Urgence</strong>
+    <p style="opacity:.8;font-size:14px;">
+        Aide immédiate non médicale : panne, porte bloquée, perte d'objet.
+    </p>
 </div>
 
 <div class="card" onclick="openAssist('admin')">
-    <span>📄</span> Services Administratifs
+    <span>📄</span>
+    <strong data-fr="Administratif" data-en="Administrative">Administratif</strong>
+    <p style="opacity:.8;font-size:14px;">
+        Démarches, documents, certificats, relais administratif.
+    </p>
 </div>
 
 <div class="card" onclick="openAssist('diaspora')">
-    <span>🌍</span> Assistance Premium Diaspora
+    <span>🌍</span>
+    <strong data-fr="Assistance Diaspora" data-en="Diaspora Assistance">Assistance Diaspora</strong>
+    <p style="opacity:.8;font-size:14px;">
+        Visite de maison, supervision travaux, aide famille.
+    </p>
 </div>
 
-<button class="help-btn" onclick="openAssist('help')">❓ Aide</button>
+<!-- EXAMPLES (Emotional style) -->
+<h2 class="section-title" data-fr="Exemples d'intervention" data-en="Examples of Support">
+    Exemples d'intervention
+</h2>
 
-<button class="lang-btn" onclick="switchLang()">FR</button>
+<div class="examples">
+
+    <div class="example">
+        « Ma mère avait un rendez-vous médical important.  
+        J'étais au Canada — CizaAssist+ l’a accompagnée et m’a envoyé un rapport complet. »
+    </div>
+
+    <div class="example">
+        « J'avais besoin d’un certificat urgent pour une procédure en Europe.  
+        CizaAssist+ l’a récupéré et envoyé en quelques heures. »
+    </div>
+
+    <div class="example">
+        « Je voulais vérifier l’état de ma maison en construction.  
+        L’agent CizaAssist+ s’est rendu sur place et m’a envoyé des photos détaillées. »
+    </div>
+
+    <div class="example">
+        « Ma voiture était bloquée tard le soir.  
+        J’ai contacté CizaAssist+ et un agent est venu en moins de 20 minutes. »
+    </div>
+
+</div>
 
 <!-- POPUP -->
 <div id="popup" class="popup">
     <div class="popup-content">
+
         <span class="close" onclick="closeAssist()">&times;</span>
 
         <h3 id="popup-title"></h3>
@@ -205,11 +299,11 @@ textarea{height:110px;}
         <form action="https://formsubmit.co/cizaassist@cizagroup.com" method="POST">
 
             <input type="hidden" name="_cc" value="infos@cizagroup.com">
-            <input type="hidden" name="_autoresponse" 
-                   value="Merci pour votre demande CizaAssist+. Notre équipe vous contactera rapidement.">
-            <input type="hidden" name="_next" 
-                   value="https://cizaimmo.github.io/cizagroup-app/success.html">
+            <input type="hidden" name="_autoresponse"
+                   value="Merci pour votre demande CizaAssist+. Un agent vous contactera rapidement.">
             <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_next"
+                   value="https://cizaimmo.github.io/cizagroup-app/success.html">
 
             <input type="text" name="nom" required placeholder="Nom complet"
                    data-fr="Nom complet" data-en="Full name">
@@ -223,61 +317,61 @@ textarea{height:110px;}
             <button class="send-btn" data-fr="Envoyer" data-en="Send">
                 Envoyer
             </button>
+
         </form>
     </div>
 </div>
 
+<!-- BUTTONS -->
+<button class="help-btn" onclick="openAssist('help')">❓ Aide</button>
+<button class="lang-btn" onclick="switchLang()">FR</button>
+
 <script>
 function openAssist(type){
     document.getElementById("popup").style.display="flex";
-    const t = document.getElementById("popup-title");
-    const d = document.getElementById("popup-desc");
+    const t=document.getElementById("popup-title");
+    const d=document.getElementById("popup-desc");
 
     if(type==="daily"){
         t.innerHTML="Assistance Quotidienne";
-        d.innerHTML="Courses urgentes, soutien personnel, assistance aux familles.";
+        d.innerHTML="Courses urgentes, aide au quotidien, accompagnement des proches.";
     }
     if(type==="sos"){
         t.innerHTML="SOS Urgence";
-        d.innerHTML="Aide immédiate non médicale : panne, blocage, perte d’objet.";
+        d.innerHTML="Aide immédiate non médicale : panne, porte, objet perdu.";
     }
     if(type==="admin"){
         t.innerHTML="Services Administratifs";
-        d.innerHTML="Documents, certificats, démarches pour diaspora et locaux.";
+        d.innerHTML="Documents, certificats, démarches officielles, relais administratif.";
     }
     if(type==="diaspora"){
-        t.innerHTML="Assistance Premium Diaspora";
-        d.innerHTML="Visite de maison, contrôle de travaux, supervision familiale.";
+        t.innerHTML="Assistance Diaspora";
+        d.innerHTML="Visite maison, contrôle travaux, supervision famille.";
     }
     if(type==="help"){
         t.innerHTML="Comment ça marche ?";
-        d.innerHTML="1) Choisissez un service <br>2) Expliquez votre besoin <br>3) Assistance immédiate <br><br>Service premium CIZA.";
+        d.innerHTML="1) Choisissez un service <br>2) Expliquez votre besoin <br>3) Un agent vous contacte immédiatement.";
     }
 }
-
 function closeAssist(){
     document.getElementById("popup").style.display="none";
 }
 
-/* LANG SWITCH */
+/* BILINGUE */
 function switchLang(){
-    const html = document.documentElement;
-    const newLang = html.lang === "fr" ? "en" : "fr";
-    html.lang = newLang;
+    const html=document.documentElement;
+    const newLang=html.lang==="fr"?"en":"fr";
+    html.lang=newLang;
 
-    document.querySelector(".lang-btn").innerHTML = newLang === "fr" ? "FR" : "EN";
+    document.querySelector(".lang-btn").innerHTML=newLang==="fr"?"FR":"EN";
 
     document.querySelectorAll("[data-fr]").forEach(el=>{
-        el.innerHTML = newLang === "fr"
-            ? el.getAttribute("data-fr")
-            : el.getAttribute("data-en");
+        el.innerHTML=newLang==="fr"?el.getAttribute("data-fr"):el.getAttribute("data-en");
     });
 
-    document.querySelectorAll("input, textarea").forEach(el=>{
+    document.querySelectorAll("input,textarea").forEach(el=>{
         if(el.hasAttribute("data-fr")){
-            el.placeholder = newLang === "fr"
-                ? el.getAttribute("data-fr")
-                : el.getAttribute("data-en");
+            el.placeholder=newLang==="fr"?el.getAttribute("data-fr"):el.getAttribute("data-en");
         }
     });
 }
