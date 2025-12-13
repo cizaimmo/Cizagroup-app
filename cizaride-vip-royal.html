@@ -12,111 +12,65 @@ body{
     margin:0;
     background:#06142E;
     color:white;
-    font-family:Arial, sans-serif;
+    font-family:Arial;
 }
 
-/* Bouton retour */
-.back-btn{
-    position:absolute;
-    top:18px;
-    left:18px;
-    background:rgba(255,255,255,0.1);
-    border:1px solid rgba(255,255,255,0.15);
-    padding:10px 14px;
-    border-radius:50px;
-    font-size:18px;
-    cursor:pointer;
-    backdrop-filter:blur(10px);
+.back{
+    font-size:28px;
+    padding:15px;
+    color:#F2B840;
+    text-decoration:none;
+    display:inline-block;
 }
 
-/* Image luxe */
-.header-img{
-    width:100%;
-    border-bottom:1px solid rgba(255,255,255,0.15);
-}
-
-/* Container */
-.container{
-    padding:20px;
+.hero-img{
+    width:140px;
+    display:block;
+    margin:20px auto;
 }
 
 h2{
-    color:#F2B840;
     text-align:center;
+    color:#F2B840;
+}
+p{
+    text-align:center;
+    opacity:.85;
+    padding:0 20px;
 }
 
-/* Form */
-input, textarea, select{
-    width:100%;
-    margin-top:10px;
-    padding:12px;
-    border:none;
-    border-radius:10px;
-    background:#112544;
-    color:white;
+/* FORM */
+form{
+    width:90%;
+    margin:20px auto;
+    display:flex;
+    flex-direction:column;
+    gap:15px;
 }
-textarea{height:110px;}
-
-button{
-    width:100%;
+input{
     padding:14px;
-    margin-top:16px;
-    border:none;
-    background:#F2B840;
-    color:#06142E;
-    font-weight:bold;
     border-radius:10px;
-    cursor:pointer;
-}
-button:hover{
-    background:#d9a743;
+    border:none;
+    background:#0D1B3A;
+    color:white;
 }
 </style>
 </head>
 
 <body>
 
-<!-- Bouton retour -->
-<div class="back-btn" onclick="history.back()">⬅️</div>
+<a class="back" href="ride.html">←</a>
 
-<!-- Image premium Mercedes S-Class -->
-<img src="https://cdn.pixabay.com/photo/2016/11/23/15/39/mercedes-1853530_1280.jpg" class="header-img">
+<img class="hero-img" src="https://img.icons8.com/fluency/240/diamond.png">
 
-<div class="container">
+<h2>CizaRide+ Royal</h2>
+<p>Niveau ultime : chauffeur professionnel, voiture haut de gamme, service exclusif.</p>
 
-    <h2>✨ CizaRide+ Royal</h2>
-
-    <p style="opacity:.8;text-align:center;">
-        Chauffeur professionnel • Voiture haut de gamme • Service exclusif
-    </p>
-
-    <form action="https://formsubmit.co/infos@cizagroup.com" method="POST">
-
-        <!-- Email copie -->
-        <input type="hidden" name="_cc" value="cizaride@cizagroup.com">
-        <input type="hidden" name="_captcha" value="false">
-
-        <input type="hidden" name="_autoresponse" 
-        value="Merci pour votre demande CizaRide+ Royal. Nous revenons vers vous dans un instant.">
-
-        <input type="hidden" name="service" value="CizaRide Royal">
-
-        <input type="text" name="nom" placeholder="Nom complet" required>
-        <input type="text" name="telephone" placeholder="Téléphone" required>
-        <input type="text" name="depart" placeholder="Point de départ" required>
-        <input type="text" name="destination" placeholder="Destination" required>
-        <input type="datetime-local" name="heure" required>
-
-        <textarea name="notes" placeholder="Notes (optionnel)"></textarea>
-
-        <label style="font-size:13px;opacity:.8;">
-            <input type="checkbox" required> J’accepte la politique de confidentialité.
-        </label>
-
-        <button>Envoyer la demande Royal</button>
-
-    </form>
-</div>
+<form>
+    <input type="text" placeholder="Nom complet">
+    <input type="text" placeholder="Téléphone">
+    <input type="text" placeholder="Adresse de prise en charge">
+</form>
 
 </body>
 </html>
