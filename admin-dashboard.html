@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>CIZA GROUP — Admin</title>
+<link rel="icon" href="logotransparent.png">
+
+<style>
+body{
+    margin:0;
+    background:#06142E;
+    color:white;
+    font-family:Arial, sans-serif;
+}
+header{
+    padding:20px;
+    text-align:center;
+    border-bottom:1px solid #12335C;
+}
+header img{ width:90px; }
+header h2{ color:#F2B840; margin:10px 0 0; }
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:25px;
+}
+.card{
+    background:#0B1C34;
+    border:1px solid #12335C;
+    border-radius:14px;
+    padding:20px;
+    margin-bottom:25px;
+}
+.card h3{ color:#F2B840; margin-top:0; }
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:14px;
+}
+th, td{
+    padding:10px;
+    border-bottom:1px solid #12335C;
+}
+th{ color:#F2B840; text-align:left; }
+
+.status{
+    padding:4px 10px;
+    border-radius:20px;
+    font-size:12px;
+}
+.pending{ background:#f4a261; color:black; }
+.assigned{ background:#2a9d8f; color:white; }
+.completed{ background:#4ade80; color:black; }
+
+button{
+    padding:10px 16px;
+    border:none;
+    border-radius:8px;
+    font-weight:bold;
+    cursor:pointer;
+}
+.logout{ background:#c1121f; color:white; }
+</style>
+</head>
+
+<body>
+
+<header>
+    <img src="logotransparent.png">
+    <h2>Dashboard Admin — CIZA GROUP</h2>
+</header>
+
+<div class="container">
+
+    <!-- USERS -->
+    <div class="card">
+        <h3>👤 Utilisateurs</h3>
+        <table id="users">
+            <tr><th>Email</th><th>Nom</th><th>Rôle</th></tr>
+        </table>
+    </div>
+
+    <!-- DRIVERS -->
+    <div class="card">
+        <h3>🚗 Chauffeurs</h3>
+        <table id="drivers">
+            <tr><th>Email</th><th>Nom</th><th>Disponible</th></tr>
+        </table>
+    </div>
+
+    <!-- RIDES -->
+    <div class="card">
+        <h3>📋 Courses</h3>
+        <table id="rides">
+            <tr>
+                <th>Client</th>
+                <th>Chauffeur</th>
+                <th>Départ</th>
+                <th>Destination</th>
+                <th>Statut</th>
+            </tr>
+        </table>
+    </div>
+
+    <div style="text-align:center">
+        <button class="logout" onclick="logout()">Déconnexion</button>
+    </div>
+
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut } 
+from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { getFirestore, collection, getDocs, doc, getDoc } 
+from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBAiJHbBvRO6cDFpm6C-5mQk6SiTtzcI8o",
+  authDomain: "cizagroup-app.firebaseapp.com",
+  projectId: "cizagroup-app"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+onAuthStateChanged(auth, async (user)=>{
+    if(!user){
+        window.location.href = "login.html";
+        return;
+    }
+
+    // 🔐 Vérification admin
+    const ref = doc(db, "users", user.uid);
+    const snap = await getDoc(ref);
+
+    if(!snap.exists() || snap.data().role !== "admin"){
+        alert("Accès réservé à l'administrateur");
+        window.location.href = "dashboard.html";
+        return;
+    }
+
+    // USERS
+    const usersSnap = await getDocs(collection(db, "users"));
+    usersSnap.forEach(d=>{
+        const u = d.data();
+        document.getElementById("users").innerHTML += `
+            <tr>
+                <td>${u.email || ""}</td>
+                <td>${(u.firstName||"")+" "+(u.lastName||"")}</td>
+                <td>${u.role}</td>
+            </tr>
+        `;
+    });
+
+    // DRIVERS
+    const driversSnap = await getDocs(collection(db, "drivers"));
+    driversSnap.forEach(d=>{
+        const dr = d.data();
+        document.getElementById("drivers").innerHTML += `
+            <tr>
+                <td>${dr.email || ""}</td>
+                <td>${(dr.firstName||"")+" "+(dr.lastName||"")}</td>
+                <td>${dr.available ? "Oui" : "Non"}</td>
+            </tr>
+        `;
+    });
+
+    // RIDES
+    const ridesSnap = await getDocs(collection(db, "rides"));
+    ridesSnap.forEach(d=>{
+        const r = d.data();
+        document.getElementById("rides").innerHTML += `
+            <tr>
+                <td>${r.clientId}</td>
+                <td>${r.driverId || "-"}</td>
+                <td>${r.pickup}</td>
+                <td>${r.destination}</td>
+                <td><span class="status ${r.status}">${r.status}</span></td>
+            </tr>
+        `;
+    });
+});
+
+window.logout = function(){
+    signOut(auth).then(()=>{
+        window.location.href = "login.html";
+    });
+};
+</script>
+
+</body>
+</html>
