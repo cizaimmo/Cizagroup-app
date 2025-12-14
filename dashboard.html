@@ -36,20 +36,14 @@ header h2{ color:#F2B840; margin:10px 0 0; }
 }
 .card h3{ color:#F2B840; margin-top:0; }
 
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-    gap:15px;
+.ride{
+    background:#112544;
+    border-radius:10px;
+    padding:14px;
+    margin-top:10px;
+    font-size:14px;
 }
-.service{
-    background:#0B1C34;
-    border:1px solid #12335C;
-    border-radius:14px;
-    padding:18px;
-    text-align:center;
-    cursor:pointer;
-}
-.service:hover{ border-color:#F2B840; }
+.ride b{ color:#F2B840; }
 
 button{
     padding:12px 22px;
@@ -80,15 +74,10 @@ button{
         <p><b>Rôle :</b> <span id="role">...</span></p>
     </div>
 
-    <!-- SERVICES -->
+    <!-- COURSES -->
     <div class="card">
-        <h3>🚀 Services</h3>
-        <div class="grid">
-            <div class="service">🚗 CizaRide+</div>
-            <div class="service">💳 CizaPay+</div>
-            <div class="service">🧽 CizaCarWash</div>
-            <div class="service">🏢 CizaImmo</div>
-        </div>
+        <h3>🚗 Mes courses</h3>
+        <div id="rides">Chargement...</div>
     </div>
 
     <div style="text-align:center">
@@ -101,7 +90,7 @@ button{
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } 
 from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-import { getFirestore, doc, getDoc } 
+import { getFirestore, doc, getDoc, collection, query, where, getDocs } 
 from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -122,23 +111,41 @@ onAuthStateChanged(auth, async (user)=>{
 
     document.getElementById("email").textContent = user.email;
 
-    // 🔍 Cherche d'abord dans users
+    // 🔹 Profil
     let ref = doc(db, "users", user.uid);
     let snap = await getDoc(ref);
-
-    // sinon dans drivers
-    if(!snap.exists()){
-        ref = doc(db, "drivers", user.uid);
-        snap = await getDoc(ref);
-    }
 
     if(snap.exists()){
         const d = snap.data();
         document.getElementById("name").textContent =
             (d.firstName || "") + " " + (d.lastName || "");
         document.getElementById("role").textContent = d.role;
+    }
+
+    // 🔹 Courses
+    const ridesBox = document.getElementById("rides");
+    ridesBox.innerHTML = "";
+
+    const q = query(
+        collection(db, "rides"),
+        where("clientId", "==", "ciza") // pour test (on adaptera après)
+    );
+
+    const qs = await getDocs(q);
+
+    if(qs.empty){
+        ridesBox.innerHTML = "Aucune course pour le moment.";
     }else{
-        document.getElementById("role").textContent = "non défini";
+        qs.forEach(doc=>{
+            const r = doc.data();
+            ridesBox.innerHTML += `
+                <div class="ride">
+                    <b>Départ :</b> ${r.pickup}<br>
+                    <b>Destination :</b> ${r.destination}<br>
+                    <b>Statut :</b> ${r.status}
+                </div>
+            `;
+        });
     }
 });
 
