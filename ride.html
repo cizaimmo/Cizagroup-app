@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>CizaRide+ — Carte & Distance</title>
+<link rel="icon" href="logotransparent.png">
+
+<!-- Leaflet CSS/JS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<style>
+    body{
+        margin:0;
+        background:#06142E;
+        font-family:Arial, sans-serif;
+        color:white;
+        overflow-x:hidden;
+    }
+
+    /* HEADER */
+    header{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        padding:15px 18px;
+        background:rgba(255,255,255,0.06);
+        border-bottom:2px solid #F2B840;
+        backdrop-filter:blur(10px);
+        position:sticky;
+        top:0;
+        z-index:999;
+    }
+    header img{
+        width:55px;
+    }
+    header button{
+        background:#F2B840;
+        border:none;
+        color:#06142E;
+        padding:10px 16px;
+        font-weight:bold;
+        border-radius:10px;
+        cursor:pointer;
+    }
+
+    /* CARTE */
+    #map{
+        height:60vh;
+        width:100%;
+        margin-top:10px;
+        border:3px solid #F2B840;
+        border-radius:14px;
+        box-shadow:0 0 22px rgba(242,184,64,0.35);
+        overflow:hidden;
+    }
+
+    /* FORM */
+    .box{
+        width:90%;
+        margin:20px auto;
+        background:rgba(255,255,255,0.05);
+        padding:22px;
+        border-radius:16px;
+        border:1px solid rgba(242,184,64,0.4);
+        backdrop-filter:blur(12px);
+    }
+    input{
+        width:100%;
+        margin-top:12px;
+        padding:14px;
+        border-radius:10px;
+        border:none;
+        background:#0B1C35;
+        color:white;
+        font-size:15px;
+    }
+
+    .btn{
+        background:#F2B840;
+        color:#06142E;
+        padding:14px;
+        margin-top:15px;
+        width:100%;
+        border:none;
+        border-radius:12px;
+        font-weight:bold;
+        cursor:pointer;
+        font-size:16px;
+    }
+
+    .result{
+        margin-top:18px;
+        padding:14px;
+        background:rgba(255,255,255,0.10);
+        border-left:4px solid #F2B840;
+        border-radius:10px;
+        font-size:15px;
+    }
+
+    /* MULTILINGUE BUTTON */
+    .lang-btn{
+        position:fixed;
+        bottom:20px;
+        right:20px;
+        background:#F2B840;
+        color:#06142E;
+        border:none;
+        padding:12px 18px;
+        border-radius:50px;
+        cursor:pointer;
+        z-index:999;
+        font-weight:bold;
+    }
+
+    /* SIGNATURE */
+    .signature{
+        margin-top:25px;
+        text-align:center;
+        opacity:0.5;
+        font-size:12px;
+    }
+</style>
+</head>
+
+<body>
+
+<header>
+    <img src="logotransparent.png">
+    <button onclick="location.href='ride.html'">← Retour</button>
+</header>
+
+<div id="map"></div>
+
+<div class="box">
+    <input id="depart" type="text" placeholder="Point de départ" data-fr="Point de départ" data-en="Pickup location">
+    <input id="arrivee" type="text" placeholder="Destination" data-fr="Destination" data-en="Destination">
+
+    <button class="btn" onclick="calculerDistance()" 
+        data-fr="Calculer la distance" data-en="Calculate distance">
+        Calculer la distance
+    </button>
+
+    <div id="result" class="result" style="display:none;"></div>
+
+    <button class="btn" style="background:#34ff9c;" onclick="payer()" 
+        data-fr="Continuer vers Paiement" data-en="Proceed to Payment">
+        Continuer vers Paiement
+    </button>
+</div>
+
+<div class="signature">
+    © CIZA GROUP — Navigation Powered by CizaRide+
+</div>
+
+<button class="lang-btn" onclick="switchLang()">FR</button>
+
+<script>
+/* -----------------------
+   INIT MAP
+------------------------*/
+var map = L.map('map').setView([-3.38, 29.38], 13);
+
+L.tileLayer('https://api.maptiler.com/maps/streets-v2-dark/{z}/{x}/{y}.png?key=2rj8TgMqkX6fP0RBqyhY', {
+    attribution: '© MapTiler © OpenStreetMap'
+}).addTo(map);
+
+let markerDepart, markerArrivee, routeLayer;
+
+/* -----------------------
+   GEOCODING FIX (iPhone OK)
+------------------------*/
+async function geocode(adresse){
+    const url = "https://nominatim.openstreetmap.org/search?format=json&q=" + encodeURIComponent(adresse);
+
+    try{
+        const response = await fetch(url, {
+            headers: { "User-Agent":"CizaRideApp/1.0" }
+        });
+
+        const data = await response.json();
+
+        if(!data.length){
+            alert("Adresse introuvable.");
+            return null;
+        }
+
+        return [
+            parseFloat(data[0].lat),
+            parseFloat(data[0].lon)
+        ];
+
+    } catch(e){
+        alert("Erreur réseau.");
+        return null;
+    }
+}
+
+/* -----------------------
+   CALCUL DISTANCE & ROUTE
+------------------------*/
+async function calculerDistance(){
+    const d = document.getElementById("depart").value;
+    const a = document.getElementById("arrivee").value;
+
+    if(!d || !a){ alert("Champs vides"); return; }
+
+    const dep = await geocode(d);
+    const arr = await geocode(a);
+
+    if(!dep || !arr) return;
+
+    if(markerDepart) markerDepart.remove();
+    if(markerArrivee) markerArrivee.remove();
+    if(routeLayer) routeLayer.remove();
+
+    markerDepart = L.marker(dep).addTo(map);
+    markerArrivee = L.marker(arr).addTo(map);
+
+    routeLayer = L.polyline([dep, arr], {
+        color:"#F2B840",
+        weight:5,
+        opacity:0.9
+    }).addTo(map);
+
+    map.fitBounds(routeLayer.getBounds(), { padding:[40,40] });
+
+    const R = 6371;
+    const dLat = (arr[0]-dep[0])*Math.PI/180;
+    const dLon = (arr[1]-dep[1])*Math.PI/180;
+    const aCalc = Math.sin(dLat/2)**2 +
+        Math.cos(dep[0]*Math.PI/180) *
+        Math.cos(arr[0]*Math.PI/180) *
+        Math.sin(dLon/2)**2;
+
+    const c = 2 * Math.atan2(Math.sqrt(aCalc), Math.sqrt(1-aCalc));
+    const distance = R * c;
+
+    document.getElementById("result").style.display="block";
+    document.getElementById("result").innerHTML =
+        `<b>Distance :</b> ${distance.toFixed(2)} km<br>
+         <b>Durée estimée :</b> ${(distance/35*60).toFixed(0)} min`;
+}
+
+/* -----------------------
+   PAYMENT (DEMO)
+------------------------*/
+function payer(){
+    alert("Paiement bientôt disponible : Lumicash • Ecocash • Visa • Mastercard");
+}
+
+/* -----------------------
+   LANG SWITCH
+------------------------*/
+function switchLang(){
+    const html=document.documentElement;
+    html.lang = html.lang==="fr" ? "en" : "fr";
+    document.querySelector(".lang-btn").innerHTML = html.lang==="fr" ? "FR" : "EN";
+
+    document.querySelectorAll("[data-fr]").forEach(el=>{
+        el.innerHTML = html.lang==="fr"
+            ? el.getAttribute("data-fr")
+            : el.getAttribute("data-en");
+    });
+}
+</script>
+
+</body>
+</html>
