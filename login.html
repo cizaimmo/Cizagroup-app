@@ -1,94 +1,88 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <title>CIZA GROUP — Connexion</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<title>CIZA GROUP - Connexion</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      background: linear-gradient(135deg, #06142E, #0A2A5E);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: Arial, sans-serif;
-      color: white;
-    }
-    .card {
-      background: rgba(255,255,255,0.08);
-      padding: 30px;
-      border-radius: 12px;
-      width: 320px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.4);
-    }
-    h2 {
-      text-align: center;
-      color: #F2B840;
-    }
-    input {
-      width: 100%;
-      padding: 12px;
-      margin-top: 12px;
-      border-radius: 6px;
-      border: none;
-    }
-    button {
-      width: 100%;
-      margin-top: 18px;
-      padding: 12px;
-      background: #004AAD;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-  </style>
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#06142E;
+  font-family:Arial, sans-serif;
+  color:white;
+}
+.box{
+  background:#0B1C34;
+  padding:30px;
+  border-radius:12px;
+  width:320px;
+}
+h2{color:#F2B840;text-align:center;}
+input,button{
+  width:100%;
+  padding:12px;
+  margin-top:12px;
+  border-radius:6px;
+  border:none;
+}
+button{
+  background:#004AAD;
+  color:white;
+  font-weight:bold;
+}
+</style>
 </head>
 
 <body>
 
-  <div class="card">
-    <h2>Connexion</h2>
+<div class="box">
+  <h2>Connexion</h2>
+  <form id="loginForm">
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="password" id="password" placeholder="Mot de passe" required>
+    <button type="submit">Se connecter</button>
+  </form>
+</div>
 
-    <form id="loginForm">
-      <input type="email" id="email" placeholder="Email" required />
-      <input type="password" id="password" placeholder="Mot de passe" required />
-      <button type="submit">Se connecter</button>
-    </form>
-  </div>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  setPersistence,
+  browserLocalPersistence
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-  <!-- FIREBASE -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+const firebaseConfig = {
+  apiKey: "REMPLACE_PAR_TA_API_KEY",
+  authDomain: "REMPLACE_PAR_TON_AUTH_DOMAIN",
+  projectId: "REMPLACE_PAR_TON_PROJECT_ID"
+};
 
-    const firebaseConfig = {
-      apiKey: "TON_API_KEY",
-      authDomain: "TON_AUTH_DOMAIN",
-      projectId: "TON_PROJECT_ID",
-    };
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+// 🔒 garder la session
+setPersistence(auth, browserLocalPersistence);
 
-    document.getElementById("loginForm").addEventListener("submit", (e) => {
-      e.preventDefault();
+document.getElementById("loginForm").addEventListener("submit", async (e)=>{
+  e.preventDefault();
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
 
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-
-      signInWithEmailAndPassword(auth, email, password)
-        .then(() => {
-          window.location.href = "/Cizagroup-app/dashboard.html";
-        })
-        .catch((error) => {
-          alert("Erreur : " + error.message);
-        });
-    });
-  </script>
+  try{
+    await signInWithEmailAndPassword(auth,email,password);
+    window.location.href = "/Cizagroup-app/dashboard.html";
+  }catch(err){
+    alert("Erreur : "+err.message);
+  }
+});
+</script>
 
 </body>
 </html>
