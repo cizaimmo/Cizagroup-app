@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>CizaRide+ — Paiement</title>
+<link rel="icon" href="logotransparent.png">
+
+<style>
+/* -------------------------------
+   VARIABLES THEME CIZA PREMIUM
+--------------------------------*/
+:root{
+    --bg:#06142E;
+    --text:white;
+    --gold:#F2B840;
+    --glass:rgba(255,255,255,0.08);
+    --border:rgba(255,255,255,0.25);
+}
+body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:Arial, sans-serif;
+    overflow-x:hidden;
+}
+
+/* -------------------------------
+   HEADER
+--------------------------------*/
+header{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:15px 18px;
+    background:var(--glass);
+    border-bottom:2px solid var(--gold);
+    backdrop-filter:blur(15px);
+}
+header img{
+    width:45px;
+}
+header h1{
+    font-size:18px;
+    margin:0;
+    font-weight:bold;
+}
+.back-btn{
+    font-size:28px;
+    cursor:pointer;
+    color:var(--gold);
+    margin-right:auto;
+}
+
+/* -------------------------------
+   BLOCK TITRE
+--------------------------------*/
+.section-title{
+    margin:25px 20px 10px;
+    font-size:18px;
+    font-weight:bold;
+    color:var(--gold);
+}
+
+/* -------------------------------
+   SUMMARY BLOCK
+--------------------------------*/
+.summary{
+    width:90%;
+    margin:10px auto;
+    background:var(--glass);
+    border:2px solid var(--gold);
+    border-radius:18px;
+    padding:18px;
+    line-height:1.6;
+    box-shadow:0 0 18px rgba(242,184,64,0.28);
+}
+
+/* -------------------------------
+   PAYMENT BUTTONS
+--------------------------------*/
+.payment-grid{
+    width:90%;
+    margin:20px auto;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+}
+
+.pay-btn{
+    background:var(--glass);
+    border-radius:14px;
+    border:2px solid var(--gold);
+    padding:20px 10px;
+    text-align:center;
+    cursor:pointer;
+    transition:.25s;
+    font-weight:bold;
+    box-shadow:0 0 14px rgba(242,184,64,0.18);
+}
+.pay-btn:hover{
+    transform:scale(1.05);
+    box-shadow:0 0 20px rgba(242,184,64,0.32);
+}
+
+/* -------------------------------
+   MODAL PAIEMENT
+--------------------------------*/
+.modal{
+    position:fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background:rgba(0,0,0,0.65);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+.modal-box{
+    width:85%;
+    background:var(--glass);
+    border:2px solid var(--gold);
+    border-radius:18px;
+    padding:20px;
+    backdrop-filter:blur(14px);
+}
+.close-modal{
+    float:right;
+    font-size:26px;
+    cursor:pointer;
+    color:var(--gold);
+}
+
+input{
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    border-radius:10px;
+    border:1px solid var(--gold);
+    background:rgba(255,255,255,0.08);
+    color:white;
+}
+
+/* -------------------------------
+   FOOTER
+--------------------------------*/
+footer{
+    text-align:center;
+    padding:18px;
+    opacity:.7;
+    font-size:12px;
+    margin-top:30px;
+}
+footer a{
+    color:var(--gold);
+    text-decoration:none;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+    <div class="back-btn" onclick="history.back()">←</div>
+    <img src="logotransparent.png">
+    <h1>Paiement</h1>
+</header>
+
+<!-- SUMMARY -->
+<div class="section-title">🧾 Résumé de votre commande</div>
+
+<div class="summary" id="summaryBox">
+    Service : <b id="serviceType">VIP Royal</b><br>
+    Départ : <b id="fromTxt">—</b><br>
+    Destination : <b id="toTxt">—</b><br>
+    Nom : <b id="clientName">—</b><br>
+    Téléphone : <b id="clientPhone">—</b><br>
+    Distance estimée : <b id="kmTxt">— km</b><br>
+    Montant estimé : <b id="priceTxt">—</b>
+</div>
+
+<!-- PAYMENT OPTIONS -->
+<div class="section-title">💳 Choisissez une méthode de paiement</div>
+
+<div class="payment-grid">
+    <div class="pay-btn" onclick="openPayment('lumicash')">Lumicash</div>
+    <div class="pay-btn" onclick="openPayment('ecocash')">Ecocash</div>
+    <div class="pay-btn" onclick="openPayment('inoti')">Inoti</div>
+    <div class="pay-btn" onclick="openPayment('visa')">Visa</div>
+    <div class="pay-btn" onclick="openPayment('mastercard')">Mastercard</div>
+</div>
+
+<!-- MODAL PAIEMENT -->
+<div class="modal" id="paymentModal">
+    <div class="modal-box">
+        <div class="close-modal" onclick="closePayment()">×</div>
+        <h3 id="paymentTitle" style="color:var(--gold);"></h3>
+
+        <div id="paymentContent"></div>
+    </div>
+</div>
+
+<footer>
+    © 2028 CIZA GROUP • <a href="legal.html">Mentions légales</a>
+</footer>
+
+<script>
+/* -------------------------------
+   IMPORTATION DES DONNÉES
+--------------------------------*/
+window.onload = function(){
+    const data = JSON.parse(localStorage.getItem("rideOrder") || "{}");
+
+    document.getElementById("serviceType").innerText = data.service || "—";
+    document.getElementById("fromTxt").innerText = data.from || "—";
+    document.getElementById("toTxt").innerText = data.to || "—";
+    document.getElementById("clientName").innerText = data.name || "—";
+    document.getElementById("clientPhone").innerText = data.phone || "—";
+    document.getElementById("kmTxt").innerText = data.km || "—";
+    document.getElementById("priceTxt").innerText = data.price || "—";
+};
+
+/* -------------------------------
+   PAIEMENT MODAL
+--------------------------------*/
+function openPayment(type){
+    document.getElementById("paymentModal").style.display="flex";
+
+    let title = document.getElementById("paymentTitle");
+    let content = document.getElementById("paymentContent");
+
+    if(type === "lumicash" || type === "ecocash" || type === "inoti"){
+        title.innerText = "Paiement Mobile — " + type.toUpperCase();
+        content.innerHTML = `
+            <p>Entrez votre numéro :</p>
+            <input type="text" placeholder="Ex : 79 000 000">
+            <button style="margin-top:15px;width:100%;padding:12px;border-radius:10px;border:none;background:var(--gold);color:#06142E;font-weight:bold;">
+                Confirmer
+            </button>
+        `;
+    }
+    else{
+        title.innerText = "Carte bancaire — " + type.toUpperCase();
+        content.innerHTML = `
+            <input type="text" placeholder="Nom complet">
+            <input type="text" placeholder="Numéro de carte">
+            <input type="text" placeholder="MM/AA">
+            <input type="text" placeholder="CVC">
+            <button style="margin-top:15px;width:100%;padding:12px;border-radius:10px;border:none;background:var(--gold);color:#06142E;font-weight:bold;">
+                Payer
+            </button>
+        `;
+    }
+}
+function closePayment(){
+    document.getElementById("paymentModal").style.display="none";
+}
+</script>
+
+</body>
+</html>
