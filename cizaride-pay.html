@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Paiement — CizaRide+</title>
+<link rel="icon" href="logotransparent.png">
+
+<style>
+    body{
+        margin:0;
+        background:#06142E;
+        color:white;
+        font-family:Arial, sans-serif;
+    }
+
+    /* HEADER */
+    header{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        padding:15px 18px;
+        background:rgba(255,255,255,0.06);
+        border-bottom:2px solid #F2B840;
+        backdrop-filter:blur(10px);
+        position:sticky;
+        top:0;
+        z-index:999;
+    }
+    header img{ width:48px; }
+    header button{
+        background:#F2B840;
+        border:none;
+        padding:8px 12px;
+        border-radius:8px;
+        font-weight:bold;
+        color:#06142E;
+        cursor:pointer;
+    }
+
+    .container{
+        width:90%;
+        margin:20px auto;
+        background:rgba(255,255,255,0.06);
+        padding:20px;
+        border-radius:18px;
+        border:1px solid rgba(242,184,64,0.4);
+        backdrop-filter:blur(14px);
+    }
+
+    h2{
+        text-align:center;
+        color:#F2B840;
+        margin-top:0;
+    }
+
+    .line{
+        height:1px;
+        background:rgba(255,255,255,0.2);
+        margin:15px 0;
+    }
+
+    /* INPUTS */
+    input{
+        width:100%;
+        padding:12px;
+        margin-top:10px;
+        border-radius:10px;
+        border:none;
+        background:#0B1C35;
+        color:white;
+    }
+
+    /* PAYMENT BUTTONS */
+    .pay-btn{
+        width:100%;
+        padding:14px;
+        margin-top:12px;
+        border:none;
+        border-radius:12px;
+        font-weight:bold;
+        cursor:pointer;
+    }
+    .lumicash { background:#FFD32A; color:#000; }
+    .ecocash { background:#FF3B30; }
+    .inoti    { background:#34C759; }
+    .visa     { background:#1A73E8; }
+
+    /* LANG BUTTON */
+    .lang-btn{
+        position:fixed;
+        bottom:20px;
+        right:20px;
+        background:#F2B840;
+        padding:12px 16px;
+        border-radius:50px;
+        color:#06142E;
+        border:none;
+        font-weight:bold;
+        cursor:pointer;
+        z-index:999;
+    }
+</style>
+</head>
+
+<body>
+
+<header>
+    <button onclick="location.href='cizaride-map.html'">← Retour</button>
+    <img src="logotransparent.png">
+    <button onclick="location.href='index.html'">🏠</button>
+</header>
+
+<div class="container">
+    <h2 data-fr="Paiement de la course" data-en="Ride Payment">Paiement de la course</h2>
+
+    <div id="resume" style="font-size:15px; opacity:.9;"></div>
+
+    <div class="line"></div>
+
+    <input id="nom" placeholder="Votre nom" data-fr="Votre nom" data-en="Your name">
+    <input id="phone" placeholder="Numéro de téléphone (optionnel)" 
+           data-fr="Numéro de téléphone (optionnel)" 
+           data-en="Phone number (optional)">
+
+    <div class="line"></div>
+
+    <h3 style="color:#F2B840;">Choisissez un mode de paiement</h3>
+
+    <button class="pay-btn lumicash" onclick="payer('Lumicash')">Lumicash</button>
+    <button class="pay-btn ecocash" onclick="payer('Ecocash')">Ecocash</button>
+    <button class="pay-btn inoti" onclick="payer('Inoti')">Inoti</button>
+    <button class="pay-btn visa" onclick="payer('Carte Visa / Mastercard')">Visa / Mastercard</button>
+
+</div>
+
+<button class="lang-btn" onclick="switchLang()">FR</button>
+
+<script>
+// RÉCUPÉRATION DES DONNÉES
+const distance = localStorage.getItem("rideDistance");
+const price = localStorage.getItem("ridePrice");
+
+// AFFICHAGE RÉSUMÉ
+document.getElementById("resume").innerHTML = `
+    <b>Distance :</b> ${parseFloat(distance).toFixed(2)} km<br>
+    <b>Montant estimé :</b> ${Math.round(price)} BIF
+`;
+
+// ACTION PAIEMENT
+function payer(methode){
+    const nom = document.getElementById("nom").value;
+    if(!nom){
+        alert("Veuillez entrer au moins votre nom.");
+        return;
+    }
+
+    alert(
+        "Paiement via : " + methode +
+        "\nMontant : " + Math.round(price) + " BIF" +
+        "\nNom : " + nom +
+        "\nMerci d'utiliser CizaRide+."
+    );
+}
+
+// MULTILINGUE
+function switchLang(){
+    const html=document.documentElement;
+    html.lang = html.lang==="fr" ? "en" : "fr";
+    document.querySelector(".lang-btn").innerHTML = html.lang==="fr" ? "FR" : "EN";
+
+    document.querySelectorAll("[data-fr]").forEach(el=>{
+        el.innerHTML = html.lang==="fr" ? el.dataset.fr : el.dataset.en;
+    });
+
+    document.querySelectorAll("input").forEach(el=>{
+        el.placeholder = html.lang==="fr" ? el.dataset.fr : el.dataset.en;
+    });
+}
+</script>
+
+</body>
+</html>
