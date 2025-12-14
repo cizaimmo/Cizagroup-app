@@ -13,60 +13,45 @@ body{
     background:#06142E;
     color:white;
     font-family:Arial, sans-serif;
-    min-height:100vh;
 }
 header{
     padding:20px;
     text-align:center;
     border-bottom:1px solid #12335C;
 }
-header img{
-    width:90px;
-}
-header h2{
-    margin:10px 0 0;
-    color:#F2B840;
-}
+header img{ width:90px; }
+header h2{ color:#F2B840; margin:10px 0 0; }
+
 .container{
-    padding:25px;
     max-width:900px;
     margin:auto;
-}
-.welcome{
-    margin-bottom:25px;
-    font-size:18px;
-}
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(160px,1fr));
-    gap:15px;
+    padding:25px;
 }
 .card{
     background:#0B1C34;
     border:1px solid #12335C;
     border-radius:14px;
     padding:20px;
+    margin-bottom:20px;
+}
+.card h3{ color:#F2B840; margin-top:0; }
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+    gap:15px;
+}
+.service{
+    background:#0B1C34;
+    border:1px solid #12335C;
+    border-radius:14px;
+    padding:18px;
     text-align:center;
     cursor:pointer;
-    transition:.25s;
 }
-.card:hover{
-    transform:translateY(-4px);
-    border-color:#F2B840;
-}
-.card h3{
-    margin:0;
-    color:#F2B840;
-}
-.card p{
-    font-size:14px;
-    opacity:.85;
-}
-.logout{
-    margin-top:35px;
-    text-align:center;
-}
-.logout button{
+.service:hover{ border-color:#F2B840; }
+
+button{
     padding:12px 22px;
     background:#c1121f;
     border:none;
@@ -75,100 +60,88 @@ header h2{
     font-weight:bold;
     cursor:pointer;
 }
-.logout button:hover{
-    background:#9b0f18;
-}
-footer{
-    margin-top:40px;
-    padding:15px;
-    text-align:center;
-    font-size:13px;
-    opacity:.6;
-}
 </style>
 </head>
 
 <body>
 
 <header>
-    <img src="logotransparent.png" alt="CIZA GROUP">
+    <img src="logotransparent.png">
     <h2>Dashboard CIZA GROUP</h2>
 </header>
 
 <div class="container">
 
-    <div class="welcome">
-        Bienvenue <b id="userEmail">...</b> 👋  
-        <br>Accédez à vos services CIZA GROUP.
+    <!-- PROFIL -->
+    <div class="card">
+        <h3>👤 Mon profil</h3>
+        <p><b>Email :</b> <span id="email">...</span></p>
+        <p><b>Nom :</b> <span id="name">...</span></p>
+        <p><b>Rôle :</b> <span id="role">...</span></p>
     </div>
 
-    <div class="grid">
-        <div class="card" onclick="go('cizaride.html')">
-            <h3>🚗 CizaRide+</h3>
-            <p>Transport intelligent</p>
-        </div>
-
-        <div class="card" onclick="go('cizapay.html')">
-            <h3>💳 CizaPay+</h3>
-            <p>Paiements sécurisés</p>
-        </div>
-
-        <div class="card" onclick="go('cizacarwash.html')">
-            <h3>🧽 CizaCarWash</h3>
-            <p>Service auto premium</p>
-        </div>
-
-        <div class="card" onclick="go('cizaimmo.html')">
-            <h3>🏢 CizaImmo</h3>
-            <p>Immobilier & investissements</p>
+    <!-- SERVICES -->
+    <div class="card">
+        <h3>🚀 Services</h3>
+        <div class="grid">
+            <div class="service">🚗 CizaRide+</div>
+            <div class="service">💳 CizaPay+</div>
+            <div class="service">🧽 CizaCarWash</div>
+            <div class="service">🏢 CizaImmo</div>
         </div>
     </div>
 
-    <div class="logout">
+    <div style="text-align:center">
         <button onclick="logout()">Déconnexion</button>
     </div>
 
 </div>
 
-<footer>
-    © 2025 CIZA GROUP — Tous droits réservés
-</footer>
-
-<!-- 🔐 Firebase -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { 
-    getAuth,
-    onAuthStateChanged,
-    signOut
-} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { getAuth, onAuthStateChanged, signOut } 
+from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { getFirestore, doc, getDoc } 
+from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-/* Firebase config */
 const firebaseConfig = {
-    apiKey: "AIzaSyBAiJHbBvRO6cDFpm6C-5mQk6SiTtzcI8o",
-    authDomain: "cizagroup-app.firebaseapp.com",
-    projectId: "cizagroup-app"
+  apiKey: "AIzaSyBAiJHbBvRO6cDFpm6C-5mQk6SiTtzcI8o",
+  authDomain: "cizagroup-app.firebaseapp.com",
+  projectId: "cizagroup-app"
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 
-/* Protection + affichage utilisateur */
-onAuthStateChanged(auth, (user)=>{
+onAuthStateChanged(auth, async (user)=>{
     if(!user){
         window.location.href = "login.html";
+        return;
+    }
+
+    document.getElementById("email").textContent = user.email;
+
+    // 🔍 Cherche d'abord dans users
+    let ref = doc(db, "users", user.uid);
+    let snap = await getDoc(ref);
+
+    // sinon dans drivers
+    if(!snap.exists()){
+        ref = doc(db, "drivers", user.uid);
+        snap = await getDoc(ref);
+    }
+
+    if(snap.exists()){
+        const d = snap.data();
+        document.getElementById("name").textContent =
+            (d.firstName || "") + " " + (d.lastName || "");
+        document.getElementById("role").textContent = d.role;
     }else{
-        document.getElementById("userEmail").textContent = user.email;
+        document.getElementById("role").textContent = "non défini";
     }
 });
 
-/* Navigation */
-window.go = function(page){
-    alert("Page à connecter : " + page);
-    // plus tard → window.location.href = page;
-}
-
-/* Déconnexion */
 window.logout = function(){
     signOut(auth).then(()=>{
         window.location.href = "login.html";
