@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CizaRide+ — Services de Transport</title>
+<link rel="icon" href="logotransparent.png">
+
+<style>
+body{
+    margin:0;
+    background:#06142E;
+    color:white;
+    font-family:Arial, sans-serif;
+    overflow-x:hidden;
+}
+
+/* HEADER */
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 20px;
+    background:rgba(255,255,255,0.06);
+    border-bottom:1px solid rgba(255,255,255,0.18);
+    backdrop-filter:blur(18px);
+    position:sticky;
+    top:0;
+    z-index:999;
+}
+header img{
+    width:46px;
+}
+header h1{
+    margin:0;
+    font-size:20px;
+}
+.menu-btn{
+    font-size:28px;
+    color:#F2B840;
+    background:none;
+    border:none;
+    cursor:pointer;
+}
+
+/* MENU SLIDER */
+#menu{
+    position:fixed;
+    top:0; right:-100%;
+    width:72%;
+    height:100%;
+    background:rgba(0,0,0,0.65);
+    backdrop-filter:blur(18px);
+    border-left:1px solid rgba(255,255,255,0.15);
+    padding:25px;
+    transition:.35s ease;
+    z-index:9999;
+}
+.menu-close{
+    font-size:32px;
+    color:#F2B840;
+    cursor:pointer;
+}
+.menu-item{
+    margin-top:25px;
+    padding-bottom:10px;
+    border-bottom:1px solid rgba(255,255,255,0.12);
+    font-size:18px;
+    cursor:pointer;
+}
+
+/* HERO */
+.hero{
+    width:90%;
+    margin:25px auto;
+    padding:28px;
+    text-align:center;
+    border-radius:18px;
+    border:2px solid #F2B840;
+    background:rgba(255,255,255,0.06);
+}
+.hero h2{
+    margin:0;
+    font-size:24px;
+    color:#F2B840;
+}
+
+/* CARDS */
+.grid{
+    width:90%;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+}
+.card{
+    background:rgba(255,255,255,0.05);
+    padding:20px;
+    text-align:center;
+    border-radius:16px;
+    border:1px solid #F2B840;
+    transition:.25s ease;
+    cursor:pointer;
+}
+.card:hover{
+    transform:scale(1.04);
+    box-shadow:0 0 18px rgba(242,184,64,0.45);
+}
+.card span{
+    display:block;
+    font-size:28px;
+    margin-bottom:6px;
+}
+
+/* FOOTER */
+footer{
+    margin-top:40px;
+    text-align:center;
+    padding:25px;
+    font-size:13px;
+    opacity:.65;
+}
+footer a{
+    color:#F2B840;
+    text-decoration:none;
+}
+footer a:hover{
+    text-decoration:underline;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <img src="logotransparent.png">
+    <h1>CizaRide+</h1>
+    <button class="menu-btn" onclick="toggleMenu()">☰</button>
+</header>
+
+<!-- MENU -->
+<div id="menu">
+    <div class="menu-close" onclick="toggleMenu()">×</div>
+
+    <div class="menu-item" onclick="location.href='index.html'">🏠 Accueil</div>
+    <div class="menu-item" onclick="location.href='account.html'">👤 Mon Profil</div>
+    <div class="menu-item" onclick="location.href='help.html'">❓ Aide</div>
+    <div class="menu-item" onclick="location.href='legal.html'">📘 Mentions légales</div>
+    <div class="menu-item" onclick="location.href='mailto:infos@cizagroup.com'">📩 Contact</div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+    <h2>CizaRide+</h2>
+    <p>Service Officiel de Transport Moderne</p>
+</div>
+
+<!-- SERVICES LOCAUX -->
+<h2 style="margin-left:22px;color:#F2B840;">🚗 Services Ride</h2>
+
+<div class="grid">
+    <!-- THIS IS THE BUTTON YOU WANTED TO CONNECT -->
+    <div class="card" onclick="location.href='cizaride-map.html'">
+        <span>🗺️</span> Calculer Distance & Trajet
+    </div>
+
+    <div class="card" onclick="location.href='chauffeur.html'">
+        <span>👨‍✈️</span> Commander un Chauffeur
+    </div>
+
+    <div class="card" onclick="location.href='chauffeur-royal.html'">
+        <span>👑</span> Ride Royal VIP
+    </div>
+
+    <div class="card" onclick="location.href='cizaride-vip-royal.ht'">
+        <span>🚘</span> Luxury Drive
+    </div>
+</div>
+
+<footer>
+    © 2028 CIZA GROUP —  
+    <a href="legal.html">Mentions légales</a> •  
+    <a href="privacy.html">Confidentialité</a> •  
+    <a href="mailto:infos@cizagroup.com">Contact</a>
+</footer>
+
+<script>
+function toggleMenu(){
+    let m=document.getElementById("menu");
+    m.style.right = m.style.right==="0%" ? "-100%" : "0%";
+}
+</script>
+
+</body>
+</html>
