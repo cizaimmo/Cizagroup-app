@@ -7,231 +7,202 @@
 <title>CIZA GROUP — App Officielle</title>
 
 <style>
-/* -------------------------------------------
-   THEME VARIABLES
---------------------------------------------*/
-:root{
-    --bg:#06142E;
-    --text:white;
-    --glass:rgba(255,255,255,0.06);
-    --border:rgba(255,255,255,0.18);
-    --gold:#F2B840;
-}
-.light{
-    --bg:#f4f4f4;
-    --text:#1a1a1a;
-    --glass:rgba(0,0,0,0.05);
-    --border:rgba(0,0,0,0.12);
-}
-
-/* -------------------------------------------
-   GLOBAL
---------------------------------------------*/
-body{
-    margin:0;
-    background:var(--bg);
-    color:var(--text);
-    font-family:Arial, sans-serif;
-    overflow-x:hidden;
-    transition:.4s ease;
-}
-
-/* -------------------------------------------
-   SPLASH SCREEN
---------------------------------------------*/
-#splash{
-    position:fixed; top:0; left:0;
-    width:100%; height:100%;
-    background:var(--bg);
-    display:flex; justify-content:center; align-items:center;
-    z-index:99999;
-    animation:fadeSplashOut 1.6s ease 2.4s forwards;
-}
-@keyframes fadeSplashOut{
-    to{opacity:0; visibility:hidden;}
-}
-#splash img{
-    width:260px;
-    opacity:0;
-    animation:logoSplash 1.8s ease forwards;
-    filter:drop-shadow(0 0 18px var(--gold));
-}
-@keyframes logoSplash{
-    0%{opacity:0; transform:scale(.6);}
-    60%{opacity:1; transform:scale(1.15);}
-    100%{opacity:1; transform:scale(1);}
-}
-
-/* -------------------------------------------
-   HEADER
---------------------------------------------*/
-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:15px 20px;
-    background:var(--glass);
-    border-bottom:1px solid var(--border);
-    backdrop-filter:blur(15px);
-    position:sticky;
-    top:0; z-index:999;
-}
-header img{
-    width:48px;
-}
-header h1{
-    font-size:18px;
-    margin:0;
-}
-.menu-btn{
-    font-size:28px;
-    background:none;
-    border:none;
-    color:var(--gold);
-    cursor:pointer;
-}
-
-/* -------------------------------------------
-   MENU SLIDE
---------------------------------------------*/
-#menu{
-    position:fixed;
-    top:0; right:-100%;
-    width:70%;
-    height:100%;
-    background:rgba(0,0,0,0.35);
-    backdrop-filter:blur(22px);
-    border-left:1px solid var(--gold);
-    padding:25px;
-    transition:.45s ease;
-    z-index:99999;
-}
-.menu-close{
-    font-size:32px;
-    float:right;
-    cursor:pointer;
-    color:var(--gold);
-    margin-bottom:25px;
-}
-.menu-item{
-    padding:14px 0;
-    border-bottom:1px solid var(--border);
-    font-size:18px;
-    cursor:pointer;
-}
-.menu-item:hover{
-    color:var(--gold);
-}
-
-/* -------------------------------------------
-   HERO
---------------------------------------------*/
-.hero{
-    width:90%;
-    margin:25px auto;
-    padding:30px;
-    background:var(--glass);
-    border:2px solid var(--gold);
-    border-radius:22px;
-    text-align:center;
-    backdrop-filter:blur(18px);
-}
-.hero h2{
-    margin:0;
-    color:var(--gold);
-    font-size:24px;
-}
-
-/* -------------------------------------------
-   SECTION TITLES
---------------------------------------------*/
-.section-title{
-    width:90%;
-    margin:30px auto 10px auto;
-    color:var(--gold);
-    font-size:20px;
-}
-
-/* -------------------------------------------
-   CARDS
---------------------------------------------*/
-.grid{
-    width:90%;
-    margin:0 auto;
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:14px;
-}
-.card{
-    background:var(--glass);
-    padding:20px 10px;
-    border-radius:18px;
-    border:2px solid var(--gold);
-    text-align:center;
-    cursor:pointer;
-    transition:.3s;
-}
-.card span{
-    font-size:28px;
-    display:block;
-    margin-bottom:6px;
-}
-
-/* Animation zoom + glow */
-.card:hover{
-    transform:scale(1.05);
-    box-shadow:0 0 22px rgba(242,184,64,0.4);
-}
-
-/* SMALL SCREEN FIX */
-@media(max-width:380px){
-    .grid{
-        grid-template-columns:1fr 1fr;
-        gap:10px;
+    body {
+        margin: 0;
+        background: #06142E;
+        font-family: "Arial", sans-serif;
+        color: white;
+        overflow-x: hidden;
+        position: relative;
     }
-    .card{
-        padding:18px 6px;
+
+    /* SPLASH */
+    #splash {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: #06142E;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        animation: fadeOut 1.7s ease 2.8s forwards;
     }
-}
 
-/* -------------------------------------------
-   FOOTER
---------------------------------------------*/
-footer{
-    margin-top:40px;
-    text-align:center;
-    padding:20px;
-    opacity:.7;
-}
-footer a{
-    color:var(--gold);
-    text-decoration:none;
-    display:block;
-}
+    #splash img {
+        width: 220px;
+        animation: zoomIn 2.5s ease forwards;
+        filter: drop-shadow(0 0 25px #F2B840);
+    }
 
-/* -------------------------------------------
-   SCROLL TO TOP (STYLE IPHONE MINIMAL)
---------------------------------------------*/
-#scrollTop{
-    position:fixed;
-    bottom:25px;
-    right:25px;
-    width:42px; height:42px;
-    border-radius:50%;
-    border:2px solid var(--gold);
-    display:flex; justify-content:center; align-items:center;
-    font-size:22px;
-    cursor:pointer;
-    opacity:0; 
-    transition:.3s;
-    background:rgba(0,0,0,0.2);
-    backdrop-filter:blur(8px);
-    color:var(--gold);
-}
-#scrollTop.show{
-    opacity:1;
-}
+    @keyframes zoomIn {
+        0% { transform: scale(0.5); opacity: 0; }
+        50% { transform: scale(1.15); opacity: 1; }
+        100% { transform: scale(1); opacity: 1; }
+    }
+    @keyframes fadeOut {
+        to { opacity: 0; visibility: hidden; }
+    }
 
+    /* HEADER */
+    header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px 18px;
+        background: rgba(255,255,255,0.06);
+        border-bottom: 2px solid #F2B840;
+        backdrop-filter: blur(14px);
+    }
+
+    header img {
+        width: 58px;
+    }
+
+    header .title {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .menu-icon {
+        font-size: 30px;
+        cursor: pointer;
+        color: #F2B840;
+    }
+
+    /* MENU PANEL */
+    #menu-panel {
+        position: fixed;
+        top: 0; right: -100%;
+        width: 75%;
+        height: 100%;
+        background: rgba(0,0,0,0.65);
+        backdrop-filter: blur(18px);
+        padding: 40px 20px;
+        transition: .4s ease;
+        z-index: 99999;
+        box-shadow: -5px 0 20px rgba(0,0,0,0.4);
+    }
+
+    #menu-panel a {
+        display: block;
+        padding: 14px 0;
+        font-size: 18px;
+        color: white;
+        text-decoration: none;
+    }
+
+    #menu-panel a:hover {
+        color: #F2B840;
+    }
+
+    .close-btn {
+        font-size: 32px;
+        cursor: pointer;
+        margin-bottom: 25px;
+        color: #F2B840;
+    }
+
+    /* HERO */
+    .hero {
+        width: 92%;
+        margin: 25px auto;
+        padding: 25px 18px;
+        background: rgba(255,255,255,0.06);
+        border: 3px solid #F2B840;
+        border-radius: 22px;
+        backdrop-filter: blur(18px);
+        text-align: center;
+        box-shadow: 0 0 22px rgba(242,184,64,0.22);
+    }
+
+    .hero h2 {
+        margin: 0;
+        color: #F2B840;
+        font-size: 26px;
+    }
+
+    .hero p {
+        margin-top: 10px;
+        opacity: .85;
+        font-size: 16px;
+    }
+
+    /* SECTION TITLES */
+    .section-title {
+        width: 92%;
+        margin: 20px auto 10px auto;
+        font-size: 20px;
+        font-weight: bold;
+        color: #F2B840;
+    }
+
+    /* GRID */
+    .grid {
+        width: 92%;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+    }
+
+    .card {
+        background: rgba(255,255,255,0.06);
+        border-radius: 18px;
+        border: 3px solid #F2B840;
+        padding: 22px 10px;
+        text-align: center;
+        box-shadow: 0 0 18px rgba(242,184,64,0.22);
+        transition: .3s;
+    }
+
+    .card:hover {
+        transform: scale(1.03);
+        box-shadow: 0 0 25px rgba(242,184,64,0.33);
+    }
+
+    .card span {
+        font-size: 32px;
+        display: block;
+        margin-bottom: 6px;
+    }
+
+    /* FOOTER */
+    footer {
+        text-align: center;
+        padding: 25px 10px;
+        margin-top: 35px;
+        font-size: 14px;
+        opacity: .7;
+        width: 100%;
+    }
+
+    footer a {
+        color: #F2B840;
+        text-decoration: none;
+        display: block;
+        padding: 4px 0;
+    }
+
+    /* WATERMARK LOGO (SUPER DISCRET) */
+    #watermark {
+        position: fixed;
+        bottom: 18px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 150px;
+        opacity: 0.03; /* ultra discret */
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    /* MOBILE FIX */
+    @media (max-width: 380px) {
+        .hero h2 { font-size: 22px; }
+        .hero p { font-size: 14px; }
+        .card span { font-size: 28px; }
+        .grid { gap: 14px; }
+    }
 </style>
 </head>
 
@@ -245,74 +216,68 @@ footer a{
 <!-- HEADER -->
 <header>
     <img src="logotransparent.png">
-    <h1>App Officielle</h1>
-    <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    <div class="title">App Officielle</div>
+    <div class="menu-icon" onclick="openMenu()">☰</div>
 </header>
 
-<!-- MENU -->
-<div id="menu">
-    <div class="menu-close" onclick="toggleMenu()">×</div>
-    <div class="menu-item">Accueil</div>
-    <div class="menu-item">À propos</div>
-    <div class="menu-item">Créer un compte</div>
-    <div class="menu-item">Connexion</div>
-    <div class="menu-item">Supprimer compte</div>
-    <div class="menu-item">Contact</div>
-    <div class="menu-item">Mentions légales</div>
+<!-- MENU PANEL -->
+<div id="menu-panel">
+    <div class="close-btn" onclick="closeMenu()">✕</div>
+    <a href="#">Accueil</a>
+    <a href="#">À propos</a>
+    <a href="#">Créer un compte</a>
+    <a href="#">Connexion</a>
+    <a href="#">Supprimer mon compte</a>
+    <a href="#">Contact</a>
 </div>
 
 <!-- HERO -->
 <div class="hero">
-    <h2>CIZA GROUP</h2>
-    <p>Écosystème de services dans vos mains</p>
+    <h2>Écosystème de services dans vos mains</h2>
+    <p>Simplicité • Mobilité • Solutions Complètes</p>
 </div>
 
 <!-- DIASPORA -->
 <div class="section-title">🌍 CIZA DIASPORA+</div>
-<div class="card" onclick="location.href='diaspora.html'">
-    <span>🌍</span> Services Mondiaux pour la Diaspora
+<div class="hero">
+    <p>Services Mondiaux pour la Diaspora</p>
 </div>
 
-<!-- SERVICES LOCAUX -->
+<!-- LOCAUX -->
 <div class="section-title">🇧🇮 Services Locaux</div>
 <div class="grid">
     <div class="card" onclick="location.href='ride.html'"><span>🚗</span>CizaRide+</div>
     <div class="card" onclick="location.href='delivery.html'"><span>📦</span>CizaDelivery</div>
-    <div class="card" onclick="location.href='carwash.html'"><span>🧼</span>CarWash+</div>
+    <div class="card" onclick="location.href='carwash.html'"><span>🧽</span>CarWash+</div>
     <div class="card" onclick="location.href='assist.html'"><span>🤝</span>CizaAssist</div>
     <div class="card" onclick="location.href='market.html'"><span>🛒</span>CizaMarket</div>
     <div class="card" onclick="location.href='jobs.html'"><span>💼</span>CizaJobs</div>
 </div>
 
-<!-- ENTREPRISES -->
+<!-- ENTREPRISE -->
 <div class="section-title">🏢 Solutions Entreprises</div>
-<div class="card" onclick="location.href='business.html'">
-    <span>🏢</span> Services Professionnels & Partenariats
+<div class="hero">
+    <p>Services Professionnels & Partenariats</p>
 </div>
 
 <!-- FOOTER -->
 <footer>
-    <a href="#">Mentions Légales</a>
-    <a href="#">Confidentialité</a>
-    <a href="#">Conditions d'utilisation</a>
+    © 2028 CIZA GROUP  
+    <a href="legal.html">Mentions légales</a>
+    <a href="privacy.html">Confidentialité</a>
+    <a href="mailto:infos@cizagroup.com">Contact</a>
 </footer>
 
-<!-- SCROLL TO TOP BUTTON -->
-<div id="scrollTop" onclick="window.scrollTo({top:0, behavior:'smooth'})">↑</div>
+<!-- WATERMARK -->
+<img id="watermark" src="logotransparent.png">
 
 <script>
-/* MENU */
-function toggleMenu(){
-    const m=document.getElementById("menu");
-    m.style.right = (m.style.right==="0%") ? "-100%" : "0%";
+function openMenu(){
+    document.getElementById("menu-panel").style.right = "0";
 }
-
-/* SCROLL TOP APPEARS */
-window.addEventListener("scroll", ()=>{
-    const btn=document.getElementById("scrollTop");
-    if(window.scrollY > 200){ btn.classList.add("show"); }
-    else{ btn.classList.remove("show"); }
-});
+function closeMenu(){
+    document.getElementById("menu-panel").style.right = "-100%";
+}
 </script>
 
 </body>
