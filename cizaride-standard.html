@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CizaRide+ — Standard</title>
+
+<style>
+body{
+    margin:0;
+    background:#06142E;
+    font-family:Arial, sans-serif;
+    color:white;
+}
+
+/* RETOUR */
+.back-btn{
+    position:absolute;
+    top:18px;
+    left:18px;
+    background:rgba(0,0,0,0.4);
+    padding:10px 14px;
+    border-radius:50px;
+    font-size:20px;
+    cursor:pointer;
+    border:1px solid #F2B840;
+}
+
+/* HERO IMAGE */
+.hero-img{
+    width:100%;
+    border-bottom:2px solid #F2B840;
+    filter:drop-shadow(0 0 12px #F2B84055);
+}
+
+/* TITLE */
+h1{
+    text-align:center;
+    margin-top:20px;
+    color:#F2B840;
+    text-shadow:0 0 12px #F2B84055;
+}
+
+/* DESCRIPTION */
+.desc{
+    width:90%;
+    margin:10px auto;
+    opacity:.85;
+    font-size:15px;
+    line-height:1.5;
+}
+
+/* FORM */
+form{
+    width:90%;
+    margin:20px auto;
+    background:rgba(255,255,255,0.06);
+    padding:20px;
+    border-radius:16px;
+    border:1px solid #F2B840;
+    backdrop-filter:blur(14px);
+    box-shadow:0 0 18px rgba(242,184,64,0.22);
+}
+
+input, textarea{
+    width:100%;
+    margin-top:12px;
+    padding:12px;
+    background:rgba(0,0,0,0.35);
+    border:1px solid #F2B84080;
+    border-radius:10px;
+    color:white;
+    font-size:15px;
+}
+
+button{
+    width:100%;
+    margin-top:18px;
+    padding:14px;
+    background:#F2B840;
+    color:#06142E;
+    border:none;
+    border-radius:12px;
+    font-weight:bold;
+    cursor:pointer;
+    font-size:17px;
+}
+
+/* LANG BUTTON */
+.lang-btn{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    background:#F2B840;
+    border:none;
+    color:#06142E;
+    padding:10px 14px;
+    border-radius:50px;
+    font-weight:bold;
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<!-- RETOUR -->
+<div class="back-btn" onclick="location.href='ride.html'">←</div>
+
+<!-- IMAGE STANDARD PREMIUM -->
+<img src="https://cdn.pixabay.com/photo/2017/01/06/19/15/porsche-1957037_1280.jpg" class="hero-img">
+
+<h1 data-fr="Service Standard" data-en="Standard Service">Service Standard</h1>
+
+<p class="desc" data-fr="
+Transport rapide, fiable et accessible.  
+Idéal pour tous vos déplacements quotidiens au meilleur rapport qualité/prix.
+" 
+data-en="
+Fast, reliable and affordable transportation.  
+Perfect for your daily trips with the best value.
+">
+Transport rapide, fiable et accessible.
+</p>
+
+<!-- FORMULAIRE -->
+<form id="standardForm">
+
+    <input type="text" id="name" placeholder="Votre nom / Name" required>
+
+    <input type="text" id="phone" placeholder="Téléphone (optionnel) / Phone (optional)">
+
+    <input type="text" id="destination" placeholder="Destination" required>
+
+    <textarea id="notes" rows="3" placeholder="Commentaire (optionnel) / Notes (optional)"></textarea>
+
+    <button type="submit" data-fr="Commander" data-en="Order">Commander</button>
+</form>
+
+<!-- LANG -->
+<button class="lang-btn" onclick="switchLang()">FR</button>
+
+<script>
+/* MULTILINGUE */
+function switchLang(){
+    const html=document.documentElement;
+    html.lang = (html.lang === "fr") ? "en" : "fr";
+    document.querySelector(".lang-btn").innerHTML = (html.lang==="fr") ? "FR" : "EN";
+
+    document.querySelectorAll("[data-fr]").forEach(el=>{
+        el.innerHTML = (html.lang==="fr")
+            ? el.getAttribute("data-fr")
+            : el.getAttribute("data-en");
+    });
+}
+
+/* FORMULAIRE → STOCKAGE → PAIEMENT */
+document.getElementById("standardForm").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    const data = {
+        service: "Standard",
+        name: document.getElementById("name").value,
+        phone: document.getElementById("phone").value,
+        destination: document.getElementById("destination").value,
+        notes: document.getElementById("notes").value,
+        timestamp: Date.now()
+    };
+
+    localStorage.setItem("rideOrder", JSON.stringify(data));
+
+    location.href = "ride-payment.html"; 
+});
+</script>
+
+</body>
+</html>
