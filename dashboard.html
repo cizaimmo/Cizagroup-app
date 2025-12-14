@@ -7,58 +7,26 @@
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="./firebase-config.js"></script>
 
 <style>
-body{
-  margin:0;
-  height:100vh;
-  background:#06142E;
-  color:white;
-  font-family:Arial;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-}
-.box{
-  background:#0b1f4a;
-  padding:30px;
-  border-radius:12px;
-  width:360px;
-}
-button{
-  margin-top:20px;
-  padding:12px;
-  width:100%;
-  border:none;
-  border-radius:8px;
-  background:#e74c3c;
-  color:white;
-  font-weight:bold;
-}
+body{margin:0;height:100vh;display:flex;align-items:center;justify-content:center;background:#06142E;font-family:Arial;color:#fff}
+.box{background:#0b1f4a;padding:30px;border-radius:12px;width:360px}
+button{width:100%;padding:12px;margin-top:20px;border:none;border-radius:8px;background:#e74c3c;color:#fff;font-weight:bold}
 </style>
 </head>
 
 <body>
 <div class="box">
-  <h2>Dashboard CIZA GROUP</h2>
-  <p>Email : <span id="email"></span></p>
+  <h2>Dashboard</h2>
+  <p>Email : <strong id="email"></strong></p>
   <button onclick="logout()">Déconnexion</button>
 </div>
 
 <script>
-const firebaseConfig = {
-  apiKey: "VOTRE_API_KEY",
-  authDomain: "VOTRE_PROJET.firebaseapp.com",
-  projectId: "VOTRE_PROJET",
-  appId: "VOTRE_APP_ID"
-};
-
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-
 auth.onAuthStateChanged(user=>{
   if(!user){
-    window.location.replace("/Cizagroup-app/login.html");
+    window.location.replace("./login.html");
   }else{
     document.getElementById("email").innerText = user.email;
   }
@@ -66,7 +34,7 @@ auth.onAuthStateChanged(user=>{
 
 function logout(){
   auth.signOut().then(()=>{
-    window.location.replace("/Cizagroup-app/login.html");
+    window.location.replace("./login.html");
   });
 }
 </script>
