@@ -1,148 +1,94 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <title>CIZA GROUP — Connexion</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title>CIZA GROUP — Connexion</title>
-<link rel="icon" href="../logotransparent.png">
-
-<style>
-body{
-    margin:0;
-    background:#06142E;
-    color:white;
-    font-family:Arial, sans-serif;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
-}
-.box{
-    width:90%;
-    max-width:380px;
-    background:#0B1C34;
-    padding:30px;
-    border-radius:14px;
-    border:1px solid #12335C;
-    text-align:center;
-}
-.box img{
-    width:100px;
-    margin-bottom:15px;
-}
-.box h2{
-    color:#F2B840;
-    margin:0 0 20px;
-}
-input{
-    width:100%;
-    padding:12px;
-    margin-top:10px;
-    border:none;
-    border-radius:8px;
-    background:#112544;
-    color:white;
-}
-button{
-    width:100%;
-    padding:12px;
-    margin-top:14px;
-    background:#0b84ff;
-    color:white;
-    border:none;
-    border-radius:8px;
-    font-weight:bold;
-    cursor:pointer;
-}
-button:hover{ background:#0466c8; }
-a{
-    color:#F2B840;
-    text-decoration:none;
-}
-</style>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #06142E, #0A2A5E);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Arial, sans-serif;
+      color: white;
+    }
+    .card {
+      background: rgba(255,255,255,0.08);
+      padding: 30px;
+      border-radius: 12px;
+      width: 320px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.4);
+    }
+    h2 {
+      text-align: center;
+      color: #F2B840;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-top: 12px;
+      border-radius: 6px;
+      border: none;
+    }
+    button {
+      width: 100%;
+      margin-top: 18px;
+      padding: 12px;
+      background: #004AAD;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="box">
-    <img src="../logotransparent.png" alt="CIZA GROUP">
+  <div class="card">
     <h2>Connexion</h2>
 
-    <input type="email" id="email" placeholder="Email">
-    <input type="password" id="password" placeholder="Mot de passe">
+    <form id="loginForm">
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="Mot de passe" required />
+      <button type="submit">Se connecter</button>
+    </form>
+  </div>
 
-    <button onclick="loginUser()">Se connecter</button>
+  <!-- FIREBASE -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-    <p style="margin-top:12px;">
-        Pas encore de compte ?
-        <a href="register.html">Créer un compte</a>
-    </p>
-</div>
+    const firebaseConfig = {
+      apiKey: "TON_API_KEY",
+      authDomain: "TON_AUTH_DOMAIN",
+      projectId: "TON_PROJECT_ID",
+    };
 
-<script type="module">
-import { initializeApp } 
-from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword } 
-from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-import { getFirestore, doc, getDoc } 
-from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
 
-/* Firebase config */
-const firebaseConfig = {
-    apiKey: "AIzaSyBAiJHbBvRO6cDFpm6C-5mQk6SiTtzcI8o",
-    authDomain: "cizagroup-app.firebaseapp.com",
-    projectId: "cizagroup-app",
-    storageBucket: "cizagroup-app.firebasestorage.app",
-    messagingSenderId: "930936264084",
-    appId: "1:930936264084:web:5395360e54bf17bf492b81"
-};
+    document.getElementById("loginForm").addEventListener("submit", (e) => {
+      e.preventDefault();
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
 
-/* Connexion + redirection par rôle */
-window.loginUser = async function(){
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-
-    if(!email || !password){
-        alert("Veuillez remplir tous les champs.");
-        return;
-    }
-
-    try{
-        const cred = await signInWithEmailAndPassword(auth, email, password);
-        const uid = cred.user.uid;
-
-        // 🔍 Cherche dans users
-        let ref = doc(db, "users", uid);
-        let snap = await getDoc(ref);
-
-        // 🔍 Sinon dans drivers
-        if(!snap.exists()){
-            ref = doc(db, "drivers", uid);
-            snap = await getDoc(ref);
-        }
-
-        if(snap.exists()){
-            const role = snap.data().role;
-
-            if(role === "driver"){
-                window.location.href = "../driver-dashboard.html";
-            }else{
-                window.location.href = "../dashboard.html";
-            }
-        }else{
-            alert("Rôle utilisateur non défini.");
-        }
-
-    }catch(err){
-        alert("Erreur : " + err.message);
-    }
-};
-</script>
+      signInWithEmailAndPassword(auth, email, password)
+        .then(() => {
+          window.location.href = "/Cizagroup-app/dashboard.html";
+        })
+        .catch((error) => {
+          alert("Erreur : " + error.message);
+        });
+    });
+  </script>
 
 </body>
 </html>
