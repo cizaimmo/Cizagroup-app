@@ -2,48 +2,37 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Connexion – CIZA GROUP</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<!-- Firebase compat -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-<script src="./firebase-config.js"></script>
-
-<style>
-body{margin:0;height:100vh;display:flex;align-items:center;justify-content:center;background:#06142E;font-family:Arial}
-.box{background:#0b1f4a;color:#fff;padding:30px;border-radius:12px;width:320px}
-input,button{width:100%;padding:12px;margin-top:10px;border-radius:8px;border:none}
-button{background:#1e90ff;color:#fff;font-weight:bold}
-</style>
+<title>Connexion — CIZA GROUP</title>
 </head>
 
 <body>
-<div class="box">
-  <h2>Connexion</h2>
-  <input id="email" type="email" placeholder="Email">
-  <input id="password" type="password" placeholder="Mot de passe">
-  <button onclick="login()">Se connecter</button>
-</div>
+<h2>Connexion CIZA GROUP</h2>
 
-<script>
-// Si déjà connecté → dashboard
-auth.onAuthStateChanged(user=>{
-  if(user){
-    window.location.replace("./dashboard.html");
+<input id="email" type="email" placeholder="Email"><br><br>
+<input id="password" type="password" placeholder="Mot de passe"><br><br>
+<button onclick="login()">Se connecter</button>
+
+<script type="module">
+import { auth } from "./firebase-config.js";
+import { signInWithEmailAndPassword, onAuthStateChanged } from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    window.location.href = "./dashboard.html";
   }
 });
 
-function login(){
+window.login = function () {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
-  auth.signInWithEmailAndPassword(email, password)
-    .then(()=>{
-      window.location.replace("./dashboard.html");
+  signInWithEmailAndPassword(auth, email, password)
+    .then(() => {
+      window.location.href = "./dashboard.html";
     })
-    .catch(err=>alert(err.message));
-}
+    .catch(err => alert(err.message));
+};
 </script>
 </body>
 </html>
