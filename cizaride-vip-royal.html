@@ -4,73 +4,218 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>CizaRide+ Royal</title>
+<title>CizaRide+ — VIP ROYAL</title>
 <link rel="icon" href="logotransparent.png">
 
 <style>
+/* THEME */
+:root{
+    --bg:#06142E;
+    --text:white;
+    --glass:rgba(255,255,255,0.07);
+    --gold:#F2B840;
+    --border:#F2B840;
+}
+
 body{
     margin:0;
-    background:#06142E;
-    color:white;
-    font-family:Arial;
+    background:var(--bg);
+    color:var(--text);
+    font-family:Arial, sans-serif;
 }
 
-.back{
-    font-size:28px;
+/* SPLASH */
+#splash{
+    position:fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background:var(--bg);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+    animation:fadeOut 1.7s ease 2.6s forwards;
+}
+#splash img{
+    width:260px;
+    opacity:0;
+    animation:zoomIn 2.2s ease forwards;
+    filter:drop-shadow(0 0 25px var(--gold));
+}
+@keyframes zoomIn{
+    0%{opacity:0; transform:scale(.5);}
+    60%{opacity:1; transform:scale(1.15);}
+    100%{opacity:1; transform:scale(1);}
+}
+@keyframes fadeOut{
+    to{opacity:0; visibility:hidden;}
+}
+
+/* HEADER */
+header{
+    display:flex;
+    align-items:center;
     padding:15px;
-    color:#F2B840;
-    text-decoration:none;
-    display:inline-block;
+    border-bottom:2px solid var(--gold);
+}
+.back-btn{
+    font-size:26px;
+    margin-right:12px;
+    cursor:pointer;
+}
+header h1{
+    margin:0;
+    color:var(--gold);
+    font-size:20px;
 }
 
-.hero-img{
-    width:140px;
-    display:block;
-    margin:20px auto;
-}
-
-h2{
+/* HERO */
+.hero{
+    width:90%;
+    margin:25px auto;
+    padding:28px;
+    border-radius:20px;
+    background:var(--glass);
+    border:2px solid var(--gold);
+    backdrop-filter:blur(16px);
     text-align:center;
-    color:#F2B840;
 }
-p{
-    text-align:center;
-    opacity:.85;
-    padding:0 20px;
+.hero img{
+    width:110px;
+    margin-bottom:10px;
+}
+.hero h2{
+    margin:0;
+    color:var(--gold);
+    font-size:24px;
 }
 
 /* FORM */
 form{
     width:90%;
     margin:20px auto;
-    display:flex;
-    flex-direction:column;
-    gap:15px;
+    padding:22px;
+    background:var(--glass);
+    border:2px solid var(--gold);
+    border-radius:18px;
+    backdrop-filter:blur(16px);
+}
+label{
+    font-size:14px;
+    font-weight:bold;
 }
 input{
-    padding:14px;
+    width:100%;
+    padding:12px;
+    margin-top:5px;
+    margin-bottom:16px;
     border-radius:10px;
-    border:none;
-    background:#0D1B3A;
+    border:1px solid var(--gold);
+    background:rgba(255,255,255,0.08);
     color:white;
+}
+button{
+    width:100%;
+    padding:14px;
+    background:var(--gold);
+    border:none;
+    border-radius:14px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    color:#06142E;
+    box-shadow:0 0 18px rgba(242,184,64,0.5);
+}
+
+/* LANG BUTTON */
+.lang-btn{
+    position:fixed;
+    bottom:20px; right:20px;
+    background:var(--gold);
+    color:#06142E;
+    border:none;
+    padding:12px 15px;
+    border-radius:50px;
+    font-weight:bold;
+    cursor:pointer;
 }
 </style>
 </head>
 
 <body>
 
-<a class="back" href="ride.html">←</a>
+<!-- SPLASH -->
+<div id="splash">
+    <img src="logotransparent.png">
+</div>
 
-<img class="hero-img" src="https://img.icons8.com/fluency/240/diamond.png">
+<!-- HEADER -->
+<header>
+    <div class="back-btn" onclick="location.href='ride.html'">←</div>
+    <h1 data-fr="Service VIP Royal" data-en="VIP Royal Service">Service VIP Royal</h1>
+</header>
 
-<h2>CizaRide+ Royal</h2>
-<p>Niveau ultime : chauffeur professionnel, voiture haut de gamme, service exclusif.</p>
+<!-- HERO -->
+<div class="hero">
+    <img src="https://img.icons8.com/fluency/96/diamond.png">
+    <h2 data-fr="CizaRide+ — VIP Royal" data-en="CizaRide+ — VIP Royal">CizaRide+ — VIP Royal</h2>
+    <p data-fr="Niveau Ultime : PDG, Diplomates, Personnalités"
+       data-en="Ultimate Level: CEOs, Diplomats, Public Figures">
+       Niveau Ultime : PDG, Diplomates, Personnalités
+    </p>
+</div>
 
-<form>
-    <input type="text" placeholder="Nom complet">
-    <input type="text" placeholder="Téléphone">
-    <input type="text" placeholder="Adresse de prise en charge">
+<!-- FORMULAIRE ROYAL -->
+<form id="royalForm">
+    <label data-fr="Nom complet" data-en="Full Name">Nom complet</label>
+    <input type="text" id="name" required>
+
+    <label data-fr="Téléphone" data-en="Phone Number">Téléphone</label>
+    <input type="text" id="phone">
+
+    <label data-fr="Destination" data-en="Destination">Destination</label>
+    <input type="text" id="destination" required>
+
+    <button type="submit"
+        data-fr="Continuer vers Paiement"
+        data-en="Continue to Payment">
+        Continuer vers Paiement
+    </button>
 </form>
+
+<!-- LANG -->
+<button class="lang-btn" onclick="switchLang()">FR</button>
+
+<script>
+/* LANG SWITCHER */
+function switchLang(){
+    const html=document.documentElement;
+    html.lang = (html.lang==="fr") ? "en" : "fr";
+    document.querySelector(".lang-btn").innerHTML = (html.lang==="fr") ? "FR" : "EN";
+
+    document.querySelectorAll("[data-fr]").forEach(el=>{
+        el.innerHTML = (html.lang==="fr")
+            ? el.getAttribute("data-fr")
+            : el.getAttribute("data-en");
+    });
+}
+
+/* FORM SUBMISSION */
+document.getElementById("royalForm").addEventListener("submit", (e)=>{
+    e.preventDefault();
+
+    const data = {
+        type:"VIP ROYAL",
+        name:document.getElementById("name").value,
+        phone:document.getElementById("phone").value,
+        destination:document.getElementById("destination").value
+    };
+
+    localStorage.setItem("ride_request", JSON.stringify(data));
+
+    location.href = "ride-payment.html";
+});
+</script>
 
 </body>
 </html>
