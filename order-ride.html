@@ -50,7 +50,6 @@ button{
     font-weight:bold;
     cursor:pointer;
 }
-button:hover{ background:#0466c8; }
 .msg{
     margin-top:15px;
     text-align:center;
@@ -78,8 +77,10 @@ button:hover{ background:#0466c8; }
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } 
 from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-import { getFirestore, collection, addDoc, serverTimestamp } 
-from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { 
+  getFirestore, collection, addDoc, serverTimestamp,
+  query, where, getDocs, limit, updateDoc, doc
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBAiJHbBvRO6cDFpm6C-5mQk6SiTtzcI8o",
@@ -111,15 +112,39 @@ window.orderRide = async function(){
         return;
     }
 
-    await addDoc(collection(db, "rides"), {
+    // 🔍 Trouver un chauffeur disponible
+    const q = query(
+        collection(db, "drivers"),
+        where("available", "==", true),
+        limit(1)
+    );
+
+    const qs = await getDocs(q);
+
+    if(qs.empty){
+        msg.textContent = "Aucun chauffeur disponible pour le moment.";
+        return;
+    }
+
+    const driverDoc = qs.docs[0];
+    const driverId = driverDoc.id;
+
+    // 🚗 Créer la course
+    const rideRef = await addDoc(collection(db, "rides"), {
         clientId: currentUser.uid,
+        driverId: driverId,
         pickup,
         destination,
-        status: "pending",
+        status: "assigned",
         createdAt: serverTimestamp()
     });
 
-    msg.textContent = "🚗 Trajet créé avec succès !";
+    // 🔒 Marquer le chauffeur comme indisponible
+    await updateDoc(doc(db, "drivers", driverId), {
+        available: false
+    });
+
+    msg.textContent = "🚗 Chauffeur assigné, trajet en cours !";
     msg.style.color = "#4ade80";
 
     setTimeout(()=>{
