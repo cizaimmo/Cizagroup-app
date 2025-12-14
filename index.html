@@ -7,212 +7,191 @@
 <title>CIZA GROUP — App Officielle</title>
 
 <style>
-/* ----------------------------- */
-/* BASE */
-/* ----------------------------- */
-body{
-    margin:0;
-    background:#06142E;
-    color:white;
-    font-family:Arial, sans-serif;
-    overflow-x:hidden;
-}
+    body {
+        margin: 0;
+        background: #06142E;
+        font-family: "Arial", sans-serif;
+        color: white;
+    }
 
-/* ----------------------------- */
-/* SPLASH XXL */
-/* ----------------------------- */
-#splash{
-    position:fixed;
-    top:0; left:0;
-    width:100%; height:100%;
-    background:#06142E;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    z-index:9999;
-    animation:fadeOut 1.7s ease 2.9s forwards;
-}
+    /* SPLASH SCREEN */
+    #splash {
+        position: fixed;
+        inset: 0;
+        background: #06142E;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        animation: fadeOut 1.8s ease 3.2s forwards;
+    }
 
-#splash img{
-    width:260px;
-    animation:zoomIn 2.5s ease forwards;
-    filter:drop-shadow(0 0 35px #F2B840);
-}
+    #splash img {
+        width: 260px;
+        animation: zoomIn 2.8s ease forwards;
+        filter: drop-shadow(0 0 30px #F2B840);
+    }
 
-@keyframes zoomIn{
-    0%{transform:scale(0.4); opacity:0;}
-    55%{transform:scale(1.20); opacity:1;}
-    100%{transform:scale(1); opacity:1;}
-}
+    @keyframes zoomIn {
+        0% { transform: scale(0.4); opacity: 0; }
+        60% { transform: scale(1.2); opacity: 1; }
+        100% { transform: scale(1); opacity: 1; }
+    }
 
-@keyframes fadeOut{
-    to{opacity:0; visibility:hidden;}
-}
+    @keyframes fadeOut {
+        to { opacity: 0; visibility: hidden; }
+    }
 
-/* ----------------------------- */
-/* HEADER */
-/* ----------------------------- */
-header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:15px 18px;
-    background:rgba(255,255,255,0.06);
-    border-bottom:2px solid #F2B840;
-    position:sticky;
-    top:0;
-    z-index:999;
-    backdrop-filter:blur(10px);
-}
+    /* HEADER */
+    header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 17px 18px;
+        background: rgba(255,255,255,0.06);
+        border-bottom: 2px solid #F2B840;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
 
-header img{
-    width:55px;
-    filter:drop-shadow(0 0 8px #F2B840);
-}
+    header img {
+        width: 60px;
+    }
 
-.title{
-    font-size:20px;
-    font-weight:bold;
-}
+    .title {
+        font-size: 20px;
+        font-weight: bold;
+    }
 
-.menu-icon{
-    font-size:32px;
-    cursor:pointer;
-}
+    /* MENU HAMBURGER */
+    .menu-icon {
+        font-size: 30px;
+        cursor: pointer;
+    }
 
-/* ----------------------------- */
-/* MENU PANEL */
-/* ----------------------------- */
-#menu-panel{
-    position:fixed;
-    top:0;
-    right:-100%;
-    width:75%;
-    height:100%;
-    background:#0C1C35;
-    padding:40px 20px;
-    transition:.4s ease;
-    z-index:99999;
-    box-shadow:-5px 0 20px rgba(0,0,0,0.5);
-}
+    #menu-panel {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 75%;
+        height: 100%;
+        background: #0C1C35;
+        padding: 40px 20px;
+        transition: .4s ease;
+        z-index: 2000;
+        box-shadow: -5px 0 20px rgba(0,0,0,0.4);
+    }
 
-.close-btn{
-    font-size:35px;
-    margin-bottom:25px;
-    cursor:pointer;
-}
+    #menu-panel a {
+        display: block;
+        padding: 16px 0;
+        font-size: 18px;
+        color: white;
+        text-decoration: none;
+    }
 
-#menu-panel a{
-    display:block;
-    padding:14px 0;
-    font-size:18px;
-    color:white;
-    text-decoration:none;
-}
+    #menu-panel a:hover {
+        color: #F2B840;
+    }
 
-#menu-panel a:hover{
-    color:#F2B840;
-}
+    .close-btn {
+        font-size: 35px;
+        cursor: pointer;
+        margin-bottom: 30px;
+    }
 
-/* ----------------------------- */
-/* HERO PREMIUM */
-/* ----------------------------- */
-.hero{
-    width:92%;
-    margin:25px auto;
-    padding:25px 18px;
-    background:rgba(255,255,255,0.06);
-    border:3px solid #F2B840;
-    border-radius:22px;
-    backdrop-filter:blur(18px);
-    text-align:center;
-    box-shadow:0 0 25px rgba(242,184,64,0.25);
-}
+    /* HERO MAIN */
+    .hero {
+        width: 92%;
+        margin: 25px auto;
+        padding: 25px 18px;
+        background: rgba(255,255,255,0.06);
+        border: 3px solid #F2B840;
+        border-radius: 22px;
+        text-align: center;
+        box-shadow: 0 0 20px rgba(242,184,64,0.22);
+        backdrop-filter: blur(14px);
+    }
 
-.hero h2{
-    margin:0;
-    color:#F2B840;
-    font-size:26px;
-}
+    .hero h2 {
+        margin: 0;
+        color: #F2B840;
+        font-size: 26px;
+    }
 
-.hero p{
-    margin-top:10px;
-    opacity:.85;
-    font-size:16px;
-}
+    .hero p {
+        margin-top: 10px;
+        opacity: .85;
+        font-size: 16px;
+    }
 
-/* ----------------------------- */
-/* TITRES */
-/* ----------------------------- */
-.section-title{
-    width:92%;
-    margin:20px auto 8px auto;
-    font-size:20px;
-    color:#F2B840;
-    font-weight:bold;
-}
+    /* TITRES DE SECTION */
+    .section-title {
+        width: 92%;
+        margin: 25px auto 10px auto;
+        font-size: 21px;
+        font-weight: bold;
+        color: #F2B840;
+    }
 
-/* ----------------------------- */
-/* CARDS */
-/* ----------------------------- */
-.grid{
-    width:92%;
-    margin:0 auto;
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:18px;
-}
+    /* GRID SERVICES */
+    .grid {
+        width: 92%;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+    }
 
-.card{
-    background:rgba(255,255,255,0.06);
-    border-radius:18px;
-    border:3px solid #F2B840;
-    padding:22px 10px;
-    text-align:center;
-    backdrop-filter:blur(14px);
-    box-shadow:0 0 18px rgba(242,184,64,0.22);
-    transition:.22s ease;
-}
+    .card {
+        background: rgba(255,255,255,0.06);
+        border-radius: 18px;
+        border: 3px solid #F2B840;
+        padding: 22px 10px;
+        text-align: center;
+        transition: .25s ease;
+        cursor: pointer;
+        box-shadow: 0 0 18px rgba(242,184,64,0.22);
+    }
 
-.card:hover{
-    transform:scale(1.06);
-    box-shadow:0 0 30px rgba(242,184,64,0.33);
-}
+    .card:hover {
+        transform: scale(1.05);
+        border-color: #FFD770;
+        box-shadow: 0 0 30px rgba(242,184,64,0.5);
+    }
 
-.card:active{
-    animation:vibration .1s linear;
-}
+    .card span {
+        font-size: 34px;
+        display: block;
+        margin-bottom: 6px;
+    }
 
-.card span{
-    font-size:32px;
-    display:block;
-    margin-bottom:6px;
-}
+    .card p {
+        margin: 0;
+        font-size: 17px;
+    }
 
-@keyframes vibration{
-    0%{transform:translateX(0);}
-    30%{transform:translateX(-2px);}
-    60%{transform:translateX(2px);}
-    100%{transform:translateX(0);}
-}
+    /* FOOTER */
+    footer {
+        text-align: center;
+        padding: 30px 10px;
+        margin-top: 40px;
+        font-size: 15px;
+        opacity: .8;
+    }
 
-/* ----------------------------- */
-/* FOOTER */
-/* ----------------------------- */
-footer{
-    text-align:center;
-    padding:25px 10px;
-    margin-top:30px;
-    font-size:14px;
-    opacity:.75;
-}
+    footer a {
+        color: #F2B840;
+        text-decoration: none;
+        display: block;
+        padding: 5px 0;
+    }
 
-footer a{
-    color:#F2B840;
-    text-decoration:none;
-    display:block;
-    padding:4px 0;
-}
+    @media (max-width: 380px) {
+        .hero h2 { font-size: 22px; }
+        .card span { font-size: 28px; }
+    }
 </style>
 </head>
 
@@ -226,7 +205,7 @@ footer a{
 <!-- HEADER -->
 <header>
     <img src="logotransparent.png">
-    <div class="title">CIZA GROUP</div>
+    <div class="title">App Officielle</div>
     <div class="menu-icon" onclick="openMenu()">☰</div>
 </header>
 
@@ -241,7 +220,7 @@ footer a{
     <a href="#">Contact</a>
 </div>
 
-<!-- HERO -->
+<!-- HERO PRINCIPAL -->
 <div class="hero">
     <h2>Écosystème de services dans vos mains</h2>
     <p>Simplicité • Mobilité • Solutions Complètes</p>
@@ -253,16 +232,41 @@ footer a{
     <p>Services Mondiaux pour la Diaspora</p>
 </div>
 
-<!-- LOCAUX -->
+<!-- SERVICES LOCAUX -->
 <div class="section-title">🇧🇮 Services Locaux</div>
 
 <div class="grid">
-    <div class="card"><span>🚗</span>CizaRide+</div>
-    <div class="card"><span>📦</span>CizaDelivery</div>
-    <div class="card"><span>🧽</span>CarWash+</div>
-    <div class="card"><span>🤝</span>CizaAssist</div>
-    <div class="card"><span>🛒</span>CizaMarket</div>
-    <div class="card"><span>💼</span>CizaJobs</div>
+
+    <div class="card" data-link="cizaride.html">
+        <span>🚗</span>
+        <p>CizaRide+</p>
+    </div>
+
+    <div class="card" data-link="cizadelivery.html">
+        <span>📦</span>
+        <p>CizaDelivery</p>
+    </div>
+
+    <div class="card" data-link="cizacarwash.html">
+        <span>🧽</span>
+        <p>CarWash+</p>
+    </div>
+
+    <div class="card" data-link="cizaassist.html">
+        <span>🤝</span>
+        <p>CizaAssist</p>
+    </div>
+
+    <div class="card" data-link="cizamarket.html">
+        <span>🛒</span>
+        <p>CizaMarket</p>
+    </div>
+
+    <div class="card" data-link="cizajobs.html">
+        <span>💼</span>
+        <p>CizaJobs</p>
+    </div>
+
 </div>
 
 <!-- ENTREPRISE -->
@@ -273,19 +277,25 @@ footer a{
 
 <!-- FOOTER -->
 <footer>
-    <a href="#">Mentions légales</a>
-    <a href="#">Politique de confidentialité</a>
+    <a href="#">Mentions Légales</a>
+    <a href="#">Politique de Confidentialité</a>
     <a href="#">Conditions d'utilisation</a>
-    © 2028 — CIZA GROUP | L’Écosystème de services dans vos mains
 </footer>
 
 <script>
-function openMenu(){
-    document.getElementById("menu-panel").style.right="0";
+function openMenu() {
+    document.getElementById("menu-panel").style.right = "0";
 }
-function closeMenu(){
-    document.getElementById("menu-panel").style.right="-100%";
+function closeMenu() {
+    document.getElementById("menu-panel").style.right = "-100%";
 }
+
+document.querySelectorAll(".card").forEach(card => {
+    card.addEventListener("click", () => {
+        let link = card.getAttribute("data-link");
+        if(link) window.location.href = link;
+    });
+});
 </script>
 
 </body>
