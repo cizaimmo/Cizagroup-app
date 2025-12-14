@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>CIZA GROUP — Chauffeur</title>
+<link rel="icon" href="logotransparent.png">
+
+<style>
+body{
+    margin:0;
+    background:#06142E;
+    color:white;
+    font-family:Arial, sans-serif;
+}
+header{
+    padding:20px;
+    text-align:center;
+    border-bottom:1px solid #12335C;
+}
+header img{ width:90px; }
+header h2{ color:#F2B840; margin:10px 0 0; }
+
+.container{
+    max-width:900px;
+    margin:auto;
+    padding:25px;
+}
+.card{
+    background:#0B1C34;
+    border:1px solid #12335C;
+    border-radius:14px;
+    padding:20px;
+    margin-bottom:20px;
+}
+.card h3{ color:#F2B840; margin-top:0; }
+
+.ride{
+    background:#112544;
+    border-radius:10px;
+    padding:14px;
+    margin-top:10px;
+    font-size:14px;
+}
+.ride b{ color:#F2B840; }
+
+button{
+    padding:10px 16px;
+    border:none;
+    border-radius:8px;
+    font-weight:bold;
+    cursor:pointer;
+    margin-right:6px;
+}
+.accept{ background:#2a9d8f; color:white; }
+.finish{ background:#f4a261; color:black; }
+.logout{ background:#c1121f; color:white; }
+</style>
+</head>
+
+<body>
+
+<header>
+    <img src="logotransparent.png">
+    <h2>Dashboard Chauffeur</h2>
+</header>
+
+<div class="container">
+
+    <!-- PROFIL -->
+    <div class="card">
+        <h3>👤 Mon profil chauffeur</h3>
+        <p><b>Email :</b> <span id="email">...</span></p>
+        <p><b>Nom :</b> <span id="name">...</span></p>
+        <p><b>Rôle :</b> <span id="role">...</span></p>
+    </div>
+
+    <!-- COURSES -->
+    <div class="card">
+        <h3>🚗 Courses assignées</h3>
+        <div id="rides">Chargement...</div>
+    </div>
+
+    <div style="text-align:center">
+        <button class="logout" onclick="logout()">Déconnexion</button>
+    </div>
+
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut } 
+from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { getFirestore, doc, getDoc, collection, query, where, getDocs, updateDoc } 
+from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBAiJHbBvRO6cDFpm6C-5mQk6SiTtzcI8o",
+  authDomain: "cizagroup-app.firebaseapp.com",
+  projectId: "cizagroup-app"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+onAuthStateChanged(auth, async (user)=>{
+    if(!user){
+        window.location.href = "login.html";
+        return;
+    }
+
+    document.getElementById("email").textContent = user.email;
+
+    // 🔹 Profil chauffeur
+    const profRef = doc(db, "drivers", user.uid);
+    const profSnap = await getDoc(profRef);
+
+    if(!profSnap.exists()){
+        alert("Accès refusé (pas chauffeur)");
+        window.location.href = "dashboard.html";
+        return;
+    }
+
+    const d = profSnap.data();
+    document.getElementById("name").textContent =
+        (d.firstName || "") + " " + (d.lastName || "");
+    document.getElementById("role").textContent = d.role;
+
+    // 🔹 Courses du chauffeur
+    const ridesBox = document.getElementById("rides");
+    ridesBox.innerHTML = "";
+
+    const q = query(
+        collection(db, "rides"),
+        where("driverId", "==", "driverTest1") // test (adapter plus tard)
+    );
+
+    const qs = await getDocs(q);
+
+    if(qs.empty){
+        ridesBox.innerHTML = "Aucune course assignée.";
+    }else{
+        qs.forEach(rdoc=>{
+            const r = rdoc.data();
+            ridesBox.innerHTML += `
+                <div class="ride">
+                    <b>Départ :</b> ${r.pickup}<br>
+                    <b>Destination :</b> ${r.destination}<br>
+                    <b>Statut :</b> ${r.status}<br><br>
+                    <button class="accept" onclick="updateRide('${rdoc.id}','accepted')">Accepter</button>
+                    <button class="finish" onclick="updateRide('${rdoc.id}','completed')">Terminer</button>
+                </div>
+            `;
+        });
+    }
+});
+
+window.updateRide = async function(id, status){
+    const ref = doc(db, "rides", id);
+    await updateDoc(ref, { status });
+    location.reload();
+};
+
+window.logout = function(){
+    signOut(auth).then(()=>{
+        window.location.href = "login.html";
+    });
+};
+</script>
+
+</body>
+</html>
