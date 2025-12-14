@@ -2,41 +2,33 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Dashboard – CIZA GROUP</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-<script src="./firebase-config.js"></script>
-
-<style>
-body{margin:0;height:100vh;display:flex;align-items:center;justify-content:center;background:#06142E;font-family:Arial;color:#fff}
-.box{background:#0b1f4a;padding:30px;border-radius:12px;width:360px}
-button{width:100%;padding:12px;margin-top:20px;border:none;border-radius:8px;background:#e74c3c;color:#fff;font-weight:bold}
-</style>
+<title>Dashboard — CIZA GROUP</title>
 </head>
 
 <body>
-<div class="box">
-  <h2>Dashboard</h2>
-  <p>Email : <strong id="email"></strong></p>
-  <button onclick="logout()">Déconnexion</button>
-</div>
+<h1>Dashboard CIZA GROUP</h1>
+<p id="userEmail"></p>
 
-<script>
-auth.onAuthStateChanged(user=>{
-  if(!user){
-    window.location.replace("./login.html");
-  }else{
-    document.getElementById("email").innerText = user.email;
+<button onclick="logout()">Déconnexion</button>
+
+<script type="module">
+import { auth } from "./firebase-config.js";
+import { onAuthStateChanged, signOut } from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+onAuthStateChanged(auth, (user) => {
+  if (!user) {
+    window.location.href = "./login.html";
+  } else {
+    document.getElementById("userEmail").innerText = user.email;
   }
 });
 
-function logout(){
-  auth.signOut().then(()=>{
-    window.location.replace("./login.html");
+window.logout = function () {
+  signOut(auth).then(() => {
+    window.location.href = "./login.html";
   });
-}
+};
 </script>
 </body>
 </html>
