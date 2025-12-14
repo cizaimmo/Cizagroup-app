@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>CIZA GROUP — Dashboard</title>
+<link rel="icon" href="logotransparent.png">
+
+<style>
+body{
+    margin:0;
+    background:#06142E;
+    color:white;
+    font-family:Arial, sans-serif;
+    min-height:100vh;
+}
+header{
+    padding:20px;
+    text-align:center;
+    border-bottom:1px solid #12335C;
+}
+header img{
+    width:90px;
+}
+header h2{
+    margin:10px 0 0;
+    color:#F2B840;
+}
+.container{
+    padding:25px;
+    max-width:900px;
+    margin:auto;
+}
+.welcome{
+    margin-bottom:25px;
+    font-size:18px;
+}
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(160px,1fr));
+    gap:15px;
+}
+.card{
+    background:#0B1C34;
+    border:1px solid #12335C;
+    border-radius:14px;
+    padding:20px;
+    text-align:center;
+    cursor:pointer;
+    transition:.25s;
+}
+.card:hover{
+    transform:translateY(-4px);
+    border-color:#F2B840;
+}
+.card h3{
+    margin:0;
+    color:#F2B840;
+}
+.card p{
+    font-size:14px;
+    opacity:.85;
+}
+.logout{
+    margin-top:35px;
+    text-align:center;
+}
+.logout button{
+    padding:12px 22px;
+    background:#c1121f;
+    border:none;
+    border-radius:8px;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+.logout button:hover{
+    background:#9b0f18;
+}
+footer{
+    margin-top:40px;
+    padding:15px;
+    text-align:center;
+    font-size:13px;
+    opacity:.6;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <img src="logotransparent.png" alt="CIZA GROUP">
+    <h2>Dashboard CIZA GROUP</h2>
+</header>
+
+<div class="container">
+
+    <div class="welcome">
+        Bienvenue <b id="userEmail">...</b> 👋  
+        <br>Accédez à vos services CIZA GROUP.
+    </div>
+
+    <div class="grid">
+        <div class="card" onclick="go('cizaride.html')">
+            <h3>🚗 CizaRide+</h3>
+            <p>Transport intelligent</p>
+        </div>
+
+        <div class="card" onclick="go('cizapay.html')">
+            <h3>💳 CizaPay+</h3>
+            <p>Paiements sécurisés</p>
+        </div>
+
+        <div class="card" onclick="go('cizacarwash.html')">
+            <h3>🧽 CizaCarWash</h3>
+            <p>Service auto premium</p>
+        </div>
+
+        <div class="card" onclick="go('cizaimmo.html')">
+            <h3>🏢 CizaImmo</h3>
+            <p>Immobilier & investissements</p>
+        </div>
+    </div>
+
+    <div class="logout">
+        <button onclick="logout()">Déconnexion</button>
+    </div>
+
+</div>
+
+<footer>
+    © 2025 CIZA GROUP — Tous droits réservés
+</footer>
+
+<!-- 🔐 Firebase -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { 
+    getAuth,
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+/* Firebase config */
+const firebaseConfig = {
+    apiKey: "AIzaSyBAiJHbBvRO6cDFpm6C-5mQk6SiTtzcI8o",
+    authDomain: "cizagroup-app.firebaseapp.com",
+    projectId: "cizagroup-app"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+/* Protection + affichage utilisateur */
+onAuthStateChanged(auth, (user)=>{
+    if(!user){
+        window.location.href = "login.html";
+    }else{
+        document.getElementById("userEmail").textContent = user.email;
+    }
+});
+
+/* Navigation */
+window.go = function(page){
+    alert("Page à connecter : " + page);
+    // plus tard → window.location.href = page;
+}
+
+/* Déconnexion */
+window.logout = function(){
+    signOut(auth).then(()=>{
+        window.location.href = "login.html";
+    });
+};
+</script>
+
+</body>
+</html>
