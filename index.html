@@ -14,30 +14,30 @@
         color: white;
     }
 
-    /* SPLASH SCREEN */
+    /* SPLASH */
     #splash {
         position: fixed;
-        inset: 0;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
         background: #06142E;
         display: flex;
         justify-content: center;
         align-items: center;
         z-index: 9999;
-        animation: fadeOut 1.8s ease 3.2s forwards;
+        animation: fadeOut 1.7s ease 2.8s forwards;
     }
 
     #splash img {
-        width: 260px;
-        animation: zoomIn 2.8s ease forwards;
-        filter: drop-shadow(0 0 30px #F2B840);
+        width: 220px;
+        animation: zoomIn 2.5s ease forwards;
+        filter: drop-shadow(0 0 25px #F2B840);
     }
 
     @keyframes zoomIn {
-        0% { transform: scale(0.4); opacity: 0; }
-        60% { transform: scale(1.2); opacity: 1; }
+        0% { transform: scale(0.5); opacity: 0; }
+        50% { transform: scale(1.15); opacity: 1; }
         100% { transform: scale(1); opacity: 1; }
     }
-
     @keyframes fadeOut {
         to { opacity: 0; visibility: hidden; }
     }
@@ -47,29 +47,27 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 17px 18px;
+        padding: 15px 18px;
         background: rgba(255,255,255,0.06);
         border-bottom: 2px solid #F2B840;
-        position: sticky;
-        top: 0;
-        z-index: 1000;
     }
 
     header img {
-        width: 60px;
+        width: 58px;
     }
 
-    .title {
+    header .title {
         font-size: 20px;
         font-weight: bold;
     }
 
-    /* MENU HAMBURGER */
+    /* MENU ICON */
     .menu-icon {
         font-size: 30px;
         cursor: pointer;
     }
 
+    /* MENU PANEL */
     #menu-panel {
         position: fixed;
         top: 0;
@@ -79,13 +77,13 @@
         background: #0C1C35;
         padding: 40px 20px;
         transition: .4s ease;
-        z-index: 2000;
+        z-index: 99999;
         box-shadow: -5px 0 20px rgba(0,0,0,0.4);
     }
 
     #menu-panel a {
         display: block;
-        padding: 16px 0;
+        padding: 14px 0;
         font-size: 18px;
         color: white;
         text-decoration: none;
@@ -96,12 +94,12 @@
     }
 
     .close-btn {
-        font-size: 35px;
+        font-size: 32px;
         cursor: pointer;
-        margin-bottom: 30px;
+        margin-bottom: 25px;
     }
 
-    /* HERO MAIN */
+    /* HERO */
     .hero {
         width: 92%;
         margin: 25px auto;
@@ -109,9 +107,9 @@
         background: rgba(255,255,255,0.06);
         border: 3px solid #F2B840;
         border-radius: 22px;
+        backdrop-filter: blur(18px);
         text-align: center;
-        box-shadow: 0 0 20px rgba(242,184,64,0.22);
-        backdrop-filter: blur(14px);
+        box-shadow: 0 0 22px rgba(242,184,64,0.22);
     }
 
     .hero h2 {
@@ -119,23 +117,22 @@
         color: #F2B840;
         font-size: 26px;
     }
-
     .hero p {
         margin-top: 10px;
         opacity: .85;
         font-size: 16px;
     }
 
-    /* TITRES DE SECTION */
+    /* SECTION TITLES */
     .section-title {
         width: 92%;
-        margin: 25px auto 10px auto;
-        font-size: 21px;
+        margin: 20px auto 10px auto;
+        font-size: 20px;
         font-weight: bold;
         color: #F2B840;
     }
 
-    /* GRID SERVICES */
+    /* GRID */
     .grid {
         width: 92%;
         margin: 0 auto;
@@ -144,53 +141,62 @@
         gap: 18px;
     }
 
+    /* 🟦 CARD OPTIMISÉE + ANIMATION PREMIUM */
     .card {
         background: rgba(255,255,255,0.06);
         border-radius: 18px;
         border: 3px solid #F2B840;
         padding: 22px 10px;
         text-align: center;
-        transition: .25s ease;
-        cursor: pointer;
         box-shadow: 0 0 18px rgba(242,184,64,0.22);
+        transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
     }
 
+    /* Animation tactile */
+    .card:active {
+        transform: scale(0.965);
+    }
+
+    /* Bordure or + zoom */
     .card:hover {
         transform: scale(1.05);
-        border-color: #FFD770;
-        box-shadow: 0 0 30px rgba(242,184,64,0.5);
+        border-color: #ffe08a;
+        box-shadow: 0 0 28px rgba(242,184,64,0.55);
     }
 
     .card span {
-        font-size: 34px;
+        font-size: 32px;
         display: block;
         margin-bottom: 6px;
-    }
-
-    .card p {
-        margin: 0;
-        font-size: 17px;
     }
 
     /* FOOTER */
     footer {
         text-align: center;
-        padding: 30px 10px;
-        margin-top: 40px;
-        font-size: 15px;
-        opacity: .8;
+        padding: 25px 10px;
+        margin-top: 35px;
+        font-size: 14px;
+        opacity: .7;
     }
 
     footer a {
         color: #F2B840;
         text-decoration: none;
         display: block;
-        padding: 5px 0;
+        padding: 4px 0;
     }
 
-    @media (max-width: 380px) {
-        .hero h2 { font-size: 22px; }
-        .card span { font-size: 28px; }
+    /* 📱 MOBILE OPTIMISATION */
+    @media (max-width: 420px) {
+        .grid {
+            grid-template-columns: 1fr; /* 1 carte par ligne */
+            gap: 12px;
+        }
+        .card {
+            width: 100%;
+        }
+        .hero p { font-size: 15px; }
+        .hero h2 { font-size: 23px; }
     }
 </style>
 </head>
@@ -220,7 +226,7 @@
     <a href="#">Contact</a>
 </div>
 
-<!-- HERO PRINCIPAL -->
+<!-- HERO -->
 <div class="hero">
     <h2>Écosystème de services dans vos mains</h2>
     <p>Simplicité • Mobilité • Solutions Complètes</p>
@@ -232,41 +238,16 @@
     <p>Services Mondiaux pour la Diaspora</p>
 </div>
 
-<!-- SERVICES LOCAUX -->
+<!-- LOCAUX -->
 <div class="section-title">🇧🇮 Services Locaux</div>
 
 <div class="grid">
-
-    <div class="card" data-link="cizaride.html">
-        <span>🚗</span>
-        <p>CizaRide+</p>
-    </div>
-
-    <div class="card" data-link="cizadelivery.html">
-        <span>📦</span>
-        <p>CizaDelivery</p>
-    </div>
-
-    <div class="card" data-link="cizacarwash.html">
-        <span>🧽</span>
-        <p>CarWash+</p>
-    </div>
-
-    <div class="card" data-link="cizaassist.html">
-        <span>🤝</span>
-        <p>CizaAssist</p>
-    </div>
-
-    <div class="card" data-link="cizamarket.html">
-        <span>🛒</span>
-        <p>CizaMarket</p>
-    </div>
-
-    <div class="card" data-link="cizajobs.html">
-        <span>💼</span>
-        <p>CizaJobs</p>
-    </div>
-
+    <div class="card" onclick="location.href='ride.html'"><span>🚗</span>CizaRide+</div>
+    <div class="card" onclick="location.href='delivery.html'"><span>📦</span>CizaDelivery</div>
+    <div class="card" onclick="location.href='carwash.html'"><span>🧽</span>CarWash+</div>
+    <div class="card" onclick="location.href='assist.html'"><span>🤝</span>CizaAssist</div>
+    <div class="card" onclick="location.href='market.html'"><span>🛒</span>CizaMarket</div>
+    <div class="card" onclick="location.href='jobs.html'"><span>💼</span>CizaJobs</div>
 </div>
 
 <!-- ENTREPRISE -->
@@ -289,13 +270,6 @@ function openMenu() {
 function closeMenu() {
     document.getElementById("menu-panel").style.right = "-100%";
 }
-
-document.querySelectorAll(".card").forEach(card => {
-    card.addEventListener("click", () => {
-        let link = card.getAttribute("data-link");
-        if(link) window.location.href = link;
-    });
-});
 </script>
 
 </body>
