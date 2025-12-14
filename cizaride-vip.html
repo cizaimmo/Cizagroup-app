@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>CizaRide+ VIP — Service Premium</title>
+<title>CizaRide+ VIP</title>
 <link rel="icon" href="logotransparent.png">
 
 <style>
@@ -12,248 +12,65 @@ body{
     margin:0;
     background:#06142E;
     color:white;
-    font-family:Arial, sans-serif;
+    font-family:Arial;
 }
 
-/* HEADER */
-.header{
-    text-align:center;
-    padding:20px;
-    background:#06142E;
-    border-bottom:2px solid #F2B840;
-}
-.header h1{
-    margin:0;
-    font-size:22px;
-    color:#F2B840;
-}
-
-/* HERO */
-.hero{
-    text-align:center;
-    padding:25px 20px;
-}
-.hero img{
-    width:90px;
-    filter:drop-shadow(0 0 10px #F2B84099);
-}
-.hero h2{
-    margin-top:12px;
-    font-size:20px;
-    color:#F2B840;
-}
-.hero p{
-    opacity:.85;
-}
-
-/* SECTION BLOCK */
-.section{
-    width:90%;
-    margin:20px auto;
-    padding:20px;
-    border-radius:18px;
-    background:rgba(255,255,255,0.05);
-    border:1px solid rgba(242,184,64,0.28);
-    backdrop-filter:blur(14px);
-    box-shadow:0 0 20px rgba(242,184,64,0.18);
-}
-.section h3{
-    margin:0 0 12px 0;
-    color:#F2B840;
-}
-.section p{
-    line-height:1.5;
-    opacity:.85;
-}
-
-.icon-row{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    margin-top:12px;
-}
-.icon-row img{
-    width:34px;
-}
-
-/* FORM */
-.vip-form input,
-.vip-form textarea{
-    width:100%;
-    margin-top:12px;
-    padding:14px;
-    background:rgba(255,255,255,0.07);
-    border:1px solid rgba(242,184,64,0.25);
-    border-radius:14px;
-    color:white;
-    font-size:15px;
-    backdrop-filter:blur(12px);
-}
-.vip-form textarea{
-    height:110px;
-}
-
-.vip-form button{
-    width:100%;
-    margin-top:18px;
+.back{
+    font-size:28px;
     padding:15px;
-    background:linear-gradient(135deg,#F2B840,#d8a535);
-    border:none;
-    border-radius:14px;
-    color:#06142E;
-    font-weight:bold;
-    font-size:16px;
-    cursor:pointer;
-    box-shadow:0 0 18px rgba(242,184,64,0.35);
-}
-.vip-form button:hover{
-    transform:translateY(-3px);
+    display:inline-block;
+    color:#F2B840;
+    text-decoration:none;
 }
 
-/* LANGUAGE BUTTON */
-.lang-btn{
-    position:fixed;
-    bottom:20px;
-    right:20px;
-    padding:12px 16px;
-    background:#F2B840;
-    border:none;
-    border-radius:50px;
-    color:#06142E;
-    font-weight:bold;
-    cursor:pointer;
-    z-index:999;
+/* IMAGE */
+.hero-img{
+    width:140px;
+    display:block;
+    margin:20px auto;
+}
+
+h2{
+    text-align:center;
+    color:#F2B840;
+}
+p{
+    text-align:center;
+    opacity:.85;
+    padding:0 20px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
-<div class="header">
-    <h1 data-fr="CizaRide+ VIP — Service Premium"
-        data-en="CizaRide+ VIP — Premium Service">
-        CizaRide+ VIP — Service Premium
-    </h1>
-</div>
+<a class="back" href="ride.html">←</a>
 
-<!-- HERO -->
-<div class="hero">
-    <img src="https://img.icons8.com/fluency/96/business-class.png">
-    <h2 data-fr="Votre expérience VIP commence ici"
-        data-en="Your VIP experience starts here">
-        Votre expérience VIP commence ici
-    </h2>
-    <p data-fr="Profitez d’un niveau supérieur de confort, discrétion et efficacité."
-       data-en="Enjoy a superior level of comfort, discretion and efficiency.">
-       Profitez d’un niveau supérieur de confort, discrétion et efficacité.
-    </p>
-</div>
+<img class="hero-img" src="https://img.icons8.com/fluency/240/crown.png">
 
-<!-- SECTION : Avantages VIP -->
-<div class="section">
-    <h3 data-fr="Avantages du service VIP" data-en="VIP Service Benefits">
-        Avantages du service VIP
-    </h3>
+<h2 data-fr="CizaRide+ VIP — Service Premium" data-en="CizaRide+ VIP — Premium Service">
+    CizaRide+ VIP — Service Premium
+</h2>
 
-    <div class="icon-row">
-        <img src="https://img.icons8.com/fluency/96/driver.png">
-        <p data-fr="Chauffeur professionnel & discret"
-           data-en="Professional & discreet driver">
-           Chauffeur professionnel & discret
-        </p>
-    </div>
+<p data-fr="Votre expérience VIP commence ici" data-en="Your VIP experience starts here">
+    Votre expérience VIP commence ici
+</p>
 
-    <div class="icon-row">
-        <img src="https://img.icons8.com/fluency/96/comfortable-chair.png">
-        <p data-fr="Confort supérieur & sièges premium"
-           data-en="Superior comfort & premium seating">
-           Confort supérieur & sièges premium
-        </p>
-    </div>
+<p data-fr="Confort premium, discrétion & efficacité." data-en="Premium comfort, discretion & efficiency.">
+    Confort premium, discrétion & efficacité.
+</p>
 
-    <div class="icon-row">
-        <img src="https://img.icons8.com/fluency/96/water.png">
-        <p data-fr="Eau & rafraîchissements inclus"
-           data-en="Water & refreshments included">
-           Eau & rafraîchissements inclus
-        </p>
-    </div>
-
-    <div class="icon-row">
-        <img src="https://img.icons8.com/fluency/96/airport.png">
-        <p data-fr="Adapté aux trajets aéroport & business"
-           data-en="Perfect for airport & business rides">
-           Adapté aux trajets aéroport & business
-        </p>
-    </div>
-
-</div>
-
-<!-- FORMULAIRE VIP -->
-<div class="section vip-form">
-    <h3 data-fr="Réserver un trajet VIP" data-en="Book a VIP Ride">
-        Réserver un trajet VIP
-    </h3>
-
-    <form action="https://formsubmit.co/infos@cizagroup.com" method="POST">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_cc" value="cizaride@cizagroup.com">
-        <input type="hidden" name="_next" value="success.html">
-
-        <input type="text" name="nom" placeholder="Nom complet"
-               data-fr="Nom complet" data-en="Full name" required>
-
-        <input type="text" name="telephone" placeholder="Téléphone"
-               data-fr="Téléphone" data-en="Phone" required>
-
-        <input type="text" name="depart" placeholder="Point de départ"
-               data-fr="Point de départ" data-en="Pickup location" required>
-
-        <input type="text" name="destination" placeholder="Destination"
-               data-fr="Destination" data-en="Destination" required>
-
-        <textarea name="notes" placeholder="Notes (optionnel)"
-                  data-fr="Notes (optionnel)" data-en="Notes (optional)"></textarea>
-
-        <label style="font-size:12px;opacity:.8;margin-top:8px;display:block;">
-            <input type="checkbox" required>
-            <span data-fr="J’accepte la politique de confidentialité."
-                  data-en="I accept the privacy policy.">
-                  J’accepte la politique de confidentialité.
-            </span>
-        </label>
-
-        <button data-fr="Envoyer la réservation VIP"
-                data-en="Send VIP Booking">
-            Envoyer la réservation VIP
-        </button>
-    </form>
-</div>
-
-<!-- LANGUAGE BUTTON -->
-<button class="lang-btn" onclick="switchLang()">FR</button>
+<button onclick="switchLang()" style="position:fixed;bottom:20px;right:20px;background:#F2B840;border:none;padding:10px;border-radius:50px;color:#06142E;font-weight:bold;">
+FR
+</button>
 
 <script>
 function switchLang(){
-    const html=document.documentElement;
-    html.lang=(html.lang==="fr")?"en":"fr";
-    document.querySelector(".lang-btn").innerHTML=
-        (html.lang==="fr")?"FR":"EN";
-
+    let h=document.documentElement;
+    h.lang=(h.lang==="fr")?"en":"fr";
+    document.querySelector("button").innerHTML=(h.lang==="fr")?"FR":"EN";
     document.querySelectorAll("[data-fr]").forEach(el=>{
-        el.innerHTML=(html.lang==="fr")
-            ? el.getAttribute("data-fr")
-            : el.getAttribute("data-en");
-    });
-
-    document.querySelectorAll("input, textarea").forEach(el=>{
-        if(el.hasAttribute("data-fr")){
-            el.placeholder =
-                (html.lang==="fr")
-                ? el.getAttribute("data-fr")
-                : el.getAttribute("data-en");
-        }
+        el.innerHTML=(h.lang==="fr")?el.dataset.fr:el.dataset.en;
     });
 }
 </script>
