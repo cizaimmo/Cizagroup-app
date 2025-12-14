@@ -2,44 +2,39 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Dashboard – CIZA GROUP</title>
+<title>Dashboard</title>
+
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 </head>
+
 <body>
 
 <h2>Dashboard CIZA GROUP</h2>
-<p id="userEmail">Chargement...</p>
-
+<p>Email : <span id="email"></span></p>
 <button onclick="logout()">Déconnexion</button>
 
 <script>
 const firebaseConfig = {
-  apiKey: "TON_API_KEY",
-  authDomain: "TON_PROJECT.firebaseapp.com",
-  projectId: "TON_PROJECT",
+  apiKey: "TA_VRAIE_API_KEY_ICI",
+  authDomain: "TON_PROJET.firebaseapp.com",
+  projectId: "TON_PROJET",
+  appId: "TON_APP_ID"
 };
 
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 
-/**
- * 🔑 LA CLÉ DU SUCCÈS EST ICI
- * On attend que Firebase confirme la session
- */
-auth.onAuthStateChanged(user => {
-  if (user) {
-    document.getElementById("userEmail").innerText =
-      "Connecté : " + user.email;
+auth.onAuthStateChanged(user=>{
+  if(user){
+    document.getElementById("email").innerText = user.email;
   } else {
     window.location.href = "login.html";
   }
 });
 
-function logout() {
-  auth.signOut().then(() => {
-    window.location.href = "login.html";
-  });
+function logout(){
+  auth.signOut();
 }
 </script>
 
