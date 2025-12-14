@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>CIZA GROUP — Super App</title>
 <link rel="icon" href="logotransparent.png">
 
 <style>
-/* VARIABLES THEMES */
+/* -------------------------------------------
+   THEME VARIABLES
+--------------------------------------------*/
 :root{
     --bg:#06142E;
     --text:white;
     --glass:rgba(255,255,255,0.06);
     --border:rgba(255,255,255,0.18);
+    --gold:#F2B840;
 }
 .light{
     --bg:#f4f4f4;
@@ -22,16 +24,21 @@
     --border:rgba(0,0,0,0.12);
 }
 
+/* -------------------------------------------
+   GLOBAL
+--------------------------------------------*/
 body{
     margin:0;
     background:var(--bg);
     color:var(--text);
     font-family:Arial, sans-serif;
     overflow-x:hidden;
-    transition:.35s ease;
+    transition:.4s ease;
 }
 
-/* SPLASH */
+/* -------------------------------------------
+   SPLASH SCREEN PREMIUM
+--------------------------------------------*/
 #splash{
     position:fixed;
     top:0; left:0;
@@ -41,160 +48,167 @@ body{
     justify-content:center;
     align-items:center;
     flex-direction:column;
-    z-index:9999;
-    animation:fadeout 1.7s ease 2.2s forwards;
+    z-index:99999;
+    animation:fadeSplashOut 1.6s ease 2.4s forwards;
 }
-#splash img{
-    width:180px;
-    opacity:0;
-    filter:drop-shadow(0 0 20px #F2B840AA);
-    animation:logoIn 2s ease forwards;
-}
-@keyframes logoIn{
-    0%{opacity:0; transform:scale(.6);}
-    60%{opacity:1; transform:scale(1.12);}
-    100%{opacity:1; transform:scale(1);}
-}
-@keyframes fadeout{
+@keyframes fadeSplashOut{
     to{opacity:0; visibility:hidden;}
 }
 
-/* HEADER */
+#splash img{
+    width:260px; /* GRAND SPLASH */
+    opacity:0;
+    animation:logoSplash 1.8s ease forwards;
+    filter:drop-shadow(0 0 18px var(--gold));
+}
+@keyframes logoSplash{
+    0%{opacity:0; transform:scale(.6);}
+    60%{opacity:1; transform:scale(1.15);}
+    100%{opacity:1; transform:scale(1);}
+}
+
+/* -------------------------------------------
+   HEADER PREMIUM
+--------------------------------------------*/
 header{
     display:flex;
     justify-content:space-between;
     align-items:center;
     padding:15px 20px;
-    border-bottom:1px solid var(--border);
     background:var(--glass);
-    backdrop-filter:blur(15px);
+    border-bottom:1px solid var(--border);
+    backdrop-filter:blur(18px);
     position:sticky;
     top:0;
     z-index:999;
 }
-header img{ width:45px; filter:drop-shadow(0 0 7px #F2B840AA);}
-header h1{ margin:0; font-size:17px; font-weight:bold; }
-.settings-btn{
+header img{
+    width:48px;
+    filter:drop-shadow(0 0 8px var(--gold));
+}
+header h1{
+    font-size:18px;
+    margin:0;
+    font-weight:bold;
+}
+.menu-btn{
+    font-size:28px;
     background:none;
     border:none;
-    font-size:22px;
-    color:#F2B840;
+    color:var(--gold);
     cursor:pointer;
 }
 
-/* SETTINGS PANEL */
-#settings{
+/* -------------------------------------------
+   MENU SLIDE
+--------------------------------------------*/
+#menu{
     position:fixed;
-    top:-400px;
-    left:0;
-    width:100%;
+    top:0; right:-100%;
+    width:70%;
+    height:100%;
     background:var(--glass);
-    border-bottom:1px solid var(--border);
-    backdrop-filter:blur(25px);
+    backdrop-filter:blur(22px);
+    border-left:1px solid var(--border);
     padding:25px;
     transition:.45s ease;
     z-index:9999;
 }
-.settings-item{
-    padding:14px 0;
-    font-size:16px;
-    border-bottom:1px solid var(--border);
+.menu-close{
+    font-size:28px;
+    float:right;
     cursor:pointer;
+    color:var(--gold);
 }
-.close-settings{
-    text-align:right;
-    font-size:22px;
-    margin-bottom:10px;
+.menu-item{
+    margin-top:25px;
+    padding:12px 0;
+    border-bottom:1px solid var(--border);
+    font-size:17px;
     cursor:pointer;
-    color:#F2B840;
 }
 
-/* HERO */
+/* -------------------------------------------
+   HERO PREMIUM (COMME TA CAPTURE)
+--------------------------------------------*/
 .hero{
-    margin:25px auto;
     width:90%;
-    padding:25px;
+    margin:25px auto;
+    padding:30px;
     background:var(--glass);
-    border:1px solid var(--border);
-    border-radius:18px;
-    text-align:center;
+    border:2px solid var(--gold);
+    border-radius:22px;
     backdrop-filter:blur(18px);
+    text-align:center;
+    animation:fadeIn .8s ease;
 }
 .hero h2{
     margin:0;
+    color:var(--gold);
     font-size:24px;
-    color:#F2B840;
+}
+.hero p{
+    opacity:.85;
+    margin-top:10px;
+    font-size:15px;
 }
 
-/* TITLES */
+/* -------------------------------------------
+   TITLES
+--------------------------------------------*/
 .section-title{
-    font-size:20px;
-    margin-left:20px;
+    margin-left:22px;
     margin-top:35px;
-    color:#F2B840;
+    font-size:20px;
+    color:var(--gold);
 }
 
-/* GRID */
+/* -------------------------------------------
+   CARDS PREMIUM 2035
+--------------------------------------------*/
 .grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
     width:90%;
     margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
 }
-.card{
+.card, .single-card{
     background:var(--glass);
-    border:1px solid var(--border);
-    padding:18px;
+    padding:22px;
     border-radius:18px;
+    border:1px solid var(--gold);
     text-align:center;
     cursor:pointer;
-    transition:.25s;
-    backdrop-filter:blur(14px);
+    transition:.3s;
+    box-shadow:0 0 14px rgba(242,184,64,0.25);
 }
-.card:hover{
-    transform:scale(1.05);
-    box-shadow:0 0 20px rgba(242,184,64,0.25);
+.card:hover, .single-card:hover{
+    transform:scale(1.04);
+    box-shadow:0 0 22px rgba(242,184,64,0.35);
 }
-.card span{
-    font-size:26px;
+.card span, .single-card span{
+    font-size:28px;
     display:block;
+    margin-bottom:4px;
 }
 
-/* SINGLE CARD */
-.single-card{
-    width:90%;
-    margin:12px auto;
-}
-
-/* FOOTER */
+/* -------------------------------------------
+   FOOTER
+--------------------------------------------*/
 footer{
+    margin-top:40px;
     text-align:center;
     padding:25px;
-    opacity:.7;
-    font-size:14px;
-    margin-top:40px;
+    opacity:.6;
+    font-size:13px;
 }
 footer a{
-    color:#F2B840;
+    color:var(--gold);
     text-decoration:none;
 }
-
-/* LANG BUTTON */
-.lang-btn{
-    position:fixed;
-    bottom:85px;
-    right:20px;
-    background:#F2B840;
-    color:#06142E;
-    padding:12px 16px;
-    border:none;
-    border-radius:50%;
-    font-weight:bold;
-    cursor:pointer;
-    font-size:14px;
-    z-index:9999;
-    box-shadow:0 0 12px #00000055;
+footer a:hover{
+    text-decoration:underline;
 }
 </style>
 </head>
@@ -209,48 +223,33 @@ footer a{
 <!-- HEADER -->
 <header>
     <img src="logotransparent.png">
-    <h1 data-fr="CIZA GROUP — App Officielle" data-en="CIZA GROUP — Official App">
-        CIZA GROUP — App Officielle
-    </h1>
-    <button class="settings-btn" onclick="toggleSettings()">⚙️</button>
+    <h1 data-fr="App Officielle" data-en="Official App">App Officielle</h1>
+    <button class="menu-btn" onclick="toggleMenu()">☰</button>
 </header>
 
-<!-- SETTINGS PANEL -->
-<div id="settings">
-    <div class="close-settings" onclick="toggleSettings()">✖</div>
+<!-- MENU -->
+<div id="menu">
+    <div class="menu-close" onclick="toggleMenu()">×</div>
 
-    <div class="settings-item" onclick="toggleTheme()" 
-        data-fr="Mode clair / sombre" data-en="Light / Dark mode">
-        Mode clair / sombre
-    </div>
-
-    <div class="settings-item" onclick="location.href='help.html'"
-        data-fr="Aide & FAQ" data-en="Help & FAQ">
-        Aide & FAQ
-    </div>
-
-    <div class="settings-item" onclick="location.href='mailto:infos@cizagroup.com'"
-        data-fr="Contact support" data-en="Contact support">
-        Contact support
-    </div>
-
-    <div class="settings-item" onclick="location.href='https://wa.me/15145029503'"
-        data-fr="Support WhatsApp" data-en="WhatsApp Support">
-        Support WhatsApp
-    </div>
+    <div class="menu-item" onclick="toggleTheme()">🌗 Mode sombre / clair</div>
+    <div class="menu-item" onclick="switchLang()">🌍 Langue FR/EN</div>
+    <div class="menu-item" onclick="location.href='help.html'">❓ Aide & FAQ</div>
+    <div class="menu-item" onclick="location.href='mailto:infos@cizagroup.com'">📩 Contact</div>
+    <div class="menu-item" onclick="location.href='legal.html'">📘 Mentions légales</div>
+    <div class="menu-item" onclick="location.href='account.html'">👤 Mon compte</div>
 </div>
 
 <!-- HERO -->
 <div class="hero">
-    <h2 data-fr="Écosystème de services dans vos mains"
-        data-en="Ecosystem of services in your hands">
+    <h2 data-fr="CIZA GROUP" data-en="CIZA GROUP">CIZA GROUP</h2>
+    <p data-fr="Écosystème de services dans vos mains" data-en="Ecosystem of services in your hands">
         Écosystème de services dans vos mains
-    </h2>
+    </p>
 </div>
 
 <!-- DIASPORA -->
 <h2 class="section-title">🌍 CIZA DIASPORA+</h2>
-<div class="single-card card" onclick="location.href='diaspora.html'">
+<div class="single-card" onclick="location.href='diaspora.html'">
     <span>🌍</span>
     <div data-fr="Services Mondiaux pour la Diaspora" data-en="Worldwide Diaspora Services">
         Services Mondiaux pour la Diaspora
@@ -270,50 +269,38 @@ footer a{
 
 <!-- ENTREPRISES -->
 <h2 class="section-title">🏢 Solutions Entreprises</h2>
-<div class="single-card card" onclick="location.href='business.html'">
+<div class="single-card" onclick="location.href='business.html'">
     <span>🏢</span>
-    <div data-fr="Services Professionnels & Partenariats"
-         data-en="Professional Services & Partnerships">
-        Services Professionnels & Partenariats
-    </div>
+    <div>Services Professionnels & Partenariats</div>
 </div>
 
 <!-- FOOTER -->
 <footer>
-    © 2028 CIZA GROUP<br>
-    <a href="legal.html" data-fr="Mentions légales" data-en="Legal Notice">Mentions légales</a> •
-    <a href="privacy.html" data-fr="Confidentialité" data-en="Privacy Policy">Confidentialité</a>
+    © 2028 CIZA GROUP —  
+    <a href="legal.html">Mentions légales</a> •  
+    <a href="privacy.html">Confidentialité</a> •  
+    <a href="mailto:infos@cizagroup.com">Contact</a>
 </footer>
 
-<!-- LANG BUTTON -->
-<button class="lang-btn" onclick="switchLang()">FR</button>
-
 <script>
-/* SHOW SPLASH */
-setTimeout(()=>{
-    document.getElementById("splash").style.display="none";
-}, 2600);
-
-/* OPEN/CLOSE SETTINGS */
-function toggleSettings(){
-    const p = document.getElementById("settings");
-    p.style.top = (p.style.top==="0px") ? "-400px" : "0px";
+/* MENU */
+function toggleMenu(){
+    const m=document.getElementById("menu");
+    m.style.right = (m.style.right==="0%") ? "-100%" : "0%";
 }
 
-/* THEME MODE */
+/* THEME */
 function toggleTheme(){
     document.body.classList.toggle("light");
 }
 
-/* LANG SWITCH */
+/* LANG */
 function switchLang(){
-    let html = document.documentElement;
+    const html=document.documentElement;
     html.lang = (html.lang==="fr") ? "en" : "fr";
-    document.querySelector(".lang-btn").innerHTML = (html.lang==="fr") ? "FR" : "EN";
-
     document.querySelectorAll("[data-fr]").forEach(el=>{
         el.innerHTML = (html.lang==="fr") 
-            ? el.getAttribute("data-fr")
+            ? el.getAttribute("data-fr") 
             : el.getAttribute("data-en");
     });
 }
