@@ -33,6 +33,40 @@
         color:#F2B840;
     }
 
+    /* MENU SLIDE */
+    #menu-panel{
+        position:fixed;
+        top:0;
+        right:-100%;
+        width:70%;
+        height:100%;
+        background:rgba(7,26,54,0.95);
+        backdrop-filter:blur(15px);
+        padding:30px 20px;
+        transition:.4s ease;
+        z-index:9999;
+        border-left:3px solid #F2B840;
+    }
+
+    #menu-panel a{
+        display:block;
+        padding:14px 0;
+        font-size:18px;
+        color:white;
+        text-decoration:none;
+    }
+
+    #menu-panel a:hover{
+        color:#F2B840;
+    }
+
+    .close-btn{
+        font-size:30px;
+        cursor:pointer;
+        color:#F2B840;
+        margin-bottom:20px;
+    }
+
     /* HERO */
     .hero{
         text-align:center;
@@ -63,6 +97,7 @@
         font-weight:bold;
         text-align:center;
         cursor:pointer;
+        text-decoration:none;
     }
 
     /* SERVICES */
@@ -128,8 +163,21 @@
 
 <header>
     <img src="logotransparent.png">
-    <div class="menu-icon">☰</div>
+    <div class="menu-icon" onclick="openMenu()">☰</div>
 </header>
+
+<!-- MENU SLIDE -->
+<div id="menu-panel">
+    <div class="close-btn" onclick="closeMenu()">✕</div>
+
+    <a href="index.html">Accueil</a>
+    <a href="chauffeur.html">Mode Chauffeur</a>
+    <a href="client.html">Mode Client</a>
+    <a href="vip.html">Service VIP</a>
+    <a href="royal.html">Service Royal</a>
+    <a href="cizaride-map.html">Carte & Distance</a>
+    <a href="mailto:infos@cizagroup.com">Contact</a>
+</div>
 
 <section class="hero">
     <h1>CizaRide+</h1>
@@ -156,26 +204,28 @@
 
     <a class="service-card" href="vip.html">
         <span class="emoji">🚘</span>
-        <span>CizaRide VIP</span>
+        <span>Service VIP</span>
     </a>
 
     <a class="service-card" href="royal.html">
         <span class="emoji">👑</span>
-        <span>CizaRide Royal</span>
-    </a>
-
-    <a class="service-card" href="support.html">
-        <span class="emoji">📞</span>
-        <span>Support & Aide</span>
+        <span>Service Royal</span>
     </a>
 
 </div>
 
 <footer>
-    © 2028 CIZA GROUP — 
-    <a href="legal.html">Mentions légales</a> • 
-    <a href="privacy.html">Confidentialité</a>
+    © 2028 CizaRide+ — <a href="legal.html">Mentions légales</a>
 </footer>
+
+<script>
+function openMenu(){
+    document.getElementById("menu-panel").style.right = "0";
+}
+function closeMenu(){
+    document.getElementById("menu-panel").style.right = "-100%";
+}
+</script>
 
 </body>
 </html>
