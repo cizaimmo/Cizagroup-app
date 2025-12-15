@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>CizaRide+ — Choix du mode</title>
+<link rel="icon" href="logotransparent.png">
+
+<style>
+*{box-sizing:border-box}
+
+html,body{
+    margin:0;
+    width:100%;
+    overflow-x:hidden;
+    font-family:Arial,sans-serif;
+    background:#06142E;
+    color:white;
+}
+
+:root{
+    --gold:#F2B840;
+    --glass:rgba(255,255,255,.08);
+}
+
+/* HEADER */
+header{
+    padding:20px;
+    text-align:center;
+    border-bottom:1px solid var(--gold);
+}
+header img{
+    width:70px;
+    filter:drop-shadow(0 0 10px var(--gold));
+}
+header h1{
+    margin:10px 0 0;
+    font-size:22px;
+    color:var(--gold);
+}
+
+/* CONTAINER */
+.container{
+    padding:30px 20px;
+    text-align:center;
+}
+
+.container p{
+    opacity:.85;
+    margin-bottom:30px;
+}
+
+/* CARDS */
+.choice{
+    background:var(--glass);
+    border:2px solid var(--gold);
+    border-radius:22px;
+    padding:30px;
+    margin-bottom:25px;
+    cursor:pointer;
+    transition:.25s;
+    box-shadow:0 0 18px rgba(242,184,64,.25);
+}
+
+.choice:hover{
+    transform:scale(1.05);
+    box-shadow:0 0 30px rgba(242,184,64,.35);
+}
+
+.choice span{
+    font-size:60px;
+    display:block;
+    margin-bottom:15px;
+}
+
+.choice h2{
+    margin:0;
+    color:var(--gold);
+}
+
+.choice small{
+    display:block;
+    margin-top:8px;
+    opacity:.85;
+}
+
+/* FOOTER */
+footer{
+    margin-top:40px;
+    text-align:center;
+    font-size:13px;
+    opacity:.7;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <img src="logotransparent.png">
+    <h1>CizaRide+</h1>
+</header>
+
+<div class="container">
+    <p>Choisissez votre mode d’utilisation</p>
+
+    <!-- CLIENT -->
+    <div class="choice" onclick="location.href='client.html'">
+        <span>👤</span>
+        <h2>Mode Client</h2>
+        <small>Commander un trajet en toute simplicité</small>
+    </div>
+
+    <!-- CHAUFFEUR -->
+    <div class="choice" onclick="location.href='driver.html'">
+        <span>🚘</span>
+        <h2>Mode Chauffeur</h2>
+        <small>Recevoir des courses et gagner de l’argent</small>
+    </div>
+</div>
+
+<footer>
+    © 2028 CIZA GROUP
+</footer>
+
+</body>
+</html>
