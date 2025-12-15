@@ -8,175 +8,193 @@
 <link rel="icon" href="logotransparent.png">
 
 <style>
-    body{
-        margin:0;
-        font-family:Arial, sans-serif;
-        background:#06142E;
-        color:white;
-        overflow-x:hidden;
-    }
-
-    /* HEADER */
-    header{
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-        padding:15px 20px;
-        background:#071A36;
-        border-bottom:3px solid #F2B840;
-        position:relative;
-        z-index:10;
-    }
-    header img{
-        width:60px;
-    }
-    .menu-icon{
-        font-size:32px;
-        cursor:pointer;
-        color:#F2B840;
-    }
-
-    /* MENU LATERAL */
-    #sideMenu{
-        position:fixed;
-        right:-70%;
-        top:0;
-        width:70%;
-        height:100%;
-        background:#071A36;
-        border-left:3px solid #F2B840;
-        box-shadow:-4px 0 15px rgba(0,0,0,0.5);
-        padding:30px 20px;
-        transition:0.35s ease;
-        z-index:20;
-    }
-
-    #sideMenu a{
-        display:block;
-        color:white;
-        font-size:18px;
-        padding:12px 0;
-        text-decoration:none;
-    }
-
-    .close-btn{
-        font-size:28px;
-        color:#F2B840;
-        text-align:right;
-        cursor:pointer;
-        margin-bottom:25px;
-    }
-
-    /* HERO OPTIMISÉ */
-    .hero{
-        text-align:center;
-        padding:18px 15px;
-        border-bottom:2px solid #F2B840;
-    }
-    .hero h1{
-        color:#F2B840;
-        font-size:26px;
-        margin:0;
-    }
-    .hero p{
-        opacity:.85;
-        font-size:15px;
-        margin-top:8px;
-    }
-
-    /* BTN MAP */
-    .map-btn{
-        display:block;
-        width:92%;
-        margin:22px auto;
-        padding:18px;
-        font-size:20px;
-        border-radius:15px;
-        border:none;
-        background:#F2B840;
-        color:#06142E;
-        text-align:center;
-        font-weight:bold;
-        cursor:pointer;
-        text-decoration:none;
-    }
-
-    /* TITRE SECTION */
-    .section-title{
-        font-size:26px;
-        font-weight:700;
-        margin:15px;
-        color:#F2B840;
-    }
-
-    /* SERVICES GRID */
-    .services-grid{
-        display:grid;
-        grid-template-columns:1fr 1fr;
-        gap:17px;
-        padding:15px;
-        padding-bottom:50px;
-    }
-
-    .service-card{
-        background:#071A36;
-        border:2px solid #F2B840;
-        border-radius:18px;
-        padding:23px 10px;
-        text-align:center;
-        color:white;
-        font-size:16px;
-        text-decoration:none;
-        display:flex;
-        flex-direction:column;
-        align-items:center;
-        box-shadow:0 0 14px rgba(242,184,64,0.25);
-        transition:0.25s;
-    }
-
-    .service-card:hover{
-        transform:scale(1.03);
-    }
-
-    .emoji{
-        font-size:38px;
-        margin-bottom:10px;
-    }
-
-    /* FOOTER */
-    footer{
-        text-align:center;
-        font-size:13px;
-        color:#ddd;
-        padding:20px 10px;
-        opacity:.7;
-        border-top:1px solid rgba(255,255,255,0.1);
-    }
-    footer a{
-        color:#F2B840;
-        text-decoration:none;
-    }
-</style>
-
-<script>
-function toggleMenu(){
-    const menu = document.getElementById("sideMenu");
-    menu.style.right = (menu.style.right === "0px") ? "-70%" : "0px";
+/* GENERAL */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #06142E;
+    color: white;
+    overflow-x: hidden; /* empêche le débordement horizontal */
 }
-</script>
+
+/* HEADER */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: #071A36;
+    border-bottom: 3px solid #F2B840;
+    position: relative;
+    z-index: 20;
+}
+
+header img {
+    width: 65px;
+}
+
+.menu-icon {
+    font-size: 32px;
+    cursor: pointer;
+    color: #F2B840;
+}
+
+/* ----- FULL HEIGHT MENU ----- */
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -100%; /* caché au départ */
+    width: 100%;
+    height: 100vh;
+    background: rgba(7,26,54,0.98);
+    backdrop-filter: blur(6px);
+    transition: 0.35s ease-in-out;
+    z-index: 9999;
+    padding-top: 90px;
+}
+
+.sidebar.open {
+    right: 0;
+}
+
+.sidebar a {
+    display: block;
+    color: white;
+    font-size: 22px;
+    padding: 15px 25px;
+    text-decoration: none;
+}
+
+.sidebar a:hover {
+    background: rgba(255,255,255,0.08);
+}
+
+.close-btn {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    font-size: 38px;
+    color: #F2B840;
+    cursor: pointer;
+}
+
+/* HERO (réduit) */
+.hero {
+    text-align: center;
+    padding: 25px 20px;
+}
+
+.hero h1 {
+    color: #F2B840;
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+
+.hero p {
+    opacity: 0.9;
+    margin-top: 5px;
+    font-size: 17px;
+}
+
+/* BTN MAP */
+.map-btn {
+    display: block;
+    width: 92%;
+    margin: 15px auto;
+    padding: 16px;
+    font-size: 20px;
+    border-radius: 15px;
+    border: none;
+    background: #F2B840;
+    color: #06142E;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+}
+
+/* SERVICES */
+.section-title {
+    font-size: 26px;
+    font-weight: 700;
+    margin: 25px 15px 10px;
+    color: #F2B840;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 17px;
+    padding: 15px;
+    padding-bottom: 50px;
+}
+
+.service-card {
+    background: #071A36;
+    border: 2px solid #F2B840;
+    border-radius: 18px;
+    padding: 25px 10px;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+    font-size: 17px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 12px rgba(242,184,64,0.25);
+    transition: 0.2s;
+}
+
+.service-card:hover {
+    transform: scale(1.03);
+}
+
+.service-card .emoji {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    font-size: 14px;
+    color: #ddd;
+    padding: 20px 10px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    opacity: .8;
+}
+
+footer a {
+    color: #F2B840;
+    text-decoration: none;
+}
+
+/* Bouton Retour */
+.back-btn {
+    background: #F2B840;
+    color: #06142E;
+    padding: 10px 18px;
+    border-radius: 15px;
+    font-size: 18px;
+    margin: 15px;
+    display: inline-block;
+    text-decoration: none;
+}
+</style>
 
 </head>
 <body>
 
 <!-- HEADER -->
 <header>
+    <a href="index.html" class="back-btn">← Retour</a>
     <img src="logotransparent.png">
-    <div class="menu-icon" onclick="toggleMenu()">☰</div>
+    <div class="menu-icon" onclick="openMenu()">☰</div>
 </header>
 
-<!-- MENU LATERAL -->
-<div id="sideMenu">
-    <div class="close-btn" onclick="toggleMenu()">✖</div>
+<!-- SIDEBAR MENU -->
+<div class="sidebar" id="menu">
+    <div class="close-btn" onclick="closeMenu()">✕</div>
 
     <a href="ride.html">🏠 Accueil</a>
     <a href="#">ℹ️ À propos</a>
@@ -184,7 +202,7 @@ function toggleMenu(){
     <a href="#">🔐 Connexion</a>
     <a href="#">❌ Supprimer mon compte</a>
     <a href="contact.html">✉️ Contact</a>
-    <a href="#">🌍 FR / EN</a>
+    <a href="#" onclick="toggleLang()">🌍 FR / EN</a>
 </div>
 
 <!-- HERO -->
@@ -193,7 +211,7 @@ function toggleMenu(){
     <p>Déplacez-vous facilement partout au Burundi.</p>
 </section>
 
-<!-- BTN OPEN MAP -->
+<!-- BUTTON → MAP -->
 <a href="cizaride-map.html" class="map-btn">
     🚗 Ouvrir la carte & calculer la distance
 </a>
@@ -202,32 +220,42 @@ function toggleMenu(){
 <h2 class="section-title">Nos Services</h2>
 
 <div class="services-grid">
-
     <a class="service-card" href="chauffeur.html">
         <span class="emoji">👨‍✈️</span>
-        Mode Chauffeur
+        <span>Mode Chauffeur</span>
     </a>
 
     <a class="service-card" href="cizaride-map.html">
         <span class="emoji">🚗</span>
-        Mode Client
+        <span>Mode Client</span>
     </a>
 
     <a class="service-card" href="vip.html">
         <span class="emoji">👑</span>
-        CizaRide VIP
+        <span>CizaRide VIP</span>
     </a>
 
     <a class="service-card" href="royal.html">
         <span class="emoji">🏆</span>
-        CizaRide Royal
+        <span>CizaRide Royal</span>
     </a>
-
 </div>
 
+<!-- FOOTER -->
 <footer>
     © 2028 CIZA GROUP — <a href="#">Mentions légales</a> • <a href="#">Confidentialité</a>
 </footer>
+
+<script>
+function openMenu() {
+    document.getElementById("menu").classList.add("open");
+}
+function closeMenu() {
+    document.getElementById("menu").classList.remove("open");
+}
+
+function toggleLang() { alert("Bilingue FR/EN bientôt actif"); }
+</script>
 
 </body>
 </html>
