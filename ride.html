@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <title>CizaRide+</title>
 <link rel="icon" href="logotransparent.png">
 
@@ -33,36 +32,32 @@
         color:#F2B840;
     }
 
-    /* BOUTON LANGUE */
-    .lang-btn{
-        position:absolute;
-        right:70px;
-        top:22px;
+    /* BUTTON RETOUR */
+    .back-btn{
         background:#F2B840;
         color:#06142E;
-        border:none;
         padding:6px 12px;
-        border-radius:8px;
-        font-size:14px;
-        cursor:pointer;
+        border-radius:10px;
         font-weight:bold;
+        border:none;
+        cursor:pointer;
+        margin-right:10px;
     }
 
-    /* HERO (compacté) */
+    /* HERO */
     .hero{
         text-align:center;
-        padding:25px 15px;
+        padding:35px 20px;
         border-bottom:2px solid #F2B840;
     }
     .hero h1{
         color:#F2B840;
-        font-size:28px;
-        margin-bottom:5px;
+        font-size:32px;
+        margin-bottom:10px;
     }
     .hero p{
         opacity:.9;
-        font-size:16px;
-        margin:0;
+        font-size:18px;
     }
 
     /* BTN MAP */
@@ -71,7 +66,7 @@
         width:90%;
         margin:25px auto;
         padding:18px;
-        font-size:18px;
+        font-size:20px;
         border-radius:15px;
         border:none;
         background:#F2B840;
@@ -83,7 +78,7 @@
 
     /* SERVICES */
     .section-title{
-        font-size:24px;
+        font-size:26px;
         font-weight:700;
         margin:25px 15px 10px;
         color:#F2B840;
@@ -124,19 +119,34 @@
         margin-bottom:10px;
     }
 
-    /* FOOTER PREMIUM */
+    /* LANG BUTTON */
+    .lang-btn{
+        position:fixed;
+        bottom:20px;
+        right:20px;
+        background:#F2B840;
+        color:#06142E;
+        font-weight:bold;
+        border:none;
+        padding:12px 16px;
+        border-radius:50px;
+        cursor:pointer;
+        z-index:999;
+    }
+
+    /* FOOTER */
     footer{
         text-align:center;
-        font-size:13px;
-        color:#ccc;
-        padding:18px 10px;
-        border-top:1px solid rgba(255,255,255,0.12);
-        opacity:.85;
+        font-size:14px;
+        color:#ddd;
+        padding:20px 10px;
+        border-top:1px solid rgba(255,255,255,0.1);
+        opacity:.8;
+        margin-top:20px;
     }
     footer a{
         color:#F2B840;
         text-decoration:none;
-        font-weight:bold;
     }
 </style>
 
@@ -144,29 +154,49 @@
 <body>
 
 <header>
+    <button class="back-btn" onclick="history.back()">← Retour</button>
     <img src="logotransparent.png">
-
-    <!-- BOUTON LANGUE -->
-    <button class="lang-btn" onclick="switchLang()">FR</button>
-
-    <div class="menu-icon">☰</div>
+    <div class="menu-icon" onclick="openMenu()">☰</div>
 </header>
 
+<!-- MENU (réparé) -->
+<div id="menu-panel" style="
+    position:fixed;
+    top:0; right:-100%;
+    width:75%;
+    height:100%;
+    background:#0B1C35;
+    padding:30px;
+    transition:.4s;
+    z-index:9999;
+">
+    <div style="font-size:30px;cursor:pointer;color:#F2B840;" onclick="closeMenu()">✕</div>
+
+    <a href="index.html" style="color:white;display:block;padding:15px 0;">🏠 Accueil</a>
+    <a href="cizaride-map.html" style="color:white;display:block;padding:15px 0;">📍 Carte</a>
+    <a href="client.html" style="color:white;display:block;padding:15px 0;">🚗 Mode Client</a>
+    <a href="chauffeur.html" style="color:white;display:block;padding:15px 0;">👨‍✈️ Mode Chauffeur</a>
+    <a href="vip.html" style="color:white;display:block;padding:15px 0;">🚘 VIP</a>
+    <a href="royal.html" style="color:white;display:block;padding:15px 0;">👑 Royal</a>
+</div>
+
 <section class="hero">
-    <h1 data-fr="CizaRide+" data-en="CizaRide+">CizaRide+</h1>
+    <h1>CizaRide+</h1>
     <p data-fr="Déplacez-vous facilement partout au Burundi."
        data-en="Move easily everywhere in Burundi.">
        Déplacez-vous facilement partout au Burundi.
     </p>
 </section>
 
-<a href="cizaride-map.html" class="map-btn" 
+<a href="cizaride-map.html" class="map-btn"
    data-fr="🚗 Ouvrir la carte & calculer la distance"
    data-en="🚗 Open the map & calculate distance">
    🚗 Ouvrir la carte & calculer la distance
 </a>
 
-<h2 class="section-title" data-fr="Nos Services" data-en="Our Services">Nos Services</h2>
+<h2 class="section-title" data-fr="Nos Services" data-en="Our Services">
+    Nos Services
+</h2>
 
 <div class="services-grid">
 
@@ -193,23 +223,29 @@
 </div>
 
 <footer>
-    © 2025 CIZA GROUP •  
-    <a href="legal.html">Mentions légales</a> •  
-    <a href="privacy.html">Confidentialité</a>
+    © 2028 CIZA GROUP — Tous droits réservés
 </footer>
 
-<script>
-function switchLang(){
-    const html = document.documentElement;
-    html.lang = html.lang === "fr" ? "en" : "fr";
+<button class="lang-btn" onclick="switchLang()">FR</button>
 
-    document.querySelector(".lang-btn").innerHTML =
-        html.lang === "fr" ? "FR" : "EN";
+<script>
+function openMenu(){
+    document.getElementById("menu-panel").style.right = "0";
+}
+function closeMenu(){
+    document.getElementById("menu-panel").style.right = "-100%";
+}
+
+/* LANGUE */
+function switchLang(){
+    const html=document.documentElement;
+    html.lang = html.lang==="fr" ? "en" : "fr";
+    document.querySelector(".lang-btn").innerHTML = html.lang==="fr" ? "FR" : "EN";
 
     document.querySelectorAll("[data-fr]").forEach(el=>{
-        el.innerHTML = html.lang === "fr"
-            ? el.getAttribute("data-fr")
-            : el.getAttribute("data-en");
+        el.innerHTML = html.lang==="fr"
+        ? el.getAttribute("data-fr")
+        : el.getAttribute("data-en");
     });
 }
 </script>
