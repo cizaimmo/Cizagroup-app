@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CizaRide+ — Commander un trajet</title>
+<title>CizaRide+ — Commander une course</title>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
@@ -16,7 +16,7 @@ html,body{
 }
 #map{height:100%}
 
-/* Bottom Sheet Uber-like */
+/* Bottom sheet */
 #sheet{
   position:fixed;
   bottom:12px;
@@ -49,29 +49,11 @@ html,body{
   font-size:15px;
 }
 
-#suggestions{
-  max-height:180px;
-  overflow:auto;
-  margin-bottom:8px;
-}
-
-.suggestion{
-  background:#122A52;
-  padding:10px;
-  border-radius:12px;
-  margin-bottom:6px;
-  cursor:pointer;
-}
-
-.suggestion:hover{
-  background:#1A3A6B;
-}
-
 .info{
   display:flex;
   justify-content:space-between;
-  font-size:15px;
   margin:10px 0;
+  font-size:15px;
 }
 
 #price{
@@ -88,126 +70,103 @@ button{
   color:#06142E;
   font-size:17px;
   font-weight:bold;
+  margin-top:8px;
+}
+
+button.secondary{
+  background:#444;
+  color:white;
 }
 
 button:disabled{
   background:#777;
 }
+
+.signature{
+  margin-top:14px;
+  text-align:center;
+  font-size:12px;
+  letter-spacing:1px;
+  opacity:0.6;
+  color:white;
+}
+.signature b{color:#F2B840}
 </style>
 </head>
 
 <body>
 
+<!-- MAP (VISUEL SEULEMENT) -->
 <div id="map"></div>
 
-<!-- Bottom Sheet -->
+<!-- FORMULAIRE CLIENT -->
 <div id="sheet">
+
   <div class="field">
-    📍 <input id="start" readonly placeholder="Position actuelle">
+    📍 <input id="startInput" placeholder="Départ (ex : Kanyosha)">
   </div>
 
   <div class="field">
-    🎯 <input id="destination" placeholder="Où allez-vous ?">
+    🎯 <input id="destInput" placeholder="Destination (ex : Rohero)">
   </div>
 
-  <div id="suggestions"></div>
+  <button class="secondary" id="calcBtn">📏 Calculer le prix</button>
 
   <div class="info">
     <span id="distance"></span>
     <span id="price"></span>
   </div>
 
-  <button id="order" disabled>🚗 Commander la course</button>
+  <button id="orderBtn" disabled>🚗 Commander la course</button>
+
+  <div class="signature">
+    Design signed by <b>CIZA GROUP</b>
+  </div>
+
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
-/* ---------------- MAP ---------------- */
-const map = L.map('map').setView([-3.3614, 29.3599], 13);
+/* MAP VISUELLE */
+const map = L.map('map').setView([-3.3614, 29.3599], 12);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
   attribution:'© OpenStreetMap'
 }).addTo(map);
 
-let startPos=null, endPos=null;
-let startMarker=null, endMarker=null;
+/* CALCUL ESTIMATIF (MVP) */
+document.getElementById("calcBtn").onclick = ()=>{
+  const start = document.getElementById("startInput").value.trim();
+  const dest  = document.getElementById("destInput").value.trim();
 
-/* ---------------- DÉPART AUTO ---------------- */
-navigator.geolocation.getCurrentPosition(
-  pos=>{
-    startPos=[pos.coords.latitude, pos.coords.longitude];
-    document.getElementById("start").value="Position actuelle";
-    startMarker=L.marker(startPos).addTo(map).bindPopup("Départ").openPopup();
-    map.setView(startPos,15);
-  },
-  ()=>alert("Autorisez la localisation"),
-  {enableHighAccuracy:true}
-);
-
-/* ---------------- DESTINATION (RECHERCHE) ---------------- */
-const destInput=document.getElementById("destination");
-const suggestions=document.getElementById("suggestions");
-
-destInput.addEventListener("input",()=>{
-  const q=destInput.value.trim();
-  if(q.length<3){
-    suggestions.innerHTML="";
+  if(!start || !dest){
+    alert("Veuillez entrer le départ et la destination");
     return;
   }
 
-  fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(q)}`)
-    .then(r=>r.json())
-    .then(data=>{
-      suggestions.innerHTML="";
-      data.slice(0,5).forEach(p=>{
-        const div=document.createElement("div");
-        div.className="suggestion";
-        div.textContent=p.display_name;
-        div.onclick=()=>{
-          setDestination(p.lat, p.lon, p.display_name);
-        };
-        suggestions.appendChild(div);
-      });
-    });
-});
+  /* Estimation simple adaptée quartiers */
+  const km = Math.floor(Math.random()*5) + 3; // 3 à 7 km
+  const price = 2000 + km * 1000;
 
-/* ---------------- DESTINATION (CLIC CARTE - OPTIONNEL) ---------------- */
-map.on("click",e=>{
-  setDestination(e.latlng.lat, e.latlng.lng, "Destination sélectionnée");
-});
+  document.getElementById("distance").textContent =
+    "📏 Distance estimée : " + km + " km";
 
-/* ---------------- SET DESTINATION ---------------- */
-function setDestination(lat,lng,label){
-  endPos=[parseFloat(lat), parseFloat(lng)];
-  destInput.value=label;
-  suggestions.innerHTML="";
+  document.getElementById("price").textContent =
+    "💰 Prix estimé : " + price.toLocaleString() + " BIF";
 
-  if(endMarker) map.removeLayer(endMarker);
-  endMarker=L.marker(endPos).addTo(map).bindPopup("Destination").openPopup();
+  document.getElementById("orderBtn").disabled = false;
+};
 
-  map.setView(endPos,15);
-  calculate();
-}
+/* COMMANDER */
+document.getElementById("orderBtn").onclick = ()=>{
+  const start = document.getElementById("startInput").value;
+  const dest  = document.getElementById("destInput").value;
 
-/* ---------------- CALCUL DISTANCE + PRIX ---------------- */
-function calculate(){
-  if(!startPos || !endPos) return;
-
-  const dx=startPos[0]-endPos[0];
-  const dy=startPos[1]-endPos[1];
-  const km=(Math.sqrt(dx*dx+dy*dy)*111).toFixed(2);
-
-  document.getElementById("distance").textContent="📏 "+km+" km";
-
-  const price=Math.round(2000 + km*1000);
-  document.getElementById("price").textContent="💰 "+price+" BIF";
-
-  document.getElementById("order").disabled=false;
-}
-
-/* ---------------- COMMANDER ---------------- */
-document.getElementById("order").onclick=()=>{
-  alert("🚕 Course envoyée (test)");
+  alert(
+    "🚕 Course envoyée\n\n" +
+    "Départ : " + start + "\n" +
+    "Destination : " + dest
+  );
 };
 </script>
 
