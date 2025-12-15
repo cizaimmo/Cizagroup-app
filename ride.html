@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>CizaRide+</title>
+<link rel="icon" href="logotransparent.png">
+
+<style>
+/* ------------------------------
+   BASE
+------------------------------- */
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#06142E;
+    color:white;
+    overflow-x:hidden; 
+}
+
+/* ------------------------------
+   HEADER
+------------------------------- */
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 20px;
+    background:#071A36;
+    border-bottom:3px solid #F2B840;
+    position:sticky;
+    top:0;
+    z-index:999;
+}
+header img{
+    width:60px;
+}
+.menu-icon{
+    color:#F2B840;
+    font-size:32px;
+    cursor:pointer;
+}
+
+/* ------------------------------
+   MENU SLIDE
+------------------------------- */
+#menu{
+    position:fixed;
+    right:-100%;
+    top:0;
+    width:70%;
+    height:100%;
+    background:rgba(0,0,0,0.55);
+    backdrop-filter:blur(14px);
+    padding:30px;
+    transition:.4s ease;
+    z-index:9999;
+    border-left:2px solid #F2B840;
+}
+#menu a{
+    display:block;
+    padding:12px 0;
+    font-size:18px;
+    color:white;
+    text-decoration:none;
+}
+#menu a:hover{
+    color:#F2B840;
+}
+.close-btn{
+    font-size:34px;
+    cursor:pointer;
+    text-align:right;
+    margin-bottom:15px;
+    color:#F2B840;
+}
+
+/* ------------------------------
+   HERO
+------------------------------- */
+.hero{
+    text-align:center;
+    padding:40px 20px;
+}
+.hero h1{
+    font-size:34px;
+    color:#F2B840;
+}
+.hero p{
+    font-size:18px;
+    opacity:.9;
+}
+
+/* ------------------------------
+   BUTTON MAP
+------------------------------- */
+.map-btn{
+    width:90%;
+    margin:25px auto;
+    display:block;
+    padding:18px;
+    background:#F2B840;
+    border:none;
+    border-radius:15px;
+    color:#06142E;
+    text-align:center;
+    font-weight:bold;
+    font-size:20px;
+    cursor:pointer;
+    transition:.2s;
+}
+.map-btn:hover{
+    transform:scale(1.03);
+}
+
+/* ------------------------------
+   SERVICES GRID
+------------------------------- */
+.section-title{
+    font-size:26px;
+    color:#F2B840;
+    margin:20px 15px 10px;
+}
+
+.services-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+    padding:20px;
+}
+
+.service-card{
+    background:#071A36;
+    border:2px solid #F2B840;
+    border-radius:18px;
+    padding:20px 10px;
+    text-align:center;
+    text-decoration:none;
+    color:white;
+    box-shadow:0 0 12px rgba(242,184,64,0.25);
+    transition:.25s;
+}
+.service-card:hover{
+    transform:scale(1.05);
+    box-shadow:0 0 22px rgba(242,184,64,0.4);
+}
+.service-card .emoji{
+    font-size:40px;
+    margin-bottom:10px;
+}
+
+/* ------------------------------
+   FOOTER
+------------------------------- */
+footer{
+    text-align:center;
+    padding:25px;
+    margin-top:20px;
+    border-top:1px solid rgba(255,255,255,0.15);
+    font-size:14px;
+}
+footer a{
+    color:#F2B840;
+    text-decoration:none;
+}
+
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+    <img src="logotransparent.png">
+    <div class="menu-icon" onclick="openMenu()">☰</div>
+</header>
+
+<!-- MENU -->
+<div id="menu">
+    <div class="close-btn" onclick="closeMenu()">×</div>
+    <a href="index.html">🏠 Accueil</a>
+    <a href="a-propos.html">ℹ️ À propos</a>
+    <a href="create-account.html">👤 Créer un compte</a>
+    <a href="login.html">🔐 Connexion</a>
+    <a href="delete-account.html">❌ Supprimer mon compte</a>
+    <a href="contact.html">📩 Contact</a>
+    <a href="#" onclick="switchLang()">🌍 FR / EN</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+    <h1>CizaRide+</h1>
+    <p>Déplacez-vous facilement partout au Burundi.</p>
+</section>
+
+<!-- BTN: MAP -->
+<a href="cizaride-map.html" class="map-btn">🚗 Ouvrir la carte & calculer la distance</a>
+
+<!-- SERVICES -->
+<h2 class="section-title">Nos Services</h2>
+
+<div class="services-grid">
+
+    <a class="service-card" href="chauffeur.html">
+        <span class="emoji">👨‍✈️</span>
+        Mode Chauffeur
+    </a>
+
+    <a class="service-card" href="cizaride-map.html">
+        <span class="emoji">🚗</span>
+        Mode Client
+    </a>
+
+    <a class="service-card" href="vip.html">
+        <span class="emoji">🚘</span>
+        CizaRide VIP
+    </a>
+
+    <a class="service-card" href="royal.html">
+        <span class="emoji">👑</span>
+        CizaRide Royal
+    </a>
+
+</div>
+
+<footer>
+    © 2028 CIZA GROUP —
+    <a href="legal.html">Mentions légales</a>
+</footer>
+
+<script>
+function openMenu(){
+    document.getElementById("menu").style.right = "0";
+}
+function closeMenu(){
+    document.getElementById("menu").style.right = "-100%";
+}
+
+/* Dummy Lang Switch */
+function switchLang(){
+    alert("Le mode multilingue arrive bientôt !");
+}
+</script>
+
+</body>
+</html>
