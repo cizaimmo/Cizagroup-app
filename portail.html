@@ -4,40 +4,110 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CizaRide+ — Portail</title>
+
 <style>
 *{box-sizing:border-box}
-body{
-  margin:0;height:100vh;
+
+html,body{
+  margin:0;
+  height:100%;
   font-family:system-ui, Arial;
-  background:#06142E;color:white;
-  display:flex;align-items:center;justify-content:center;
+  background:#06142E;
+  color:white;
 }
-.container{width:90%;max-width:420px;text-align:center}
-.logo{font-size:28px;font-weight:700;color:#F2B840;margin-bottom:28px}
-button{
-  width:100%;padding:18px;margin:12px 0;
-  border:none;border-radius:18px;
-  font-size:18px;font-weight:700;cursor:pointer
+
+.container{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  padding:30px 20px;
 }
-.client{background:#F2B840;color:#06142E}
-.driver{background:#00ff88;color:#06142E}
-.signature{margin-top:22px;font-size:12px;opacity:.6}
+
+.logo{
+  font-size:34px;
+  font-weight:800;
+  color:#F2B840;
+  margin-bottom:10px;
+}
+
+.subtitle{
+  font-size:15px;
+  opacity:.75;
+  margin-bottom:40px;
+}
+
+.card{
+  width:100%;
+  max-width:420px;
+  background:rgba(255,255,255,0.06);
+  border:2px solid #F2B840;
+  border-radius:26px;
+  padding:26px;
+  margin-bottom:22px;
+  text-align:center;
+  cursor:pointer;
+  transition:.25s;
+  box-shadow:0 12px 28px rgba(0,0,0,.35);
+}
+
+.card:hover{
+  transform:scale(1.03);
+  box-shadow:0 16px 36px rgba(242,184,64,.35);
+}
+
+.icon{
+  font-size:42px;
+  margin-bottom:12px;
+}
+
+.title{
+  font-size:22px;
+  font-weight:800;
+  color:#F2B840;
+}
+
+.desc{
+  font-size:14px;
+  opacity:.8;
+  margin-top:6px;
+}
+
+.signature{
+  margin-top:40px;
+  font-size:12px;
+  opacity:.6;
+}
+
 .signature b{color:#F2B840}
 </style>
 </head>
+
 <body>
 <div class="container">
+
   <div class="logo">CizaRide+</div>
+  <div class="subtitle">Choisissez votre mode</div>
 
-  <button class="client" onclick="location.href='cizaride-map.html'">
-    🚗 Client
-  </button>
+  <!-- CLIENT -->
+  <div class="card" onclick="location.href='cizaride-map.html'">
+    <div class="icon">🚗</div>
+    <div class="title">Client</div>
+    <div class="desc">Commander une course, calculer le prix</div>
+  </div>
 
-  <button class="driver" onclick="location.href='chauffeur.html'">
-    🚕 Chauffeur
-  </button>
+  <!-- CHAUFFEUR -->
+  <div class="card" onclick="location.href='chauffeur.html'">
+    <div class="icon">🚕</div>
+    <div class="title">Chauffeur</div>
+    <div class="desc">Recevoir et accepter des courses</div>
+  </div>
 
-  <div class="signature">Design signed by <b>CIZA GROUP</b></div>
+  <div class="signature">
+    Design signed by <b>CIZA GROUP</b>
+  </div>
+
 </div>
 </body>
 </html>
