@@ -1,142 +1,215 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>CizaRide+ — Commander</title>
-<link rel="icon" href="logotransparent.png" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CizaRide+ — Commander un trajet</title>
+
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
 <style>
 *{box-sizing:border-box}
-html,body{margin:0;height:100%;font-family:system-ui,Arial;background:#06142E}
+html,body{
+  margin:0;height:100%;
+  font-family:system-ui, Arial;
+  background:#06142E;
+}
 #map{height:100%}
 
-/* Bottom sheet (Uber-like) */
+/* Bottom Sheet Uber-like */
 #sheet{
-  position:fixed;left:50%;bottom:12px;transform:translateX(-50%);
-  width:94%;background:#0B1D3A;color:#fff;border-radius:20px;
-  padding:14px;z-index:1000;box-shadow:0 10px 30px rgba(0,0,0,.4)
+  position:fixed;
+  bottom:12px;
+  left:50%;
+  transform:translateX(-50%);
+  width:94%;
+  background:#0B1D3A;
+  border-radius:22px;
+  padding:16px;
+  z-index:1000;
+  box-shadow:0 12px 30px rgba(0,0,0,.45);
 }
+
 .field{
-  background:#122A52;border-radius:12px;padding:12px;margin-bottom:8px;
-  display:flex;gap:10px;align-items:center
+  background:#122A52;
+  border-radius:14px;
+  padding:12px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:10px;
 }
+
 .field input{
-  width:100%;border:none;background:transparent;color:#fff;
-  font-size:15px;outline:none
+  width:100%;
+  background:transparent;
+  border:none;
+  outline:none;
+  color:white;
+  font-size:15px;
 }
-.results{max-height:180px;overflow:auto;margin:6px 0}
-.result{
-  background:#122A52;border-radius:10px;padding:10px;margin:6px 0;
-  cursor:pointer
+
+#suggestions{
+  max-height:180px;
+  overflow:auto;
+  margin-bottom:8px;
 }
-.meta{display:flex;gap:10px;font-size:14px;opacity:.9;margin:8px 0}
-.price{font-size:22px;color:#F2B840;font-weight:700;margin:6px 0}
+
+.suggestion{
+  background:#122A52;
+  padding:10px;
+  border-radius:12px;
+  margin-bottom:6px;
+  cursor:pointer;
+}
+
+.suggestion:hover{
+  background:#1A3A6B;
+}
+
+.info{
+  display:flex;
+  justify-content:space-between;
+  font-size:15px;
+  margin:10px 0;
+}
+
+#price{
+  color:#F2B840;
+  font-weight:bold;
+}
+
 button{
-  width:100%;padding:14px;border:none;border-radius:26px;
-  background:#F2B840;color:#06142E;font-weight:800;font-size:16px
+  width:100%;
+  padding:16px;
+  border:none;
+  border-radius:30px;
+  background:#F2B840;
+  color:#06142E;
+  font-size:17px;
+  font-weight:bold;
 }
-button:disabled{background:#777}
+
+button:disabled{
+  background:#777;
+}
 </style>
 </head>
 
 <body>
+
 <div id="map"></div>
 
+<!-- Bottom Sheet -->
 <div id="sheet">
-  <!-- Départ -->
   <div class="field">
-    📍
-    <input id="startInput" placeholder="Position actuelle" />
+    📍 <input id="start" readonly placeholder="Position actuelle">
   </div>
 
-  <!-- Destination -->
   <div class="field">
-    🎯
-    <input id="destInput" placeholder="Où allez-vous ?" />
+    🎯 <input id="destination" placeholder="Où allez-vous ?">
   </div>
 
-  <div class="results" id="results"></div>
+  <div id="suggestions"></div>
 
-  <div class="meta">
-    <div id="distance"></div>
-    <div id="time"></div>
+  <div class="info">
+    <span id="distance"></span>
+    <span id="price"></span>
   </div>
 
-  <div class="price" id="price"></div>
   <button id="order" disabled>🚗 Commander la course</button>
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
 <script>
-/* MAP */
-const map=L.map('map').setView([-3.3614,29.3599],13);
+/* ---------------- MAP ---------------- */
+const map = L.map('map').setView([-3.3614, 29.3599], 13);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
   attribution:'© OpenStreetMap'
 }).addTo(map);
 
-let startPos=null,endPos=null,startMarker,endMarker,route;
+let startPos=null, endPos=null;
+let startMarker=null, endMarker=null;
 
-/* Géoloc départ (Uber-like par défaut) */
-navigator.geolocation.getCurrentPosition(p=>{
-  startPos=[p.coords.latitude,p.coords.longitude];
-  startMarker=L.marker(startPos).addTo(map).bindPopup("Départ").openPopup();
-  map.setView(startPos,15);
-});
+/* ---------------- DÉPART AUTO ---------------- */
+navigator.geolocation.getCurrentPosition(
+  pos=>{
+    startPos=[pos.coords.latitude, pos.coords.longitude];
+    document.getElementById("start").value="Position actuelle";
+    startMarker=L.marker(startPos).addTo(map).bindPopup("Départ").openPopup();
+    map.setView(startPos,15);
+  },
+  ()=>alert("Autorisez la localisation"),
+  {enableHighAccuracy:true}
+);
 
-/* Recherche destination (autocomplétion réelle) */
-const destInput=document.getElementById('destInput');
-const results=document.getElementById('results');
+/* ---------------- DESTINATION (RECHERCHE) ---------------- */
+const destInput=document.getElementById("destination");
+const suggestions=document.getElementById("suggestions");
 
-destInput.addEventListener('input',()=>{
+destInput.addEventListener("input",()=>{
   const q=destInput.value.trim();
-  if(q.length<3){results.innerHTML='';return;}
+  if(q.length<3){
+    suggestions.innerHTML="";
+    return;
+  }
+
   fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(q)}`)
-    .then(r=>r.json()).then(list=>{
-      results.innerHTML='';
-      list.slice(0,5).forEach(p=>{
-        const d=document.createElement('div');
-        d.className='result';
-        d.textContent=p.display_name;
-        d.onclick=()=>selectDest(+p.lat,+p.lon,p.display_name);
-        results.appendChild(d);
+    .then(r=>r.json())
+    .then(data=>{
+      suggestions.innerHTML="";
+      data.slice(0,5).forEach(p=>{
+        const div=document.createElement("div");
+        div.className="suggestion";
+        div.textContent=p.display_name;
+        div.onclick=()=>{
+          setDestination(p.lat, p.lon, p.display_name);
+        };
+        suggestions.appendChild(div);
       });
     });
 });
 
-function selectDest(lat,lng,label){
-  endPos=[lat,lng];
-  results.innerHTML='';
+/* ---------------- DESTINATION (CLIC CARTE - OPTIONNEL) ---------------- */
+map.on("click",e=>{
+  setDestination(e.latlng.lat, e.latlng.lng, "Destination sélectionnée");
+});
+
+/* ---------------- SET DESTINATION ---------------- */
+function setDestination(lat,lng,label){
+  endPos=[parseFloat(lat), parseFloat(lng)];
   destInput.value=label;
+  suggestions.innerHTML="";
+
   if(endMarker) map.removeLayer(endMarker);
   endMarker=L.marker(endPos).addTo(map).bindPopup("Destination").openPopup();
+
   map.setView(endPos,15);
   calculate();
 }
 
-/* Calcul réel (OSRM) */
+/* ---------------- CALCUL DISTANCE + PRIX ---------------- */
 function calculate(){
-  if(!startPos||!endPos) return;
-  const url=`https://router.project-osrm.org/route/v1/driving/${startPos[1]},${startPos[0]};${endPos[1]},${endPos[0]}?overview=full&geometries=geojson`;
-  fetch(url).then(r=>r.json()).then(d=>{
-    const r=d.routes[0];
-    const km=(r.distance/1000).toFixed(2);
-    const min=Math.ceil(r.duration/60);
-    document.getElementById('distance').textContent=`📏 ${km} km`;
-    document.getElementById('time').textContent=`⏱ ${min} min`;
-    const price=Math.round(2000 + km*1000); // BIF (exemple)
-    document.getElementById('price').textContent=`💰 ${price.toLocaleString()} BIF`;
-    document.getElementById('order').disabled=false;
+  if(!startPos || !endPos) return;
 
-    if(route) map.removeLayer(route);
-    route=L.geoJSON(r.geometry,{style:{color:'#F2B840',weight:5}}).addTo(map);
-  });
+  const dx=startPos[0]-endPos[0];
+  const dy=startPos[1]-endPos[1];
+  const km=(Math.sqrt(dx*dx+dy*dy)*111).toFixed(2);
+
+  document.getElementById("distance").textContent="📏 "+km+" km";
+
+  const price=Math.round(2000 + km*1000);
+  document.getElementById("price").textContent="💰 "+price+" BIF";
+
+  document.getElementById("order").disabled=false;
 }
 
-document.getElementById('order').onclick=()=>{
-  alert('🚕 Course envoyée aux chauffeurs');
+/* ---------------- COMMANDER ---------------- */
+document.getElementById("order").onclick=()=>{
+  alert("🚕 Course envoyée (test)");
 };
 </script>
+
 </body>
 </html>
