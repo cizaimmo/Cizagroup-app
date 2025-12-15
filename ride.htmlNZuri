@@ -8,197 +8,200 @@
 <link rel="icon" href="logotransparent.png">
 
 <style>
-    :root{
-        --bg:#06142E;
-        --gold:#F2B840;
-    }
+/* RESET */
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#06142E;
+    color:white;
+    overflow-x:hidden;
+}
 
-    body{
-        margin:0;
-        font-family:Arial, sans-serif;
-        background:var(--bg);
-        color:white;
-        overflow-x:hidden;
-        overscroll-behavior-y: contain;
-    }
+/* HEADER */
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 20px;
+    background:#071A36;
+    border-bottom:3px solid #F2B840;
+}
+header img{
+    width:65px;
+}
+.menu-icon{
+    font-size:32px;
+    cursor:pointer;
+    color:#F2B840;
+}
 
-    html, body {
-        height:100%;
-    }
+/* SIDE MENU */
+#sideMenu{
+    position:fixed;
+    top:0;
+    right:-80%;
+    width:75%;
+    height:100%;
+    background:rgba(7,20,54,0.97);
+    backdrop-filter:blur(4px);
+    padding:25px;
+    transition:0.4s ease;
+    z-index:9999;
+}
+#sideMenu.open{
+    right:0;
+}
 
-    /* HEADER */
-    header{
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-        padding:15px 20px;
-        background:#071A36;
-        border-bottom:3px solid var(--gold);
-        position:sticky;
-        top:0;
-        z-index:999;
-    }
-    header img{
-        width:65px;
-    }
-    .menu-icon{
-        font-size:30px;
-        cursor:pointer;
-        color:var(--gold);
-    }
+#sideMenu a{
+    display:block;
+    padding:14px 0;
+    font-size:20px;
+    color:white;
+    text-decoration:none;
+}
+#sideMenu a:hover{
+    color:#F2B840;
+}
 
-    /* MENU PANEL */
-    #menu-panel{
-        position:fixed;
-        top:0;
-        right:-100%;
-        width:70%;
-        height:100%;
-        background:rgba(7,26,54,0.98);
-        backdrop-filter:blur(10px);
-        transition:.4s ease;
-        padding:20px;
-        z-index:99999;
-        border-left:3px solid var(--gold);
-    }
+.close-btn{
+    font-size:30px;
+    color:#F2B840;
+    float:right;
+    cursor:pointer;
+}
 
-    #menu-panel a, #menu-panel div{
-        display:block;
-        color:white;
-        padding:15px 0;
-        font-size:18px;
-        text-decoration:none;
-        border-bottom:1px solid rgba(255,255,255,0.1);
-    }
+/* HERO */
+.hero{
+    text-align:center;
+    padding:25px 20px;   /* réduit */
+}
+.hero h1{
+    color:#F2B840;
+    font-size:30px;
+    margin-bottom:5px;
+}
+.hero p{
+    opacity:.9;
+    font-size:17px;
+}
 
-    .close-btn{
-        font-size:32px;
-        cursor:pointer;
-        color:var(--gold);
-        text-align:right;
-    }
+/* BTN MAP */
+.map-btn{
+    display:block;
+    width:90%;
+    margin:20px auto;
+    padding:18px;
+    font-size:20px;
+    border-radius:15px;
+    border:none;
+    background:#F2B840;
+    color:#06142E;
+    font-weight:bold;
+    text-align:center;
+    cursor:pointer;
+}
 
-    /* HERO */
-    .hero{
-        text-align:center;
-        padding:40px 20px;
-        border-bottom:2px solid var(--gold);
-    }
-    .hero h1{
-        color:var(--gold);
-        font-size:32px;
-        margin-bottom:10px;
-    }
-    .hero p{
-        opacity:.9;
-        font-size:18px;
-    }
+/* TITRE SERVICES */
+.section-title{
+    font-size:26px;
+    font-weight:700;
+    margin:25px 15px 10px;
+    color:#F2B840;
+}
 
-    /* BTN MAP */
-    .map-btn{
-        display:block;
-        width:90%;
-        margin:25px auto;
-        padding:18px;
-        font-size:20px;
-        border-radius:15px;
-        border:none;
-        background:var(--gold);
-        color:#06142E;
-        font-weight:bold;
-        text-align:center;
-        cursor:pointer;
-        text-decoration:none;
-    }
+/* SERVICES GRID */
+.services-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+    padding:15px;
+}
 
-    /* SERVICES */
-    .section-title{
-        font-size:26px;
-        font-weight:700;
-        margin:25px 15px 10px;
-        color:var(--gold);
-    }
+.service-card{
+    background:#071A36;
+    border:2px solid #F2B840;
+    border-radius:18px;
+    padding:22px 10px 18px;
+    text-align:center;
+    color:white;
+    text-decoration:none;
+    font-size:17px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 0 12px rgba(242,184,64,0.25);
+    transition:0.25s ease;
+    opacity:0;
+    transform:translateY(18px);
+    animation:fadeUp 0.7s ease forwards;
+}
 
-    .services-grid{
-        display:grid;
-        grid-template-columns:1fr 1fr;
-        gap:17px;
-        padding:15px;
-        padding-bottom:50px;
-    }
+.service-card:nth-child(1){ animation-delay:0.1s; }
+.service-card:nth-child(2){ animation-delay:0.2s; }
+.service-card:nth-child(3){ animation-delay:0.3s; }
+.service-card:nth-child(4){ animation-delay:0.4s; }
 
-    .service-card{
-        background:#071A36;
-        border:2px solid var(--gold);
-        border-radius:18px;
-        padding:25px 10px;
-        text-align:center;
-        text-decoration:none;
-        color:white;
-        font-size:17px;
-        box-shadow:0 0 12px rgba(242,184,64,0.25);
-        transition:0.2s;
-    }
+.service-card:hover{
+    transform:scale(1.04);
+    box-shadow:0 0 22px rgba(242,184,64,0.4);
+}
 
-    .service-card:hover{
-        transform:scale(1.03);
-        box-shadow:0 0 22px rgba(242,184,64,0.35);
-    }
+.emoji{
+    font-size:42px;
+    margin-bottom:8px;
+}
 
-    .emoji{
-        font-size:40px;
-        margin-bottom:10px;
-    }
+.service-desc{
+    margin-top:4px;
+    font-size:13px;
+    opacity:0.85;
+}
 
-    /* FOOTER */
-    footer{
-        text-align:center;
-        font-size:14px;
-        color:#ddd;
-        padding:20px 10px;
-        border-top:1px solid rgba(255,255,255,0.1);
-        opacity:.8;
-    }
-    footer a{
-        color:var(--gold);
-        text-decoration:none;
-    }
+/* FOOTER */
+footer{
+    text-align:center;
+    padding:20px 10px;
+    font-size:14px;
+    color:#ddd;
+    margin-top:25px;
+    opacity:.8;
+}
+footer a{
+    color:#F2B840;
+    text-decoration:none;
+}
 
-    /* LANG BUTTON */
-    .lang-btn{
-        position:fixed;
-        bottom:20px;
-        right:20px;
-        background:var(--gold);
-        color:#06142E;
-        padding:12px 16px;
-        border:none;
-        border-radius:50px;
-        cursor:pointer;
-        font-weight:bold;
-        z-index:9999;
-    }
+/* ANIMATION */
+@keyframes fadeUp{
+    from{ opacity:0; transform:translateY(25px); }
+    to{ opacity:1; transform:translateY(0); }
+}
+
 </style>
-
 </head>
 <body>
 
-<!-- MENU -->
-<div id="menu-panel">
-    <div class="close-btn" onclick="closeMenu()">×</div>
-    <a href="index.html">🏠 Accueil</a>
-    <a href="chauffeur.html">👨‍✈️ Mode Chauffeur</a>
-    <a href="cizaride-map.html">🚗 Mode Client</a>
-    <a href="vip.html">🚘 CizaRide VIP</a>
-    <a href="royal.html">👑 CizaRide Royal</a>
-    <a href="mailto:infos@cizagroup.com">📩 Contact Support</a>
-</div>
-
+<!-- HEADER -->
 <header>
     <img src="logotransparent.png">
-    <div class="menu-icon" onclick="openMenu()">☰</div>
+    <div class="menu-icon" onclick="toggleMenu()">☰</div>
 </header>
 
+<!-- MENU LATERAL -->
+<div id="sideMenu">
+    <div class="close-btn" onclick="toggleMenu()">✖</div>
+
+    <a href="ride.html">🏠 Accueil</a>
+    <a href="#">ℹ️ À propos</a>
+    <a href="#">👤 Créer un compte</a>
+    <a href="#">🔐 Connexion</a>
+    <a href="#">❌ Supprimer mon compte</a>
+    <a href="contact.html">✉️ Contact</a>
+    <a href="#">🌍 FR / EN</a>
+</div>
+
+<!-- HERO -->
 <section class="hero">
     <h1>CizaRide+</h1>
     <p>Déplacez-vous facilement partout au Burundi.</p>
@@ -210,56 +213,43 @@
 
 <h2 class="section-title">Nos Services</h2>
 
+<!-- SERVICES -->
 <div class="services-grid">
 
     <a class="service-card" href="chauffeur.html">
         <span class="emoji">👨‍✈️</span>
         <span>Mode Chauffeur</span>
+        <div class="service-desc">Recevez des courses et gagnez de l’argent.</div>
     </a>
 
     <a class="service-card" href="cizaride-map.html">
         <span class="emoji">🚗</span>
         <span>Mode Client</span>
+        <div class="service-desc">Commander un trajet rapidement.</div>
     </a>
 
     <a class="service-card" href="vip.html">
         <span class="emoji">🚘</span>
         <span>CizaRide VIP</span>
+        <div class="service-desc">Service premium haut de gamme.</div>
     </a>
 
     <a class="service-card" href="royal.html">
         <span class="emoji">👑</span>
         <span>CizaRide Royal</span>
+        <div class="service-desc">Prestige exclusif & véhicules luxe.</div>
     </a>
 
 </div>
 
+<!-- FOOTER -->
 <footer>
-    © 2028 CIZA GROUP — Tous droits réservés  
-    <br><a href="legal.html">Mentions légales</a>
+    © 2028 CIZA GROUP — <a href="#">Mentions légales</a> • <a href="#">Confidentialité</a>
 </footer>
 
-<button class="lang-btn" onclick="switchLang()">FR</button>
-
 <script>
-function openMenu(){
-    document.getElementById("menu-panel").style.right = "0";
-}
-function closeMenu(){
-    document.getElementById("menu-panel").style.right = "-100%";
-}
-
-/* LANGUE */
-function switchLang(){
-    const html=document.documentElement;
-    html.lang = html.lang==="fr" ? "en" : "fr";
-    document.querySelector(".lang-btn").innerHTML = html.lang==="fr" ? "FR" : "EN";
-
-    document.querySelectorAll("[data-fr]").forEach(el=>{
-        el.innerHTML = html.lang==="fr" 
-            ? el.getAttribute("data-fr") 
-            : el.getAttribute("data-en");
-    });
+function toggleMenu(){
+    document.getElementById("sideMenu").classList.toggle("open");
 }
 </script>
 
