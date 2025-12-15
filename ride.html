@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>CizaRide+</title>
+<link rel="icon" href="logotransparent.png">
+
+<style>
+    body{
+        margin:0;
+        font-family:Arial, sans-serif;
+        background:#06142E;
+        color:white;
+        overflow-x:hidden;
+    }
+
+    /* HEADER */
+    header{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        padding:15px 20px;
+        background:#071A36;
+        border-bottom:3px solid #F2B840;
+        position:sticky;
+        top:0;
+        z-index:900;
+    }
+    header img{ width:65px; }
+    .menu-icon{ font-size:30px; cursor:pointer; color:#F2B840; }
+
+    /* HERO */
+    .hero{
+        text-align:center;
+        padding:30px 20px;
+        border-bottom:2px solid #F2B840;
+    }
+    .hero h1{ color:#F2B840; font-size:30px; margin-bottom:8px; }
+    .hero p{ font-size:17px; opacity:.9; }
+
+    /* BTN MAP */
+    .map-btn{
+        display:block;
+        width:90%;
+        margin:25px auto;
+        padding:18px;
+        font-size:19px;
+        border-radius:15px;
+        border:none;
+        background:#F2B840;
+        color:#06142E;
+        text-align:center;
+        font-weight:bold;
+        text-decoration:none;
+    }
+
+    /* SERVICES */
+    .section-title{
+        font-size:26px;
+        font-weight:700;
+        margin:20px 15px 10px;
+        color:#F2B840;
+    }
+
+    .services-grid{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:17px;
+        padding:15px;
+        padding-bottom:70px;
+    }
+
+    .service-card{
+        background:#071A36;
+        border:2px solid #F2B840;
+        border-radius:18px;
+        padding:25px 10px;
+        text-align:center;
+        font-size:17px;
+        text-decoration:none;
+        color:white;
+        box-shadow:0 0 12px rgba(242,184,64,0.25);
+        transition:.20s;
+    }
+
+    .service-card:hover{
+        transform:scale(1.03);
+        box-shadow:0 0 22px rgba(242,184,64,0.35);
+    }
+
+    .emoji{ font-size:40px; margin-bottom:10px; }
+
+    /* LANG BUTTON */
+    .lang-btn{
+        position:fixed;
+        bottom:20px;
+        right:20px;
+        background:#F2B840;
+        color:#06142E;
+        border:none;
+        padding:12px 16px;
+        border-radius:50px;
+        font-weight:bold;
+        cursor:pointer;
+        z-index:999;
+    }
+
+    footer{
+        text-align:center;
+        padding:20px;
+        font-size:14px;
+        color:#ccc;
+    }
+    footer a{ color:#F2B840; text-decoration:none; }
+</style>
+
+</head>
+<body>
+
+<header>
+    <img src="logotransparent.png">
+    <div class="menu-icon">☰</div>
+</header>
+
+<section class="hero">
+    <h1>CizaRide+</h1>
+    <p data-fr="Déplacez-vous facilement partout au Burundi."
+       data-en="Move easily everywhere in Burundi.">
+       Déplacez-vous facilement partout au Burundi.
+    </p>
+</section>
+
+<a href="cizaride-map.html" class="map-btn"
+   data-fr="🚗 Ouvrir la carte & calculer la distance"
+   data-en="🚗 Open map & calculate distance">
+   🚗 Ouvrir la carte & calculer la distance
+</a>
+
+<h2 class="section-title" data-fr="Nos Services" data-en="Our Services">Nos Services</h2>
+
+<div class="services-grid">
+
+    <a class="service-card" href="chauffeur.html">
+        <span class="emoji">👨‍✈️</span>
+        <span data-fr="Mode Chauffeur" data-en="Driver Mode">Mode Chauffeur</span>
+    </a>
+
+    <a class="service-card" href="cizaride-map.html">
+        <span class="emoji">🚗</span>
+        <span data-fr="Mode Client" data-en="Client Mode">Mode Client</span>
+    </a>
+
+    <a class="service-card" href="vip.html">
+        <span class="emoji">👑</span>
+        <span data-fr="CizaRide VIP" data-en="CizaRide VIP">CizaRide VIP</span>
+    </a>
+
+    <a class="service-card" href="royal.html">
+        <span class="emoji">💎</span>
+        <span data-fr="CizaRide Royal" data-en="CizaRide Royal">CizaRide Royal</span>
+    </a>
+</div>
+
+<footer>
+    © 2028 CIZA GROUP — <a href="mentions.html">Mentions légales</a>
+</footer>
+
+<button class="lang-btn" onclick="switchLang()">FR</button>
+
+<script>
+function switchLang(){
+    const html = document.documentElement;
+    html.lang = html.lang === "fr" ? "en" : "fr";
+    document.querySelector(".lang-btn").innerHTML = html.lang === "fr" ? "FR" : "EN";
+
+    document.querySelectorAll("[data-fr]").forEach(el=>{
+        el.innerHTML = html.lang==="fr" ? el.getAttribute("data-fr") : el.getAttribute("data-en");
+    });
+}
+</script>
+
+</body>
+</html>
