@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>CizaRide+ — Client</title>
+<link rel="icon" href="logotransparent.png">
+
+<!-- Leaflet MAP CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+<style>
+*{box-sizing:border-box}
+
+html,body{
+    margin:0;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    font-family:Arial,sans-serif;
+    background:#06142E;
+}
+
+/* HEADER */
+header{
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    z-index:1000;
+    background:rgba(6,20,46,.92);
+    color:#F2B840;
+    padding:14px 18px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    border-bottom:1px solid #F2B840;
+}
+header img{ width:42px; }
+header span{
+    font-weight:bold;
+    font-size:18px;
+}
+
+/* MAP */
+#map{
+    position:absolute;
+    inset:0;
+}
+
+/* ACTION BAR */
+#action{
+    position:absolute;
+    bottom:20px;
+    left:50%;
+    transform:translateX(-50%);
+    background:#F2B840;
+    color:#06142E;
+    padding:16px 30px;
+    border-radius:30px;
+    font-weight:bold;
+    cursor:pointer;
+    box-shadow:0 0 20px rgba(242,184,64,.45);
+    z-index:1000;
+}
+
+/* INFO PICKUP */
+#pickup{
+    position:absolute;
+    bottom:80px;
+    left:50%;
+    transform:translateX(-50%);
+    background:rgba(6,20,46,.9);
+    color:white;
+    padding:12px 20px;
+    border-radius:18px;
+    font-size:14px;
+    z-index:1000;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <img src="logotransparent.png">
+    <span>Client — Commander un trajet</span>
+</header>
+
+<div id="map"></div>
+
+<div id="pickup">📍 Point de départ : position actuelle</div>
+<div id="action">🚗 Commander une course</div>
+
+<!-- Leaflet MAP JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+// MAP INIT (Burundi par défaut)
+const map = L.map('map').setView([-3.3614, 29.3599], 13);
+
+// OpenStreetMap (gratuit)
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+    attribution:'© OpenStreetMap'
+}).addTo(map);
+
+// Client position (temporaire)
+const clientMarker = L.marker([-3.3614, 29.3599]).addTo(map)
+    .bindPopup("📍 Votre position")
+    .openPopup();
+
+// Commander (placeholder)
+document.getElementById("action").onclick = ()=>{
+    alert("🚕 Recherche d’un chauffeur disponible…");
+};
+</script>
+
+</body>
+</html>
