@@ -1,217 +1,181 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>CizaRide+ — Chauffeur / Client</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>CizaRide+</title>
 <link rel="icon" href="logotransparent.png">
 
 <style>
-/* THEME */
-:root{
-    --bg:#06142E;
-    --text:white;
-    --gold:#F2B840;
-    --glass:rgba(255,255,255,0.06);
-    --border:rgba(255,255,255,0.15);
-}
-body{
-    margin:0;
-    background:var(--bg);
-    color:var(--text);
-    font-family:Arial, sans-serif;
-    overflow-x:hidden;
-}
+    body{
+        margin:0;
+        font-family:Arial, sans-serif;
+        background:#06142E;
+        color:white;
+    }
 
-/* HEADER */
-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:15px 20px;
-    background:var(--glass);
-    backdrop-filter:blur(16px);
-    border-bottom:1px solid var(--border);
-    position:sticky;
-    top:0;
-    z-index:999;
-}
-header img{
-    width:48px;
-}
-.menu-btn{
-    font-size:30px;
-    background:none;
-    border:none;
-    color:var(--gold);
-    cursor:pointer;
-}
+    /* HEADER */
+    header{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        padding:15px 20px;
+        background:#071A36;
+        border-bottom:3px solid #F2B840;
+    }
+    header img{
+        width:65px;
+    }
+    .menu-icon{
+        font-size:30px;
+        cursor:pointer;
+        color:#F2B840;
+    }
 
-/* MENU SLIDE */
-#menu{
-    position:fixed;
-    top:0; right:-100%;
-    width:75%;
-    height:100%;
-    background:rgba(0,0,0,0.65);
-    backdrop-filter:blur(20px);
-    padding:25px;
-    transition:.4s ease;
-    z-index:9999;
-}
-#menu .close{
-    font-size:32px;
-    color:var(--gold);
-    float:right;
-    cursor:pointer;
-}
-.menu-item{
-    margin-top:30px;
-    font-size:18px;
-    border-bottom:1px solid var(--border);
-    padding-bottom:12px;
-    cursor:pointer;
-}
+    /* HERO */
+    .hero{
+        text-align:center;
+        padding:40px 20px;
+        border-bottom:2px solid #F2B840;
+    }
+    .hero h1{
+        color:#F2B840;
+        font-size:32px;
+        margin-bottom:10px;
+    }
+    .hero p{
+        opacity:.9;
+        font-size:18px;
+    }
 
-/* HERO */
-.hero{
-    width:90%;
-    margin:20px auto;
-    padding:25px;
-    background:var(--glass);
-    border:2px solid var(--gold);
-    border-radius:18px;
-    text-align:center;
-    backdrop-filter:blur(10px);
-}
-.hero h2{
-    margin:0;
-    color:var(--gold);
-}
+    /* BTN MAP */
+    .map-btn{
+        display:block;
+        width:90%;
+        margin:25px auto;
+        padding:18px;
+        font-size:20px;
+        border-radius:15px;
+        border:none;
+        background:#F2B840;
+        color:#06142E;
+        font-weight:bold;
+        text-align:center;
+        cursor:pointer;
+    }
 
-/* CARDS */
-.grid{
-    width:90%;
-    margin:auto;
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:14px;
-}
-.card{
-    background:var(--glass);
-    border:1px solid var(--gold);
-    border-radius:18px;
-    padding:25px 10px;
-    text-align:center;
-    cursor:pointer;
-    transition:.25s ease;
-}
-.card:hover{
-    transform:scale(1.05);
-    box-shadow:0 0 12px var(--gold);
-    border-color:var(--gold);
-}
-.card span{
-    font-size:30px;
-    display:block;
-    margin-bottom:6px;
-}
+    /* SERVICES */
+    .section-title{
+        font-size:26px;
+        font-weight:700;
+        margin:25px 15px 10px;
+        color:#F2B840;
+    }
 
-/* BUTTON MAP */
-.map-btn{
-    display:block;
-    width:90%;
-    margin:25px auto;
-    background:var(--gold);
-    color:#06142E;
-    padding:15px;
-    border-radius:12px;
-    text-align:center;
-    font-weight:bold;
-    cursor:pointer;
-    font-size:16px;
-}
+    .services-grid{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:17px;
+        padding:15px;
+        padding-bottom:50px;
+    }
 
-/* FOOTER */
-footer{
-    text-align:center;
-    margin:40px 0 20px 0;
-    opacity:.7;
-    font-size:13px;
-}
-footer a{
-    color:var(--gold);
-    text-decoration:none;
-}
+    .service-card{
+        background:#071A36;
+        border:2px solid #F2B840;
+        border-radius:18px;
+        padding:25px 10px;
+        text-align:center;
+        color:white;
+        text-decoration:none;
+        font-size:17px;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        box-shadow:0 0 12px rgba(242,184,64,0.25);
+        transition:0.2s;
+    }
+
+    .service-card:hover{
+        transform:scale(1.03);
+        box-shadow:0 0 22px rgba(242,184,64,0.35);
+    }
+
+    .service-card .emoji{
+        font-size:40px;
+        margin-bottom:10px;
+    }
+
+    /* FOOTER */
+    footer{
+        text-align:center;
+        font-size:14px;
+        color:#ddd;
+        padding:20px 10px;
+        border-top:1px solid rgba(255,255,255,0.1);
+        opacity:.8;
+    }
+    footer a{
+        color:#F2B840;
+        text-decoration:none;
+    }
 </style>
-</head>
 
+</head>
 <body>
 
-<!-- HEADER -->
 <header>
     <img src="logotransparent.png">
-    <h1 style="font-size:18px;margin:0;">CizaRide+</h1>
-    <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    <div class="menu-icon">☰</div>
 </header>
 
-<!-- MENU -->
-<div id="menu">
-    <div class="close" onclick="toggleMenu()">×</div>
-
-    <div class="menu-item" onclick="location.href='index.html'">🏠 Accueil</div>
-    <div class="menu-item" onclick="location.href='about.html'">ℹ️ À propos</div>
-    <div class="menu-item" onclick="location.href='create-account.html'">📝 Créer un compte</div>
-    <div class="menu-item" onclick="location.href='login.html'">🔐 Connexion</div>
-    <div class="menu-item" onclick="location.href='delete-account.html'">🗑️ Supprimer mon compte</div>
-    <div class="menu-item" onclick="location.href='contact.html'">📩 Contact</div>
-</div>
-
-<!-- HERO -->
-<div class="hero">
-    <h2>CizaRide+</h2>
+<section class="hero">
+    <h1>CizaRide+</h1>
     <p>Déplacez-vous facilement partout au Burundi.</p>
-</div>
+</section>
 
-<!-- BUTTON OPEN MAP -->
-<div class="map-btn" onclick="location.href='cizaride-map.html'">
+<a href="cizaride-map.html" class="map-btn">
     🚗 Ouvrir la carte & calculer la distance
+</a>
+
+<h2 class="section-title">Nos Services</h2>
+
+<div class="services-grid">
+
+    <a class="service-card" href="chauffeur.html">
+        <span class="emoji">👨‍✈️</span>
+        <span>Mode Chauffeur</span>
+    </a>
+
+    <a class="service-card" href="client.html">
+        <span class="emoji">🚗</span>
+        <span>Mode Client</span>
+    </a>
+
+    <a class="service-card" href="vip.html">
+        <span class="emoji">🚘</span>
+        <span>CizaRide VIP</span>
+    </a>
+
+    <a class="service-card" href="royal.html">
+        <span class="emoji">👑</span>
+        <span>CizaRide Royal</span>
+    </a>
+
+    <a class="service-card" href="support.html">
+        <span class="emoji">📞</span>
+        <span>Support & Aide</span>
+    </a>
+
 </div>
 
-<!-- SERVICES -->
-<h2 style="margin-left:20px;color:var(--gold);">Nos Services</h2>
-
-<div class="grid">
-    <div class="card" onclick="location.href='chauffeur.html'">
-        <span>🧑‍✈️</span> Mode Chauffeur
-    </div>
-
-    <div class="card" onclick="location.href='client.html'">
-        <span>🚘</span> Mode Client
-    </div>
-
-    <div class="card" onclick="location.href='tarifs.html'">
-        <span>💵</span> Tarifs & Zones
-    </div>
-
-    <div class="card" onclick="location.href='support.html'">
-        <span>📞</span> Support & Aide
-    </div>
-</div>
-
-<!-- FOOTER -->
 <footer>
-    © 2028 CIZA GROUP —  
-    <a href="legal.html">Mentions légales</a> •  
+    © 2028 CIZA GROUP — 
+    <a href="legal.html">Mentions légales</a> • 
     <a href="privacy.html">Confidentialité</a>
 </footer>
-
-<script>
-function toggleMenu(){
-    const m = document.getElementById("menu");
-    m.style.right = (m.style.right === "0%") ? "-100%" : "0%";
-}
-</script>
 
 </body>
 </html>
