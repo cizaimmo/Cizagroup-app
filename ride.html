@@ -8,237 +8,209 @@
 <link rel="icon" href="logotransparent.png">
 
 <style>
-/* ------------------------------
-   BASE
-------------------------------- */
-body{
-    margin:0;
-    font-family:Arial, sans-serif;
-    background:#06142E;
-    color:white;
-    overflow-x:hidden; 
-}
+    body{
+        margin:0;
+        font-family:Arial, sans-serif;
+        background:#06142E;
+        color:white;
+    }
 
-/* ------------------------------
-   HEADER
-------------------------------- */
-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:15px 20px;
-    background:#071A36;
-    border-bottom:3px solid #F2B840;
-    position:sticky;
-    top:0;
-    z-index:999;
-}
-header img{
-    width:60px;
-}
-.menu-icon{
-    color:#F2B840;
-    font-size:32px;
-    cursor:pointer;
-}
+    /* HEADER */
+    header{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        padding:15px 20px;
+        background:#071A36;
+        border-bottom:3px solid #F2B840;
+    }
+    header img{
+        width:65px;
+    }
+    .menu-icon{
+        font-size:30px;
+        cursor:pointer;
+        color:#F2B840;
+    }
 
-/* ------------------------------
-   MENU SLIDE
-------------------------------- */
-#menu{
-    position:fixed;
-    right:-100%;
-    top:0;
-    width:70%;
-    height:100%;
-    background:rgba(0,0,0,0.55);
-    backdrop-filter:blur(14px);
-    padding:30px;
-    transition:.4s ease;
-    z-index:9999;
-    border-left:2px solid #F2B840;
-}
-#menu a{
-    display:block;
-    padding:12px 0;
-    font-size:18px;
-    color:white;
-    text-decoration:none;
-}
-#menu a:hover{
-    color:#F2B840;
-}
-.close-btn{
-    font-size:34px;
-    cursor:pointer;
-    text-align:right;
-    margin-bottom:15px;
-    color:#F2B840;
-}
+    /* BOUTON LANGUE */
+    .lang-btn{
+        position:absolute;
+        right:70px;
+        top:22px;
+        background:#F2B840;
+        color:#06142E;
+        border:none;
+        padding:6px 12px;
+        border-radius:8px;
+        font-size:14px;
+        cursor:pointer;
+        font-weight:bold;
+    }
 
-/* ------------------------------
-   HERO
-------------------------------- */
-.hero{
-    text-align:center;
-    padding:40px 20px;
-}
-.hero h1{
-    font-size:34px;
-    color:#F2B840;
-}
-.hero p{
-    font-size:18px;
-    opacity:.9;
-}
+    /* HERO (compacté) */
+    .hero{
+        text-align:center;
+        padding:25px 15px;
+        border-bottom:2px solid #F2B840;
+    }
+    .hero h1{
+        color:#F2B840;
+        font-size:28px;
+        margin-bottom:5px;
+    }
+    .hero p{
+        opacity:.9;
+        font-size:16px;
+        margin:0;
+    }
 
-/* ------------------------------
-   BUTTON MAP
-------------------------------- */
-.map-btn{
-    width:90%;
-    margin:25px auto;
-    display:block;
-    padding:18px;
-    background:#F2B840;
-    border:none;
-    border-radius:15px;
-    color:#06142E;
-    text-align:center;
-    font-weight:bold;
-    font-size:20px;
-    cursor:pointer;
-    transition:.2s;
-}
-.map-btn:hover{
-    transform:scale(1.03);
-}
+    /* BTN MAP */
+    .map-btn{
+        display:block;
+        width:90%;
+        margin:25px auto;
+        padding:18px;
+        font-size:18px;
+        border-radius:15px;
+        border:none;
+        background:#F2B840;
+        color:#06142E;
+        font-weight:bold;
+        text-align:center;
+        cursor:pointer;
+    }
 
-/* ------------------------------
-   SERVICES GRID
-------------------------------- */
-.section-title{
-    font-size:26px;
-    color:#F2B840;
-    margin:20px 15px 10px;
-}
+    /* SERVICES */
+    .section-title{
+        font-size:24px;
+        font-weight:700;
+        margin:25px 15px 10px;
+        color:#F2B840;
+    }
 
-.services-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:15px;
-    padding:20px;
-}
+    .services-grid{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:17px;
+        padding:15px;
+        padding-bottom:50px;
+    }
 
-.service-card{
-    background:#071A36;
-    border:2px solid #F2B840;
-    border-radius:18px;
-    padding:20px 10px;
-    text-align:center;
-    text-decoration:none;
-    color:white;
-    box-shadow:0 0 12px rgba(242,184,64,0.25);
-    transition:.25s;
-}
-.service-card:hover{
-    transform:scale(1.05);
-    box-shadow:0 0 22px rgba(242,184,64,0.4);
-}
-.service-card .emoji{
-    font-size:40px;
-    margin-bottom:10px;
-}
+    .service-card{
+        background:#071A36;
+        border:2px solid #F2B840;
+        border-radius:18px;
+        padding:25px 10px;
+        text-align:center;
+        color:white;
+        text-decoration:none;
+        font-size:17px;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        box-shadow:0 0 12px rgba(242,184,64,0.25);
+        transition:0.2s;
+    }
 
-/* ------------------------------
-   FOOTER
-------------------------------- */
-footer{
-    text-align:center;
-    padding:25px;
-    margin-top:20px;
-    border-top:1px solid rgba(255,255,255,0.15);
-    font-size:14px;
-}
-footer a{
-    color:#F2B840;
-    text-decoration:none;
-}
+    .service-card:hover{
+        transform:scale(1.03);
+        box-shadow:0 0 22px rgba(242,184,64,0.35);
+    }
 
+    .service-card .emoji{
+        font-size:40px;
+        margin-bottom:10px;
+    }
+
+    /* FOOTER PREMIUM */
+    footer{
+        text-align:center;
+        font-size:13px;
+        color:#ccc;
+        padding:18px 10px;
+        border-top:1px solid rgba(255,255,255,0.12);
+        opacity:.85;
+    }
+    footer a{
+        color:#F2B840;
+        text-decoration:none;
+        font-weight:bold;
+    }
 </style>
+
 </head>
 <body>
 
-<!-- HEADER -->
 <header>
     <img src="logotransparent.png">
-    <div class="menu-icon" onclick="openMenu()">☰</div>
+
+    <!-- BOUTON LANGUE -->
+    <button class="lang-btn" onclick="switchLang()">FR</button>
+
+    <div class="menu-icon">☰</div>
 </header>
 
-<!-- MENU -->
-<div id="menu">
-    <div class="close-btn" onclick="closeMenu()">×</div>
-    <a href="index.html">🏠 Accueil</a>
-    <a href="a-propos.html">ℹ️ À propos</a>
-    <a href="create-account.html">👤 Créer un compte</a>
-    <a href="login.html">🔐 Connexion</a>
-    <a href="delete-account.html">❌ Supprimer mon compte</a>
-    <a href="contact.html">📩 Contact</a>
-    <a href="#" onclick="switchLang()">🌍 FR / EN</a>
-</div>
-
-<!-- HERO -->
 <section class="hero">
-    <h1>CizaRide+</h1>
-    <p>Déplacez-vous facilement partout au Burundi.</p>
+    <h1 data-fr="CizaRide+" data-en="CizaRide+">CizaRide+</h1>
+    <p data-fr="Déplacez-vous facilement partout au Burundi."
+       data-en="Move easily everywhere in Burundi.">
+       Déplacez-vous facilement partout au Burundi.
+    </p>
 </section>
 
-<!-- BTN: MAP -->
-<a href="cizaride-map.html" class="map-btn">🚗 Ouvrir la carte & calculer la distance</a>
+<a href="cizaride-map.html" class="map-btn" 
+   data-fr="🚗 Ouvrir la carte & calculer la distance"
+   data-en="🚗 Open the map & calculate distance">
+   🚗 Ouvrir la carte & calculer la distance
+</a>
 
-<!-- SERVICES -->
-<h2 class="section-title">Nos Services</h2>
+<h2 class="section-title" data-fr="Nos Services" data-en="Our Services">Nos Services</h2>
 
 <div class="services-grid">
 
     <a class="service-card" href="chauffeur.html">
         <span class="emoji">👨‍✈️</span>
-        Mode Chauffeur
+        <span data-fr="Mode Chauffeur" data-en="Driver Mode">Mode Chauffeur</span>
     </a>
 
     <a class="service-card" href="cizaride-map.html">
         <span class="emoji">🚗</span>
-        Mode Client
+        <span data-fr="Mode Client" data-en="Client Mode">Mode Client</span>
     </a>
 
     <a class="service-card" href="vip.html">
         <span class="emoji">🚘</span>
-        CizaRide VIP
+        <span>CizaRide VIP</span>
     </a>
 
     <a class="service-card" href="royal.html">
         <span class="emoji">👑</span>
-        CizaRide Royal
+        <span>CizaRide Royal</span>
     </a>
 
 </div>
 
 <footer>
-    © 2028 CIZA GROUP —
-    <a href="legal.html">Mentions légales</a>
+    © 2025 CIZA GROUP •  
+    <a href="legal.html">Mentions légales</a> •  
+    <a href="privacy.html">Confidentialité</a>
 </footer>
 
 <script>
-function openMenu(){
-    document.getElementById("menu").style.right = "0";
-}
-function closeMenu(){
-    document.getElementById("menu").style.right = "-100%";
-}
-
-/* Dummy Lang Switch */
 function switchLang(){
-    alert("Le mode multilingue arrive bientôt !");
+    const html = document.documentElement;
+    html.lang = html.lang === "fr" ? "en" : "fr";
+
+    document.querySelector(".lang-btn").innerHTML =
+        html.lang === "fr" ? "FR" : "EN";
+
+    document.querySelectorAll("[data-fr]").forEach(el=>{
+        el.innerHTML = html.lang === "fr"
+            ? el.getAttribute("data-fr")
+            : el.getAttribute("data-en");
+    });
 }
 </script>
 
