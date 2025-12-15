@@ -4,90 +4,40 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CizaRide+ — Portail</title>
-
 <style>
 *{box-sizing:border-box}
 body{
-  margin:0;
-  height:100vh;
+  margin:0;height:100vh;
   font-family:system-ui, Arial;
-  background:#06142E;
-  color:white;
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  background:#06142E;color:white;
+  display:flex;align-items:center;justify-content:center;
 }
-
-.container{
-  width:90%;
-  max-width:420px;
-  text-align:center;
-}
-
-.logo{
-  font-size:28px;
-  font-weight:bold;
-  margin-bottom:30px;
-  color:#F2B840;
-}
-
+.container{width:90%;max-width:420px;text-align:center}
+.logo{font-size:28px;font-weight:700;color:#F2B840;margin-bottom:28px}
 button{
-  width:100%;
-  padding:18px;
-  margin:14px 0;
-  border:none;
-  border-radius:20px;
-  font-size:18px;
-  font-weight:bold;
-  cursor:pointer;
+  width:100%;padding:18px;margin:12px 0;
+  border:none;border-radius:18px;
+  font-size:18px;font-weight:700;cursor:pointer
 }
-
-.client{
-  background:#F2B840;
-  color:#06142E;
-}
-
-.driver{
-  background:#00ff88;
-  color:#06142E;
-}
-
-button:hover{
-  opacity:0.9;
-}
-
-.signature{
-  margin-top:30px;
-  font-size:12px;
-  opacity:0.6;
-}
+.client{background:#F2B840;color:#06142E}
+.driver{background:#00ff88;color:#06142E}
+.signature{margin-top:22px;font-size:12px;opacity:.6}
 .signature b{color:#F2B840}
 </style>
 </head>
-
 <body>
-
 <div class="container">
-
   <div class="logo">CizaRide+</div>
 
-  <!-- CLIENT -->
-  <button class="client"
-    onclick="window.location.href='cizaride-map.html'">
+  <button class="client" onclick="location.href='cizaride-map.html'">
     🚗 Client
   </button>
 
-  <!-- CHAUFFEUR -->
-  <button class="driver"
-    onclick="window.location.href='cizaride-driver.html'">
+  <button class="driver" onclick="location.href='chauffeur.html'">
     🚕 Chauffeur
   </button>
 
-  <div class="signature">
-    Design signed by <b>CIZA GROUP</b>
-  </div>
-
+  <div class="signature">Design signed by <b>CIZA GROUP</b></div>
 </div>
-
 </body>
 </html>
