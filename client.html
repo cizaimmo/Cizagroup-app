@@ -9,7 +9,7 @@
 
 <style>
 *{box-sizing:border-box}
-html,body{margin:0;height:100%;font-family:system-ui;background:#06142E;color:white}
+html,body{margin:0;height:100%;font-family:system-ui, Arial;background:#06142E;color:white}
 #map{height:100%;width:100%}
 
 /* BOTTOM SHEET */
@@ -97,44 +97,82 @@ button{
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
-const map = L.map('map').setView([-3.3614,29.3599],12);
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-  attribution:'© OpenStreetMap'
-}).addTo(map);
+/* ===============================
+   MAP — BURUNDI (BUJUMBURA)
+================================ */
+const map = L.map('map', {
+  center: [-3.3822, 29.3644], // Centre réel de Bujumbura
+  zoom: 14,
+  minZoom: 12,
+  maxZoom: 18
+});
+
+/* Style plus lisible pour l’Afrique */
+L.tileLayer(
+  'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
+  { attribution:'© OpenStreetMap', maxZoom:19 }
+).addTo(map);
+
+/* Limiter la navigation au Burundi */
+map.setMaxBounds([
+  [-4.5, 28.8], // Sud-Ouest Burundi
+  [-2.3, 30.9]  // Nord-Est Burundi
+]);
 
 let routeLine;
 
+/* ===============================
+   GEOCODING LOCAL (BURUNDI)
+================================ */
 async function geocode(place){
   const r = await fetch(
-    `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(place+', Bujumbura')}`
+    `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(place+', Bujumbura, Burundi')}`
   );
   const d = await r.json();
+  if(!d.length) throw "Lieu introuvable";
   return [parseFloat(d[0].lat), parseFloat(d[0].lon)];
 }
 
+/* ===============================
+   CALCUL TRAJET + PRIX
+================================ */
 async function calculate(){
-  const from = document.getElementById("from").value;
-  const to = document.getElementById("to").value;
-  if(!from || !to){ alert("Entrez départ et destination"); return; }
+  const from = document.getElementById("from").value.trim();
+  const to = document.getElementById("to").value.trim();
+  if(!from || !to){
+    alert("Veuillez entrer le départ et la destination");
+    return;
+  }
 
-  const s = await geocode(from);
-  const e = await geocode(to);
+  try{
+    const s = await geocode(from);
+    const e = await geocode(to);
 
-  const url=`https://router.project-osrm.org/route/v1/driving/${s[1]},${s[0]};${e[1]},${e[0]}?overview=full&geometries=geojson`;
-  const res=await fetch(url).then(r=>r.json());
-  const r0=res.routes[0];
+    const url =
+      `https://router.project-osrm.org/route/v1/driving/`+
+      `${s[1]},${s[0]};${e[1]},${e[0]}`+
+      `?overview=full&geometries=geojson`;
 
-  if(routeLine) map.removeLayer(routeLine);
-  routeLine=L.geoJSON(r0.geometry,{style:{color:"#F2B840",weight:5}}).addTo(map);
-  map.fitBounds(routeLine.getBounds(),{padding:[40,40]});
+    const res = await fetch(url).then(r=>r.json());
+    const r0 = res.routes[0];
 
-  const km=(r0.distance/1000).toFixed(1);
-  const price=2000 + km*1000;
+    if(routeLine) map.removeLayer(routeLine);
+    routeLine = L.geoJSON(r0.geometry,{
+      style:{color:"#F2B840",weight:5}
+    }).addTo(map);
 
-  document.getElementById("result").innerHTML=
-    `📏 ${km} km<br>💰 <b>${price.toLocaleString()} BIF</b>`;
+    map.fitBounds(routeLine.getBounds(),{padding:[40,40]});
 
-  document.getElementById("orderBtn").style.display="block";
+    const km = (r0.distance/1000).toFixed(1);
+    const price = 2000 + km*1000;
+
+    document.getElementById("result").innerHTML =
+      `📏 ${km} km<br>💰 <b>${price.toLocaleString()} BIF</b>`;
+
+    document.getElementById("orderBtn").style.display = "block";
+  }catch(e){
+    alert("Erreur de localisation. Essayez un quartier de Bujumbura.");
+  }
 }
 </script>
 
