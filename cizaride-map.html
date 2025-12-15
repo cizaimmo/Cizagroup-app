@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>CizaRide+ — Distance & Carte</title>
+<title>CizaRide+ — Carte & Distance</title>
 <link rel="icon" href="logotransparent.png">
 
 <!-- Leaflet -->
@@ -17,31 +17,36 @@
         background:#06142E;
         font-family:Arial, sans-serif;
         color:white;
+        overflow-x:hidden;
     }
 
+    /* HEADER */
     header{
         display:flex;
-        justify-content:space-between;
         align-items:center;
+        justify-content:space-between;
         padding:15px 18px;
-        background:rgba(255,255,255,0.07);
+        background:rgba(255,255,255,0.06);
         border-bottom:2px solid #F2B840;
         backdrop-filter:blur(10px);
         position:sticky;
         top:0;
         z-index:999;
     }
-    header img{ width:48px; }
+    header img{
+        width:50px;
+    }
     header button{
         background:#F2B840;
         border:none;
-        padding:8px 14px;
-        border-radius:8px;
-        font-weight:bold;
-        cursor:pointer;
         color:#06142E;
+        padding:8px 14px;
+        font-weight:bold;
+        border-radius:8px;
+        cursor:pointer;
     }
 
+    /* MAP */
     #map{
         height:60vh;
         width:100%;
@@ -49,68 +54,64 @@
         border:3px solid #F2B840;
         border-radius:14px;
         overflow:hidden;
-        box-shadow:0 0 25px rgba(242,184,64,0.35);
-        position:relative;
+        box-shadow:0 0 20px rgba(242,184,64,0.35);
     }
 
-    .signature{
-        position:absolute;
-        bottom:5px;
-        right:8px;
-        font-size:10px;
-        opacity:0.5;
-        background:#06142EAA;
-        padding:3px 6px;
-        border-radius:6px;
-    }
-
+    /* FORM */
     .box{
         width:90%;
         margin:20px auto;
-        background:rgba(255,255,255,0.06);
-        padding:18px;
-        border-radius:18px;
+        background:rgba(255,255,255,0.05);
+        padding:20px;
+        border-radius:16px;
         border:1px solid rgba(242,184,64,0.4);
+        backdrop-filter:blur(12px);
     }
-
     input{
         width:100%;
-        padding:12px;
         margin-top:10px;
-        background:#0B1C35;
-        border:none;
+        padding:12px;
         border-radius:10px;
+        border:none;
+        background:#0B1C35;
         color:white;
     }
 
     .btn{
-        width:100%;
+        background:#F2B840;
+        color:#06142E;
         padding:12px;
+        margin-top:15px;
+        width:100%;
         border:none;
         border-radius:12px;
         font-weight:bold;
         cursor:pointer;
-        margin-top:12px;
     }
-
-    .gold{ background:#F2B840; color:#06142E; }
-    .green{ background:#3CFF7E; color:#06142E; }
 
     .result{
         margin-top:15px;
         padding:12px;
-        background:rgba(255,255,255,0.15);
+        background:rgba(255,255,255,0.1);
         border-left:3px solid #F2B840;
         border-radius:10px;
     }
 
+    .signature{
+        text-align:center;
+        margin-top:10px;
+        opacity:.4;
+        font-size:12px;
+    }
+
+    /* LANG BTN */
     .lang-btn{
         position:fixed;
         bottom:20px;
         right:20px;
         background:#F2B840;
-        border:none;
         color:#06142E;
+        border:none;
         padding:12px 16px;
         border-radius:50px;
         cursor:pointer;
@@ -126,21 +127,22 @@
     <button onclick="history.back()">← Retour</button>
 </header>
 
-<div id="map">
-    <div class="signature">Powered by CIZA GROUP</div>
-</div>
+<div id="map"></div>
+
+<div class="signature">CIZA GROUP — Navigation</div>
 
 <div class="box">
-    <input id="depart" placeholder="Point de départ" data-fr="Point de départ" data-en="Pickup location">
-    <input id="arrivee" placeholder="Destination" data-fr="Destination" data-en="Destination">
+    <input id="depart" type="text" placeholder="Point de départ" data-fr="Point de départ" data-en="Pickup location">
+    <input id="arrivee" type="text" placeholder="Destination" data-fr="Destination" data-en="Destination">
 
-    <button class="btn gold" onclick="calculerDistance()" data-fr="Calculer la distance" data-en="Calculate Distance">
+    <button class="btn" onclick="calculerDistance()" 
+        data-fr="Calculer la distance" data-en="Calculate Distance">
         Calculer la distance
     </button>
 
     <div id="result" class="result" style="display:none;"></div>
 
-    <button class="btn green" onclick="continuerPaiement()" 
+    <button class="btn" style="margin-top:10px;background:#35ff85;" onclick="payer()" 
         data-fr="Continuer vers Paiement" data-en="Proceed to Payment">
         Continuer vers Paiement
     </button>
@@ -149,84 +151,83 @@
 <button class="lang-btn" onclick="switchLang()">FR</button>
 
 <script>
-// CARTE
+/* 🌍 MAP (OpenStreetMap — Aucun besoin de clé API) */
 var map = L.map('map').setView([-3.38, 29.38], 13);
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{
-    attribution:'© OpenStreetMap'
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
 }).addTo(map);
 
+/* MARQUEURS & TRAÇAGE */
 let markerDepart, markerArrivee, routeLayer;
 
-// GEOCODING
-async function geocode(txt){
-    const url=`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(txt)}`;
-    const r=await fetch(url);
-    const d=await r.json();
-    return d.length?[d[0].lat,d[0].lon]:null;
+/* GEOCODING (Adresse → Coordonnées) */
+async function geocode(adresse){
+    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(adresse)}`;
+    const data = await (await fetch(url)).json();
+    return data.length ? [data[0].lat, data[0].lon] : null;
 }
 
-// DISTANCE
+/* CALCUL DISTANCE + TRACÉ */
 async function calculerDistance(){
-    const depTxt=document.getElementById("depart").value;
-    const arrTxt=document.getElementById("arrivee").value;
-    if(!depTxt||!arrTxt){alert("Veuillez remplir les deux champs.");return;}
+    const depart = document.getElementById("depart").value;
+    const arrivee = document.getElementById("arrivee").value;
 
-    const dep=await geocode(depTxt);
-    const arr=await gecode(arrTxt);
+    if(!depart || !arrivee){
+        alert("Veuillez remplir les deux champs.");
+        return;
+    }
 
-    if(!dep||!arr){alert("Lieu introuvable.");return;}
+    const dep = await geocode(depart);
+    const arr = await geocode(arrivee);
+
+    if(!dep || !arr){
+        alert("Lieu introuvable.");
+        return;
+    }
 
     if(markerDepart) markerDepart.remove();
     if(markerArrivee) markerArrivee.remove();
     if(routeLayer) routeLayer.remove();
 
-    markerDepart=L.marker(dep).addTo(map);
-    markerArrivee=L.marker(arr).addTo(map);
+    markerDepart = L.marker(dep).addTo(map);
+    markerArrivee = L.marker(arr).addTo(map);
 
-    routeLayer=L.polyline([dep,arr],{color:"#F2B840",weight:5}).addTo(map);
+    routeLayer = L.polyline([dep, arr], {
+        color:"#F2B840",
+        weight:5,
+        opacity:0.9
+    }).addTo(map);
 
-    map.fitBounds(routeLayer.getBounds(),{padding:[30,30]});
+    map.fitBounds(routeLayer.getBounds(), {padding:[40,40]});
 
-    const R=6371;
-    const dLat=(arr[0]-dep[0])*Math.PI/180;
-    const dLon=(arr[1]-dep[1])*Math.PI/180;
+    const R = 6371;
+    const dLat = (arr[0]-dep[0]) * Math.PI/180;
+    const dLon = (arr[1]-dep[1]) * Math.PI/180;
 
-    const a = Math.sin(dLat/2)**2 +
-              Math.cos(dep[0]*Math.PI/180)*Math.cos(arr[0]*Math.PI/180) *
-              Math.sin(dLon/2)**2;
-
-    const c=2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
-    const dist=R*c;
-
-    // Prix interne automatique (SECRET)
-    window._distance = dist;
-    window._prixInterne = dist * 1200; // Exemple interne : 1200 BIF/km
+    const a = Math.sin(dLat/2)**2 + Math.cos(dep[0]*Math.PI/180)*Math.cos(arr[0]*Math.PI/180)*Math.sin(dLon/2)**2;
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    const distance = R * c;
 
     document.getElementById("result").style.display="block";
     document.getElementById("result").innerHTML =
-        `<b>Distance :</b> ${dist.toFixed(2)} km<br>
-         <b>Durée estimée :</b> ${(dist/35*60).toFixed(0)} min<br>
-         <i>Le montant sera affiché à l’étape de paiement</i>`;
+        `<b>Distance :</b> ${distance.toFixed(2)} km<br>
+         <b>Durée estimée :</b> ${(distance/35*60).toFixed(0)} min`;
 }
 
-// REDIRECTION
-function continuerPaiement(){
-    if(!window._distance){
-        alert("Veuillez calculer la distance d'abord.");
-        return;
-    }
-    localStorage.setItem("rideDistance", window._distance);
-    localStorage.setItem("ridePrice", window._prixInterne);
-    location.href="cizaride-pay.html";
+/* PAYEMENT */
+function payer(){
+    alert("Paiement : Lumicash, Ecocash, Visa, Mastercard (clé à ajouter)");
 }
 
-// LANG
+/* LANG */
 function switchLang(){
     const html=document.documentElement;
-    html.lang=html.lang==="fr"?"en":"fr";
-    document.querySelector(".lang-btn").innerHTML=html.lang==="fr"?"FR":"EN";
+    html.lang = html.lang === "fr" ? "en" : "fr";
+    document.querySelector(".lang-btn").innerHTML = html.lang === "fr" ? "FR" : "EN";
+
     document.querySelectorAll("[data-fr]").forEach(el=>{
-        el.innerHTML = (html.lang==="fr") ? el.dataset.fr : el.dataset.en;
+        el.innerHTML = html.lang==="fr" ? el.getAttribute("data-fr") : el.getAttribute("data-en");
     });
 }
 </script>
