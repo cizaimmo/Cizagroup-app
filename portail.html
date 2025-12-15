@@ -10,7 +10,7 @@
 
 html,body{
   margin:0;
-  height:100%;
+  min-height:100vh;
   font-family:system-ui, Arial;
   background:#06142E;
   color:white;
@@ -25,11 +25,18 @@ html,body{
   padding:30px 20px;
 }
 
+/* LOGO */
+.app-logo{
+  width:72px;
+  margin-bottom:14px;
+  filter:drop-shadow(0 0 10px rgba(242,184,64,.5));
+}
+
 .logo{
   font-size:34px;
   font-weight:800;
   color:#F2B840;
-  margin-bottom:10px;
+  margin-bottom:6px;
 }
 
 .subtitle{
@@ -38,23 +45,36 @@ html,body{
   margin-bottom:40px;
 }
 
+/* CARDS */
 .card{
   width:100%;
   max-width:420px;
   background:rgba(255,255,255,0.06);
-  border:2px solid #F2B840;
+  border:2px solid rgba(242,184,64,.6);
   border-radius:26px;
   padding:26px;
   margin-bottom:22px;
   text-align:center;
   cursor:pointer;
-  transition:.25s;
+  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
   box-shadow:0 12px 28px rgba(0,0,0,.35);
 }
 
 .card:hover{
   transform:scale(1.03);
   box-shadow:0 16px 36px rgba(242,184,64,.35);
+}
+
+.card:active{
+  transform:scale(0.97);
+}
+
+/* Dernier mode utilisé */
+.card.active{
+  border-color:#F2B840;
+  box-shadow:
+    0 0 0 2px rgba(242,184,64,.25),
+    0 18px 38px rgba(242,184,64,.35);
 }
 
 .icon{
@@ -74,40 +94,70 @@ html,body{
   margin-top:6px;
 }
 
+/* SIGNATURE */
 .signature{
   margin-top:40px;
   font-size:12px;
-  opacity:.6;
+  opacity:.65;
+  text-align:center;
 }
 
-.signature b{color:#F2B840}
+.signature b{
+  color:#F2B840;
+}
 </style>
 </head>
 
 <body>
 <div class="container">
 
+  <!-- Logo optionnel -->
+  <!-- <img src="logotransparent.png" class="app-logo" alt="CizaRide+"> -->
+
   <div class="logo">CizaRide+</div>
   <div class="subtitle">Choisissez votre mode</div>
 
   <!-- CLIENT -->
-  <div class="card" onclick="location.href='cizaride-map.html'">
-    <div class="icon">🚗</div>
+  <div class="card" id="clientCard" onclick="goClient()">
+    <div class="icon">🚘</div>
     <div class="title">Client</div>
-    <div class="desc">Commander une course, calculer le prix</div>
+    <div class="desc">Commander rapidement une course, prix instantané</div>
   </div>
 
   <!-- CHAUFFEUR -->
-  <div class="card" onclick="location.href='chauffeur.html'">
+  <div class="card" id="driverCard" onclick="goDriver()">
     <div class="icon">🚕</div>
     <div class="title">Chauffeur</div>
-    <div class="desc">Recevoir et accepter des courses</div>
+    <div class="desc">Recevoir des demandes et gagner de l’argent</div>
   </div>
 
+  <!-- SIGNATURE OBLIGATOIRE -->
   <div class="signature">
     Design signed by <b>CIZA GROUP</b>
   </div>
 
 </div>
+
+<script>
+/* Mémoire du dernier mode */
+const last = localStorage.getItem("cizaride_mode");
+if(last === "client"){
+  document.getElementById("clientCard").classList.add("active");
+}
+if(last === "driver"){
+  document.getElementById("driverCard").classList.add("active");
+}
+
+function goClient(){
+  localStorage.setItem("cizaride_mode","client");
+  window.location.href = "cizaride-map.html";
+}
+
+function goDriver(){
+  localStorage.setItem("cizaride_mode","driver");
+  window.location.href = "chauffeur.html";
+}
+</script>
+
 </body>
 </html>
