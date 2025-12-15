@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>CizaRide Royal</title>
+<link rel="icon" href="logotransparent.png">
+
+<style>
+body{
+    margin:0;
+    background:#06142E;
+    font-family:Arial, sans-serif;
+    color:white;
+}
+
+/* HEADER */
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 20px;
+    background:#071A36;
+    border-bottom:3px solid #F2B840;
+}
+header img{ width:55px; }
+header button{
+    background:#F2B840;
+    border:none;
+    padding:8px 15px;
+    font-weight:bold;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+/* HERO */
+.hero{
+    margin:25px 15px;
+    padding:25px;
+    border:2px solid #F2B840;
+    border-radius:18px;
+    background:rgba(255,255,255,0.05);
+    text-align:center;
+}
+.hero h1{ color:#F2B840; }
+.hero p{ opacity:.85; }
+
+/* FORM */
+.form-box{
+    width:90%;
+    margin:20px auto;
+    background:rgba(255,255,255,0.06);
+    padding:20px;
+    border-radius:14px;
+    border:1px solid #F2B840;
+}
+
+input, textarea{
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    border-radius:10px;
+    border:none;
+    background:#0B1C35;
+    color:white;
+}
+
+button.submit{
+    width:100%;
+    padding:12px;
+    margin-top:15px;
+    background:#F2B840;
+    border:none;
+    color:#06142E;
+    font-weight:bold;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:16px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <img src="logotransparent.png">
+    <button onclick="location.href='ride.html'">← Retour</button>
+</header>
+
+<div class="hero">
+    <h1>Service ROYAL 👑</h1>
+    <p>Niveau ultime — PDG, diplomates, personnalités publiques</p>
+</div>
+
+<div class="form-box">
+    <h3>Réserver Service Royal</h3>
+
+    <form action="https://formsubmit.co/infos@cizagroup.com" method="POST">
+
+        <input type="text" name="nom" placeholder="Votre nom complet" required>
+        <input type="text" name="telephone" placeholder="Numéro de téléphone" required>
+        <input type="text" name="depart" placeholder="Point de départ" required>
+        <input type="text" name="destination" placeholder="Destination" required>
+
+        <textarea name="note" placeholder="Notes supplémentaires (optionnel)" rows="4"></textarea>
+
+        <button class="submit" type="submit">Réserver maintenant</button>
+
+    </form>
+</div>
+
+</body>
+</html>
