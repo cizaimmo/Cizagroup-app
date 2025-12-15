@@ -96,10 +96,8 @@ button:disabled{
 
 <body>
 
-<!-- MAP (VISUEL SEULEMENT) -->
 <div id="map"></div>
 
-<!-- FORMULAIRE CLIENT -->
 <div id="sheet">
 
   <div class="field">
@@ -128,45 +126,76 @@ button:disabled{
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
-/* MAP VISUELLE */
+/* ---------------- MAP ---------------- */
 const map = L.map('map').setView([-3.3614, 29.3599], 12);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
   attribution:'© OpenStreetMap'
 }).addTo(map);
 
-/* CALCUL ESTIMATIF (MVP) */
-document.getElementById("calcBtn").onclick = ()=>{
-  const start = document.getElementById("startInput").value.trim();
-  const dest  = document.getElementById("destInput").value.trim();
+let routeLine = null;
+let startMarker = null;
+let endMarker = null;
 
-  if(!start || !dest){
+/* ---------------- GÉOCODAGE SIMPLE (QUARTIERS) ---------------- */
+function geocode(place){
+  return fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(place + ", Bujumbura")}`)
+    .then(r=>r.json())
+    .then(d=>{
+      if(!d.length) throw "Lieu introuvable";
+      return [parseFloat(d[0].lat), parseFloat(d[0].lon)];
+    });
+}
+
+/* ---------------- CALCUL + TRACÉ ---------------- */
+document.getElementById("calcBtn").onclick = async ()=>{
+  const startName = document.getElementById("startInput").value.trim();
+  const destName  = document.getElementById("destInput").value.trim();
+
+  if(!startName || !destName){
     alert("Veuillez entrer le départ et la destination");
     return;
   }
 
-  /* Estimation simple adaptée quartiers */
-  const km = Math.floor(Math.random()*5) + 3; // 3 à 7 km
-  const price = 2000 + km * 1000;
+  try{
+    const startPos = await geocode(startName);
+    const endPos   = await geocode(destName);
 
-  document.getElementById("distance").textContent =
-    "📏 Distance estimée : " + km + " km";
+    if(startMarker) map.removeLayer(startMarker);
+    if(endMarker) map.removeLayer(endMarker);
+    if(routeLine) map.removeLayer(routeLine);
 
-  document.getElementById("price").textContent =
-    "💰 Prix estimé : " + price.toLocaleString() + " BIF";
+    startMarker = L.marker(startPos).addTo(map).bindPopup("Départ");
+    endMarker   = L.marker(endPos).addTo(map).bindPopup("Destination");
 
-  document.getElementById("orderBtn").disabled = false;
+    const url = `https://router.project-osrm.org/route/v1/driving/${startPos[1]},${startPos[0]};${endPos[1]},${endPos[0]}?overview=full&geometries=geojson`;
+    const res = await fetch(url).then(r=>r.json());
+
+    const route = res.routes[0];
+    const km = (route.distance / 1000).toFixed(1);
+    const price = 2000 + km * 1000;
+
+    routeLine = L.geoJSON(route.geometry,{
+      style:{color:"#F2B840", weight:5}
+    }).addTo(map);
+
+    map.fitBounds(routeLine.getBounds(), {padding:[40,40]});
+
+    document.getElementById("distance").textContent =
+      "📏 Distance estimée : " + km + " km";
+
+    document.getElementById("price").textContent =
+      "💰 Prix estimé : " + price.toLocaleString() + " BIF";
+
+    document.getElementById("orderBtn").disabled = false;
+
+  }catch(e){
+    alert("Impossible de tracer le trajet");
+  }
 };
 
-/* COMMANDER */
+/* ---------------- COMMANDER ---------------- */
 document.getElementById("orderBtn").onclick = ()=>{
-  const start = document.getElementById("startInput").value;
-  const dest  = document.getElementById("destInput").value;
-
-  alert(
-    "🚕 Course envoyée\n\n" +
-    "Départ : " + start + "\n" +
-    "Destination : " + dest
-  );
+  alert("🚕 Course envoyée au chauffeur");
 };
 </script>
 
