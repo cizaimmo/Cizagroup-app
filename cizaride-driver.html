@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CizaRide+ Driver — Tableau de bord</title>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+<style>
+*{box-sizing:border-box}
+html,body{
+  margin:0;height:100%;
+  font-family:system-ui, Arial;
+  background:#06142E;
+  color:white;
+}
+#map{height:100%}
+
+/* Header */
+header{
+  position:fixed;
+  top:0;left:0;
+  width:100%;
+  padding:14px;
+  background:#0B1D3A;
+  z-index:1000;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.status{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.dot{
+  width:12px;height:12px;
+  border-radius:50%;
+  background:red;
+}
+
+.online{background:#00ff88}
+
+/* Ride card */
+#rideCard{
+  position:fixed;
+  bottom:12px;
+  left:50%;
+  transform:translateX(-50%);
+  width:94%;
+  background:#0B1D3A;
+  border-radius:22px;
+  padding:16px;
+  z-index:1000;
+  box-shadow:0 12px 30px rgba(0,0,0,.45);
+  display:none;
+}
+
+.row{
+  margin:6px 0;
+  font-size:15px;
+}
+
+.price{
+  color:#F2B840;
+  font-size:20px;
+  font-weight:bold;
+}
+
+.actions{
+  display:flex;
+  gap:10px;
+  margin-top:12px;
+}
+
+.actions button{
+  flex:1;
+  padding:14px;
+  border:none;
+  border-radius:25px;
+  font-size:15px;
+  font-weight:bold;
+}
+
+.accept{background:#00c853;color:#06142E}
+.refuse{background:#c62828;color:white}
+
+.signature{
+  text-align:center;
+  font-size:11px;
+  opacity:.6;
+  margin-top:10px;
+}
+.signature b{color:#F2B840}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div><b>CizaRide+</b> Driver</div>
+  <div class="status">
+    <div class="dot" id="statusDot"></div>
+    <span id="statusText">Hors ligne</span>
+    <button onclick="toggleStatus()">🔄</button>
+  </div>
+</header>
+
+<div id="map"></div>
+
+<!-- Course reçue -->
+<div id="rideCard">
+  <div class="row">📍 Départ : <span id="start"></span></div>
+  <div class="row">🎯 Destination : <span id="dest"></span></div>
+  <div class="row">📏 Distance : <span id="distance"></span></div>
+  <div class="price">💰 <span id="price"></span> BIF</div>
+
+  <div class="actions">
+    <button class="accept" onclick="acceptRide()">✅ Accepter</button>
+    <button class="refuse" onclick="refuseRide()">❌ Refuser</button>
+  </div>
+
+  <div class="signature">
+    Design signed by <b>CIZA GROUP</b>
+  </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+/* MAP */
+const map = L.map('map').setView([-3.3614, 29.3599], 12);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+  attribution:'© OpenStreetMap'
+}).addTo(map);
+
+/* STATUS */
+let online=false;
+function toggleStatus(){
+  online=!online;
+  document.getElementById("statusDot").classList.toggle("online", online);
+  document.getElementById("statusText").textContent =
+    online ? "En ligne" : "Hors ligne";
+
+  if(online){
+    simulateRide();
+  }else{
+    document.getElementById("rideCard").style.display="none";
+  }
+}
+
+/* SIMULATION COURSE (MVP) */
+function simulateRide(){
+  setTimeout(()=>{
+    if(!online) return;
+
+    document.getElementById("start").textContent="Kanyosha";
+    document.getElementById("dest").textContent="Rohero";
+    document.getElementById("distance").textContent="5.2 km";
+    document.getElementById("price").textContent="7 200";
+
+    document.getElementById("rideCard").style.display="block";
+  }, 2000);
+}
+
+/* ACTIONS */
+function acceptRide(){
+  alert("🚕 Course acceptée");
+  document.getElementById("rideCard").style.display="none";
+}
+
+function refuseRide(){
+  alert("❌ Course refusée");
+  document.getElementById("rideCard").style.display="none";
+}
+</script>
+
+</body>
+</html>
