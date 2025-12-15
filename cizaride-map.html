@@ -44,7 +44,7 @@ header span{font-weight:bold;font-size:18px;}
   inset:0;
 }
 
-/* PANEL */
+/* PANEL (ne bloque PAS la carte) */
 #panel{
   position:absolute;
   bottom:14px;
@@ -57,12 +57,26 @@ header span{font-weight:bold;font-size:18px;}
   border-radius:22px;
   z-index:1000;
   box-shadow:0 0 25px rgba(0,0,0,.45);
+
+  pointer-events:none; /* 🔑 la carte reste cliquable */
 }
 
-.line{font-size:14px;margin-bottom:6px;opacity:.9}
-.price{font-size:22px;color:#F2B840;font-weight:bold;margin:8px 0}
+.line{
+  font-size:14px;
+  margin-bottom:6px;
+  opacity:.9;
+}
 
-button{
+.price{
+  font-size:22px;
+  color:#F2B840;
+  font-weight:bold;
+  margin:8px 0;
+}
+
+/* Bouton cliquable */
+#panel button{
+  pointer-events:auto;
   width:100%;
   border:none;
   padding:16px;
@@ -73,7 +87,7 @@ button{
   font-weight:bold;
   cursor:pointer;
 }
-button:disabled{
+#panel button:disabled{
   background:#888;
   cursor:not-allowed;
 }
@@ -84,7 +98,7 @@ button:disabled{
 
 <header>
   <img src="logotransparent.png">
-  <span>Client — Commander une course</span>
+  <span>Client — Commander un trajet</span>
 </header>
 
 <div id="map"></div>
@@ -121,12 +135,18 @@ navigator.geolocation.getCurrentPosition(pos=>{
   alert("⚠️ Activez la géolocalisation");
 });
 
-/* DESTINATION */
+/* DESTINATION (clic carte) */
 map.on('click',e=>{
   endPos=[e.latlng.lat,e.latlng.lng];
+
   if(endMarker) map.removeLayer(endMarker);
   endMarker=L.marker(endPos).addTo(map)
-    .bindPopup("📍 Destination").openPopup();
+    .bindPopup("📍 Destination sélectionnée")
+    .openPopup();
+
+  document.getElementById("dest").textContent =
+    "📍 Destination : sélectionnée";
+
   calculateRoute();
 });
 
@@ -139,29 +159,33 @@ function calculateRoute(){
     ${endPos[1]},${endPos[0]}
     ?overview=full&geometries=geojson`;
 
-  fetch(url).then(r=>r.json()).then(data=>{
-    const r=data.routes[0];
-    const km=(r.distance/1000).toFixed(2);
-    const min=Math.ceil(r.duration/60);
+  fetch(url)
+    .then(r=>r.json())
+    .then(data=>{
+      const r=data.routes[0];
+      const km=(r.distance/1000).toFixed(2);
+      const min=Math.ceil(r.duration/60);
 
-    document.getElementById("distance").textContent=`📏 Distance : ${km} km`;
-    document.getElementById("time").textContent=`⏱ Durée estimée : ${min} min`;
+      document.getElementById("distance").textContent =
+        `📏 Distance : ${km} km`;
+      document.getElementById("time").textContent =
+        `⏱ Durée estimée : ${min} min`;
 
-    /* TARIF BURUNDI (modifiable) */
-    const base=2000;      // BIF
-    const perKm=1000;     // BIF/km
-    const price=Math.round(base + km*perKm);
+      /* TARIF BURUNDI (modifiable) */
+      const base=2000;   // BIF
+      const perKm=1000;  // BIF/km
+      const price=Math.round(base + km*perKm);
 
-    document.getElementById("price").textContent=
-      `💰 Prix : ${price.toLocaleString()} BIF`;
+      document.getElementById("price").textContent =
+        `💰 Prix : ${price.toLocaleString()} BIF`;
 
-    document.getElementById("order").disabled=false;
+      document.getElementById("order").disabled=false;
 
-    if(routeLine) map.removeLayer(routeLine);
-    routeLine=L.geoJSON(r.geometry,{
-      style:{color:'#F2B840',weight:5}
-    }).addTo(map);
-  });
+      if(routeLine) map.removeLayer(routeLine);
+      routeLine=L.geoJSON(r.geometry,{
+        style:{color:'#F2B840',weight:5}
+      }).addTo(map);
+    });
 }
 
 /* COMMANDER */
