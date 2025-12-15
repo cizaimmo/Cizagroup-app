@@ -6,89 +6,43 @@
 <title>CizaRide+ Driver — Tableau de bord</title>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-
 <style>
 *{box-sizing:border-box}
-html,body{
-  margin:0;height:100%;
-  font-family:system-ui, Arial;
-  background:#06142E;
-  color:white;
-}
+html,body{margin:0;height:100%;font-family:system-ui,Arial;background:#06142E;color:white}
 #map{height:100%}
 
 /* Header */
 header{
-  position:fixed;
-  top:0;left:0;
-  width:100%;
-  padding:14px;
-  background:#0B1D3A;
-  z-index:1000;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+  position:fixed;top:0;left:0;width:100%;
+  padding:14px;background:#0B1D3A;z-index:1000;
+  display:flex;justify-content:space-between;align-items:center
 }
-
-.status{
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
-
-.dot{
-  width:12px;height:12px;
-  border-radius:50%;
-  background:red;
-}
+.status{display:flex;align-items:center;gap:8px}
+.dot{width:12px;height:12px;border-radius:50%;background:red}
 .online{background:#00ff88}
 
-/* Ride card */
+/* Card */
 #rideCard{
-  position:fixed;
-  bottom:12px;
-  left:50%;
-  transform:translateX(-50%);
-  width:94%;
-  background:#0B1D3A;
-  border-radius:22px;
-  padding:16px;
-  z-index:1000;
-  box-shadow:0 12px 30px rgba(0,0,0,.45);
-  display:none;
+  position:fixed;bottom:12px;left:50%;transform:translateX(-50%);
+  width:94%;background:#0B1D3A;border-radius:22px;
+  padding:16px;z-index:1000;display:none;
+  box-shadow:0 12px 30px rgba(0,0,0,.45)
 }
-
 .row{margin:6px 0;font-size:15px}
-.price{color:#F2B840;font-size:20px;font-weight:bold}
-
-.actions{
-  display:flex;
-  gap:10px;
-  margin-top:12px;
-}
+.price{color:#F2B840;font-size:20px;font-weight:800}
+.actions{display:flex;gap:10px;margin-top:12px}
 .actions button{
-  flex:1;
-  padding:14px;
-  border:none;
-  border-radius:25px;
-  font-size:15px;
-  font-weight:bold;
+  flex:1;padding:14px;border:none;border-radius:25px;
+  font-size:15px;font-weight:800
 }
 .accept{background:#00c853;color:#06142E}
 .refuse{background:#c62828;color:white}
-
-.signature{
-  text-align:center;
-  font-size:11px;
-  opacity:.6;
-  margin-top:10px;
-}
+.signature{text-align:center;font-size:11px;opacity:.6;margin-top:10px}
 .signature b{color:#F2B840}
 </style>
 </head>
 
 <body>
-
 <header>
   <div><b>CizaRide+</b> Driver</div>
   <div class="status">
@@ -105,43 +59,27 @@ header{
   <div class="row">🎯 Destination : <span id="dest"></span></div>
   <div class="row">📏 Distance : <span id="distance"></span></div>
   <div class="price">💰 <span id="price"></span> BIF</div>
-
   <div class="actions">
     <button class="accept" onclick="acceptRide()">✅ Accepter</button>
     <button class="refuse" onclick="refuseRide()">❌ Refuser</button>
   </div>
-
-  <div class="signature">
-    Design signed by <b>CIZA GROUP</b>
-  </div>
+  <div class="signature">Design signed by <b>CIZA GROUP</b></div>
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
 <script>
 /* MAP */
-const map = L.map('map').setView([-3.3614, 29.3599], 12);
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-  attribution:'© OpenStreetMap'
-}).addTo(map);
+const map=L.map('map').setView([-3.3614,29.3599],12);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap'}).addTo(map);
 
-let online=false;
-let routeLine=null;
-let startMarker=null;
-let endMarker=null;
+let online=false, routeLine=null, startMarker=null, endMarker=null;
 
-/* STATUS */
 function toggleStatus(){
   online=!online;
-  document.getElementById("statusDot").classList.toggle("online", online);
-  document.getElementById("statusText").textContent =
-    online ? "En ligne" : "Hors ligne";
-
-  if(online) simulateRide();
-  else resetRide();
+  document.getElementById("statusDot").classList.toggle("online",online);
+  document.getElementById("statusText").textContent=online?"En ligne":"Hors ligne";
+  if(online) simulateRide(); else resetRide();
 }
-
-/* RESET */
 function resetRide(){
   document.getElementById("rideCard").style.display="none";
   if(routeLine) map.removeLayer(routeLine);
@@ -149,64 +87,40 @@ function resetRide(){
   if(endMarker) map.removeLayer(endMarker);
 }
 
-/* GÉOCODAGE */
+/* Geocode + Route */
 function geocode(place){
-  return fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(place + ", Bujumbura")}`)
-    .then(r=>r.json())
-    .then(d=>{
+  return fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(place+", Bujumbura")}`)
+    .then(r=>r.json()).then(d=>{
       if(!d.length) throw "Lieu introuvable";
-      return [parseFloat(d[0].lat), parseFloat(d[0].lon)];
+      return [parseFloat(d[0].lat),parseFloat(d[0].lon)];
     });
 }
-
-/* SIMULATION COURSE */
 async function simulateRide(){
   setTimeout(async ()=>{
     if(!online) return;
-
-    const startName="Kanyosha";
-    const destName="Rohero";
-
+    const startName="Kanyosha", destName="Rohero";
     document.getElementById("start").textContent=startName;
     document.getElementById("dest").textContent=destName;
-    document.getElementById("distance").textContent="5.2 km";
-    document.getElementById("price").textContent="7 200";
-
+    document.getElementById("distance").textContent="—";
+    document.getElementById("price").textContent="—";
     document.getElementById("rideCard").style.display="block";
-
     try{
-      const startPos = await geocode(startName);
-      const endPos   = await geocode(destName);
-
-      startMarker=L.marker(startPos).addTo(map).bindPopup("Départ");
-      endMarker=L.marker(endPos).addTo(map).bindPopup("Destination");
-
-      const url=`https://router.project-osrm.org/route/v1/driving/${startPos[1]},${startPos[0]};${endPos[1]},${endPos[0]}?overview=full&geometries=geojson`;
+      const s=await geocode(startName), e=await geocode(destName);
+      startMarker=L.marker(s).addTo(map);
+      endMarker=L.marker(e).addTo(map);
+      const url=`https://router.project-osrm.org/route/v1/driving/${s[1]},${s[0]};${e[1]},${e[0]}?overview=full&geometries=geojson`;
       const res=await fetch(url).then(r=>r.json());
-      const route=res.routes[0];
-
-      routeLine=L.geoJSON(route.geometry,{
-        style:{color:"#00ff88",weight:5}
-      }).addTo(map);
-
+      const r0=res.routes[0];
+      routeLine=L.geoJSON(r0.geometry,{style:{color:"#00ff88",weight:5}}).addTo(map);
       map.fitBounds(routeLine.getBounds(),{padding:[40,40]});
-
-    }catch(e){
-      alert("Erreur de tracé du trajet");
-    }
-
-  },2000);
+      const km=(r0.distance/1000).toFixed(1);
+      document.getElementById("distance").textContent=km+" km";
+      document.getElementById("price").textContent=(2000+km*1000).toLocaleString();
+    }catch(e){ alert("Erreur de tracé"); }
+  },1200);
 }
-
-/* ACTIONS */
-function acceptRide(){
-  alert("🚕 Course acceptée");
-}
-function refuseRide(){
-  alert("❌ Course refusée");
-  resetRide();
-}
+function acceptRide(){ alert("🚕 Course acceptée"); }
+function refuseRide(){ alert("❌ Course refusée"); resetRide(); }
 </script>
-
 </body>
 </html>
