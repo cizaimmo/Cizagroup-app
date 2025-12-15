@@ -41,7 +41,6 @@ header{
   border-radius:50%;
   background:red;
 }
-
 .online{background:#00ff88}
 
 /* Ride card */
@@ -59,23 +58,14 @@ header{
   display:none;
 }
 
-.row{
-  margin:6px 0;
-  font-size:15px;
-}
-
-.price{
-  color:#F2B840;
-  font-size:20px;
-  font-weight:bold;
-}
+.row{margin:6px 0;font-size:15px}
+.price{color:#F2B840;font-size:20px;font-weight:bold}
 
 .actions{
   display:flex;
   gap:10px;
   margin-top:12px;
 }
-
 .actions button{
   flex:1;
   padding:14px;
@@ -84,7 +74,6 @@ header{
   font-size:15px;
   font-weight:bold;
 }
-
 .accept{background:#00c853;color:#06142E}
 .refuse{background:#c62828;color:white}
 
@@ -111,7 +100,6 @@ header{
 
 <div id="map"></div>
 
-<!-- Course reçue -->
 <div id="rideCard">
   <div class="row">📍 Départ : <span id="start"></span></div>
   <div class="row">🎯 Destination : <span id="dest"></span></div>
@@ -137,44 +125,86 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
   attribution:'© OpenStreetMap'
 }).addTo(map);
 
-/* STATUS */
 let online=false;
+let routeLine=null;
+let startMarker=null;
+let endMarker=null;
+
+/* STATUS */
 function toggleStatus(){
   online=!online;
   document.getElementById("statusDot").classList.toggle("online", online);
   document.getElementById("statusText").textContent =
     online ? "En ligne" : "Hors ligne";
 
-  if(online){
-    simulateRide();
-  }else{
-    document.getElementById("rideCard").style.display="none";
-  }
+  if(online) simulateRide();
+  else resetRide();
 }
 
-/* SIMULATION COURSE (MVP) */
-function simulateRide(){
-  setTimeout(()=>{
+/* RESET */
+function resetRide(){
+  document.getElementById("rideCard").style.display="none";
+  if(routeLine) map.removeLayer(routeLine);
+  if(startMarker) map.removeLayer(startMarker);
+  if(endMarker) map.removeLayer(endMarker);
+}
+
+/* GÉOCODAGE */
+function geocode(place){
+  return fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(place + ", Bujumbura")}`)
+    .then(r=>r.json())
+    .then(d=>{
+      if(!d.length) throw "Lieu introuvable";
+      return [parseFloat(d[0].lat), parseFloat(d[0].lon)];
+    });
+}
+
+/* SIMULATION COURSE */
+async function simulateRide(){
+  setTimeout(async ()=>{
     if(!online) return;
 
-    document.getElementById("start").textContent="Kanyosha";
-    document.getElementById("dest").textContent="Rohero";
+    const startName="Kanyosha";
+    const destName="Rohero";
+
+    document.getElementById("start").textContent=startName;
+    document.getElementById("dest").textContent=destName;
     document.getElementById("distance").textContent="5.2 km";
     document.getElementById("price").textContent="7 200";
 
     document.getElementById("rideCard").style.display="block";
-  }, 2000);
+
+    try{
+      const startPos = await geocode(startName);
+      const endPos   = await geocode(destName);
+
+      startMarker=L.marker(startPos).addTo(map).bindPopup("Départ");
+      endMarker=L.marker(endPos).addTo(map).bindPopup("Destination");
+
+      const url=`https://router.project-osrm.org/route/v1/driving/${startPos[1]},${startPos[0]};${endPos[1]},${endPos[0]}?overview=full&geometries=geojson`;
+      const res=await fetch(url).then(r=>r.json());
+      const route=res.routes[0];
+
+      routeLine=L.geoJSON(route.geometry,{
+        style:{color:"#00ff88",weight:5}
+      }).addTo(map);
+
+      map.fitBounds(routeLine.getBounds(),{padding:[40,40]});
+
+    }catch(e){
+      alert("Erreur de tracé du trajet");
+    }
+
+  },2000);
 }
 
 /* ACTIONS */
 function acceptRide(){
   alert("🚕 Course acceptée");
-  document.getElementById("rideCard").style.display="none";
 }
-
 function refuseRide(){
   alert("❌ Course refusée");
-  document.getElementById("rideCard").style.display="none";
+  resetRide();
 }
 </script>
 
