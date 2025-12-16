@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CizaRide+ — Commander une course</title>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
@@ -17,51 +17,60 @@ html,body{
   color:white;
 }
 
-/* MAP */
+/* ===============================
+   MAP
+================================ */
 #map{
   position:absolute;
   inset:0;
   z-index:1;
 }
 
-/* PANEL */
-.panel{
+/* ===============================
+   FLOATING ACTIONS (RETOUR / REFRESH)
+================================ */
+.fab-bar{
   position:fixed;
-  bottom:0;
-  left:0;
-  width:100%;
-  background:#0B1D3A;
-  border-radius:26px 26px 0 0;
-  padding:14px 18px 18px;
-  box-shadow:0 -12px 30px rgba(0,0,0,.5);
-  z-index:1000;
-}
-
-/* BARRE ACTIONS DANS PANEL */
-.panel-actions{
+  bottom:140px; /* AU-DESSUS du panel */
+  left:50%;
+  transform:translateX(-50%);
   display:flex;
-  justify-content:space-between;
-  margin-bottom:10px;
+  gap:14px;
+  z-index:2000;
 }
 
-.action-btn{
-  width:38px;
-  height:38px;
+.fab{
+  width:46px;
+  height:46px;
   border-radius:50%;
   background:#06142E;
   border:2px solid #F2B840;
   color:#F2B840;
-  font-size:18px;
+  font-size:20px;
   display:flex;
   align-items:center;
   justify-content:center;
   cursor:pointer;
+  box-shadow:0 8px 20px rgba(0,0,0,.45);
+}
+.fab:active{ transform:scale(.95); }
+
+/* ===============================
+   PANEL CLIENT
+================================ */
+.panel{
+  position:fixed;
+  bottom:0;left:0;
+  width:100%;
+  background:#0B1D3A;
+  border-radius:26px 26px 0 0;
+  padding:18px;
+  box-shadow:0 -12px 30px rgba(0,0,0,.5);
+  z-index:1000;
 }
 
-.action-btn:active{transform:scale(.92)}
-
 .panel h3{
-  margin:6px 0 12px;
+  margin:0 0 12px;
   color:#F2B840;
   text-align:center;
 }
@@ -110,20 +119,20 @@ button{
 
 <div id="map"></div>
 
+<!-- 🔙 🔄 BOUTONS FLOTTANTS -->
+<div class="fab-bar">
+  <div class="fab" onclick="goBack()">←</div>
+  <div class="fab" onclick="refreshPage()">⟳</div>
+</div>
+
+<!-- PANEL -->
 <div class="panel">
-
-  <!-- ✅ BOUTONS TOUJOURS VISIBLES -->
-  <div class="panel-actions">
-    <div class="action-btn" onclick="goBack()">←</div>
-    <div class="action-btn" onclick="refreshPage()">⟳</div>
-  </div>
-
   <h3>🚗 Commander une course</h3>
 
-  <input id="from" class="input" placeholder="Départ (ex : Kanyosha)">
+  <input id="from" class="input" placeholder="Départ (ex : Bwiza)">
   <input id="to" class="input" placeholder="Destination (ex : Rohero)">
 
-  <button class="calc" id="calcBtn">Calculer le prix</button>
+  <button class="calc" onclick="calculate()">Calculer le prix</button>
 
   <div class="result" id="result"></div>
 
@@ -139,50 +148,66 @@ button{
 <!-- LEAFLET -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-<script>
-/* NAVIGATION */
-function goBack(){ location.href="portail.html"; }
-function refreshPage(){ location.reload(); }
-</script>
+<!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
 <script>
+const firebaseConfig = {
+  apiKey: "REMPLACE_ICI",
+  authDomain: "REMPLACE_ICI.firebaseapp.com",
+  projectId: "REMPLACE_ICI",
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+/* RETOUR / REFRESH */
+function goBack(){
+  window.location.href = "portail.html";
+}
+function refreshPage(){
+  location.reload();
+}
+
 /* MAP */
-const map=L.map('map',{center:[-3.3822,29.3644],zoom:14});
-L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png').addTo(map);
+const map = L.map('map',{center:[-3.3822,29.3644],zoom:14});
+L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',{maxZoom:19}).addTo(map);
 
 let routeLine;
 
-/* GEOCODING */
-async function geocode(p){
-  const r=await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(p+', Bujumbura, Burundi')}`);
-  const d=await r.json();
+async function geocode(place){
+  const r = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${place}, Bujumbura`);
+  const d = await r.json();
   if(!d.length) throw 0;
   return [d[0].lat,d[0].lon];
 }
 
-/* CALCUL */
-calcBtn.onclick=async()=>{
-  if(!from.value||!to.value) return alert("Remplis les champs");
-  result.innerHTML="⏳ Calcul du prix…";
-  calcBtn.disabled=true;
+async function calculate(){
+  const from=fromInput.value.trim();
+  const to=toInput.value.trim();
+  if(!from||!to) return alert("Remplissez les champs");
 
-  try{
-    const s=await geocode(from.value);
-    const e=await geocode(to.value);
-    const res=await fetch(`https://router.project-osrm.org/route/v1/driving/${s[1]},${s[0]};${e[1]},${e[0]}?overview=full&geometries=geojson`).then(r=>r.json());
-    if(routeLine) map.removeLayer(routeLine);
-    routeLine=L.geoJSON(res.routes[0].geometry,{style:{color:"#F2B840",weight:5}}).addTo(map);
-    map.fitBounds(routeLine.getBounds(),{padding:[40,40]});
-    const km=(res.routes[0].distance/1000).toFixed(1);
-    const price=2000+km*1000;
-    result.innerHTML=`📏 ${km} km<br>💰 <b>${price.toLocaleString()} BIF</b>`;
-    orderBtn.style.display="block";
-  }catch{
-    alert("Erreur de calcul");
-    result.innerHTML="";
-  }finally{
-    calcBtn.disabled=false;
-  }
+  const s=await geocode(from);
+  const e=await geocode(to);
+
+  const res=await fetch(`https://router.project-osrm.org/route/v1/driving/${s[1]},${s[0]};${e[1]},${e[0]}?overview=full&geometries=geojson`).then(r=>r.json());
+  const r0=res.routes[0];
+
+  if(routeLine) map.removeLayer(routeLine);
+  routeLine=L.geoJSON(r0.geometry,{style:{color:"#F2B840",weight:5}}).addTo(map);
+  map.fitBounds(routeLine.getBounds(),{padding:[30,30]});
+
+  const km=(r0.distance/1000).toFixed(1);
+  const price=Math.round(2000+km*1000);
+  window._ride={from,to,km,price};
+
+  result.innerHTML=`📏 ${km} km<br>💰 <b>${price.toLocaleString()} BIF</b>`;
+  orderBtn.style.display="block";
+}
+
+orderBtn.onclick=async()=>{
+  await db.collection("rides").add({...window._ride,status:"waiting",createdAt:firebase.firestore.FieldValue.serverTimestamp()});
+  result.innerHTML="🚕 Recherche d’un chauffeur…";
 };
 </script>
 
