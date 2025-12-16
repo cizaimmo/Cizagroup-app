@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CizaRide+ — Commander une course</title>
+<title>CizaRide+ — Test Réel</title>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
@@ -21,98 +21,99 @@ html,body{
 #map{
   position:absolute;
   inset:0;
-  z-index:1;
 }
 
-/* 🔙 🔄 BOUTONS — POSITION FIXE EN HAUT */
-.fab-bar{
+/* BOUTONS HAUT */
+.top-actions{
   position:fixed;
-  top:14px;
-  left:14px;
+  top:12px;
+  left:12px;
   display:flex;
   gap:10px;
-  z-index:5000;
+  z-index:9999;
 }
-
-.fab{
-  width:40px;
-  height:40px;
+.action-btn{
+  width:42px;
+  height:42px;
   border-radius:50%;
-  background:#06142E;
   border:2px solid #F2B840;
+  background:#06142E;
   color:#F2B840;
   font-size:18px;
   display:flex;
   align-items:center;
   justify-content:center;
   cursor:pointer;
-  box-shadow:0 6px 16px rgba(0,0,0,.5);
 }
 
 /* PANEL */
 .panel{
   position:fixed;
-  bottom:0;left:0;
+  bottom:0;
+  left:0;
   width:100%;
   background:#0B1D3A;
-  border-radius:26px 26px 0 0;
-  padding:18px;
-  z-index:2000;
+  border-radius:24px 24px 0 0;
+  padding:16px;
+  z-index:5000;
 }
 
 .panel h3{
-  margin:0 0 12px;
+  margin:0 0 10px;
   color:#F2B840;
   text-align:center;
 }
 
-.input{
+input{
   width:100%;
   padding:14px;
   margin-bottom:10px;
-  border-radius:18px;
-  border:1px solid rgba(255,255,255,.15);
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.2);
   background:#06142E;
   color:white;
 }
 
 button{
   width:100%;
-  padding:16px;
+  padding:15px;
   border:none;
-  border-radius:26px;
+  border-radius:20px;
   font-weight:800;
+  font-size:15px;
   cursor:pointer;
 }
 
-.calc{background:#F2B840;color:#06142E}
-.order{background:#00ff88;color:#06142E;margin-top:8px}
+.calc{
+  background:#F2B840;
+  color:#06142E;
+}
 
 /* LOADING */
 .loading{
   pointer-events:none;
   position:relative;
+  color:transparent;
 }
 .loading::after{
   content:"";
-  width:22px;height:22px;
-  border:3px solid rgba(6,20,46,.25);
+  width:22px;
+  height:22px;
+  border:3px solid rgba(6,20,46,.3);
   border-top:3px solid #06142E;
   border-radius:50%;
   position:absolute;
-  top:50%;left:50%;
+  top:50%;
+  left:50%;
   transform:translate(-50%,-50%);
   animation:spin .8s linear infinite;
 }
 @keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
 
-.signature{
+#result{
+  margin-top:10px;
   text-align:center;
-  font-size:11px;
-  opacity:.6;
-  margin-top:8px;
 }
-.signature b{color:#F2B840}
 </style>
 </head>
 
@@ -120,65 +121,83 @@ button{
 
 <div id="map"></div>
 
-<!-- 🔙 🔄 TOUJOURS VISIBLES -->
-<div class="fab-bar">
-  <div class="fab" onclick="location.href='portail.html'">←</div>
-  <div class="fab" onclick="location.reload()">⟳</div>
+<!-- ACTIONS -->
+<div class="top-actions">
+  <div class="action-btn" onclick="location.href='portail.html'">←</div>
+  <div class="action-btn" onclick="location.reload()">⟳</div>
 </div>
 
+<!-- PANEL -->
 <div class="panel">
   <h3>🚗 Commander une course</h3>
 
-  <input id="from" class="input" placeholder="Départ (ex : Bwiza)">
-  <input id="to" class="input" placeholder="Destination (ex : Rohero)">
+  <input id="from" placeholder="Départ (ex : Bwiza)">
+  <input id="to" placeholder="Destination (ex : Rohero)">
 
-  <button class="calc" id="calcBtn" onclick="calculate()">Calculer le prix</button>
+  <button id="calcBtn" class="calc" onclick="calculate()">Calculer le prix</button>
+
   <div id="result"></div>
-
-  <button class="order" id="orderBtn" style="display:none">🚕 Commander</button>
-
-  <div class="signature">
-    Design signed by <b>CIZA GROUP</b>
-  </div>
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
-const map=L.map("map",{center:[-3.3822,29.3644],zoom:14});
-L.tileLayer("https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png").addTo(map);
+/* MAP */
+const map = L.map("map",{center:[-3.3822,29.3644],zoom:14});
+L.tileLayer("https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png",{maxZoom:19}).addTo(map);
 let routeLine;
 
-async function geocode(p){
-  const r=await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${p}, Bujumbura`);
-  const d=await r.json(); if(!d.length) throw 0;
-  return [d[0].lat,d[0].lon];
+/* GEOCODE */
+async function geocode(place){
+  const r = await fetch(
+    "https://nominatim.openstreetmap.org/search?format=json&q=" +
+    encodeURIComponent(place + ", Bujumbura, Burundi")
+  );
+  const d = await r.json();
+  if(!d.length) throw "Lieu introuvable";
+  return [parseFloat(d[0].lat), parseFloat(d[0].lon)];
 }
 
+/* CALCUL */
 async function calculate(){
-  const btn=document.getElementById("calcBtn");
-  const from=document.getElementById("from").value.trim();
-  const to=document.getElementById("to").value.trim();
-  if(!from||!to) return alert("Remplissez les champs");
+  const btn = document.getElementById("calcBtn");
+  const from = document.getElementById("from").value.trim();
+  const to = document.getElementById("to").value.trim();
+
+  if(!from || !to){
+    alert("Entre le départ et la destination");
+    return;
+  }
 
   btn.classList.add("loading");
-  btn.textContent="Calcul…";
 
-  const s=await geocode(from), e=await geocode(to);
-  const r=await fetch(`https://router.project-osrm.org/route/v1/driving/${s[1]},${s[0]};${e[1]},${e[0]}?overview=full&geometries=geojson`).then(r=>r.json());
-  const r0=r.routes[0];
+  try{
+    const s = await geocode(from);
+    const e = await geocode(to);
 
-  if(routeLine) map.removeLayer(routeLine);
-  routeLine=L.geoJSON(r0.geometry,{style:{color:"#F2B840",weight:5}}).addTo(map);
-  map.fitBounds(routeLine.getBounds(),{padding:[30,30]});
+    const res = await fetch(
+      `https://router.project-osrm.org/route/v1/driving/${s[1]},${s[0]};${e[1]},${e[0]}?overview=full&geometries=geojson`
+    ).then(r=>r.json());
 
-  const km=(r0.distance/1000).toFixed(1);
-  const price=Math.round(2000+km*1000);
-  document.getElementById("result").innerHTML=`📏 ${km} km<br>💰 <b>${price} BIF</b>`;
-  document.getElementById("orderBtn").style.display="block";
+    const route = res.routes[0];
+
+    if(routeLine) map.removeLayer(routeLine);
+    routeLine = L.geoJSON(route.geometry,{
+      style:{color:"#F2B840",weight:5}
+    }).addTo(map);
+
+    map.fitBounds(routeLine.getBounds(),{padding:[30,30]});
+
+    const km = (route.distance/1000).toFixed(1);
+    const price = Math.round(2000 + km*1000);
+
+    document.getElementById("result").innerHTML =
+      `📏 ${km} km<br>💰 <b>${price.toLocaleString()} BIF</b>`;
+  }catch(e){
+    alert("Erreur de calcul");
+  }
 
   btn.classList.remove("loading");
-  btn.textContent="Calculer le prix";
 }
 </script>
 
