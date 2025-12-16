@@ -25,6 +25,34 @@ header{
   border-bottom:2px solid #F2B840;
 }
 
+/* 🔙 BOUTON RETOUR */
+.back-btn{
+  position:absolute;
+  left:14px;
+  top:50%;
+  transform:translateY(-50%);
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  background:#06142E;
+  border:2px solid #F2B840;
+  color:#F2B840;
+  font-size:20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  box-shadow:0 0 12px rgba(242,184,64,.35);
+}
+.back-btn:active{
+  transform:translateY(-50%) scale(.95);
+}
+
+.header-title{
+  margin-left:56px;
+  font-weight:bold;
+}
+
 .status{
   display:flex;
   align-items:center;
@@ -94,7 +122,11 @@ button{
 <body>
 
 <header>
-  <strong>🚕 CizaRide+ Driver</strong>
+  <!-- 🔙 RETOUR PORTAIL -->
+  <div class="back-btn" onclick="goBack()">←</div>
+
+  <div class="header-title">🚕 CizaRide+ Driver</div>
+
   <div class="status" id="statusBox">
     <div class="dot"></div>
     <span id="statusText">Hors ligne</span>
@@ -127,6 +159,11 @@ const db = firebase.firestore();
 </script>
 
 <script>
+/* 🔙 RETOUR PORTAIL */
+function goBack(){
+  window.location.href = "portail.html";
+}
+
 /* ===============================
    MODE EN LIGNE / HORS LIGNE
 ================================ */
