@@ -17,34 +17,51 @@ html,body{
   color:white;
 }
 
-/* ===============================
-   MAP
-================================ */
+/* MAP */
 #map{
   position:absolute;
-  top:0;
-  left:0;
-  right:0;
-  bottom:0;
+  inset:0;
   z-index:1;
 }
 
-/* ===============================
-   PANEL CLIENT
-================================ */
+/* PANEL */
 .panel{
   position:fixed;
-  bottom:0;left:0;
+  bottom:0;
+  left:0;
   width:100%;
   background:#0B1D3A;
   border-radius:26px 26px 0 0;
-  padding:18px;
+  padding:14px 18px 18px;
   box-shadow:0 -12px 30px rgba(0,0,0,.5);
   z-index:1000;
 }
 
+/* BARRE ACTIONS DANS PANEL */
+.panel-actions{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:10px;
+}
+
+.action-btn{
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  background:#06142E;
+  border:2px solid #F2B840;
+  color:#F2B840;
+  font-size:18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+}
+
+.action-btn:active{transform:scale(.92)}
+
 .panel h3{
-  margin:0 0 12px;
+  margin:6px 0 12px;
   color:#F2B840;
   text-align:center;
 }
@@ -79,41 +96,6 @@ button{
   text-align:center;
 }
 
-/* ===============================
-   BOUTONS BAS (RETOUR / REFRESH)
-================================ */
-.bottom-actions{
-  position:fixed;
-  bottom:150px;
-  left:50%;
-  transform:translateX(-50%);
-  display:flex;
-  gap:14px;
-  z-index:2000;
-}
-
-.bottom-btn{
-  width:44px;
-  height:44px;
-  border-radius:50%;
-  background:#06142E;
-  border:2px solid #F2B840;
-  color:#F2B840;
-  font-size:18px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-  box-shadow:0 0 12px rgba(242,184,64,.35);
-}
-
-.bottom-btn:active{
-  transform:scale(.92);
-}
-
-/* ===============================
-   SIGNATURE
-================================ */
 .signature{
   text-align:center;
   font-size:11px;
@@ -128,13 +110,14 @@ button{
 
 <div id="map"></div>
 
-<!-- ACTIONS BAS -->
-<div class="bottom-actions">
-  <div class="bottom-btn" onclick="goBack()">←</div>
-  <div class="bottom-btn" onclick="refreshPage()">⟳</div>
-</div>
-
 <div class="panel">
+
+  <!-- ✅ BOUTONS TOUJOURS VISIBLES -->
+  <div class="panel-actions">
+    <div class="action-btn" onclick="goBack()">←</div>
+    <div class="action-btn" onclick="refreshPage()">⟳</div>
+  </div>
+
   <h3>🚗 Commander une course</h3>
 
   <input id="from" class="input" placeholder="Départ (ex : Kanyosha)">
@@ -156,115 +139,50 @@ button{
 <!-- LEAFLET -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-<!-- FIREBASE -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-
 <script>
-/* 🔥 CONFIG FIREBASE */
-const firebaseConfig = {
-  apiKey: "REMPLACE_ICI",
-  authDomain: "REMPLACE_ICI.firebaseapp.com",
-  projectId: "REMPLACE_ICI"
-};
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-
 /* NAVIGATION */
-function goBack(){
-  window.location.href = "portail.html";
-}
-function refreshPage(){
-  window.location.reload();
-}
+function goBack(){ location.href="portail.html"; }
+function refreshPage(){ location.reload(); }
 </script>
 
 <script>
-/* ===============================
-   MAP — BUJUMBURA
-================================ */
-const map = L.map('map',{center:[-3.3822,29.3644],zoom:14});
-L.tileLayer(
-  'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
-  {attribution:'© OpenStreetMap'}
-).addTo(map);
+/* MAP */
+const map=L.map('map',{center:[-3.3822,29.3644],zoom:14});
+L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png').addTo(map);
 
 let routeLine;
 
-/* ===============================
-   GEOCODING
-================================ */
-async function geocode(place){
-  const r = await fetch(
-    `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(place+', Bujumbura, Burundi')}`
-  );
-  const d = await r.json();
-  if(!d.length) throw "Lieu introuvable";
-  return [parseFloat(d[0].lat), parseFloat(d[0].lon)];
+/* GEOCODING */
+async function geocode(p){
+  const r=await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(p+', Bujumbura, Burundi')}`);
+  const d=await r.json();
+  if(!d.length) throw 0;
+  return [d[0].lat,d[0].lon];
 }
 
-/* ===============================
-   CALCUL RAPIDE + FEEDBACK
-================================ */
-document.getElementById("calcBtn").onclick = async ()=>{
-  const from = fromInput.value.trim();
-  const to = toInput.value.trim();
-  const resultBox = document.getElementById("result");
-  const btn = document.getElementById("calcBtn");
-
-  if(!from || !to){
-    alert("Veuillez entrer le départ et la destination");
-    return;
-  }
-
-  resultBox.innerHTML = "⏳ Calcul du prix…";
-  btn.disabled = true;
-  btn.style.opacity = ".7";
+/* CALCUL */
+calcBtn.onclick=async()=>{
+  if(!from.value||!to.value) return alert("Remplis les champs");
+  result.innerHTML="⏳ Calcul du prix…";
+  calcBtn.disabled=true;
 
   try{
-    const s = await geocode(from);
-    const e = await geocode(to);
-
-    const res = await fetch(
-      `https://router.project-osrm.org/route/v1/driving/${s[1]},${s[0]};${e[1]},${e[0]}?overview=full&geometries=geojson`
-    ).then(r=>r.json());
-
-    const r0 = res.routes[0];
+    const s=await geocode(from.value);
+    const e=await geocode(to.value);
+    const res=await fetch(`https://router.project-osrm.org/route/v1/driving/${s[1]},${s[0]};${e[1]},${e[0]}?overview=full&geometries=geojson`).then(r=>r.json());
     if(routeLine) map.removeLayer(routeLine);
-
-    routeLine = L.geoJSON(r0.geometry,{
-      style:{color:"#F2B840",weight:5}
-    }).addTo(map);
-
+    routeLine=L.geoJSON(res.routes[0].geometry,{style:{color:"#F2B840",weight:5}}).addTo(map);
     map.fitBounds(routeLine.getBounds(),{padding:[40,40]});
-
-    const km = (r0.distance/1000).toFixed(1);
-    const price = Math.round(2000 + km*1000);
-
-    window._rideData = {from,to,km,price};
-
-    resultBox.innerHTML = `📏 ${km} km<br>💰 <b>${price.toLocaleString()} BIF</b>`;
-    orderBtn.style.display = "block";
-
+    const km=(res.routes[0].distance/1000).toFixed(1);
+    const price=2000+km*1000;
+    result.innerHTML=`📏 ${km} km<br>💰 <b>${price.toLocaleString()} BIF</b>`;
+    orderBtn.style.display="block";
   }catch{
-    resultBox.innerHTML = "";
-    alert("Erreur de calcul. Essayez un autre quartier.");
+    alert("Erreur de calcul");
+    result.innerHTML="";
   }finally{
-    btn.disabled = false;
-    btn.style.opacity = "1";
+    calcBtn.disabled=false;
   }
-};
-
-/* ===============================
-   COMMANDE
-================================ */
-orderBtn.onclick = async ()=>{
-  await db.collection("rides").add({
-    ...window._rideData,
-    status:"waiting",
-    createdAt:firebase.firestore.FieldValue.serverTimestamp()
-  });
-  result.innerHTML = "🚕 Recherche d’un chauffeur…";
 };
 </script>
 
