@@ -17,47 +17,39 @@ html,body{
   color:white;
 }
 
-/* ===============================
-   MAP
-================================ */
+/* MAP */
 #map{
   position:absolute;
   inset:0;
   z-index:1;
 }
 
-/* ===============================
-   FLOATING BUTTONS
-================================ */
+/* 🔙 🔄 BOUTONS — POSITION FIXE EN HAUT */
 .fab-bar{
   position:fixed;
-  bottom:140px;
-  left:50%;
-  transform:translateX(-50%);
+  top:14px;
+  left:14px;
   display:flex;
-  gap:14px;
-  z-index:3000;
+  gap:10px;
+  z-index:5000;
 }
 
 .fab{
-  width:46px;
-  height:46px;
+  width:40px;
+  height:40px;
   border-radius:50%;
   background:#06142E;
   border:2px solid #F2B840;
   color:#F2B840;
-  font-size:20px;
+  font-size:18px;
   display:flex;
   align-items:center;
   justify-content:center;
   cursor:pointer;
-  box-shadow:0 8px 20px rgba(0,0,0,.45);
+  box-shadow:0 6px 16px rgba(0,0,0,.5);
 }
-.fab:active{transform:scale(.95)}
 
-/* ===============================
-   PANEL
-================================ */
+/* PANEL */
 .panel{
   position:fixed;
   bottom:0;left:0;
@@ -65,7 +57,6 @@ html,body{
   background:#0B1D3A;
   border-radius:26px 26px 0 0;
   padding:18px;
-  box-shadow:0 -12px 30px rgba(0,0,0,.5);
   z-index:2000;
 }
 
@@ -76,14 +67,13 @@ html,body{
 }
 
 .input{
-  background:#06142E;
-  border:1px solid rgba(255,255,255,.15);
-  border-radius:18px;
+  width:100%;
   padding:14px;
   margin-bottom:10px;
+  border-radius:18px;
+  border:1px solid rgba(255,255,255,.15);
+  background:#06142E;
   color:white;
-  font-size:15px;
-  width:100%;
 }
 
 button{
@@ -91,53 +81,30 @@ button{
   padding:16px;
   border:none;
   border-radius:26px;
-  font-size:16px;
   font-weight:800;
   cursor:pointer;
 }
 
-/* ===============================
-   BUTTON STATES
-================================ */
 .calc{background:#F2B840;color:#06142E}
 .order{background:#00ff88;color:#06142E;margin-top:8px}
 
+/* LOADING */
 .loading{
   pointer-events:none;
   position:relative;
-  opacity:.85;
 }
 .loading::after{
   content:"";
-  width:22px;
-  height:22px;
+  width:22px;height:22px;
   border:3px solid rgba(6,20,46,.25);
   border-top:3px solid #06142E;
   border-radius:50%;
   position:absolute;
-  top:50%;
-  left:50%;
+  top:50%;left:50%;
   transform:translate(-50%,-50%);
   animation:spin .8s linear infinite;
 }
-
 @keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
-
-/* ===============================
-   SEARCH DRIVER
-================================ */
-.searching{
-  margin-top:10px;
-  text-align:center;
-  font-size:14px;
-  color:#F2B840;
-  animation:pulse 1.4s infinite;
-}
-@keyframes pulse{
-  0%{opacity:.4}
-  50%{opacity:1}
-  100%{opacity:.4}
-}
 
 .signature{
   text-align:center;
@@ -153,13 +120,12 @@ button{
 
 <div id="map"></div>
 
-<!-- 🔙 🔄 -->
+<!-- 🔙 🔄 TOUJOURS VISIBLES -->
 <div class="fab-bar">
   <div class="fab" onclick="location.href='portail.html'">←</div>
   <div class="fab" onclick="location.reload()">⟳</div>
 </div>
 
-<!-- PANEL -->
 <div class="panel">
   <h3>🚗 Commander une course</h3>
 
@@ -167,92 +133,53 @@ button{
   <input id="to" class="input" placeholder="Destination (ex : Rohero)">
 
   <button class="calc" id="calcBtn" onclick="calculate()">Calculer le prix</button>
+  <div id="result"></div>
 
-  <div id="result" class="result"></div>
-
-  <button class="order" id="orderBtn" style="display:none">
-    🚕 Commander la course
-  </button>
-
-  <div id="searching" class="searching" style="display:none">
-    🔍 Recherche d’un chauffeur…
-  </div>
+  <button class="order" id="orderBtn" style="display:none">🚕 Commander</button>
 
   <div class="signature">
     Design signed by <b>CIZA GROUP</b>
   </div>
 </div>
 
-<!-- LEAFLET -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-<!-- FIREBASE -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-
 <script>
-const firebaseConfig = {
-  apiKey:"REMPLACE_ICI",
-  authDomain:"REMPLACE_ICI.firebaseapp.com",
-  projectId:"REMPLACE_ICI"
-};
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-
-/* MAP */
 const map=L.map("map",{center:[-3.3822,29.3644],zoom:14});
-L.tileLayer("https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png",{maxZoom:19}).addTo(map);
+L.tileLayer("https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png").addTo(map);
 let routeLine;
 
-/* GEO */
 async function geocode(p){
   const r=await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${p}, Bujumbura`);
   const d=await r.json(); if(!d.length) throw 0;
   return [d[0].lat,d[0].lon];
 }
 
-/* CALCUL */
 async function calculate(){
   const btn=document.getElementById("calcBtn");
-  const from=fromInput.value.trim();
-  const to=toInput.value.trim();
+  const from=document.getElementById("from").value.trim();
+  const to=document.getElementById("to").value.trim();
   if(!from||!to) return alert("Remplissez les champs");
 
   btn.classList.add("loading");
-  btn.textContent="Calcul en cours…";
+  btn.textContent="Calcul…";
 
-  try{
-    const s=await geocode(from), e=await geocode(to);
-    const r=await fetch(`https://router.project-osrm.org/route/v1/driving/${s[1]},${s[0]};${e[1]},${e[0]}?overview=full&geometries=geojson`).then(r=>r.json());
-    const r0=r.routes[0];
+  const s=await geocode(from), e=await geocode(to);
+  const r=await fetch(`https://router.project-osrm.org/route/v1/driving/${s[1]},${s[0]};${e[1]},${e[0]}?overview=full&geometries=geojson`).then(r=>r.json());
+  const r0=r.routes[0];
 
-    if(routeLine) map.removeLayer(routeLine);
-    routeLine=L.geoJSON(r0.geometry,{style:{color:"#F2B840",weight:5}}).addTo(map);
-    map.fitBounds(routeLine.getBounds(),{padding:[30,30]});
+  if(routeLine) map.removeLayer(routeLine);
+  routeLine=L.geoJSON(r0.geometry,{style:{color:"#F2B840",weight:5}}).addTo(map);
+  map.fitBounds(routeLine.getBounds(),{padding:[30,30]});
 
-    const km=(r0.distance/1000).toFixed(1);
-    const price=Math.round(2000+km*1000);
-    window._ride={from,to,km,price};
-
-    result.innerHTML=`📏 ${km} km<br>💰 <b>${price.toLocaleString()} BIF</b>`;
-    orderBtn.style.display="block";
-  }catch{
-    alert("Erreur localisation");
-  }
+  const km=(r0.distance/1000).toFixed(1);
+  const price=Math.round(2000+km*1000);
+  document.getElementById("result").innerHTML=`📏 ${km} km<br>💰 <b>${price} BIF</b>`;
+  document.getElementById("orderBtn").style.display="block";
 
   btn.classList.remove("loading");
   btn.textContent="Calculer le prix";
 }
-
-/* COMMANDE */
-orderBtn.onclick=async()=>{
-  searching.style.display="block";
-  await db.collection("rides").add({
-    ...window._ride,
-    status:"waiting",
-    createdAt:firebase.firestore.FieldValue.serverTimestamp()
-  });
-};
 </script>
 
 </body>
