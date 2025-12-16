@@ -13,7 +13,7 @@ body{
     color:white;
 }
 
-/* LANG SWITCH */
+/* LANG */
 #lang-switch{
     position:fixed;
     top:15px;
@@ -131,13 +131,7 @@ body{
     max-width:900px;
     margin:auto;
 }
-h2{
-    color:#F2B840;
-    font-size:26px;
-    margin-bottom:20px;
-}
-h3{
-    margin-top:0;
+h2,h3{
     color:#F2B840;
 }
 p{
@@ -147,7 +141,6 @@ p{
 .card{
     background:rgba(255,255,255,0.06);
     border:1px solid rgba(255,255,255,0.12);
-    backdrop-filter:blur(6px);
     padding:25px;
     border-radius:16px;
     margin-bottom:20px;
@@ -160,7 +153,7 @@ p{
     padding:30px;
     border-radius:16px;
 }
-input, textarea{
+input,textarea{
     width:100%;
     margin-top:12px;
     padding:12px;
@@ -169,7 +162,7 @@ input, textarea{
     background:#0B1C34;
     color:white;
 }
-textarea{height:120px;resize:none}
+textarea{height:120px}
 .submit-btn{
     margin-top:15px;
     background:#F2B840;
@@ -179,11 +172,6 @@ textarea{height:120px;resize:none}
     width:100%;
     border-radius:12px;
     font-weight:bold;
-}
-.consent{
-    font-size:13px;
-    margin-top:10px;
-    opacity:.8;
 }
 
 /* SIGNATURE */
@@ -216,73 +204,39 @@ textarea{height:120px;resize:none}
 
 <!-- CONTENT -->
 <section class="section">
+<h2 data-fr="Investissements & Partenariats Stratégiques"
+    data-en="Strategic Investments & Partnerships"></h2>
 
-<h2 data-t-fr="Investissements & Partenariats Stratégiques"
-    data-t-en="Strategic Investments & Partnerships"></h2>
-
-<p data-t-fr="CIZA GROUP accompagne la diaspora, les investisseurs et les entreprises dans des projets structurés et sécurisés : co-investissement, partenariats, études, et développement stratégique."
-   data-t-en="CIZA GROUP supports the diaspora, investors and companies across structured and secured projects: co-investment, partnerships, due diligence and strategic development."></p>
+<p data-fr="CIZA GROUP accompagne la diaspora, les investisseurs et les entreprises dans des projets structurés et sécurisés."
+   data-en="CIZA GROUP supports the diaspora, investors and companies across structured and secured projects."></p>
 
 <div class="card">
-<h3 data-t-fr="Types d’Investissements"
-    data-t-en="Types of Investments"></h3>
-
-<p data-t-fr="• Immobilier premium  
-• Co-investissement diaspora  
-• Projets d’expansion  
-• Startups & innovation  
-• Agriculture & industrie  
-• Partenariats publics et privés"
-   data-t-en="• Premium real estate  
-• Diaspora co-investment  
-• Expansion projects  
-• Startups & innovation  
-• Agriculture & industry  
-• Public–private partnerships"></p>
+<h3 data-fr="Types d’Investissements" data-en="Types of Investments"></h3>
+<p data-fr="Immobilier premium • Co-investissement diaspora • Projets d’expansion • Startups • Agriculture • Partenariats publics-privés"
+   data-en="Premium real estate • Diaspora co-investment • Expansion projects • Startups • Agriculture • Public-private partnerships"></p>
 </div>
 
 <div class="card">
-<h3 data-t-fr="Processus & Méthodologie"
-    data-t-en="Investment Process"></h3>
-
-<p data-t-fr="1) Analyse stratégique  
-2) Étude détaillée + due diligence  
-3) Plan financier et projection  
-4) Validation opérationnelle  
-5) Suivi, reporting et transparence complète"
-   data-t-en="1) Strategic analysis  
-2) Detailed study + due diligence  
-3) Financial planning and projection  
-4) Operational validation  
-5) Follow-up, reporting & full transparency"></p>
+<h3 data-fr="Processus & Méthodologie" data-en="Investment Process"></h3>
+<p data-fr="Analyse stratégique • Étude & due diligence • Plan financier • Validation opérationnelle • Suivi & transparence"
+   data-en="Strategic analysis • Due diligence • Financial planning • Operational validation • Follow-up & transparency"></p>
 </div>
-
 </section>
 
 <!-- FORM -->
 <section class="section">
 <div class="form-box" id="form">
-
-<h2 data-t-fr="Contact Business+ Investissements"
-    data-t-en="Business+ Investment Contact"></h2>
+<h2 data-fr="Contact Business+ Investissements"
+    data-en="Business+ Investment Contact"></h2>
 
 <form action="https://formsubmit.co/business@cizagroup.com" method="POST">
 <input type="hidden" name="_captcha" value="false">
-
-<input type="text" name="nom" placeholder="Nom complet" required>
-<input type="email" name="email" placeholder="Email" required>
-<input type="text" name="telephone" placeholder="Téléphone (optionnel)">
-<textarea name="message" placeholder="Votre message" required></textarea>
-
-<label class="consent">
-<input type="checkbox" required>
-<span data-t-fr="J’accepte la politique de confidentialité."
-      data-t-en="I accept the privacy policy."></span>
-</label>
-
-<button class="submit-btn" data-t-fr="Envoyer" data-t-en="Send">Envoyer</button>
+<input type="text" placeholder="Nom complet" required>
+<input type="email" placeholder="Email" required>
+<input type="text" placeholder="Téléphone (optionnel)">
+<textarea placeholder="Votre message" required></textarea>
+<button class="submit-btn">Envoyer</button>
 </form>
-
 </div>
 </section>
 
@@ -299,8 +253,8 @@ fr:"Investissements & Partenariats Stratégiques",
 en:"Strategic Investments & Partnerships"
 },
 hero-sub:{
-fr:"Des opportunités structurées, sécurisées et adaptées à la diaspora et aux investisseurs internationaux.",
-en:"Structured, secured and high-value opportunities for the diaspora and global investors."
+fr:"Des opportunités structurées et sécurisées pour la diaspora et les investisseurs.",
+en:"Structured and secured opportunities for diaspora and investors."
 },
 contact-btn:{
 fr:"Parler à un conseiller",
@@ -308,19 +262,19 @@ en:"Talk to an advisor"
 }
 };
 
-function updateText(){
+function update(){
 for(const k in texts){
 document.getElementById(k).textContent=texts[k][lang];
 }
-document.querySelectorAll("[data-t-fr]").forEach(el=>{
-el.textContent=lang==="fr"?el.dataset.tFr:el.dataset.tEn;
+document.querySelectorAll("[data-fr]").forEach(el=>{
+el.textContent=lang==="fr"?el.dataset.fr:el.dataset.en;
 });
 }
 
 document.getElementById("lang-switch").onclick=()=>{
 lang=lang==="fr"?"en":"fr";
 document.getElementById("lang-switch").textContent=lang==="fr"?"FR":"EN";
-updateText();
+update();
 };
 
 document.getElementById("contact-btn").onclick=()=>{
@@ -328,11 +282,10 @@ document.getElementById("form").scrollIntoView({behavior:"smooth"});
 };
 
 window.addEventListener("scroll",()=>{
-document.getElementById("scrollTop").style.display=
-window.scrollY>400?"flex":"none";
+document.getElementById("scrollTop").style.display=window.scrollY>400?"flex":"none";
 });
 
-updateText();
+update();
 </script>
 
 </body>
