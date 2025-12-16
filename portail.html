@@ -25,6 +25,29 @@ html,body{
   padding:30px 20px;
 }
 
+/* 🔙 BOUTON RETOUR */
+.back-btn{
+  position:fixed;
+  top:18px;
+  left:18px;
+  z-index:5000;
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  background:rgba(6,20,46,0.95);
+  border:2px solid #F2B840;
+  color:#F2B840;
+  font-size:22px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  box-shadow:0 0 14px rgba(242,184,64,.35);
+}
+.back-btn:active{
+  transform:scale(.95);
+}
+
 /* LOGO */
 .app-logo{
   width:72px;
@@ -109,6 +132,10 @@ html,body{
 </head>
 
 <body>
+
+<!-- 🔙 BOUTON RETOUR -->
+<div class="back-btn" onclick="goBack()">←</div>
+
 <div class="container">
 
   <!-- Logo optionnel -->
@@ -156,6 +183,11 @@ function goClient(){
 function goDriver(){
   localStorage.setItem("cizaride_mode","driver");
   window.location.href = "chauffeur.html";
+}
+
+/* 🔙 RETOUR INDEX */
+function goBack(){
+  window.location.href = "index.html";
 }
 </script>
 
