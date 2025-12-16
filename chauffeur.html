@@ -5,148 +5,191 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CizaRide+ Driver</title>
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-
 <style>
 *{box-sizing:border-box}
-html,body{margin:0;height:100%;font-family:system-ui,Arial;background:#06142E;color:white}
+body{
+  margin:0;
+  font-family:system-ui, Arial;
+  background:#06142E;
+  color:white;
+}
 
-/* HEADER */
 header{
-  position:fixed;top:0;left:0;width:100%;
-  height:56px;z-index:1001;
+  position:sticky;
+  top:0;
   background:#0B1D3A;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 14px;border-bottom:1px solid rgba(242,184,64,.4);
-}
-header .brand{font-weight:800;color:#F2B840}
-header .status{font-size:13px}
-header .offline{color:#ff4d4d}
-header .online{color:#00ff88}
-
-/* MAP */
-#map{position:absolute;top:56px;bottom:0;width:100%}
-
-/* CONTROLS */
-#centerBtn{
-  position:fixed;bottom:90px;right:18px;
-  width:48px;height:48px;border-radius:50%;
-  border:none;background:#06142E;color:#F2B840;
-  font-size:22px;box-shadow:0 0 12px rgba(0,0,0,.4);
-  z-index:1000;cursor:pointer;
+  padding:16px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:2px solid #F2B840;
 }
 
-/* INFO BAR */
-#info{
-  position:fixed;top:60px;left:10px;z-index:1000;
-  background:rgba(6,20,46,.9);
-  border:1px solid rgba(242,184,64,.4);
-  border-radius:12px;padding:8px 10px;
-  font-size:12px;
+.status{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:14px;
+}
+.dot{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:red;
+}
+.online .dot{background:#00ff88}
+
+.container{
+  padding:16px;
 }
 
-/* ZOOM STYLE */
-.leaflet-control-zoom a{
-  background:rgba(6,20,46,.9);
+.card{
+  background:#0B1D3A;
+  border:2px solid #F2B840;
+  border-radius:18px;
+  padding:16px;
+  margin-bottom:14px;
+  box-shadow:0 0 15px rgba(242,184,64,.25);
+}
+
+.card h3{
+  margin:0 0 6px;
   color:#F2B840;
-  border:1px solid rgba(242,184,64,.6);
 }
+
+.card p{
+  margin:4px 0;
+  font-size:14px;
+}
+
+.actions{
+  display:flex;
+  gap:10px;
+  margin-top:10px;
+}
+
+button{
+  flex:1;
+  padding:14px;
+  border:none;
+  border-radius:18px;
+  font-size:15px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.accept{background:#00ff88;color:#06142E}
+.refuse{background:#ff5555;color:white}
+
+.signature{
+  text-align:center;
+  font-size:11px;
+  opacity:.6;
+  margin:18px 0;
+}
+.signature b{color:#F2B840}
 </style>
 </head>
 
 <body>
 
 <header>
-  <div class="brand">CizaRide+ Driver</div>
-  <div class="status offline" id="onlineStatus">● Hors ligne</div>
+  <strong>🚕 CizaRide+ Driver</strong>
+  <div class="status" id="statusBox">
+    <div class="dot"></div>
+    <span id="statusText">Hors ligne</span>
+  </div>
 </header>
 
-<div id="info">
-  <div id="gpsStatus">🟡 GPS…</div>
-  <div id="zone">📍 Zone : --</div>
+<div class="container" id="rides">
+  <p style="opacity:.6;text-align:center">
+    Aucune course pour l’instant
+  </p>
 </div>
 
-<div id="map"></div>
+<div class="signature">
+  Design signed by <b>CIZA GROUP</b>
+</div>
 
-<button id="centerBtn">📍</button>
+<!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+/* 🔥 CONFIG FIREBASE — UTILISE LA MÊME QUE LE CLIENT */
+const firebaseConfig = {
+  apiKey: "REMPLACE_ICI",
+  authDomain: "REMPLACE_ICI.firebaseapp.com",
+  projectId: "REMPLACE_ICI",
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+</script>
 
 <script>
 /* ===============================
-   MAP – BURUNDI (BUJUMBURA)
+   MODE EN LIGNE / HORS LIGNE
 ================================ */
-const map = L.map('map', {
-  center: [-3.3822, 29.3644],
-  zoom: 13,
-  zoomControl:false,
-  minZoom:12,
-  maxZoom:18,
-  scrollWheelZoom:false
-});
+let online = false;
+const statusBox = document.getElementById("statusBox");
+const statusText = document.getElementById("statusText");
 
-L.tileLayer(
-  'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
-  { attribution:'© OpenStreetMap', maxZoom:19 }
-).addTo(map);
-
-L.control.zoom({position:'bottomright'}).addTo(map);
-
-map.setMaxBounds([
-  [-4.5, 28.8],
-  [-2.3, 30.9]
-]);
-
-/* ===============================
-   GPS + MARKER
-================================ */
-let driverMarker;
-
-navigator.geolocation.watchPosition(
-  pos=>{
-    document.getElementById("gpsStatus").innerText="🟢 GPS OK";
-    document.getElementById("onlineStatus").innerHTML="● En ligne";
-    document.getElementById("onlineStatus").className="status online";
-
-    const lat=pos.coords.latitude;
-    const lng=pos.coords.longitude;
-
-    if(!driverMarker){
-      driverMarker=L.marker([lat,lng]).addTo(map);
-      map.setView([lat,lng],14);
-    }else{
-      driverMarker.setLatLng([lat,lng]);
-    }
-    updateZone(lat,lng);
-  },
-  ()=>{
-    document.getElementById("gpsStatus").innerText="🔴 GPS faible";
-  },
-  {enableHighAccuracy:true}
-);
-
-/* ===============================
-   RECENTER BUTTON
-================================ */
-document.getElementById("centerBtn").onclick=()=>{
-  if(driverMarker){
-    map.setView(driverMarker.getLatLng(),15);
-  }
+statusBox.onclick = ()=>{
+  online = !online;
+  statusBox.classList.toggle("online", online);
+  statusText.textContent = online ? "En ligne" : "Hors ligne";
 };
 
 /* ===============================
-   ZONE (QUARTIER)
+   ÉCOUTE DES COURSES (TEMPS RÉEL)
 ================================ */
-async function updateZone(lat,lng){
-  try{
-    const r=await fetch(
-      `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`
-    );
-    const d=await r.json();
-    document.getElementById("zone").innerText=
-      "📍 Zone : "+(d.address.suburb||d.address.city||"Bujumbura");
-  }catch{}
-}
+const ridesBox = document.getElementById("rides");
+
+db.collection("rides")
+  .where("status","==","waiting")
+  .onSnapshot(snapshot=>{
+    ridesBox.innerHTML = "";
+
+    if(snapshot.empty){
+      ridesBox.innerHTML =
+        "<p style='opacity:.6;text-align:center'>Aucune course disponible</p>";
+      return;
+    }
+
+    snapshot.forEach(doc=>{
+      const r = doc.data();
+      const card = document.createElement("div");
+      card.className = "card";
+
+      card.innerHTML = `
+        <h3>📍 Nouvelle course</h3>
+        <p><b>Départ :</b> ${r.from}</p>
+        <p><b>Destination :</b> ${r.to}</p>
+        <p><b>Distance :</b> ${r.km} km</p>
+        <p><b>Prix :</b> ${r.price.toLocaleString()} BIF</p>
+
+        <div class="actions">
+          <button class="accept">Accepter</button>
+          <button class="refuse">Refuser</button>
+        </div>
+      `;
+
+      card.querySelector(".accept").onclick = ()=>{
+        db.collection("rides").doc(doc.id).update({
+          status:"accepted",
+          driverId:"driver_demo"
+        });
+      };
+
+      card.querySelector(".refuse").onclick = ()=>{
+        db.collection("rides").doc(doc.id).update({
+          status:"refused"
+        });
+      };
+
+      ridesBox.appendChild(card);
+    });
+  });
 </script>
 
 </body>
