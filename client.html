@@ -12,6 +12,29 @@
 html,body{margin:0;height:100%;font-family:system-ui, Arial;background:#06142E;color:white}
 #map{height:100%;width:100%}
 
+/* 🔙 BOUTON RETOUR */
+.back-btn{
+  position:fixed;
+  top:16px;
+  left:16px;
+  z-index:3000;
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  background:#06142E;
+  border:2px solid #F2B840;
+  color:#F2B840;
+  font-size:22px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  box-shadow:0 0 14px rgba(242,184,64,.35);
+}
+.back-btn:active{
+  transform:scale(.95);
+}
+
 /* PANEL CLIENT */
 .panel{
   position:fixed;
@@ -72,6 +95,9 @@ button{
 
 <body>
 
+<!-- 🔙 RETOUR PORTAIL -->
+<div class="back-btn" onclick="goBack()">←</div>
+
 <div id="map"></div>
 
 <div class="panel">
@@ -112,6 +138,11 @@ const db = firebase.firestore();
 </script>
 
 <script>
+/* 🔙 RETOUR PORTAIL */
+function goBack(){
+  window.location.href = "portail.html";
+}
+
 /* ===============================
    MAP — BURUNDI (BUJUMBURA)
 ================================ */
