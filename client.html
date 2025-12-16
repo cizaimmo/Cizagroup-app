@@ -94,35 +94,47 @@ button{
   </div>
 </div>
 
+<!-- LEAFLET -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<!-- 🔥 FIREBASE (AJOUT) -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script>
+const firebaseConfig = {
+  apiKey: "TA_API_KEY",
+  authDomain: "TON_PROJET.firebaseapp.com",
+  projectId: "TON_PROJECT_ID"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+</script>
 
 <script>
 /* ===============================
    MAP — BURUNDI (BUJUMBURA)
 ================================ */
 const map = L.map('map', {
-  center: [-3.3822, 29.3644], // Centre réel de Bujumbura
+  center: [-3.3822, 29.3644],
   zoom: 14,
   minZoom: 12,
   maxZoom: 18
 });
 
-/* Style plus lisible pour l’Afrique */
 L.tileLayer(
   'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
   { attribution:'© OpenStreetMap', maxZoom:19 }
 ).addTo(map);
 
-/* Limiter la navigation au Burundi */
 map.setMaxBounds([
-  [-4.5, 28.8], // Sud-Ouest Burundi
-  [-2.3, 30.9]  // Nord-Est Burundi
+  [-4.5, 28.8],
+  [-2.3, 30.9]
 ]);
 
 let routeLine;
 
 /* ===============================
-   GEOCODING LOCAL (BURUNDI)
+   GEOCODING
 ================================ */
 async function geocode(place){
   const r = await fetch(
@@ -166,6 +178,10 @@ async function calculate(){
     const km = (r0.distance/1000).toFixed(1);
     const price = 2000 + km*1000;
 
+    /* 🔑 STOCKAGE POUR FIREBASE */
+    window._lastKm = km;
+    window._lastPrice = price;
+
     document.getElementById("result").innerHTML =
       `📏 ${km} km<br>💰 <b>${price.toLocaleString()} BIF</b>`;
 
@@ -174,6 +190,33 @@ async function calculate(){
     alert("Erreur de localisation. Essayez un quartier de Bujumbura.");
   }
 }
+
+/* ===============================
+   COMMANDE RÉELLE (FIRESTORE)
+================================ */
+let currentRideId = null;
+
+document.getElementById("orderBtn").onclick = async ()=>{
+  try{
+    const doc = await db.collection("rides").add({
+      from: document.getElementById("from").value,
+      to: document.getElementById("to").value,
+      distance: window._lastKm,
+      price: window._lastPrice,
+      status: "waiting",
+      driverId: null,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+
+    currentRideId = doc.id;
+
+    document.getElementById("result").innerHTML =
+      "🚕 Recherche d’un chauffeur…";
+
+  }catch(e){
+    alert("Erreur lors de la commande");
+  }
+};
 </script>
 
 </body>
