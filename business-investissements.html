@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CIZA BUSINESS+ — Investissements & Partenariats</title>
+
+<style>
+body{
+    margin:0;
+    background:#06142E;
+    font-family:Arial, sans-serif;
+    color:white;
+}
+
+/* LANG SWITCH */
+#lang-switch{
+    position:fixed;
+    top:15px;
+    right:15px;
+    background:#F2B840;
+    padding:10px 14px;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:bold;
+    color:#06142E;
+    z-index:9999;
+}
+
+/* 🔙 BOUTON RETOUR */
+#back-btn{
+    position:fixed;
+    top:15px;
+    left:15px;
+    width:44px;
+    height:44px;
+    border-radius:50%;
+    background:#06142E;
+    border:2px solid #F2B840;
+    color:#F2B840;
+    font-size:20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    z-index:9999;
+}
+
+/* ⬆️ SCROLL TOP */
+#scrollTop{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    width:44px;
+    height:44px;
+    border-radius:50%;
+    background:#F2B840;
+    color:#06142E;
+    font-size:20px;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    z-index:9999;
+}
+
+/* HERO */
+.hero{
+    padding:80px 20px;
+    text-align:center;
+    max-width:900px;
+    margin:auto;
+    position:relative;
+}
+.hero-bg{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(135deg,#0B1C34,#06142E,#0d2142);
+    opacity:0.35;
+    filter:blur(38px);
+    z-index:-1;
+}
+.hero-card{
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.12);
+    backdrop-filter:blur(9px);
+    padding:60px 25px;
+    border-radius:24px;
+    box-shadow:0 0 45px rgba(0,0,0,0.4);
+}
+.hero-logo{
+    width:160px;
+    height:160px;
+    margin:auto;
+    background:url('logotransparent.png') center/contain no-repeat;
+    animation:floatLogo 4s infinite ease-in-out;
+}
+@keyframes floatLogo{
+    0%{transform:translateY(0);}
+    50%{transform:translateY(-12px);}
+    100%{transform:translateY(0);}
+}
+.hero-title{
+    font-size:32px;
+    margin-top:20px;
+    color:#F2B840;
+    font-weight:bold;
+}
+.hero-sub{
+    font-size:18px;
+    margin-top:10px;
+    max-width:700px;
+    margin:auto;
+    opacity:.9;
+}
+.hero-btn{
+    margin-top:25px;
+    background:#F2B840;
+    color:#06142E;
+    padding:14px 25px;
+    border:none;
+    border-radius:12px;
+    font-size:16px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+/* SECTIONS */
+.section{
+    padding:40px 20px;
+    max-width:900px;
+    margin:auto;
+}
+h2{color:#F2B840;font-size:26px;margin-bottom:20px}
+h3{color:#F2B840}
+p{opacity:.85;line-height:1.6}
+.card{
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.12);
+    backdrop-filter:blur(6px);
+    padding:25px;
+    border-radius:16px;
+    margin-bottom:20px;
+}
+
+/* FORM */
+.form-box{
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.12);
+    padding:30px;
+    border-radius:16px;
+}
+input, textarea{
+    width:100%;
+    margin-top:12px;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#0B1C34;
+    color:white;
+}
+textarea{height:120px;resize:none}
+.submit-btn{
+    margin-top:15px;
+    background:#F2B840;
+    color:#06142E;
+    border:none;
+    padding:14px;
+    width:100%;
+    border-radius:12px;
+    font-weight:bold;
+}
+
+/* SIGNATURE */
+.signature{
+    text-align:center;
+    font-size:12px;
+    opacity:.6;
+    margin:40px 0;
+}
+.signature b{color:#F2B840}
+</style>
+</head>
+
+<body>
+
+<div id="back-btn" onclick="history.back()">←</div>
+<div id="lang-switch">FR</div>
+<div id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+
+<!-- HERO -->
+<section class="hero">
+<div class="hero-bg"></div>
+<div class="hero-card">
+<div class="hero-logo"></div>
+<h1 class="hero-title" id="hero-title"></h1>
+<p class="hero-sub" id="hero-sub"></p>
+<button class="hero-btn" id="contact-btn"></button>
+</div>
+</section>
+
+<!-- CONTENU (INCHANGÉ) -->
+<section class="section">
+<h2 data-t-fr="Investissements & Partenariats Stratégiques"
+data-t-en="Strategic Investments & Partnerships"></h2>
+
+<p data-t-fr="CIZA GROUP accompagne la diaspora, les investisseurs et entreprises dans des projets structurés et sécurisés : co-investissement, partenariats, études, et développement stratégique."
+data-t-en="CIZA GROUP supports the diaspora, investors and companies across structured and secured projects: co-investment, partnerships, due diligence, and strategic development."></p>
+
+<div class="card">
+<h3 data-t-fr="Types d’Investissements" data-t-en="Types of Investments"></h3>
+<p data-t-fr="• Immobilier premium  
+• Co-investissement diaspora  
+• Projets d’expansion  
+• Startups & innovation  
+• Agriculture & industrie  
+• Partenariats publics et privés"
+data-t-en="• Premium real estate  
+• Diaspora co-investment  
+• Expansion projects  
+• Startups & innovation  
+• Agriculture & industry  
+• Public–private partnerships"></p>
+</div>
+
+<div class="card">
+<h3 data-t-fr="Processus & Méthodologie" data-t-en="Investment Process"></h3>
+<p data-t-fr="1) Analyse stratégique  
+2) Étude détaillée + due diligence  
+3) Plan financier et projection  
+4) Validation opérationnelle  
+5) Suivi, reporting et transparence complète"
+data-t-en="1) Strategic analysis  
+2) Detailed study + due diligence  
+3) Financial planning and projection  
+4) Operational validation  
+5) Follow-up, reporting & full transparency"></p>
+</div>
+</section>
+
+<div class="signature">
+Design signed by <b>CIZA GROUP</b>
+</div>
+
+<script>
+let lang="fr";
+
+const textIDs={
+"hero-title":{fr:"Investissements & Partenariats Stratégiques",en:"Strategic Investments & Partnerships"},
+"hero-sub":{fr:"Des opportunités structurées, sécurisées et adaptées à la diaspora et aux investisseurs internationaux.",
+en:"Structured, secured and high-value opportunities for the diaspora and global investors."},
+"contact-btn":{fr:"Parler à un conseiller",en:"Talk to an advisor"}
+};
+
+function updateText(){
+for(const id in textIDs){
+document.getElementById(id).textContent=textIDs[id][lang];
+}
+document.querySelectorAll("[data-t-fr]").forEach(el=>{
+el.textContent=lang==="fr"?el.dataset.tFr:el.dataset.tEn;
+});
+}
+
+document.getElementById("lang-switch").onclick=()=>{
+lang=lang==="fr"?"en":"fr";
+document.getElementById("lang-switch").textContent=lang==="fr"?"FR":"EN";
+updateText();
+};
+
+window.addEventListener("scroll",()=>{
+document.getElementById("scrollTop").style.display=
+window.scrollY>400?"flex":"none";
+});
+
+updateText();
+</script>
+
+</body>
+</html>
