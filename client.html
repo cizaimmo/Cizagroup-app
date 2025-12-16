@@ -12,7 +12,7 @@
 html,body{margin:0;height:100%;font-family:system-ui, Arial;background:#06142E;color:white}
 #map{height:100%;width:100%}
 
-/* BOTTOM SHEET */
+/* PANEL CLIENT */
 .panel{
   position:fixed;
   bottom:0;left:0;
@@ -74,7 +74,6 @@ button{
 
 <div id="map"></div>
 
-<!-- PANEL CLIENT -->
 <div class="panel">
   <h3>🚗 Commander une course</h3>
 
@@ -97,14 +96,16 @@ button{
 <!-- LEAFLET -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-<!-- 🔥 FIREBASE (AJOUT) -->
+<!-- FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
 <script>
+/* 🔥 CONFIG FIREBASE (À REMPLACER PAR LA TIENNE) */
 const firebaseConfig = {
-  apiKey: "TA_API_KEY",
-  authDomain: "TON_PROJET.firebaseapp.com",
-  projectId: "TON_PROJECT_ID"
+  apiKey: "REMPLACE_ICI",
+  authDomain: "REMPLACE_ICI.firebaseapp.com",
+  projectId: "REMPLACE_ICI",
 };
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
@@ -134,11 +135,11 @@ map.setMaxBounds([
 let routeLine;
 
 /* ===============================
-   GEOCODING
+   GEOCODING (QUARTIERS)
 ================================ */
 async function geocode(place){
   const r = await fetch(
-    `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(place+', Bujumbura, Burundi')}`
+    `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(place + ', Bujumbura, Burundi')}`
   );
   const d = await r.json();
   if(!d.length) throw "Lieu introuvable";
@@ -160,12 +161,10 @@ async function calculate(){
     const s = await geocode(from);
     const e = await geocode(to);
 
-    const url =
-      `https://router.project-osrm.org/route/v1/driving/`+
-      `${s[1]},${s[0]};${e[1]},${e[0]}`+
-      `?overview=full&geometries=geojson`;
+    const res = await fetch(
+      `https://router.project-osrm.org/route/v1/driving/${s[1]},${s[0]};${e[1]},${e[0]}?overview=full&geometries=geojson`
+    ).then(r=>r.json());
 
-    const res = await fetch(url).then(r=>r.json());
     const r0 = res.routes[0];
 
     if(routeLine) map.removeLayer(routeLine);
@@ -176,44 +175,35 @@ async function calculate(){
     map.fitBounds(routeLine.getBounds(),{padding:[40,40]});
 
     const km = (r0.distance/1000).toFixed(1);
-    const price = 2000 + km*1000;
+    const price = Math.round(2000 + km * 1000);
 
-    /* 🔑 STOCKAGE POUR FIREBASE */
-    window._lastKm = km;
-    window._lastPrice = price;
+    window._rideData = {from,to,km,price};
 
     document.getElementById("result").innerHTML =
       `📏 ${km} km<br>💰 <b>${price.toLocaleString()} BIF</b>`;
 
     document.getElementById("orderBtn").style.display = "block";
-  }catch(e){
-    alert("Erreur de localisation. Essayez un quartier de Bujumbura.");
+  }catch{
+    alert("Erreur de localisation. Utilisez un quartier de Bujumbura.");
   }
 }
 
 /* ===============================
-   COMMANDE RÉELLE (FIRESTORE)
+   COMMANDE RÉELLE
 ================================ */
-let currentRideId = null;
-
 document.getElementById("orderBtn").onclick = async ()=>{
   try{
-    const doc = await db.collection("rides").add({
-      from: document.getElementById("from").value,
-      to: document.getElementById("to").value,
-      distance: window._lastKm,
-      price: window._lastPrice,
-      status: "waiting",
-      driverId: null,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    await db.collection("rides").add({
+      ...window._rideData,
+      status:"waiting",
+      driverId:null,
+      createdAt:firebase.firestore.FieldValue.serverTimestamp()
     });
-
-    currentRideId = doc.id;
 
     document.getElementById("result").innerHTML =
       "🚕 Recherche d’un chauffeur…";
 
-  }catch(e){
+  }catch{
     alert("Erreur lors de la commande");
   }
 };
