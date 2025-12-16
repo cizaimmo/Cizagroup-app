@@ -2,10 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-
-<!-- 🔴 FIX iOS SAFE AREA -->
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-
 <title>CizaRide+ — Commander une course</title>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
@@ -21,53 +18,11 @@ html,body{
 }
 
 /* ===============================
-   MINI HEADER CLIENT (SAFE AREA)
-================================ */
-.mini-header{
-  position:fixed;
-  top:env(safe-area-inset-top);
-  left:0;
-  width:100%;
-  height:52px;
-  padding-top:env(safe-area-inset-top);
-  background:rgba(6,20,46,0.96);
-  backdrop-filter:blur(10px);
-  border-bottom:1px solid rgba(242,184,64,.6);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding-left:12px;
-  padding-right:12px;
-  z-index:99999;
-}
-
-.mini-title{
-  font-size:14px;
-  font-weight:700;
-  color:#F2B840;
-}
-
-.mini-btn{
-  width:36px;
-  height:36px;
-  border-radius:50%;
-  background:#06142E;
-  border:2px solid #F2B840;
-  color:#F2B840;
-  font-size:18px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-}
-.mini-btn:active{ transform:scale(.95); }
-
-/* ===============================
    MAP
 ================================ */
 #map{
   position:absolute;
-  top:calc(52px + env(safe-area-inset-top));
+  top:0;
   left:0;
   right:0;
   bottom:0;
@@ -124,6 +79,41 @@ button{
   text-align:center;
 }
 
+/* ===============================
+   BOUTONS BAS (RETOUR / REFRESH)
+================================ */
+.bottom-actions{
+  position:fixed;
+  bottom:150px;
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  gap:14px;
+  z-index:2000;
+}
+
+.bottom-btn{
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  background:#06142E;
+  border:2px solid #F2B840;
+  color:#F2B840;
+  font-size:18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  box-shadow:0 0 12px rgba(242,184,64,.35);
+}
+
+.bottom-btn:active{
+  transform:scale(.92);
+}
+
+/* ===============================
+   SIGNATURE
+================================ */
 .signature{
   text-align:center;
   font-size:11px;
@@ -136,14 +126,13 @@ button{
 
 <body>
 
-<!-- MINI HEADER -->
-<div class="mini-header">
-  <div class="mini-btn" onclick="goBack()">←</div>
-  <div class="mini-title">CizaRide+</div>
-  <div class="mini-btn" onclick="refreshPage()">⟳</div>
-</div>
-
 <div id="map"></div>
+
+<!-- ACTIONS BAS -->
+<div class="bottom-actions">
+  <div class="bottom-btn" onclick="goBack()">←</div>
+  <div class="bottom-btn" onclick="refreshPage()">⟳</div>
+</div>
 
 <div class="panel">
   <h3>🚗 Commander une course</h3>
@@ -151,7 +140,7 @@ button{
   <input id="from" class="input" placeholder="Départ (ex : Kanyosha)">
   <input id="to" class="input" placeholder="Destination (ex : Rohero)">
 
-  <button class="calc" onclick="calculate()">Calculer le prix</button>
+  <button class="calc" id="calcBtn">Calculer le prix</button>
 
   <div class="result" id="result"></div>
 
@@ -176,12 +165,12 @@ button{
 const firebaseConfig = {
   apiKey: "REMPLACE_ICI",
   authDomain: "REMPLACE_ICI.firebaseapp.com",
-  projectId: "REMPLACE_ICI",
+  projectId: "REMPLACE_ICI"
 };
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-/* 🔙 RETOUR / 🔄 REFRESH */
+/* NAVIGATION */
 function goBack(){
   window.location.href = "portail.html";
 }
@@ -192,22 +181,18 @@ function refreshPage(){
 
 <script>
 /* ===============================
-   MAP — BURUNDI
+   MAP — BUJUMBURA
 ================================ */
-const map = L.map('map', {
-  center: [-3.3822, 29.3644],
-  zoom: 14
-});
-
+const map = L.map('map',{center:[-3.3822,29.3644],zoom:14});
 L.tileLayer(
   'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
-  { attribution:'© OpenStreetMap' }
+  {attribution:'© OpenStreetMap'}
 ).addTo(map);
 
 let routeLine;
 
 /* ===============================
-   GEOCODING + PRIX
+   GEOCODING
 ================================ */
 async function geocode(place){
   const r = await fetch(
@@ -218,10 +203,23 @@ async function geocode(place){
   return [parseFloat(d[0].lat), parseFloat(d[0].lon)];
 }
 
-async function calculate(){
+/* ===============================
+   CALCUL RAPIDE + FEEDBACK
+================================ */
+document.getElementById("calcBtn").onclick = async ()=>{
   const from = fromInput.value.trim();
   const to = toInput.value.trim();
-  if(!from || !to) return alert("Veuillez remplir les deux champs");
+  const resultBox = document.getElementById("result");
+  const btn = document.getElementById("calcBtn");
+
+  if(!from || !to){
+    alert("Veuillez entrer le départ et la destination");
+    return;
+  }
+
+  resultBox.innerHTML = "⏳ Calcul du prix…";
+  btn.disabled = true;
+  btn.style.opacity = ".7";
 
   try{
     const s = await geocode(from);
@@ -234,27 +232,39 @@ async function calculate(){
     const r0 = res.routes[0];
     if(routeLine) map.removeLayer(routeLine);
 
-    routeLine = L.geoJSON(r0.geometry,{style:{color:"#F2B840",weight:5}}).addTo(map);
+    routeLine = L.geoJSON(r0.geometry,{
+      style:{color:"#F2B840",weight:5}
+    }).addTo(map);
+
     map.fitBounds(routeLine.getBounds(),{padding:[40,40]});
 
-    const km=(r0.distance/1000).toFixed(1);
-    const price=Math.round(2000+km*1000);
-    window._rideData={from,to,km,price};
+    const km = (r0.distance/1000).toFixed(1);
+    const price = Math.round(2000 + km*1000);
 
-    result.innerHTML=`📏 ${km} km<br>💰 <b>${price.toLocaleString()} BIF</b>`;
-    orderBtn.style.display="block";
+    window._rideData = {from,to,km,price};
+
+    resultBox.innerHTML = `📏 ${km} km<br>💰 <b>${price.toLocaleString()} BIF</b>`;
+    orderBtn.style.display = "block";
+
   }catch{
-    alert("Erreur de localisation");
+    resultBox.innerHTML = "";
+    alert("Erreur de calcul. Essayez un autre quartier.");
+  }finally{
+    btn.disabled = false;
+    btn.style.opacity = "1";
   }
-}
+};
 
-orderBtn.onclick=async()=>{
+/* ===============================
+   COMMANDE
+================================ */
+orderBtn.onclick = async ()=>{
   await db.collection("rides").add({
     ...window._rideData,
     status:"waiting",
     createdAt:firebase.firestore.FieldValue.serverTimestamp()
   });
-  result.innerHTML="🚕 Recherche d’un chauffeur…";
+  result.innerHTML = "🚕 Recherche d’un chauffeur…";
 };
 </script>
 
