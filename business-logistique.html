@@ -11,9 +11,12 @@ body{
     background:#06142E;
     font-family:Arial, sans-serif;
     color:white;
+    overflow-x:hidden;
 }
 
-/* ===== BOUTON RETOUR ===== */
+/* ===============================
+   BOUTONS FIXES
+================================ */
 #back-btn{
     position:fixed;
     top:15px;
@@ -30,10 +33,7 @@ body{
     justify-content:center;
     cursor:pointer;
     z-index:99999;
-    box-shadow:0 6px 18px rgba(0,0,0,.45);
 }
-
-/* ===== LANG ===== */
 #lang-switch{
     position:fixed;
     top:15px;
@@ -46,8 +46,6 @@ body{
     color:#06142E;
     z-index:99999;
 }
-
-/* ===== SCROLL TOP ===== */
 #scrollTop{
     position:fixed;
     bottom:20px;
@@ -65,51 +63,103 @@ body{
     z-index:99999;
 }
 
-/* ===== HERO ===== */
+/* ===============================
+   HERO
+================================ */
 .hero{
-    padding:80px 20px;
+    position:relative;
+    padding:90px 20px 80px;
     text-align:center;
-    max-width:900px;
+    max-width:1000px;
     margin:auto;
 }
 .hero-card{
+    position:relative;
     background:rgba(255,255,255,0.06);
     padding:60px 25px;
-    border-radius:24px;
+    border-radius:26px;
+    backdrop-filter:blur(10px);
+    box-shadow:0 0 50px rgba(0,0,0,.45);
+    overflow:hidden;
 }
+
+/* LOGO FLOTTANT */
 .hero-logo{
     width:160px;
     height:160px;
-    margin:auto;
+    margin:0 auto;
     background:url('logotransparent.png') no-repeat center/contain;
+    animation:floatLogo 4s ease-in-out infinite;
+    position:relative;
+    z-index:2;
 }
-.hero-title{font-size:32px;color:#F2B840;font-weight:bold}
-.hero-sub{font-size:18px;opacity:.9}
+@keyframes floatLogo{
+    0%{transform:translateY(0)}
+    50%{transform:translateY(-14px)}
+    100%{transform:translateY(0)}
+}
+
+/* PARTICULES */
+#particles{
+    position:absolute;
+    inset:0;
+    z-index:1;
+    pointer-events:none;
+}
+
+.hero-title{
+    font-size:32px;
+    margin-top:20px;
+    color:#F2B840;
+    font-weight:bold;
+}
+.hero-sub{
+    font-size:18px;
+    margin-top:10px;
+    opacity:.9;
+    max-width:760px;
+    margin-left:auto;
+    margin-right:auto;
+}
 .hero-btn{
-    margin-top:25px;
+    margin-top:28px;
     background:#F2B840;
     color:#06142E;
-    padding:14px 25px;
+    padding:14px 28px;
     border:none;
-    border-radius:12px;
+    border-radius:14px;
+    font-size:16px;
+    cursor:pointer;
     font-weight:bold;
 }
 
-/* ===== CONTENT ===== */
-.section{padding:40px 20px;max-width:900px;margin:auto}
-.card{
-    background:rgba(255,255,255,0.06);
-    padding:25px;
-    border-radius:16px;
-    margin-bottom:20px;
+/* ===============================
+   SECTIONS
+================================ */
+.section{
+    padding:50px 20px;
+    max-width:1000px;
+    margin:auto;
 }
 h2,h3{color:#F2B840}
+p{opacity:.9;line-height:1.65}
 
-/* ===== FORM ===== */
+.card{
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,.12);
+    padding:28px;
+    border-radius:18px;
+    margin-bottom:22px;
+}
+
+/* ===============================
+   FORM
+================================ */
 .form-box{
     background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,.12);
     padding:30px;
-    border-radius:16px;
+    border-radius:18px;
 }
 input,textarea{
     width:100%;
@@ -139,82 +189,122 @@ textarea{height:120px}
 <div id="lang-switch">FR</div>
 <div id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
 
+<!-- HERO -->
 <section class="hero">
   <div class="hero-card">
+    <canvas id="particles"></canvas>
+
     <div class="hero-logo"></div>
+
     <h1 class="hero-title" id="hero-title"></h1>
     <p class="hero-sub" id="hero-sub"></p>
+
     <button class="hero-btn" id="contact-btn"></button>
   </div>
 </section>
 
+<!-- DETAILS -->
 <section class="section">
-  <h2 data-fr="Logistique Internationale — Import & Export" data-en="International Logistics — Import & Export"></h2>
-
-  <p data-fr="CIZA GROUP accompagne la diaspora et les entreprises dans la logistique internationale."
-     data-en="CIZA GROUP supports diaspora and companies in international logistics."></p>
+  <div class="card">
+    <h3>Pourquoi choisir CIZA GROUP ?</h3>
+    <p>
+      Expertise locale et internationale, conformité douanière,
+      transparence des coûts, suivi opérationnel et accompagnement premium
+      pour la diaspora et les entreprises.
+    </p>
+  </div>
 
   <div class="card">
-    <h3 data-fr="Nos services" data-en="Our services"></h3>
+    <h3>Zones couvertes</h3>
     <p>
-      • Transport international<br>
-      • Import & export<br>
-      • Douane & clearing<br>
-      • Distribution Burundi
+      Afrique de l’Est • Europe • Moyen-Orient • Amérique du Nord • Asie  
+      avec distribution finale au Burundi.
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>Clients cibles</h3>
+    <p>
+      Diaspora • Entreprises • ONG • Investisseurs • Institutions
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>Engagement & conformité</h3>
+    <p>
+      Respect des réglementations internationales, traçabilité,
+      sécurité des marchandises et protection des données clients.
     </p>
   </div>
 </section>
 
+<!-- FORM -->
 <section class="section" id="form">
-  <div class="form-box">
-    <h2 data-fr="Contact Business+ Logistique" data-en="Business+ Logistics Contact"></h2>
+<div class="form-box">
+<h2>Contact Business+ Logistique</h2>
 
-    <form action="https://formsubmit.co/business@cizagroup.com" method="POST">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="text" name="nom" placeholder="Nom complet" required>
-      <input type="email" name="email" placeholder="Email" required>
-      <textarea name="message" placeholder="Votre message" required></textarea>
-      <button class="submit-btn">Envoyer</button>
-    </form>
-  </div>
+<form action="https://formsubmit.co/business@cizagroup.com" method="POST">
+<input type="hidden" name="_captcha" value="false">
+<input type="text" name="nom" placeholder="Nom complet" required>
+<input type="email" name="email" placeholder="Email" required>
+<textarea name="message" placeholder="Votre message" required></textarea>
+<button class="submit-btn">Envoyer</button>
+</form>
+</div>
 </section>
 
 <script>
+/* ===== TEXT ===== */
 let lang="fr";
-
 function updateText(){
-  document.getElementById("hero-title").textContent =
-    lang==="fr" ? "Logistique Internationale — Import & Export"
-                : "International Logistics — Import & Export";
-
-  document.getElementById("hero-sub").textContent =
-    lang==="fr" ? "Solutions logistiques intégrées pour entreprises et diaspora."
-                : "Integrated logistics solutions for businesses and diaspora.";
-
-  document.getElementById("contact-btn").textContent =
-    lang==="fr" ? "Parler à un conseiller" : "Talk to an advisor";
-
-  document.querySelectorAll("[data-fr]").forEach(el=>{
-    el.textContent = lang==="fr" ? el.dataset.fr : el.dataset.en;
-  });
+ document.getElementById("hero-title").textContent=
+  lang==="fr"?"Logistique Internationale — Import & Export":"International Logistics — Import & Export";
+ document.getElementById("hero-sub").textContent=
+  lang==="fr"?"Solutions logistiques premium pour entreprises et diaspora."
+              :"Premium logistics solutions for businesses and diaspora.";
+ document.getElementById("contact-btn").textContent=
+  lang==="fr"?"Parler à un conseiller":"Talk to an advisor";
 }
-
-document.getElementById("lang-switch").onclick = ()=>{
-  lang = lang==="fr" ? "en" : "fr";
-  document.getElementById("lang-switch").textContent = lang.toUpperCase();
-  updateText();
+document.getElementById("lang-switch").onclick=()=>{
+ lang=lang==="fr"?"en":"fr";
+ document.getElementById("lang-switch").textContent=lang.toUpperCase();
+ updateText();
 };
-
-document.getElementById("contact-btn").onclick = ()=>{
-  document.getElementById("form").scrollIntoView({behavior:"smooth"});
+document.getElementById("contact-btn").onclick=()=>{
+ document.getElementById("form").scrollIntoView({behavior:"smooth"});
 };
-
 window.addEventListener("scroll",()=>{
-  document.getElementById("scrollTop").style.display =
-    window.scrollY>300 ? "flex" : "none";
+ document.getElementById("scrollTop").style.display=window.scrollY>300?"flex":"none";
 });
-
 updateText();
+
+/* ===== PARTICULES ===== */
+const c=document.getElementById("particles"),ctx=c.getContext("2d");
+function resize(){
+ c.width=c.offsetWidth; c.height=c.offsetHeight;
+}
+window.addEventListener("resize",resize); resize();
+
+const parts=[...Array(40)].map(()=>({
+ x:Math.random()*c.width,
+ y:Math.random()*c.height,
+ r:Math.random()*2+1,
+ v:Math.random()*.4+.2
+}));
+
+function draw(){
+ ctx.clearRect(0,0,c.width,c.height);
+ parts.forEach(p=>{
+  p.y-=p.v;
+  if(p.y<0)p.y=c.height;
+  ctx.fillStyle="rgba(242,184,64,.6)";
+  ctx.beginPath();
+  ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+  ctx.fill();
+ });
+ requestAnimationFrame(draw);
+}
+draw();
 </script>
 
 </body>
