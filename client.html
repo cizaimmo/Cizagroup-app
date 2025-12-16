@@ -17,28 +17,23 @@ html,body{
   color:white;
 }
 
-/* ===============================
-   MAP
-================================ */
+/* MAP */
 #map{
   position:absolute;
   inset:0;
   z-index:1;
 }
 
-/* ===============================
-   FLOATING ACTIONS (RETOUR / REFRESH)
-================================ */
+/* BOUTONS SYSTEME */
 .fab-bar{
   position:fixed;
-  bottom:140px; /* AU-DESSUS du panel */
+  bottom:150px;
   left:50%;
   transform:translateX(-50%);
   display:flex;
   gap:14px;
-  z-index:2000;
+  z-index:9999;
 }
-
 .fab{
   width:46px;
   height:46px;
@@ -53,11 +48,9 @@ html,body{
   cursor:pointer;
   box-shadow:0 8px 20px rgba(0,0,0,.45);
 }
-.fab:active{ transform:scale(.95); }
+.fab:active{transform:scale(.95)}
 
-/* ===============================
-   PANEL CLIENT
-================================ */
+/* PANEL */
 .panel{
   position:fixed;
   bottom:0;left:0;
@@ -119,13 +112,12 @@ button{
 
 <div id="map"></div>
 
-<!-- 🔙 🔄 BOUTONS FLOTTANTS -->
+<!-- BOUTONS -->
 <div class="fab-bar">
   <div class="fab" onclick="goBack()">←</div>
-  <div class="fab" onclick="refreshPage()">⟳</div>
+  <div class="fab" onclick="location.reload()">⟳</div>
 </div>
 
-<!-- PANEL -->
 <div class="panel">
   <h3>🚗 Commander une course</h3>
 
@@ -145,47 +137,39 @@ button{
   </div>
 </div>
 
-<!-- LEAFLET -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-<!-- FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
 <script>
-const firebaseConfig = {
-  apiKey: "REMPLACE_ICI",
-  authDomain: "REMPLACE_ICI.firebaseapp.com",
-  projectId: "REMPLACE_ICI",
-};
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
+/* FIREBASE */
+firebase.initializeApp({
+  apiKey:"REMPLACE_ICI",
+  authDomain:"REMPLACE_ICI.firebaseapp.com",
+  projectId:"REMPLACE_ICI"
+});
+const db=firebase.firestore();
 
-/* RETOUR / REFRESH */
-function goBack(){
-  window.location.href = "portail.html";
-}
-function refreshPage(){
-  location.reload();
-}
+/* RETOUR */
+function goBack(){location.href="portail.html"}
 
 /* MAP */
-const map = L.map('map',{center:[-3.3822,29.3644],zoom:14});
-L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',{maxZoom:19}).addTo(map);
+const map=L.map("map",{center:[-3.3822,29.3644],zoom:14});
+L.tileLayer("https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png",{maxZoom:19}).addTo(map);
 
 let routeLine;
 
 async function geocode(place){
-  const r = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${place}, Bujumbura`);
-  const d = await r.json();
+  const r=await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(place+", Bujumbura")}`);
+  const d=await r.json();
   if(!d.length) throw 0;
-  return [d[0].lat,d[0].lon];
+  return [parseFloat(d[0].lat),parseFloat(d[0].lon)];
 }
 
 async function calculate(){
-  const from=fromInput.value.trim();
-  const to=toInput.value.trim();
-  if(!from||!to) return alert("Remplissez les champs");
+  const from=document.getElementById("from").value.trim();
+  const to=document.getElementById("to").value.trim();
+  if(!from||!to) return alert("Veuillez remplir les champs");
 
   const s=await geocode(from);
   const e=await geocode(to);
@@ -199,6 +183,7 @@ async function calculate(){
 
   const km=(r0.distance/1000).toFixed(1);
   const price=Math.round(2000+km*1000);
+
   window._ride={from,to,km,price};
 
   result.innerHTML=`📏 ${km} km<br>💰 <b>${price.toLocaleString()} BIF</b>`;
