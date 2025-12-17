@@ -4,322 +4,261 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>CizaMarket+ — Premium 2030</title>
+<title>CizaMarket — Marketplace Locale & Diaspora</title>
 <link rel="icon" href="logotransparent.png">
 
 <style>
-/* ------------------------------
-   GLOBAL DESIGN
------------------------------- */
 body{
     margin:0;
-    background:#06142E;
     font-family:Arial, sans-serif;
+    background:#06142E;
     color:white;
-    overflow-x:hidden;
 }
+a{text-decoration:none;color:inherit}
 
-/* ------------------------------
-   HERO WITH BLUR BACKGROUND
------------------------------- */
-.hero{
-    position:relative;
-    width:100%;
-    height:220px;
-    background:url('https://images.unsplash.com/photo-1515162305285-ccba81d23f5a') center/cover no-repeat;
-}
-
-.hero::after{
-    content:"";
-    position:absolute;
-    top:0;left:0;width:100%;height:100%;
-    backdrop-filter:blur(8px);
-    background:linear-gradient(180deg,rgba(0,0,0,0.45),rgba(0,0,0,0.75));
-}
-
-.hero-content{
-    position:absolute;
-    bottom:25px;
-    width:100%;
-    text-align:center;
-    z-index:5;
-}
-
-.hero-content h1{
-    font-size:26px;
-    color:#F2B840;
-    margin:0;
-    text-shadow:0 0 12px #000;
-}
-.hero-content p{
-    opacity:.85;
-    margin-top:6px;
-}
-
-/* ------------------------------
-   TITRE DE SECTION
------------------------------- */
-.section-title{
-    color:#F2B840;
-    font-size:20px;
-    margin-top:25px;
-    margin-left:18px;
-}
-
-/* ------------------------------
-   PACK CARDS (Glass)
------------------------------- */
-.card{
-    width:90%;
-    margin:12px auto;
-    padding:18px;
-    border-radius:16px;
-    background:rgba(255,255,255,0.06);
-    border:1px solid rgba(255,255,255,0.15);
-    backdrop-filter:blur(12px);
-    box-shadow:0 0 15px rgba(0,0,0,0.25);
-    cursor:pointer;
-    transition:.3s;
-}
-
-.card:hover{
-    transform:translateY(-4px);
-    box-shadow:0 0 18px rgba(242,184,64,0.25);
-}
-
-.card span{
-    font-size:22px;
-    margin-right:10px;
-}
-
-/* ------------------------------
-   POPUP PACK DETAILS + FORM
------------------------------- */
-.popup{
+/* Boutons fixes */
+#backBtn,#toTop{
     position:fixed;
-    top:0;left:0;
-    width:100%;height:100%;
-    background:#00000088;
-    display:none;
-    justify-content:center;
+    width:46px;height:46px;
+    border-radius:50%;
+    display:flex;
     align-items:center;
-    padding:20px;
+    justify-content:center;
+    font-size:20px;
+    cursor:pointer;
     z-index:9999;
 }
-
-.popup-content{
-    background:#0b1c34;
-    width:92%;
-    max-width:400px;
-    max-height:85vh;
-    overflow-y:auto;
-    padding:22px;
-    border-radius:16px;
-    border:1px solid #F2B840;
-    backdrop-filter:blur(14px);
+#backBtn{
+    top:15px;left:15px;
+    border:2px solid #F2B840;
+    color:#F2B840;
+}
+#toTop{
+    bottom:20px;right:20px;
+    background:#F2B840;
+    color:#06142E;
+    display:none;
 }
 
-.popup-content h3{
-    margin:0;
+/* Header */
+header{
+    padding:90px 20px 50px;
     text-align:center;
+}
+header h1{
     color:#F2B840;
+    font-size:34px;
+}
+header p{
+    max-width:850px;
+    margin:auto;
+    opacity:.9;
 }
 
-.close{
-    float:right;
-    cursor:pointer;
-    font-size:22px;
+/* Sections */
+.section{
+    max-width:1000px;
+    margin:50px auto;
+    padding:0 20px;
+}
+.section h2{
     color:#F2B840;
+    margin-bottom:20px;
 }
 
-/* INPUTS */
-input, textarea{
+/* Cards */
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:20px;
+}
+.card{
+    background:rgba(255,255,255,0.07);
+    border:1px solid rgba(255,255,255,0.15);
+    border-radius:18px;
+    padding:25px;
+    transition:.3s;
+}
+.card:hover{
+    transform:translateY(-6px);
+    border-color:#F2B840;
+}
+.card h3{
+    color:#F2B840;
+    margin-top:0;
+}
+
+/* Form */
+form input, form select, form textarea{
     width:100%;
-    padding:12px;
     margin-top:10px;
+    padding:12px;
     border:none;
-    border-radius:12px;
-    background:#112544;
+    border-radius:10px;
+    background:#0B1C34;
     color:white;
 }
-
-textarea{height:110px;}
-
-/* SUBMIT */
-.send-btn{
+form textarea{height:120px}
+button{
     margin-top:15px;
+    background:#F2B840;
+    color:#06142E;
+    border:none;
+    padding:14px;
     width:100%;
-    padding:12px;
-    background:#F2B840;
-    border:none;
     border-radius:12px;
-    color:#06142E;
     font-weight:bold;
-}
-
-/* LANGUAGE BUTTON */
-.lang-btn{
-    position:fixed;
-    bottom:20px; right:20px;
-    background:#F2B840;
-    color:#06142E;
-    border:none;
-    padding:12px;
-    border-radius:50px;
-    z-index:99999;
-    font-weight:bold;
-}
-
-/* HELP BUTTON */
-.help-btn{
-    position:fixed;
-    bottom:20px; left:20px;
-    background:#0b1c34;
-    border:1px solid #F2B840;
-    padding:12px 15px;
-    color:#F2B840;
-    border-radius:12px;
     cursor:pointer;
 }
+
+/* Footer */
+footer{
+    margin-top:60px;
+    padding:30px;
+    text-align:center;
+    font-size:13px;
+    opacity:.85;
+}
+footer b{color:#F2B840}
 </style>
 </head>
 
 <body>
 
-<!-- HERO -->
-<div class="hero">
-    <div class="hero-content">
-        <h1 data-fr="CizaMarket+" data-en="CizaMarket+">CizaMarket+</h1>
-        <p data-fr="Vos achats premium au Burundi, depuis partout dans le monde."
-           data-en="Premium shopping in Burundi, from anywhere in the world.">
-           Vos achats premium au Burundi, depuis partout dans le monde.
+<div id="backBtn" onclick="history.back()">←</div>
+<div id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+
+<header>
+    <h1>CizaMarket</h1>
+    <p>
+        Marketplace de produits locaux et services commerciaux,
+        accessible aux clients locaux et à la diaspora.
+        Commandez, payez en <b>BIF / Mobile Money</b>,
+        livraison assurée par <b>CizaDelivery</b>.
+    </p>
+</header>
+
+<!-- POURQUOI -->
+<section class="section">
+    <h2>Pourquoi CizaMarket ?</h2>
+    <div class="card">
+        <p>
+            Les commerçants locaux manquent de visibilité.
+            Les clients veulent acheter simplement, avec des prix clairs
+            et une livraison fiable.
+        </p>
+        <p>
+            <b>CizaMarket</b> connecte vendeurs, clients et logistique
+            dans une seule plateforme professionnelle.
         </p>
     </div>
-</div>
+</section>
 
-<h2 class="section-title" data-fr="Nos Packs Premium" data-en="Our Premium Packs">
-    Nos Packs Premium
-</h2>
+<!-- CATÉGORIES -->
+<section class="section">
+    <h2>Catégories disponibles</h2>
+    <div class="grid">
 
-<!-- PACK LIST -->
-<div class="card" onclick="openPack('pack1')"><span>🛒</span>Pack Essentiel</div>
-<div class="card" onclick="openPack('pack2')"><span>🎉</span>Pack Cérémonie</div>
-<div class="card" onclick="openPack('pack3')"><span>🍼</span>Pack Bébé</div>
-<div class="card" onclick="openPack('pack4')"><span>💊</span>Pack Santé & Hygiène</div>
-<div class="card" onclick="openPack('pack5')"><span>📱</span>Pack Tech</div>
-<div class="card" onclick="openPack('pack6')"><span>✨</span>Pack Demande Spéciale</div>
+        <div class="card">
+            <h3>🥬 Produits alimentaires</h3>
+            <p>Produits frais, transformés, locaux.</p>
+        </div>
 
-<!-- HELP -->
-<button class="help-btn" onclick="openPack('help')">❓ Aide</button>
+        <div class="card">
+            <h3>🏠 Maison & quotidien</h3>
+            <p>Articles ménagers, entretien, utilitaires.</p>
+        </div>
 
-<!-- LANGUAGE -->
-<button class="lang-btn" onclick="switchLang()">FR</button>
+        <div class="card">
+            <h3>📱 Électronique & accessoires</h3>
+            <p>Téléphones, accessoires, équipements.</p>
+        </div>
 
+        <div class="card">
+            <h3>👕 Mode & textiles</h3>
+            <p>Vêtements, chaussures, production locale.</p>
+        </div>
 
-<!-- ------------------------------
-     POPUP TEMPLATES
------------------------------- -->
-<div id="popup" class="popup">
-    <div class="popup-content">
-
-        <span class="close" onclick="closePack()">&times;</span>
-        <h3 id="popup-title">Pack</h3>
-
-        <p id="popup-desc" style="opacity:.85;"></p>
-
-        <form action="https://formsubmit.co/cizamarket@cizagroup.com" method="POST">
-
-            <input type="hidden" name="_cc" value="infos@cizagroup.com">
-
-            <input type="hidden" name="_autoresponse"
-            value="Merci pour votre demande CizaMarket+. Notre équipe vous contactera rapidement.">
-
-            <input type="hidden" name="_next" value="https://cizaimmo.github.io/cizagroup-app/success.html">
-
-            <input type="text" name="nom" placeholder="Nom complet" required data-fr="Nom complet" data-en="Full name">
-            <input type="text" name="telephone" placeholder="Téléphone" required data-fr="Téléphone" data-en="Phone">
-            <input type="text" name="adresse" placeholder="Adresse / Quartier" required data-fr="Adresse / Quartier" data-en="Address">
-
-            <textarea name="details" placeholder="Votre demande" data-fr="Votre demande" data-en="Your request"></textarea>
-
-            <button class="send-btn" data-fr="Envoyer la demande" data-en="Send request">
-                Envoyer la demande
-            </button>
-
-        </form>
+        <div class="card">
+            <h3>🛠️ Matériel & outils</h3>
+            <p>Outils professionnels et domestiques.</p>
+        </div>
 
     </div>
-</div>
+</section>
 
+<!-- PROCESSUS -->
+<section class="section">
+    <h2>Comment commander ?</h2>
+    <div class="card">
+        <ol>
+            <li>Sélection du produit ou catégorie</li>
+            <li>Confirmation quantité et adresse</li>
+            <li>Paiement sécurisé (BIF / Mobile Money)</li>
+            <li>Préparation par le vendeur</li>
+            <li>Livraison via CizaDelivery</li>
+        </ol>
+    </div>
+</section>
 
-<!-- ------------------------------
-     SCRIPT LOGIC
------------------------------- -->
+<!-- FORMULAIRE COMMANDE -->
+<section class="section">
+    <h2>Passer une commande</h2>
+    <div class="card">
+        <form action="https://formsubmit.co/market@cizagroup.com" method="POST">
+            <input type="hidden" name="_captcha" value="false">
+
+            <input type="text" name="nom" placeholder="Nom et prénom" required>
+            <input type="tel" name="telephone" placeholder="Téléphone" required>
+
+            <select name="categorie" required>
+                <option value="">Catégorie de produit</option>
+                <option>Produits alimentaires</option>
+                <option>Maison & quotidien</option>
+                <option>Électronique</option>
+                <option>Mode & textiles</option>
+                <option>Matériel & outils</option>
+            </select>
+
+            <textarea name="produits" placeholder="Produits souhaités (nom, quantité)"></textarea>
+
+            <select name="paiement" required>
+                <option value="">Mode de paiement</option>
+                <option>Mobile Money</option>
+                <option>Paiement en BIF</option>
+            </select>
+
+            <textarea name="adresse" placeholder="Adresse de livraison complète" required></textarea>
+
+            <button>Confirmer la commande</button>
+        </form>
+    </div>
+</section>
+
+<!-- VENDEURS -->
+<section class="section">
+    <h2>Vendeurs & partenaires</h2>
+    <div class="card">
+        <p>
+            Vous êtes commerçant, producteur ou distributeur ?
+            CizaMarket vous permet de vendre légalement,
+            avec livraison intégrée et visibilité accrue.
+        </p>
+        <p><b>Contact :</b> market@cizagroup.com</p>
+    </div>
+</section>
+
+<footer>
+    © 2026 <b>CIZA GROUP</b><br>
+    CizaMarket — Marketplace & Commerce digital<br>
+    Design signed by <b>CIZA GROUP</b>
+</footer>
+
 <script>
-function openPack(pack){
-    document.getElementById("popup").style.display="flex";
-
-    const t = document.getElementById("popup-title");
-    const d = document.getElementById("popup-desc");
-
-    if(pack === "pack1"){
-        t.innerHTML = "Pack Essentiel";
-        d.innerHTML = "Produits du quotidien : alimentation, hygiène, besoins urgents. Service premium pour la diaspora.";
-    }
-    if(pack === "pack2"){
-        t.innerHTML = "Pack Cérémonie";
-        d.innerHTML = "Tout pour vos fêtes : décorations, cadeaux, équipements, demandes personnalisées.";
-    }
-    if(pack === "pack3"){
-        t.innerHTML = "Pack Bébé";
-        d.innerHTML = "Lait, couches, soins, vêtements. Livraison premium pour vos proches.";
-    }
-    if(pack === "pack4"){
-        t.innerHTML = "Pack Santé & Hygiène";
-        d.innerHTML = "Produits d’hygiène, pharmacie courante (sans ordonnance), entretien sanitaire.";
-    }
-    if(pack === "pack5"){
-        t.innerHTML = "Pack Tech";
-        d.innerHTML = "Téléphones, accessoires, équipements tech selon disponibilité locale.";
-    }
-    if(pack === "pack6"){
-        t.innerHTML = "Pack Demande Spéciale";
-        d.innerHTML = "Vous demandez, nous trouvons. Service concierge premium.";
-    }
-    if(pack === "help"){
-        t.innerHTML = "Comment ça marche ?";
-        d.innerHTML = "1) Vous choisissez un pack<br>2) Vous envoyez votre demande<br>3) Nous confirmons disponibilité & budget<br>4) Vous validez<br>5) Livraison au Burundi<br><br>Service premium diaspora.";
-    }
-}
-
-function closePack(){
-    document.getElementById("popup").style.display="none";
-}
-
-/* -------------------------
-   MULTILINGUE SYSTEM
-------------------------- */
-function switchLang(){
-    const html = document.documentElement;
-    const newLang = html.lang === "fr" ? "en" : "fr";
-    html.lang = newLang;
-
-    document.querySelector(".lang-btn").innerHTML = newLang === "fr" ? "FR" : "EN";
-
-    document.querySelectorAll("[data-fr]").forEach(el=>{
-        el.innerHTML = newLang === "fr"
-            ? el.getAttribute("data-fr")
-            : el.getAttribute("data-en");
-    });
-
-    document.querySelectorAll("input, textarea").forEach(el=>{
-        if(el.hasAttribute("data-fr")){
-            el.placeholder = newLang === "fr"
-                ? el.getAttribute("data-fr")
-                : el.getAttribute("data-en");
-        }
-    });
-}
+window.addEventListener("scroll",()=>{
+    document.getElementById("toTop").style.display =
+        window.scrollY>300 ? "flex" : "none";
+});
 </script>
 
 </body>
