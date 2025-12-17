@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CIZA CarWash+ — Service Professionnel</title>
+<link rel="icon" href="logotransparent.png">
+
+<style>
+body{
+    margin:0;
+    background:#06142E;
+    font-family:Arial, sans-serif;
+    color:white;
+}
+:root{
+    --gold:#F2B840;
+    --glass:rgba(255,255,255,0.08);
+}
+
+/* HEADER */
+header{
+    position:sticky;
+    top:0;
+    background:var(--glass);
+    backdrop-filter:blur(12px);
+    padding:14px 18px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom:2px solid var(--gold);
+    z-index:1000;
+}
+header img{width:45px;}
+header span{font-weight:bold;font-size:18px;}
+
+.btn{
+    background:var(--gold);
+    color:#06142E;
+    border:none;
+    padding:12px 16px;
+    border-radius:12px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* HERO */
+.hero{
+    text-align:center;
+    padding:35px 20px;
+}
+.hero h1{color:var(--gold);margin:0;}
+.hero p{opacity:.9;margin-top:8px;}
+
+/* SECTIONS */
+.section{
+    width:90%;
+    max-width:900px;
+    margin:30px auto;
+}
+.section h2{
+    color:var(--gold);
+    margin-bottom:12px;
+}
+
+/* SERVICES */
+.service{
+    background:var(--glass);
+    border:2px solid var(--gold);
+    border-radius:16px;
+    padding:18px;
+    margin-bottom:18px;
+}
+.service h3{margin:0;color:var(--gold);}
+.service p{font-size:14px;opacity:.9;}
+.service ul{padding-left:18px;font-size:14px;}
+.price{font-weight:bold;margin-top:8px;}
+
+/* FORM */
+form{
+    background:var(--glass);
+    border:2px solid var(--gold);
+    padding:22px;
+    border-radius:18px;
+}
+input, select{
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    border-radius:10px;
+    border:none;
+    background:#0B1C34;
+    color:white;
+}
+.total{
+    margin-top:15px;
+    font-size:18px;
+    font-weight:bold;
+    color:var(--gold);
+}
+
+/* FOOTER */
+footer{
+    margin-top:40px;
+    padding:25px;
+    text-align:center;
+    font-size:14px;
+    opacity:.9;
+}
+footer span{color:var(--gold);}
+
+/* UTILS */
+#topBtn{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    width:44px;
+    height:44px;
+    border-radius:50%;
+    background:var(--gold);
+    color:#06142E;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <img src="logotransparent.png">
+    <span>CIZA CarWash+</span>
+    <button class="btn" onclick="history.back()">← Retour</button>
+</header>
+
+<section class="hero">
+    <h1>Service CarWash Professionnel</h1>
+    <p>Lavage automobile de qualité — Station ou Mobile — Paiement en BIF</p>
+</section>
+
+<section class="section">
+    <h2>Nos Services</h2>
+
+    <div class="service">
+        <h3>Lavage Standard — Station</h3>
+        <p>Lavage extérieur et intérieur rapide dans notre station.</p>
+        <ul>
+            <li>Carrosserie complète</li>
+            <li>Aspiration intérieure</li>
+            <li>Nettoyage vitres</li>
+        </ul>
+        <div class="price">Prix : 25 000 BIF</div>
+    </div>
+
+    <div class="service">
+        <h3>Lavage Premium — Station</h3>
+        <p>Nettoyage approfondi pour véhicules exigeants.</p>
+        <ul>
+            <li>Lavage détaillé</li>
+            <li>Traitement tableau de bord</li>
+            <li>Jantes & pneus</li>
+        </ul>
+        <div class="price">Prix : 45 000 BIF</div>
+    </div>
+
+    <div class="service">
+        <h3>Lavage Mobile — À domicile</h3>
+        <p>Nous venons à vous (maison, bureau, entreprise).</p>
+        <ul>
+            <li>Équipement professionnel</li>
+            <li>Service complet sur place</li>
+        </ul>
+        <div class="price">Base : 50 000 BIF + déplacement</div>
+    </div>
+</section>
+
+<section class="section">
+    <h2>Réservation & Commande</h2>
+
+    <form>
+        <input type="text" placeholder="Nom" required>
+        <input type="text" placeholder="Prénom" required>
+        <input type="tel" placeholder="Téléphone" required>
+        <input type="email" placeholder="Email">
+
+        <select id="service" onchange="calc()">
+            <option value="25000">Lavage Standard — Station</option>
+            <option value="45000">Lavage Premium — Station</option>
+            <option value="50000">Lavage Mobile — À domicile</option>
+        </select>
+
+        <select id="client" onchange="calc()">
+            <option value="0">Particulier</option>
+            <option value="10000">Entreprise (frais gestion)</option>
+        </select>
+
+        <input type="date" required>
+        <input type="time" required>
+
+        <select id="pay">
+            <option>Mobile Money</option>
+            <option>Paiement à la prestation</option>
+        </select>
+
+        <div class="total" id="total">Total : 25 000 BIF</div>
+
+        <button class="btn" style="width:100%;margin-top:15px;">
+            Confirmer la réservation
+        </button>
+    </form>
+</section>
+
+<footer>
+    © 2026 <span>CIZA GROUP</span><br>
+    Design signed by <span>CIZA GROUP</span><br>
+    Service professionnel — Burundi
+</footer>
+
+<div id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+
+<script>
+function calc(){
+    let s = parseInt(document.getElementById("service").value);
+    let c = parseInt(document.getElementById("client").value);
+    let total = s + c;
+    document.getElementById("total").innerText = "Total : " + total.toLocaleString() + " BIF";
+}
+</script>
+
+</body>
+</html>
