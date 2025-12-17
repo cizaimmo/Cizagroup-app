@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CizaHome+ — Ménage & Jardinage Professionnels</title>
+<title>CizaHome+ — Services à Domicile</title>
 <link rel="icon" href="logotransparent.png">
 
 <style>
@@ -12,205 +12,258 @@
   --gold:#F2B840;
   --glass:rgba(255,255,255,.08);
   --border:rgba(255,255,255,.15);
+  --txt:#fff;
 }
-*{box-sizing:border-box}
 body{
-  margin:0;font-family:Arial, sans-serif;
-  background:var(--bg);color:#fff;
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:var(--bg);
+  color:var(--txt);
 }
-h1,h2,h3{color:var(--gold)}
-.container{width:92%;max-width:980px;margin:auto}
-
-/* HEADER */
 header{
-  position:sticky;top:0;z-index:1000;
+  position:sticky;
+  top:0;
+  z-index:1000;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 18px;
   background:var(--glass);
-  backdrop-filter:blur(14px);
+  backdrop-filter:blur(12px);
   border-bottom:1px solid var(--gold);
-  padding:12px 18px;
-  display:flex;align-items:center;gap:12px;
 }
 header img{width:46px}
-header span{font-size:18px;font-weight:bold}
-
-/* HERO */
-.hero{
-  margin:25px auto;padding:30px;text-align:center;
-  background:var(--glass);border:2px solid var(--gold);
-  border-radius:22px;
+header button{
+  background:none;
+  border:none;
+  color:var(--gold);
+  font-size:18px;
+  cursor:pointer;
 }
-.hero p{opacity:.9}
-
-/* SERVICES */
-.service{
-  margin:20px 0;padding:20px;
+.container{
+  max-width:1000px;
+  margin:auto;
+  padding:25px;
+}
+h1,h2,h3{color:var(--gold)}
+.card{
   background:var(--glass);
   border:1px solid var(--border);
   border-radius:18px;
+  padding:22px;
+  margin-bottom:22px;
 }
-.service b{color:var(--gold)}
-.service button{
-  margin-top:10px;width:100%;
-  background:var(--gold);border:none;
-  padding:12px;border-radius:10px;
-  font-weight:bold;cursor:pointer;
+.price{
+  font-size:20px;
+  font-weight:bold;
+  margin-top:10px;
 }
-
-/* FORM */
-form{
-  margin-top:30px;background:var(--glass);
-  border:2px solid var(--gold);
-  padding:25px;border-radius:20px;
-}
-input,select{
-  width:100%;padding:12px;margin-top:10px;
-  border-radius:8px;border:none;
-}
-.submit{
-  background:var(--gold);color:#06142E;
-  font-weight:bold;margin-top:15px;
-}
-
-/* POPUP */
-.popup{
-  position:fixed;inset:0;
-  background:rgba(0,0,0,.65);
-  display:none;align-items:center;justify-content:center;
-  z-index:9999;
-}
-.popup-content{
-  background:#0B1C34;border:2px solid var(--gold);
-  border-radius:18px;padding:25px;max-width:520px;
-}
-
-/* BUTTONS */
-#backBtn,#topBtn{
-  position:fixed;bottom:20px;
-  width:46px;height:46px;border-radius:50%;
-  background:var(--gold);color:#06142E;
-  font-size:22px;display:flex;
-  align-items:center;justify-content:center;
+.reserve-btn{
+  margin-top:15px;
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:12px;
+  background:var(--gold);
+  color:#06142E;
+  font-weight:bold;
   cursor:pointer;
 }
-#backBtn{left:20px}
-#topBtn{right:20px;display:none}
-
-/* FOOTER */
-footer{
-  margin-top:40px;padding:30px;text-align:center;
-  font-size:14px;opacity:.9;
+.form-box{
+  display:none;
+  margin-top:30px;
+  position:relative;
 }
-footer span{display:block;margin-top:6px}
+.close-form{
+  position:absolute;
+  top:12px;
+  right:15px;
+  font-size:22px;
+  cursor:pointer;
+  color:var(--gold);
+}
+input,select,textarea{
+  width:100%;
+  margin-top:12px;
+  padding:12px;
+  border-radius:10px;
+  border:none;
+}
+#success{
+  display:none;
+  background:#0b1c34;
+  border:1px solid var(--gold);
+  border-radius:18px;
+  padding:25px;
+  margin-top:30px;
+  text-align:center;
+}
+footer{
+  margin-top:50px;
+  padding:25px;
+  text-align:center;
+  font-size:14px;
+  opacity:.85;
+}
+footer a{
+  color:var(--gold);
+  text-decoration:none;
+  display:block;
+  margin-top:6px;
+}
+#toTop{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  background:var(--gold);
+  color:#06142E;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  cursor:pointer;
+  font-size:22px;
+}
 </style>
 </head>
 
 <body>
 
 <header>
+  <button onclick="history.back()">← Retour</button>
   <img src="logotransparent.png">
-  <span>CizaHome+</span>
+  <button onclick="location.reload()">⟳</button>
 </header>
 
 <div class="container">
 
-<section class="hero">
-  <h1>Ménage & Jardinage professionnels</h1>
-  <p>Services fiables pour particuliers et entreprises — intervention ponctuelle ou contrat.</p>
-</section>
+<h1>CizaHome+ 🏠</h1>
+<p>Services professionnels à domicile — Particuliers & Entreprises.</p>
 
-<!-- MENAGE -->
-<div class="service">
-  <h3>Ménage Résidentiel</h3>
-  <p>Nettoyage complet des espaces de vie (sols, surfaces, sanitaires).</p>
-  <p><b>À partir de :</b> 80 000 BIF (inclut déplacement)</p>
-  <button onclick="openPopup('menage')">Voir détails</button>
+<!-- MENAGE PARTICULIER -->
+<div class="card">
+<h3>🧹 Ménage Résidentiel — Particulier</h3>
+<ul>
+<li>Nettoyage complet maison / appartement</li>
+<li>Sol, cuisine, salle de bain, vitres accessibles</li>
+<li>Produits professionnels inclus</li>
+<li>Durée moyenne : 2 à 4 heures</li>
+</ul>
+<div class="price">À partir de 45 000 BIF</div>
+<button class="reserve-btn" onclick="selectService('Ménage Résidentiel',45000)">
+Réserver ce service
+</button>
 </div>
 
-<div class="service">
-  <h3>Ménage Entreprise / Bureaux</h3>
-  <p>Entretien professionnel régulier ou ponctuel.</p>
-  <p><b>À partir de :</b> 150 000 BIF</p>
-  <button onclick="openPopup('bureau')">Voir détails</button>
+<!-- MENAGE ENTREPRISE -->
+<div class="card">
+<h3>🏢 Ménage Entreprise / Bureau</h3>
+<ul>
+<li>Bureaux, commerces, locaux professionnels</li>
+<li>Contrats ponctuels ou réguliers</li>
+<li>Personnel formé & discret</li>
+</ul>
+<div class="price">À partir de 80 000 BIF</div>
+<button class="reserve-btn" onclick="selectService('Ménage Entreprise',80000)">
+Réserver ce service
+</button>
 </div>
 
 <!-- JARDINAGE -->
-<div class="service">
-  <h3>Jardinage & Espaces verts</h3>
-  <p>Tonte, nettoyage, entretien et remise en état.</p>
-  <p><b>À partir de :</b> 120 000 BIF</p>
-  <button onclick="openPopup('jardin')">Voir détails</button>
+<div class="card">
+<h3>🌿 Jardinage & Entretien Extérieur</h3>
+<ul>
+<li>Tonte pelouse & débroussaillage</li>
+<li>Taille haies & entretien jardins</li>
+<li>Ramassage déchets verts</li>
+</ul>
+<div class="price">À partir de 60 000 BIF</div>
+<button class="reserve-btn" onclick="selectService('Jardinage & Entretien',60000)">
+Réserver ce service
+</button>
 </div>
 
 <!-- FORMULAIRE -->
-<form>
-  <h2>Demande de service</h2>
+<div class="card form-box" id="formBox">
+<div class="close-form" onclick="closeForm()">✕</div>
 
-  <input type="text" placeholder="Nom" required>
-  <input type="text" placeholder="Prénom" required>
-  <input type="tel" placeholder="Téléphone" required>
-  <input type="email" placeholder="Email">
+<h2>📋 Confirmation de réservation</h2>
 
-  <select required>
-    <option value="">Type de client</option>
-    <option>Particulier</option>
-    <option>Entreprise</option>
-  </select>
+<form action="https://formsubmit.co/infos@cizagroup.com" method="POST" onsubmit="showSuccess()">
+<input type="hidden" name="_captcha" value="false">
+<input type="hidden" name="_subject" value="Nouvelle réservation CizaHome+">
 
-  <select required>
-    <option value="">Service demandé</option>
-    <option>Ménage résidentiel</option>
-    <option>Ménage bureaux</option>
-    <option>Jardinage</option>
-  </select>
+<input type="text" name="Nom & Prénom" required placeholder="Nom et prénom">
+<input type="tel" name="Téléphone" required placeholder="Téléphone">
 
-  <input type="date" required>
-  <input type="time" required>
-  <input type="text" placeholder="Adresse d’intervention">
+<select name="Type de client" required>
+  <option>Particulier</option>
+  <option>Entreprise</option>
+</select>
 
-  <select required>
-    <option value="">Mode de paiement</option>
-    <option>Mobile Money</option>
-    <option>Cash</option>
-  </select>
+<input type="text" id="serviceField" name="Service choisi" readonly>
+<input type="text" id="priceField" name="Prix estimé (BIF)" readonly>
 
-  <input class="submit" type="submit" value="Envoyer la demande">
+<input type="date" name="Date souhaitée" required>
+<input type="time" name="Heure souhaitée" required>
+
+<select name="Mode de paiement" required>
+  <option>Mobile Money</option>
+  <option>Espèces</option>
+</select>
+
+<textarea name="Adresse / Instructions" placeholder="Adresse complète ou instructions"></textarea>
+
+<button class="reserve-btn" type="submit">
+Confirmer la réservation
+</button>
 </form>
 
+<p style="margin-top:15px;font-size:14px;">
+📧 infos@cizagroup.com<br>
+📱 WhatsApp : +1 514 502 9503
+</p>
 </div>
 
-<!-- POPUP -->
-<div class="popup" id="popup">
-  <div class="popup-content" id="popupContent"></div>
+<div id="success">
+<h3>Merci pour votre demande 🙏</h3>
+<p>
+Votre réservation a bien été envoyée.<br>
+L’équipe CIZA GROUP vous contactera rapidement.
+</p>
+</div>
+
 </div>
 
 <footer>
-  © 2026 CIZA GROUP
-  <span>Design signed by CIZA GROUP</span>
-  <span>© 2026 CIZA GROUP — All rights reserved</span>
+© 2026 CIZA GROUP  
+<span>Design signed by CIZA GROUP</span>
+<a href="mailto:infos@cizagroup.com">infos@cizagroup.com</a>
 </footer>
 
-<div id="backBtn" onclick="history.back()">←</div>
-<div id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+<div id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
 
 <script>
-function openPopup(type){
-  let t="";
-  if(type==="menage"){
-    t="<h3>Ménage Résidentiel</h3><p>✔ Sols & surfaces<br>✔ Sanitaires<br>✔ Cuisine<br>✔ Personnel qualifié</p>";
-  }
-  if(type==="bureau"){
-    t="<h3>Ménage Bureaux</h3><p>✔ Espaces de travail<br>✔ Sanitaires<br>✔ Poubelles<br>✔ Contrats mensuels possibles</p>";
-  }
-  if(type==="jardin"){
-    t="<h3>Jardinage</h3><p>✔ Tonte<br>✔ Nettoyage<br>✔ Taille de haies<br>✔ Entretien régulier</p>";
-  }
-  document.getElementById("popupContent").innerHTML =
-    t+"<button onclick='closePopup()' style='margin-top:12px;width:100%'>Fermer</button>";
-  document.getElementById("popup").style.display="flex";
+function selectService(service,price){
+  document.getElementById("formBox").style.display="block";
+  document.getElementById("serviceField").value=service;
+  document.getElementById("priceField").value=price+" BIF";
+  document.getElementById("formBox").scrollIntoView({behavior:"smooth"});
 }
-function closePopup(){document.getElementById("popup").style.display="none";}
+function closeForm(){
+  document.getElementById("formBox").style.display="none";
+}
+function showSuccess(){
+  setTimeout(()=>{
+    document.getElementById("formBox").style.display="none";
+    document.getElementById("success").style.display="block";
+  },500);
+}
 window.addEventListener("scroll",()=>{
-  document.getElementById("topBtn").style.display = window.scrollY>300?"flex":"none";
+  document.getElementById("toTop").style.display =
+    window.scrollY>300 ? "flex" : "none";
 });
 </script>
 
