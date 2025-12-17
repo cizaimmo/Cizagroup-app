@@ -246,6 +246,74 @@ footer a{
   </details>
 </section>
 
+<!-- 🔽 AJOUTE CE BLOC JUSTE AVANT LE FOOTER 🔽 -->
+
+<section class="section">
+  <h2 id="bookingTitle">🧾 Réserver un lavage</h2>
+
+  <div class="card">
+    <label>🚘 Type de véhicule</label>
+    <select id="vehicle">
+      <option value="10">Voiture standard</option>
+      <option value="15">SUV / 4x4</option>
+      <option value="20">Minibus / Pickup</option>
+    </select>
+
+    <label>🧼 Type de service</label>
+    <select id="service">
+      <option value="5">Lavage extérieur</option>
+      <option value="8">Intérieur</option>
+      <option value="12">Complet</option>
+      <option value="18">Premium + jantes</option>
+    </select>
+
+    <label>📍 Lieu</label>
+    <select id="location">
+      <option value="0">Station CizaCarWash</option>
+      <option value="5">À domicile</option>
+    </select>
+
+    <label>📅 Date</label>
+    <input type="date" id="date">
+
+    <label>⏰ Heure</label>
+    <input type="time" id="time">
+
+    <div style="margin-top:15px;font-size:18px;">
+      💰 <b>Total :</b> <span id="total">0</span> USD
+    </div>
+
+    <button style="margin-top:15px;width:100%;padding:14px;
+      background:var(--gold);border:none;border-radius:14px;
+      font-weight:bold;cursor:pointer;">
+      Confirmer la réservation
+    </button>
+  </div>
+</section>
+
+<section class="section">
+  <h2>💳 Paiement accepté</h2>
+  <div class="pay">
+    <div>📱 EcoCash</div>
+    <div>📱 Lumicash</div>
+    <div>📱 Mobile Money</div>
+    <div>💵 Paiement sur place</div>
+  </div>
+</section>
+
+<script>
+function calc(){
+  const v = +document.getElementById("vehicle").value;
+  const s = +document.getElementById("service").value;
+  const l = +document.getElementById("location").value;
+  document.getElementById("total").textContent = v + s + l;
+}
+
+["vehicle","service","location"].forEach(id=>{
+  document.getElementById(id).addEventListener("change",calc);
+});
+</script>
+
 <footer>
   © 2026 CIZA GROUP  
   <div>Design signed by <b>CIZA GROUP</b></div>
