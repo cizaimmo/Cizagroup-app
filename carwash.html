@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>CIZA CarWash+ — Services Professionnels</title>
+<title>CizaCarWash+ — Lavage Automobile Premium</title>
 <link rel="icon" href="logotransparent.png">
 
 <style>
@@ -17,6 +17,7 @@
 }
 
 *{box-sizing:border-box}
+
 body{
   margin:0;
   font-family:Arial, sans-serif;
@@ -26,71 +27,86 @@ body{
 
 /* HEADER */
 header{
-  position:sticky;top:0;z-index:1000;
-  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;
+  top:0;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
   padding:14px 18px;
   background:var(--glass);
-  backdrop-filter:blur(16px);
+  backdrop-filter:blur(14px);
   border-bottom:1px solid var(--gold);
+  z-index:1000;
 }
 .back{
-  width:44px;height:44px;border-radius:50%;
+  width:42px;
+  height:42px;
+  border-radius:50%;
   border:2px solid var(--gold);
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;color:var(--gold);font-size:20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--gold);
+  cursor:pointer;
 }
-header h1{font-size:18px;margin:0}
 .lang{
-  background:var(--gold);color:#06142E;
-  padding:8px 14px;border-radius:14px;
-  font-weight:bold;cursor:pointer;
+  background:var(--gold);
+  color:#06142E;
+  padding:8px 14px;
+  border-radius:14px;
+  font-weight:bold;
+  cursor:pointer;
 }
 
 /* HERO */
 .hero{
   margin:30px auto;
   width:90%;
-  max-width:900px;
   background:var(--glass);
   border:2px solid var(--gold);
   border-radius:24px;
-  padding:30px;
+  padding:30px 20px;
   text-align:center;
 }
-.hero h2{color:var(--gold);margin:10px 0}
-.hero p{opacity:.9}
+.hero h1{
+  margin:0;
+  color:var(--gold);
+}
+.hero p{
+  opacity:.9;
+  margin-top:10px;
+}
 
 /* SECTIONS */
-section{
-  width:90%;max-width:900px;
+.section{
+  width:90%;
   margin:40px auto;
 }
-h3{
+.section h2{
   color:var(--gold);
-  margin-bottom:18px;
+  margin-bottom:14px;
 }
 
-/* CARDS */
+/* GRID */
 .grid{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:16px;
+  gap:14px;
 }
 .card{
   background:var(--glass);
-  border:1px solid var(--border);
+  border:2px solid var(--border);
   border-radius:18px;
   padding:20px;
 }
-.card h4{color:var(--gold);margin-top:0}
-.card ul{padding-left:18px}
-.card li{margin-bottom:6px}
+.card span{
+  font-size:28px;
+}
 
 /* PROCESS */
-.process{
+.steps{
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:14px;
+  gap:12px;
 }
 .step{
   background:var(--glass);
@@ -99,34 +115,58 @@ h3{
   border-radius:14px;
 }
 
-/* FAQ */
-details{
+/* PAY */
+.pay{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.pay div{
   background:var(--glass);
   border:1px solid var(--border);
+  padding:12px 16px;
   border-radius:14px;
+}
+
+/* FAQ */
+.faq details{
+  background:var(--glass);
+  border:1px solid var(--border);
   padding:14px;
+  border-radius:14px;
   margin-bottom:10px;
 }
-summary{cursor:pointer;color:var(--gold);font-weight:bold}
 
 /* FOOTER */
 footer{
-  margin-top:60px;
+  margin-top:50px;
   padding:30px;
   text-align:center;
   font-size:14px;
-  opacity:.9;
+  opacity:.85;
 }
-footer span{color:var(--gold)}
-footer a{color:var(--gold);text-decoration:none;display:block;margin-top:6px}
+footer a{
+  color:var(--gold);
+  display:block;
+  margin-top:6px;
+  text-decoration:none;
+}
 
 /* TOP */
-#topBtn{
-  position:fixed;bottom:20px;right:20px;
-  width:46px;height:46px;border-radius:50%;
-  background:var(--gold);color:#06142E;
-  display:none;align-items:center;justify-content:center;
-  font-size:22px;cursor:pointer;
+#top{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  width:45px;
+  height:45px;
+  background:var(--gold);
+  color:#06142E;
+  border-radius:50%;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  cursor:pointer;
 }
 </style>
 </head>
@@ -135,136 +175,190 @@ footer a{color:var(--gold);text-decoration:none;display:block;margin-top:6px}
 
 <header>
   <div class="back" onclick="history.back()">←</div>
-  <h1>CIZA CarWash+</h1>
-  <div class="lang" id="langBtn">FR</div>
+  <div><b>CizaCarWash+</b></div>
+  <div class="lang" id="lang">FR</div>
 </header>
 
-<div class="hero">
-  <h2 id="title">CarWash Professionnel à la Demande</h2>
-  <p id="subtitle">
-    Lavage automobile fiable, rapide et premium pour particuliers, entreprises et flottes.
-  </p>
-</div>
+<section class="hero">
+  <h1 id="title"></h1>
+  <p id="subtitle"></p>
+</section>
 
-<section>
-  <h3 id="servicesTitle">Nos Services</h3>
+<section class="section">
+  <h2 id="servicesTitle"></h2>
   <div class="grid">
-
     <div class="card">
-      <h4 id="s1t">🚗 Simple</h4>
-      <ul id="s1d">
-        <li>Lavage extérieur</li>
-        <li>Nettoyage vitres</li>
-        <li>Séchage professionnel</li>
-      </ul>
+      <span>🚗</span>
+      <h3 id="s1"></h3>
+      <p id="s1t"></p>
     </div>
-
     <div class="card">
-      <h4 id="s2t">✨ Avancé</h4>
-      <ul id="s2d">
-        <li>Lavage intérieur & extérieur</li>
-        <li>Aspiration complète</li>
-        <li>Tableau de bord</li>
-      </ul>
+      <span>✨</span>
+      <h3 id="s2"></h3>
+      <p id="s2t"></p>
     </div>
-
     <div class="card">
-      <h4 id="s3t">👑 Pro</h4>
-      <ul id="s3d">
-        <li>Traitement carrosserie</li>
-        <li>Désinfection intérieure</li>
-        <li>Parfum premium</li>
-      </ul>
+      <span>🛞</span>
+      <h3 id="s3"></h3>
+      <p id="s3t"></p>
     </div>
-
     <div class="card">
-      <h4 id="s4t">🏢 Flottes & Entreprises</h4>
-      <ul id="s4d">
-        <li>Contrats mensuels</li>
-        <li>Suivi des véhicules</li>
-        <li>Facturation professionnelle</li>
-      </ul>
+      <span>🏢</span>
+      <h3 id="s4"></h3>
+      <p id="s4t"></p>
     </div>
-
   </div>
 </section>
 
-<section>
-  <h3 id="processTitle">Comment Commander</h3>
-  <div class="process">
-    <div class="step" id="p1">1. Choisissez le service</div>
-    <div class="step" id="p2">2. Indiquez le lieu & la date</div>
-    <div class="step" id="p3">3. Choisissez le paiement</div>
-    <div class="step" id="p4">4. Confirmation & intervention</div>
+<section class="section">
+  <h2 id="processTitle"></h2>
+  <div class="steps">
+    <div class="step" id="p1"></div>
+    <div class="step" id="p2"></div>
+    <div class="step" id="p3"></div>
   </div>
 </section>
 
-<section>
-  <h3 id="payTitle">Paiements Acceptés</h3>
-  <ul id="payList">
-    <li>Mobile Money (Lumicash, EcoCash, autres)</li>
-    <li>Paiement en espèces</li>
-  </ul>
+<section class="section">
+  <h2 id="payTitle"></h2>
+  <div class="pay">
+    <div>📱 EcoCash</div>
+    <div>📱 Lumicash</div>
+    <div>📱 Mobile Money</div>
+    <div>💵 Paiement sur place</div>
+  </div>
 </section>
 
-<section>
-  <h3 id="faqTitle">FAQ</h3>
+<section class="section">
+  <h2 id="whyTitle"></h2>
+  <ul id="why"></ul>
+</section>
+
+<section class="section faq">
+  <h2>FAQ</h2>
   <details>
-    <summary id="q1">Intervenez-vous à domicile ?</summary>
-    <p id="a1">Oui, nous intervenons à domicile, au bureau ou sur site entreprise.</p>
+    <summary id="f1q"></summary>
+    <p id="f1a"></p>
   </details>
   <details>
-    <summary id="q2">Combien de temps dure un lavage ?</summary>
-    <p id="a2">Entre 30 minutes et 2 heures selon le service.</p>
+    <summary id="f2q"></summary>
+    <p id="f2a"></p>
   </details>
 </section>
 
 <footer>
-  <div>
-    © 2026 <span>CIZA GROUP</span><br>
-    CarWash+ — Marque déposée<br><br>
-    Design signed by <span>CIZA GROUP</span>
-  </div>
-  <a href="legal.html">Mentions légales / Legal notice</a>
+  © 2026 CIZA GROUP  
+  <div>Design signed by <b>CIZA GROUP</b></div>
+  <a href="mailto:infos@cizagroup.com">Contact</a>
 </footer>
 
-<div id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+<div id="top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
 
 <script>
 let lang="fr";
 const T={
- fr:{
-  title:"CarWash Professionnel à la Demande",
-  subtitle:"Lavage automobile fiable, rapide et premium pour particuliers, entreprises et flottes.",
-  services:"Nos Services",
-  process:"Comment Commander",
-  pay:"Paiements Acceptés",
-  faq:"FAQ"
- },
- en:{
-  title:"Professional On-Demand Car Wash",
-  subtitle:"Reliable, fast and premium car wash for individuals, companies and fleets.",
-  services:"Our Services",
-  process:"How to Order",
-  pay:"Accepted Payments",
-  faq:"FAQ"
- }
+fr:{
+title:"CizaCarWash+",
+sub:"Lavage automobile premium, rapide et professionnel",
+services:"Nos services",
+s1:"Lavage extérieur",
+s1t:"Nettoyage complet de la carrosserie avec produits professionnels.",
+s2:"Nettoyage intérieur",
+s2t:"Aspiration, sièges, tableau de bord et finitions.",
+s3:"Entretien pneus & jantes",
+s3t:"Nettoyage et brillance longue durée.",
+s4:"Flottes & entreprises",
+s4t:"Contrats mensuels pour entreprises et parcs automobiles.",
+process:"Comment commander",
+p1:"1️⃣ Choisissez le type de lavage",
+p2:"2️⃣ Sélectionnez la date et le lieu",
+p3:"3️⃣ Payez et suivez le service",
+pay:"Moyens de paiement",
+why:"Pourquoi CizaCarWash+",
+whyList:[
+"Produits professionnels",
+"Équipe formée et vérifiée",
+"Service rapide et fiable",
+"Paiement mobile sécurisé"
+],
+f1q:"Le lavage peut-il être fait à domicile ?",
+f1a:"Oui, selon votre localisation et le type de service.",
+f2q:"Proposez-vous des abonnements ?",
+f2a:"Oui, pour particuliers et entreprises."
+},
+en:{
+title:"CizaCarWash+",
+sub:"Premium, fast and professional car wash",
+services:"Our services",
+s1:"Exterior wash",
+s1t:"Complete body cleaning with professional products.",
+s2:"Interior cleaning",
+s2t:"Vacuum, seats, dashboard and finishing.",
+s3:"Tires & rims care",
+s3t:"Cleaning and long-lasting shine.",
+s4:"Fleets & companies",
+s4t:"Monthly contracts for companies and fleets.",
+process:"How to order",
+p1:"1️⃣ Choose wash type",
+p2:"2️⃣ Select date and location",
+p3:"3️⃣ Pay and track your service",
+pay:"Payment methods",
+why:"Why CizaCarWash+",
+whyList:[
+"Professional products",
+"Verified staff",
+"Fast & reliable service",
+"Secure mobile payment"
+],
+f1q:"Can the service be done at home?",
+f1a:"Yes, depending on location and service type.",
+f2q:"Do you offer subscriptions?",
+f2a:"Yes, for individuals and businesses."
+}
 };
 
-document.getElementById("langBtn").onclick=()=>{
- lang=lang==="fr"?"en":"fr";
- document.getElementById("langBtn").textContent=lang.toUpperCase();
- document.getElementById("title").textContent=T[lang].title;
- document.getElementById("subtitle").textContent=T[lang].subtitle;
- document.getElementById("servicesTitle").textContent=T[lang].services;
- document.getElementById("processTitle").textContent=T[lang].process;
- document.getElementById("payTitle").textContent=T[lang].pay;
- document.getElementById("faqTitle").textContent=T[lang].faq;
+function render(){
+document.getElementById("title").textContent=T[lang].title;
+document.getElementById("subtitle").textContent=T[lang].sub;
+document.getElementById("servicesTitle").textContent=T[lang].services;
+
+["s1","s2","s3","s4"].forEach((k,i)=>{
+  document.getElementById(k).textContent=T[lang][k];
+  document.getElementById(k+"t").textContent=T[lang][k+"t"];
+});
+
+document.getElementById("processTitle").textContent=T[lang].process;
+document.getElementById("p1").textContent=T[lang].p1;
+document.getElementById("p2").textContent=T[lang].p2;
+document.getElementById("p3").textContent=T[lang].p3;
+document.getElementById("payTitle").textContent=T[lang].pay;
+document.getElementById("whyTitle").textContent=T[lang].why;
+
+const ul=document.getElementById("why");
+ul.innerHTML="";
+T[lang].whyList.forEach(i=>{
+  const li=document.createElement("li");
+  li.textContent=i;
+  ul.appendChild(li);
+});
+
+document.getElementById("f1q").textContent=T[lang].f1q;
+document.getElementById("f1a").textContent=T[lang].f1a;
+document.getElementById("f2q").textContent=T[lang].f2q;
+document.getElementById("f2a").textContent=T[lang].f2a;
+}
+
+document.getElementById("lang").onclick=()=>{
+lang=lang==="fr"?"en":"fr";
+document.getElementById("lang").textContent=lang.toUpperCase();
+render();
 };
+
+render();
 
 window.addEventListener("scroll",()=>{
- document.getElementById("topBtn").style.display=
-  window.scrollY>300?"flex":"none";
+document.getElementById("top").style.display=
+window.scrollY>300?"flex":"none";
 });
 </script>
 
