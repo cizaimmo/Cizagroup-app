@@ -3,41 +3,93 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>CarWash Simple</title>
+<title>CIZA CarWash — Simple</title>
 
 <style>
-body{margin:0; background:#06142E; color:white; font-family:Arial;}
-.container{
-    width:90%; margin:40px auto;
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:linear-gradient(180deg,#06142E,#0B1C34);
+    color:white;
+}
+
+/* HEADER */
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 20px;
+}
+.back{
+    cursor:pointer;
+    font-size:16px;
+    color:#F2B840;
+}
+.lang{
+    background:#F2B840;
+    color:#06142E;
+    padding:8px 14px;
+    border-radius:12px;
+    font-weight:bold;
+}
+
+/* CARD */
+.card{
+    max-width:520px;
+    margin:60px auto;
     background:rgba(255,255,255,0.06);
     border:1px solid rgba(255,255,255,0.15);
-    border-radius:16px;
-    padding:20px;
-    backdrop-filter:blur(10px);
-}
-h2{color:#A8C7FF; text-align:center;}
-.back{
-    margin-top:20px;
-    display:block;
+    border-radius:22px;
+    padding:40px 25px;
     text-align:center;
-    color:#A8C7FF;
-    text-decoration:none;
+    box-shadow:0 0 40px rgba(0,0,0,0.4);
 }
+
+.card h1{
+    color:#F2B840;
+    margin-bottom:10px;
+}
+
+.status{
+    margin-top:18px;
+    padding:12px;
+    border-radius:12px;
+    background:#0B1C34;
+    opacity:.9;
+}
+
+/* FOOTER */
+footer{
+    text-align:center;
+    font-size:13px;
+    opacity:.7;
+    margin:40px 0 20px;
+}
+footer b{color:#F2B840}
 </style>
 </head>
 
 <body>
 
-<div class="container">
-    <h2 data-fr="CarWash Simple" data-en="Simple Service">CarWash Simple</h2>
-    <p data-fr="Service en développement — Phase Firebase"
-       data-en="Service in development — Firebase Phase">
-       Service en développement — Phase Firebase
-    </p>
+<div class="header">
+    <div class="back" onclick="history.back()">← Retour</div>
+    <div class="lang">FR</div>
 </div>
 
-<a href="carwash.html" class="back">← Retour</a>
+<div class="card">
+    <h1>CarWash Simple</h1>
+    <p>Lavage extérieur rapide et efficace pour véhicules particuliers.</p>
+
+    <div class="status">
+        🚧 Service en développement<br>
+        Phase Firebase & intégration App
+    </div>
+</div>
+
+<footer>
+    Design signed by <b>CIZA GROUP</b><br>
+    © 2025 — Tous droits réservés
+</footer>
 
 </body>
 </html>
