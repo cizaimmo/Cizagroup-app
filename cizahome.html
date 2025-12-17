@@ -3,50 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>CizaHome+ — Services à domicile Premium</title>
+<title>CizaHome+ — Services à domicile</title>
 <link rel="icon" href="logotransparent.png">
 
 <style>
 :root{
   --bg:#06142E;
-  --glass:rgba(255,255,255,0.08);
-  --border:rgba(255,255,255,0.15);
+  --card:#0B1C34;
   --gold:#F2B840;
-  --text:#ffffff;
+  --text:#fff;
 }
-
-*{box-sizing:border-box}
-
 body{
   margin:0;
   font-family:Arial, sans-serif;
   background:var(--bg);
   color:var(--text);
 }
-
-/* HEADER */
 header{
-  position:sticky;
-  top:0;
   display:flex;
-  align-items:center;
   justify-content:space-between;
+  align-items:center;
   padding:14px 18px;
-  background:var(--glass);
-  backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--gold);
-  z-index:1000;
+  background:rgba(255,255,255,.06);
+  backdrop-filter:blur(12px);
 }
 .back{
-  width:42px;
-  height:42px;
+  width:42px;height:42px;
   border-radius:50%;
   border:2px solid var(--gold);
+  color:var(--gold);
   display:flex;
   align-items:center;
   justify-content:center;
-  color:var(--gold);
   cursor:pointer;
 }
 .lang{
@@ -57,115 +45,87 @@ header{
   font-weight:bold;
   cursor:pointer;
 }
-
-/* HERO */
-.hero{
-  margin:30px auto;
-  width:90%;
-  background:var(--glass);
-  border:2px solid var(--gold);
-  border-radius:24px;
-  padding:30px 20px;
-  text-align:center;
+.container{
+  max-width:420px;
+  margin:20px auto;
+  padding:0 15px;
 }
-.hero h1{
-  margin:0;
+.card{
+  background:var(--card);
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:20px;
+  padding:18px;
+  margin-bottom:20px;
+}
+h1,h2{
   color:var(--gold);
+  margin-top:0;
 }
-.hero p{
-  opacity:.9;
-  margin-top:10px;
-}
-
-/* SECTIONS */
-.section{
-  width:90%;
-  margin:40px auto;
-}
-.section h2{
-  color:var(--gold);
-  margin-bottom:14px;
-}
-
-/* CARDS */
 .grid{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:14px;
-}
-.card{
-  background:var(--glass);
-  border:2px solid var(--border);
-  border-radius:18px;
-  padding:20px;
-}
-.card span{
-  font-size:28px;
-}
-
-/* PROCESS */
-.steps{
-  display:grid;
   gap:12px;
 }
-.step{
-  background:var(--glass);
-  border-left:4px solid var(--gold);
+.service{
+  background:#101E36;
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:16px;
   padding:16px;
-  border-radius:14px;
-}
-
-/* PAY */
-.pay{
-  display:flex;
-  gap:12px;
-  flex-wrap:wrap;
-}
-.pay div{
-  background:var(--glass);
-  border:1px solid var(--border);
-  padding:12px 16px;
-  border-radius:14px;
-}
-
-/* FAQ */
-.faq details{
-  background:var(--glass);
-  border:1px solid var(--border);
-  padding:14px;
-  border-radius:14px;
-  margin-bottom:10px;
-}
-
-/* FOOTER */
-footer{
-  margin-top:50px;
-  padding:30px;
   text-align:center;
+}
+label{
+  display:block;
+  margin-top:12px;
   font-size:14px;
+}
+select,input{
+  width:100%;
+  padding:10px;
+  border-radius:12px;
+  border:none;
+  margin-top:6px;
+}
+.btn{
+  width:100%;
+  margin-top:16px;
+  padding:14px;
+  background:var(--gold);
+  color:#06142E;
+  border:none;
+  border-radius:16px;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+}
+.pay-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.pay{
+  background:#101E36;
+  border-radius:14px;
+  padding:14px;
+  text-align:center;
+  border:1px solid rgba(255,255,255,.2);
+}
+footer{
+  text-align:center;
+  padding:25px;
+  font-size:13px;
   opacity:.85;
 }
-footer a{
-  color:var(--gold);
-  display:block;
-  margin-top:6px;
-  text-decoration:none;
-}
-
-/* TOP */
 #top{
   position:fixed;
   bottom:20px;
   right:20px;
-  width:45px;
-  height:45px;
+  width:46px;height:46px;
   background:var(--gold);
   color:#06142E;
   border-radius:50%;
-  display:none;
+  display:flex;
   align-items:center;
   justify-content:center;
-  font-size:22px;
   cursor:pointer;
 }
 </style>
@@ -175,169 +135,121 @@ footer a{
 
 <header>
   <div class="back" onclick="history.back()">←</div>
-  <div><b>CizaHome+</b></div>
-  <div class="lang" id="lang">FR</div>
+  <strong>CizaHome+</strong>
+  <div class="lang" onclick="toggleLang()">FR</div>
 </header>
 
-<section class="hero">
-  <h1 id="title"></h1>
-  <p id="subtitle"></p>
-</section>
+<div class="container">
 
-<section class="section">
-  <h2 id="servicesTitle"></h2>
+<h1 id="title">Services à domicile</h1>
+
+<div class="card">
+  <h2 id="servicesTitle">Nos services</h2>
   <div class="grid">
-    <div class="card">
-      <span>🧹</span>
-      <h3 id="s1"></h3>
-      <p id="s1t"></p>
-    </div>
-    <div class="card">
-      <span>🌿</span>
-      <h3 id="s2"></h3>
-      <p id="s2t"></p>
-    </div>
+    <div class="service">🧹<br>Ménage complet</div>
+    <div class="service">🛋️<br>Ménage bureaux</div>
+    <div class="service">🪟<br>Vitres & sols</div>
+    <div class="service">🌿<br>Jardinage</div>
+    <div class="service">🧺<br>Nettoyage profond</div>
+    <div class="service">🏡<br>Entretien régulier</div>
   </div>
-</section>
+</div>
 
-<section class="section">
-  <h2 id="processTitle"></h2>
-  <div class="steps">
-    <div class="step" id="p1"></div>
-    <div class="step" id="p2"></div>
-    <div class="step" id="p3"></div>
-  </div>
-</section>
+<div class="card">
+  <h2 id="bookTitle">Réserver un service</h2>
 
-<section class="section">
-  <h2 id="payTitle"></h2>
-  <div class="pay">
-    <div>📱 EcoCash</div>
-    <div>📱 Lumicash</div>
-    <div>📱 Mobile Money</div>
-    <div>💵 Paiement sur place</div>
-  </div>
-</section>
+  <label id="l1">Type de service</label>
+  <select id="service">
+    <option>Ménage à domicile</option>
+    <option>Jardinage</option>
+    <option>Entretien régulier</option>
+  </select>
 
-<section class="section">
-  <h2 id="whyTitle"></h2>
-  <ul id="why"></ul>
-</section>
+  <label id="l2">Fréquence</label>
+  <select id="freq">
+    <option>Unique</option>
+    <option>Hebdomadaire</option>
+    <option>Mensuelle</option>
+  </select>
 
-<section class="section faq">
+  <label id="l3">Date</label>
+  <input type="date" id="date">
+
+  <label id="l4">Heure</label>
+  <input type="time" id="time">
+
+  <button class="btn" onclick="order()" id="confirm">
+    Confirmer la demande
+  </button>
+</div>
+
+<div class="card">
+  <h2 id="processTitle">Comment ça marche</h2>
+  <p>1️⃣ Choisissez le service<br>
+     2️⃣ Planifiez date & heure<br>
+     3️⃣ Paiement sécurisé<br>
+     4️⃣ Agent Ciza certifié intervient</p>
+</div>
+
+<div class="card">
+  <h2 id="whyTitle">Pourquoi CizaHome+</h2>
+  <p>
+    ✔ Personnel vérifié<br>
+    ✔ Matériel professionnel<br>
+    ✔ Support client 7j/7<br>
+    ✔ Paiement flexible
+  </p>
+</div>
+
+<div class="card">
   <h2>FAQ</h2>
-  <details>
-    <summary id="f1q"></summary>
-    <p id="f1a"></p>
-  </details>
-  <details>
-    <summary id="f2q"></summary>
-    <p id="f2a"></p>
-  </details>
-</section>
+  <p><b>Les produits sont inclus ?</b><br>Oui</p>
+  <p><b>Paiement après service ?</b><br>Possible</p>
+  <p><b>Annulation ?</b><br>Gratuite 12h avant</p>
+</div>
+
+<h2 id="payTitle">Paiements acceptés</h2>
+<div class="pay-grid">
+  <div class="pay">📱 EcoCash</div>
+  <div class="pay">📱 Lumicash</div>
+  <div class="pay">📱 Mobile Money</div>
+  <div class="pay">💵 Paiement sur place</div>
+</div>
+
+</div>
 
 <footer>
-  © 2026 CIZA GROUP  
-  <div>Design signed by <b>CIZA GROUP</b></div>
-  <a href="mailto:infos@cizagroup.com">Contact</a>
+  © 2026 CIZA GROUP<br>
+  Design signed by <b>CIZA GROUP</b>
 </footer>
 
 <div id="top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
 
 <script>
 let lang="fr";
-const T={
-fr:{
-title:"CizaHome+",
-sub:"Services à domicile premium : ménage & jardinage",
-services:"Nos services",
-s1:"Ménage à domicile",
-s1t:"Nettoyage complet, régulier ou ponctuel par des agents vérifiés.",
-s2:"Jardinage",
-s2t:"Entretien, tonte, nettoyage et aménagement d’espaces verts.",
-process:"Comment commander",
-p1:"1️⃣ Choisissez le service et votre zone",
-p2:"2️⃣ Sélectionnez la date et l’heure",
-p3:"3️⃣ Payez et suivez votre service",
-pay:"Moyens de paiement",
-why:"Pourquoi CizaHome+",
-whyList:[
-"Personnel vérifié et formé",
-"Tarifs clairs et transparents",
-"Support client CIZA GROUP",
-"Paiement mobile sécurisé"
-],
-f1q:"Puis-je programmer un service récurrent ?",
-f1a:"Oui, hebdomadaire ou mensuel selon votre besoin.",
-f2q:"Le paiement est-il obligatoire à l’avance ?",
-f2a:"Paiement mobile ou sur place selon votre choix."
-},
-en:{
-title:"CizaHome+",
-sub:"Premium home services: cleaning & gardening",
-services:"Our services",
-s1:"Home cleaning",
-s1t:"Full or regular cleaning by verified professionals.",
-s2:"Gardening",
-s2t:"Maintenance, mowing and green space care.",
-process:"How to order",
-p1:"1️⃣ Choose the service and area",
-p2:"2️⃣ Select date and time",
-p3:"3️⃣ Pay and track your service",
-pay:"Payment methods",
-why:"Why CizaHome+",
-whyList:[
-"Verified staff",
-"Transparent pricing",
-"CIZA GROUP support",
-"Secure mobile payment"
-],
-f1q:"Can I schedule recurring services?",
-f1a:"Yes, weekly or monthly options available.",
-f2q:"Is advance payment required?",
-f2a:"Mobile or on-site payment available."
-}
-};
-
-function render(){
-document.getElementById("title").textContent=T[lang].title;
-document.getElementById("subtitle").textContent=T[lang].sub;
-document.getElementById("servicesTitle").textContent=T[lang].services;
-document.getElementById("s1").textContent=T[lang].s1;
-document.getElementById("s1t").textContent=T[lang].s1t;
-document.getElementById("s2").textContent=T[lang].s2;
-document.getElementById("s2t").textContent=T[lang].s2t;
-document.getElementById("processTitle").textContent=T[lang].process;
-document.getElementById("p1").textContent=T[lang].p1;
-document.getElementById("p2").textContent=T[lang].p2;
-document.getElementById("p3").textContent=T[lang].p3;
-document.getElementById("payTitle").textContent=T[lang].pay;
-document.getElementById("whyTitle").textContent=T[lang].why;
-const ul=document.getElementById("why");
-ul.innerHTML="";
-T[lang].whyList.forEach(i=>{
-  const li=document.createElement("li");
-  li.textContent=i;
-  ul.appendChild(li);
-});
-document.getElementById("f1q").textContent=T[lang].f1q;
-document.getElementById("f1a").textContent=T[lang].f1a;
-document.getElementById("f2q").textContent=T[lang].f2q;
-document.getElementById("f2a").textContent=T[lang].f2a;
+function toggleLang(){
+  if(lang==="fr"){
+    lang="en";
+    title.innerText="Home services";
+    servicesTitle.innerText="Our services";
+    bookTitle.innerText="Book a service";
+    confirm.innerText="Confirm request";
+    processTitle.innerText="How it works";
+    whyTitle.innerText="Why CizaHome+";
+    payTitle.innerText="Accepted payments";
+  }else{
+    location.reload();
+  }
 }
 
-document.getElementById("lang").onclick=()=>{
-lang=lang==="fr"?"en":"fr";
-document.getElementById("lang").textContent=lang.toUpperCase();
-render();
-};
-
-render();
-
-window.addEventListener("scroll",()=>{
-document.getElementById("top").style.display=
-window.scrollY>300?"flex":"none";
-});
+function order(){
+  let msg=`Bonjour CizaHome+,%0A
+Service : ${service.value}%0A
+Fréquence : ${freq.value}%0A
+Date : ${date.value}%0A
+Heure : ${time.value}`;
+  window.open("https://wa.me/25779945007?text="+msg,"_blank");
+}
 </script>
 
 </body>
