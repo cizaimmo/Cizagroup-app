@@ -3,261 +3,258 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>CizaMarket — Marketplace Locale & Diaspora</title>
+<title>CizaMarket+ — Packs Alimentaires Officiels</title>
 <link rel="icon" href="logotransparent.png">
 
 <style>
+:root{
+  --bg:#06142E;
+  --gold:#F2B840;
+  --glass:rgba(255,255,255,.08);
+  --border:rgba(255,255,255,.15);
+  --txt:#fff;
+}
 body{
-    margin:0;
-    font-family:Arial, sans-serif;
-    background:#06142E;
-    color:white;
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:var(--bg);
+  color:var(--txt);
 }
-a{text-decoration:none;color:inherit}
-
-/* Boutons fixes */
-#backBtn,#toTop{
-    position:fixed;
-    width:46px;height:46px;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:20px;
-    cursor:pointer;
-    z-index:9999;
+header{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 18px;
+  background:var(--glass);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--gold);
 }
-#backBtn{
-    top:15px;left:15px;
-    border:2px solid #F2B840;
-    color:#F2B840;
+header img{width:46px}
+header button{
+  background:none;
+  border:none;
+  color:var(--gold);
+  font-size:18px;
+  cursor:pointer;
+}
+.container{
+  max-width:1000px;
+  margin:auto;
+  padding:25px;
+}
+h1,h2,h3{color:var(--gold)}
+.card{
+  background:var(--glass);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:22px;
+  margin-bottom:22px;
+}
+.price{
+  font-size:20px;
+  font-weight:bold;
+  margin-top:10px;
+}
+.reserve-btn{
+  margin-top:15px;
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:12px;
+  background:var(--gold);
+  color:#06142E;
+  font-weight:bold;
+  cursor:pointer;
+}
+.form-box{
+  display:none;
+  margin-top:30px;
+  position:relative;
+}
+.close-form{
+  position:absolute;
+  top:12px;
+  right:15px;
+  font-size:22px;
+  cursor:pointer;
+  color:var(--gold);
+}
+input,select,textarea{
+  width:100%;
+  margin-top:12px;
+  padding:12px;
+  border-radius:10px;
+  border:none;
+}
+#success{
+  display:none;
+  background:#0b1c34;
+  border:1px solid var(--gold);
+  border-radius:18px;
+  padding:25px;
+  margin-top:30px;
+  text-align:center;
+}
+footer{
+  margin-top:50px;
+  padding:25px;
+  text-align:center;
+  font-size:14px;
+  opacity:.85;
+}
+footer a{
+  color:var(--gold);
+  text-decoration:none;
+  display:block;
+  margin-top:6px
 }
 #toTop{
-    bottom:20px;right:20px;
-    background:#F2B840;
-    color:#06142E;
-    display:none;
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  background:var(--gold);
+  color:#06142E;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  cursor:pointer;
+  font-size:22px;
 }
-
-/* Header */
-header{
-    padding:90px 20px 50px;
-    text-align:center;
-}
-header h1{
-    color:#F2B840;
-    font-size:34px;
-}
-header p{
-    max-width:850px;
-    margin:auto;
-    opacity:.9;
-}
-
-/* Sections */
-.section{
-    max-width:1000px;
-    margin:50px auto;
-    padding:0 20px;
-}
-.section h2{
-    color:#F2B840;
-    margin-bottom:20px;
-}
-
-/* Cards */
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-    gap:20px;
-}
-.card{
-    background:rgba(255,255,255,0.07);
-    border:1px solid rgba(255,255,255,0.15);
-    border-radius:18px;
-    padding:25px;
-    transition:.3s;
-}
-.card:hover{
-    transform:translateY(-6px);
-    border-color:#F2B840;
-}
-.card h3{
-    color:#F2B840;
-    margin-top:0;
-}
-
-/* Form */
-form input, form select, form textarea{
-    width:100%;
-    margin-top:10px;
-    padding:12px;
-    border:none;
-    border-radius:10px;
-    background:#0B1C34;
-    color:white;
-}
-form textarea{height:120px}
-button{
-    margin-top:15px;
-    background:#F2B840;
-    color:#06142E;
-    border:none;
-    padding:14px;
-    width:100%;
-    border-radius:12px;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-/* Footer */
-footer{
-    margin-top:60px;
-    padding:30px;
-    text-align:center;
-    font-size:13px;
-    opacity:.85;
-}
-footer b{color:#F2B840}
 </style>
 </head>
 
 <body>
 
-<div id="backBtn" onclick="history.back()">←</div>
-<div id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
-
 <header>
-    <h1>CizaMarket</h1>
-    <p>
-        Marketplace de produits locaux et services commerciaux,
-        accessible aux clients locaux et à la diaspora.
-        Commandez, payez en <b>BIF / Mobile Money</b>,
-        livraison assurée par <b>CizaDelivery</b>.
-    </p>
+  <button onclick="history.back()">← Retour</button>
+  <img src="logotransparent.png">
+  <button onclick="location.reload()">⟳</button>
 </header>
 
-<!-- POURQUOI -->
-<section class="section">
-    <h2>Pourquoi CizaMarket ?</h2>
-    <div class="card">
-        <p>
-            Les commerçants locaux manquent de visibilité.
-            Les clients veulent acheter simplement, avec des prix clairs
-            et une livraison fiable.
-        </p>
-        <p>
-            <b>CizaMarket</b> connecte vendeurs, clients et logistique
-            dans une seule plateforme professionnelle.
-        </p>
-    </div>
-</section>
+<div class="container">
 
-<!-- CATÉGORIES -->
-<section class="section">
-    <h2>Catégories disponibles</h2>
-    <div class="grid">
+<h1>CizaMarket+ 🛒</h1>
+<p>Packs alimentaires essentiels — Particuliers, Familles & Entreprises.</p>
 
-        <div class="card">
-            <h3>🥬 Produits alimentaires</h3>
-            <p>Produits frais, transformés, locaux.</p>
-        </div>
+<!-- PACK 1 -->
+<div class="card">
+  <h3>🟢 Pack Essentiel — Usage Quotidien</h3>
+  <ul>
+    <li>Riz 5 kg</li>
+    <li>Haricots 3 kg</li>
+    <li>Farine de maïs 2 kg</li>
+    <li>Huile végétale 1 L</li>
+    <li>Sucre 1 kg</li>
+    <li>Sel + savon</li>
+  </ul>
+  <div class="price">85 000 BIF</div>
+  <button class="reserve-btn" onclick="selectPack('Pack Essentiel',85000)">Commander ce pack</button>
+</div>
 
-        <div class="card">
-            <h3>🏠 Maison & quotidien</h3>
-            <p>Articles ménagers, entretien, utilitaires.</p>
-        </div>
+<!-- PACK 2 -->
+<div class="card">
+  <h3>🔵 Pack Famille — Confort Mensuel</h3>
+  <ul>
+    <li>Riz 10 kg</li>
+    <li>Haricots 5 kg</li>
+    <li>Farine 5 kg</li>
+    <li>Huile 2 L</li>
+    <li>Sucre 3 kg</li>
+    <li>Pâtes, savon, détergent</li>
+  </ul>
+  <div class="price">150 000 BIF</div>
+  <button class="reserve-btn" onclick="selectPack('Pack Famille',150000)">Commander ce pack</button>
+</div>
 
-        <div class="card">
-            <h3>📱 Électronique & accessoires</h3>
-            <p>Téléphones, accessoires, équipements.</p>
-        </div>
+<!-- PACK 3 -->
+<div class="card">
+  <h3>🟡 Pack Premium — Sérénité Totale</h3>
+  <ul>
+    <li>Contenu Pack Famille</li>
+    <li>Viande ou poisson (selon marché)</li>
+    <li>Fruits & légumes frais</li>
+    <li>Produits hygiène complets</li>
+    <li>Priorité préparation & livraison</li>
+  </ul>
+  <div class="price">280 000 BIF</div>
+  <button class="reserve-btn" onclick="selectPack('Pack Premium',280000)">Commander ce pack</button>
+</div>
 
-        <div class="card">
-            <h3>👕 Mode & textiles</h3>
-            <p>Vêtements, chaussures, production locale.</p>
-        </div>
+<!-- FORMULAIRE -->
+<div class="card form-box" id="formBox">
+<div class="close-form" onclick="closeForm()">✕</div>
 
-        <div class="card">
-            <h3>🛠️ Matériel & outils</h3>
-            <p>Outils professionnels et domestiques.</p>
-        </div>
+<h2>📋 Confirmation de commande</h2>
 
-    </div>
-</section>
+<form action="https://formsubmit.co/infos@cizagroup.com" method="POST" onsubmit="showSuccess()">
+<input type="hidden" name="_captcha" value="false">
+<input type="hidden" name="_subject" value="Nouvelle commande CizaMarket+">
 
-<!-- PROCESSUS -->
-<section class="section">
-    <h2>Comment commander ?</h2>
-    <div class="card">
-        <ol>
-            <li>Sélection du produit ou catégorie</li>
-            <li>Confirmation quantité et adresse</li>
-            <li>Paiement sécurisé (BIF / Mobile Money)</li>
-            <li>Préparation par le vendeur</li>
-            <li>Livraison via CizaDelivery</li>
-        </ol>
-    </div>
-</section>
+<input type="text" name="Nom & Prénom" required placeholder="Nom et prénom">
+<input type="tel" name="Téléphone" required placeholder="Téléphone">
 
-<!-- FORMULAIRE COMMANDE -->
-<section class="section">
-    <h2>Passer une commande</h2>
-    <div class="card">
-        <form action="https://formsubmit.co/market@cizagroup.com" method="POST">
-            <input type="hidden" name="_captcha" value="false">
+<input type="text" id="packField" name="Pack choisi" readonly>
+<input type="text" id="priceField" name="Prix total (BIF)" readonly>
 
-            <input type="text" name="nom" placeholder="Nom et prénom" required>
-            <input type="tel" name="telephone" placeholder="Téléphone" required>
+<select name="Mode de paiement" required>
+  <option>Mobile Money</option>
+  <option>Espèces à la livraison</option>
+</select>
 
-            <select name="categorie" required>
-                <option value="">Catégorie de produit</option>
-                <option>Produits alimentaires</option>
-                <option>Maison & quotidien</option>
-                <option>Électronique</option>
-                <option>Mode & textiles</option>
-                <option>Matériel & outils</option>
-            </select>
+<textarea name="Adresse de livraison" placeholder="Adresse complète"></textarea>
 
-            <textarea name="produits" placeholder="Produits souhaités (nom, quantité)"></textarea>
+<button class="reserve-btn" type="submit">Confirmer la commande</button>
+</form>
 
-            <select name="paiement" required>
-                <option value="">Mode de paiement</option>
-                <option>Mobile Money</option>
-                <option>Paiement en BIF</option>
-            </select>
+<p style="margin-top:15px;font-size:14px;">
+📧 infos@cizagroup.com<br>
+📱 WhatsApp : +1 514 502 9503
+</p>
+</div>
 
-            <textarea name="adresse" placeholder="Adresse de livraison complète" required></textarea>
+<div id="success">
+<h3>Merci pour votre commande 🙏</h3>
+<p>
+Votre demande a bien été envoyée.<br>
+L’équipe CIZA GROUP vous contactera rapidement.
+</p>
+</div>
 
-            <button>Confirmer la commande</button>
-        </form>
-    </div>
-</section>
-
-<!-- VENDEURS -->
-<section class="section">
-    <h2>Vendeurs & partenaires</h2>
-    <div class="card">
-        <p>
-            Vous êtes commerçant, producteur ou distributeur ?
-            CizaMarket vous permet de vendre légalement,
-            avec livraison intégrée et visibilité accrue.
-        </p>
-        <p><b>Contact :</b> market@cizagroup.com</p>
-    </div>
-</section>
+</div>
 
 <footer>
-    © 2026 <b>CIZA GROUP</b><br>
-    CizaMarket — Marketplace & Commerce digital<br>
-    Design signed by <b>CIZA GROUP</b>
+© 2026 CIZA GROUP  
+<span>Design signed by CIZA GROUP</span>
+<a href="mailto:infos@cizagroup.com">infos@cizagroup.com</a>
 </footer>
 
+<div id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+
 <script>
+function selectPack(pack,price){
+  document.getElementById("formBox").style.display="block";
+  document.getElementById("packField").value=pack;
+  document.getElementById("priceField").value=price+" BIF";
+  document.getElementById("formBox").scrollIntoView({behavior:"smooth"});
+}
+function closeForm(){
+  document.getElementById("formBox").style.display="none";
+}
+function showSuccess(){
+  setTimeout(()=>{
+    document.getElementById("formBox").style.display="none";
+    document.getElementById("success").style.display="block";
+  },500);
+}
 window.addEventListener("scroll",()=>{
-    document.getElementById("toTop").style.display =
-        window.scrollY>300 ? "flex" : "none";
+  document.getElementById("toTop").style.display =
+    window.scrollY>300 ? "flex" : "none";
 });
 </script>
 
