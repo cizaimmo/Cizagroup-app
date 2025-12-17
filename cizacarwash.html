@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CizaCarWash+ — Réservation</title>
+<link rel="icon" href="logotransparent.png">
+
+<style>
+:root{
+  --bg:#06142E;
+  --card:#0B1C34;
+  --gold:#F2B840;
+  --text:#fff;
+}
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 18px;
+  background:rgba(255,255,255,.06);
+  backdrop-filter:blur(10px);
+}
+.back{
+  border:2px solid var(--gold);
+  color:var(--gold);
+  border-radius:50%;
+  width:42px;height:42px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;
+}
+.lang{
+  background:var(--gold);
+  color:#06142E;
+  padding:8px 14px;
+  border-radius:14px;
+  font-weight:bold;
+}
+.container{
+  max-width:420px;
+  margin:20px auto;
+  padding:0 15px;
+}
+.card{
+  background:var(--card);
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:20px;
+  padding:18px;
+  margin-bottom:20px;
+}
+h1,h2{
+  color:var(--gold);
+  margin-top:0;
+}
+label{
+  display:block;
+  margin-top:12px;
+  font-size:14px;
+}
+select,input{
+  width:100%;
+  margin-top:6px;
+  padding:10px;
+  border-radius:12px;
+  border:none;
+}
+.total{
+  font-size:26px;
+  margin-top:14px;
+  font-weight:bold;
+}
+.btn{
+  width:100%;
+  padding:14px;
+  margin-top:15px;
+  background:var(--gold);
+  color:#06142E;
+  border:none;
+  border-radius:16px;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+}
+.pay-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.pay{
+  background:#111C33;
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:14px;
+  padding:14px;
+  text-align:center;
+  cursor:pointer;
+}
+.pay.active{border-color:var(--gold);}
+footer{
+  text-align:center;
+  padding:25px;
+  font-size:13px;
+  opacity:.85;
+}
+#top{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:var(--gold);
+  color:#06142E;
+  width:46px;height:46px;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="back" onclick="history.back()">←</div>
+  <strong>CizaCarWash+</strong>
+  <div class="lang" onclick="toggleLang()">FR</div>
+</header>
+
+<div class="container">
+
+<h1 id="title">Réserver un lavage</h1>
+
+<div class="card">
+  <label id="v1">Type de véhicule</label>
+  <select id="vehicle">
+    <option>SUV / 4x4</option>
+    <option>Berline</option>
+    <option>Moto</option>
+  </select>
+
+  <label id="v2">Type de service</label>
+  <select id="service">
+    <option>Lavage extérieur</option>
+    <option>Lavage complet</option>
+    <option>Premium intérieur</option>
+  </select>
+
+  <label id="v3">Lieu</label>
+  <select id="place">
+    <option>À domicile</option>
+    <option>Station Ciza</option>
+  </select>
+
+  <label id="v4">Date</label>
+  <input type="date" id="date">
+
+  <label id="v5">Heure</label>
+  <input type="time" id="time">
+
+  <div class="total">Total : <span id="price">25 USD</span></div>
+
+  <button class="btn" onclick="confirmOrder()" id="confirm">
+    Confirmer la réservation
+  </button>
+</div>
+
+<h2 id="paytitle">Paiement accepté</h2>
+<div class="pay-grid">
+  <div class="pay" onclick="setPay('EcoCash')">📱 EcoCash</div>
+  <div class="pay" onclick="setPay('Lumicash')">📱 Lumicash</div>
+  <div class="pay" onclick="setPay('Mobile Money')">📱 Mobile Money</div>
+  <div class="pay" onclick="setPay('Sur place')">💵 Sur place</div>
+</div>
+
+<div class="card">
+  <h2>Abonnements & Entreprises</h2>
+  <p><b>Abonnement Pro</b><br>4 lavages / mois – priorité – tarif réduit</p>
+  <p><b>Flottes & Entreprises</b><br>Taxis, sociétés, ONG – contrat mensuel</p>
+</div>
+
+</div>
+
+<footer>
+  © 2026 CIZA GROUP<br>
+  Design signed by <b>CIZA GROUP</b>
+</footer>
+
+<div id="top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+
+<script>
+let payMethod="EcoCash";
+let lang="fr";
+
+function setPay(p){
+  payMethod=p;
+  document.querySelectorAll('.pay').forEach(x=>x.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+function confirmOrder(){
+  let msg=`Bonjour CizaCarWash+,%0A
+🚗 Véhicule : BIF{vehicle.value}%0A
+🧼 Service : BIF{service.value}%0A
+📍 Lieu : BIF{place.value}%0A
+📅 Date : BIF{date.value}%0A
+⏰ Heure : BIF{time.value}%0A
+💳 Paiement : BIF{payMethod}%0A
+💰 Total : 35000BIF`;
+  window.open("https://wa.me/25779945007?text="+msg,"_blank");
+}
+
+function toggleLang(){
+  if(lang==="fr"){
+    lang="en";
+    title.innerText="Book a car wash";
+    confirm.innerText="Confirm booking";
+    paytitle.innerText="Accepted payments";
+  }else{
+    lang="fr";
+    title.innerText="Réserver un lavage";
+    confirm.innerText="Confirmer la réservation";
+    paytitle.innerText="Paiement accepté";
+  }
+}
+</script>
+
+</body>
+</html>
