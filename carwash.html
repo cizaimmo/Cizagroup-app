@@ -3,274 +3,253 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>CIZA CarWash+ — Service Professionnel</title>
+<title>CizaCarWash+ — Réservation Officielle</title>
 <link rel="icon" href="logotransparent.png">
 
 <style>
 :root{
-    --bg:#06142E;
-    --gold:#F2B840;
-    --glass:rgba(255,255,255,0.08);
-    --border:rgba(255,255,255,0.15);
+  --bg:#06142E;
+  --gold:#F2B840;
+  --glass:rgba(255,255,255,.08);
+  --border:rgba(255,255,255,.15);
+  --txt:#fff;
 }
-
-*{box-sizing:border-box}
 body{
-    margin:0;
-    background:var(--bg);
-    font-family:Arial, sans-serif;
-    color:white;
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:var(--bg);
+  color:var(--txt);
 }
-
-/* ====== BOUTONS FIXES ====== */
-#backBtn, #toTop, #resetBtn{
-    position:fixed;
-    right:18px;
-    width:46px;
-    height:46px;
-    border-radius:50%;
-    background:var(--gold);
-    color:#06142E;
-    font-size:20px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    cursor:pointer;
-    box-shadow:0 0 15px rgba(242,184,64,.4);
-    z-index:9999;
+header{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 18px;
+  background:var(--glass);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--gold);
 }
-#backBtn{top:18px}
-#resetBtn{top:76px}
-#toTop{bottom:18px; display:none}
-
-/* ====== HERO ====== */
-.hero{
-    padding:90px 20px 40px;
-    text-align:center;
+header img{width:48px}
+header button{
+  background:none;
+  border:none;
+  color:var(--gold);
+  font-size:18px;
+  cursor:pointer;
 }
-.hero h1{
-    color:var(--gold);
-    font-size:32px;
+.container{
+  max-width:1000px;
+  margin:auto;
+  padding:25px;
 }
-.hero p{
-    max-width:760px;
-    margin:10px auto 0;
-    opacity:.9;
-}
-
-/* ====== SECTIONS ====== */
-.section{
-    max-width:1000px;
-    margin:40px auto;
-    padding:0 20px;
-}
-.section-title{
-    color:var(--gold);
-    font-size:26px;
-    margin-bottom:20px;
-}
-
-/* ====== SERVICES ====== */
-.services{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-    gap:18px;
-}
+h1,h2,h3{color:var(--gold)}
 .card{
-    background:var(--glass);
-    border:1px solid var(--border);
-    padding:22px;
-    border-radius:18px;
-}
-.card h3{
-    color:var(--gold);
-    margin-top:0;
+  background:var(--glass);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:22px;
+  margin-bottom:20px;
 }
 .price{
-    font-size:22px;
-    color:var(--gold);
-    margin:10px 0;
+  font-size:20px;
+  font-weight:bold;
+  margin-top:10px;
 }
-
-/* ====== FORMULAIRE ====== */
-.form-box{
-    background:var(--glass);
-    border:1px solid var(--border);
-    padding:28px;
-    border-radius:20px;
+.reserve-btn{
+  margin-top:15px;
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:12px;
+  background:var(--gold);
+  color:#06142E;
+  font-weight:bold;
+  cursor:pointer;
 }
-label{display:block;margin-top:14px;font-size:14px}
-input, select{
-    width:100%;
-    padding:12px;
-    margin-top:6px;
-    border-radius:10px;
-    border:none;
+.form-box{display:none;margin-top:30px}
+input,select,textarea{
+  width:100%;
+  margin-top:12px;
+  padding:12px;
+  border-radius:10px;
+  border:none;
 }
-.submit{
-    margin-top:20px;
-    background:var(--gold);
-    color:#06142E;
-    font-weight:bold;
-    border:none;
-    padding:14px;
-    width:100%;
-    border-radius:12px;
-    cursor:pointer;
-}
-
-/* ====== MESSAGE CONFIRMATION ====== */
 #success{
-    display:none;
-    background:#0b1c34;
-    border:1px solid var(--gold);
-    padding:26px;
-    border-radius:18px;
-    margin-top:30px;
-    text-align:center;
+  display:none;
+  background:#0b1c34;
+  border:1px solid var(--gold);
+  border-radius:18px;
+  padding:25px;
+  margin-top:30px;
+  text-align:center;
 }
-#success h3{color:var(--gold)}
-
-/* ====== FOOTER ====== */
 footer{
-    margin-top:60px;
-    padding:30px;
-    text-align:center;
-    font-size:14px;
-    opacity:.85;
+  margin-top:50px;
+  padding:25px;
+  text-align:center;
+  font-size:14px;
+  opacity:.85;
 }
-footer a{color:var(--gold);text-decoration:none}
+footer a{color:var(--gold);text-decoration:none;display:block;margin-top:6px}
+#toTop{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  background:var(--gold);
+  color:#06142E;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  cursor:pointer;
+  font-size:22px;
+}
 </style>
 </head>
 
 <body>
 
-<!-- BOUTONS -->
-<div id="backBtn" onclick="history.back()">←</div>
-<div id="resetBtn" onclick="location.reload()">↻</div>
-<div id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+<header>
+  <button onclick="history.back()">← Retour</button>
+  <img src="logotransparent.png">
+  <button onclick="location.reload()">⟳</button>
+</header>
 
-<!-- HERO -->
-<div class="hero">
-    <h1>CIZA CarWash+</h1>
-    <p>
-        Service professionnel de lavage automobile — station & mobile.  
-        Transparence totale des prix, réservation simple et confirmation rapide.
-    </p>
+<div class="container">
+
+<h1>CizaCarWash+ 🚗🧼</h1>
+<p>Service professionnel de lavage automobile — station & mobile.</p>
+
+<!-- SERVICE 1 -->
+<div class="card">
+  <h3>🧼 Lavage Standard — Station</h3>
+  <ul>
+    <li>Lavage extérieur haute pression</li>
+    <li>Nettoyage jantes & pneus</li>
+    <li>Séchage manuel</li>
+    <li>Durée : 30–40 min</li>
+  </ul>
+  <div class="price">25 000 BIF (véhicule léger)</div>
+  <div class="price">35 000 BIF (SUV / 4x4)</div>
+  <button class="reserve-btn" onclick="selectService('Lavage Standard — Station',25000)">Réserver</button>
 </div>
 
-<!-- SERVICES -->
-<div class="section">
-    <div class="section-title">Nos services & tarifs (BIF)</div>
+<!-- SERVICE 2 -->
+<div class="card">
+  <h3>🧼 Lavage Premium — Station</h3>
+  <ul>
+    <li>Tout le Standard</li>
+    <li>Nettoyage intérieur complet</li>
+    <li>Aspiration sièges & tapis</li>
+    <li>Tableau de bord & vitres</li>
+  </ul>
+  <div class="price">40 000 BIF (léger)</div>
+  <div class="price">55 000 BIF (SUV / 4x4)</div>
+  <button class="reserve-btn" onclick="selectService('Lavage Premium — Station',40000)">Réserver</button>
+</div>
 
-    <div class="services">
-
-        <div class="card">
-            <h3>Lavage Standard — Station</h3>
-            <p>Extérieur + nettoyage rapide intérieur.</p>
-            <p class="price">25 000 BIF</p>
-        </div>
-
-        <div class="card">
-            <h3>Lavage Complet — Station</h3>
-            <p>Extérieur, intérieur, tableau de bord, vitres.</p>
-            <p class="price">40 000 BIF</p>
-        </div>
-
-        <div class="card">
-            <h3>Lavage Mobile — Véhicule léger</h3>
-            <p>Service à domicile ou bureau (déplacement inclus).</p>
-            <p class="price">55 000 BIF</p>
-        </div>
-
-        <div class="card">
-            <h3>Lavage Mobile — SUV / Pickup</h3>
-            <p>Véhicules grands formats.</p>
-            <p class="price">70 000 BIF</p>
-        </div>
-
-    </div>
+<!-- SERVICE 3 -->
+<div class="card">
+  <h3>🚗 Lavage Mobile — À domicile</h3>
+  <ul>
+    <li>Déplacement inclus</li>
+    <li>Lavage intérieur & extérieur</li>
+    <li>Produits professionnels</li>
+  </ul>
+  <div class="price">55 000 BIF (léger)</div>
+  <div class="price">70 000 BIF (SUV / Pickup)</div>
+  <button class="reserve-btn" onclick="selectService('Lavage Mobile — Domicile',55000)">Réserver</button>
 </div>
 
 <!-- FORMULAIRE -->
-<div class="section">
-    <div class="section-title">Réservation</div>
+<div class="card form-box" id="formBox">
+<h2>📋 Confirmation de réservation</h2>
 
-    <div class="form-box" id="formBox">
-        <form
-            action="https://formsubmit.co/infos@cizagroup.com"
-            method="POST"
-            onsubmit="showSuccess()">
+<form action="https://formsubmit.co/infos@cizagroup.com" method="POST" onsubmit="showSuccess()">
+<input type="hidden" name="_captcha" value="false">
+<input type="hidden" name="_subject" value="Nouvelle réservation CizaCarWash+">
 
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_subject" value="Nouvelle réservation CIZA CarWash+">
+<input type="text" name="Nom & Prénom" required placeholder="Nom et prénom">
+<input type="tel" name="Téléphone" required placeholder="Téléphone">
 
-            <label>Nom</label>
-            <input type="text" name="nom" required>
+<select name="Type de véhicule" required onchange="adjustPrice(this.value)">
+  <option value="">Type de véhicule</option>
+  <option value="leger">Véhicule léger</option>
+  <option value="suv">SUV / 4x4 / Pickup</option>
+</select>
 
-            <label>Prénom</label>
-            <input type="text" name="prenom" required>
+<input type="text" id="serviceField" name="Service choisi" readonly>
+<input type="text" id="priceField" name="Prix total (BIF)" readonly>
 
-            <label>Service choisi</label>
-            <select name="service" required>
-                <option>Lavage Standard — Station</option>
-                <option>Lavage Complet — Station</option>
-                <option>Lavage Mobile — Véhicule léger</option>
-                <option>Lavage Mobile — SUV / Pickup</option>
-            </select>
+<input type="date" name="Date souhaitée" required>
+<input type="time" name="Heure souhaitée" required>
 
-            <label>Lieu (Station ou Adresse mobile)</label>
-            <input type="text" name="lieu" required>
+<select name="Mode de paiement" required>
+  <option>Mobile Money</option>
+  <option>Espèces</option>
+</select>
 
-            <label>Date</label>
-            <input type="date" name="date" required>
+<textarea name="Adresse / Instructions" placeholder="Adresse ou instructions"></textarea>
 
-            <label>Heure</label>
-            <input type="time" name="heure" required>
-
-            <label>Mode de paiement</label>
-            <select name="paiement" required>
-                <option>Mobile Money</option>
-                <option>Paiement sur place</option>
-            </select>
-
-            <button class="submit">Envoyer la réservation</button>
-        </form>
-    </div>
-
-    <!-- CONFIRMATION -->
-    <div id="success">
-        <h3>Merci pour votre réservation 🙏</h3>
-        <p>
-            Votre demande a bien été envoyée à <b>CIZA GROUP</b>.<br>
-            Notre équipe vous contactera rapidement pour confirmation.
-        </p>
-        <p>
-            📩 infos@cizagroup.com<br>
-            📱 WhatsApp : +1 514 502 9503
-        </p>
-    </div>
+<button class="reserve-btn" type="submit">Confirmer la réservation</button>
+</form>
 </div>
 
-<!-- FOOTER -->
+<div id="success">
+  <h3>Merci pour votre réservation 🙏</h3>
+  <p>
+    Votre demande a bien été envoyée.<br>
+    Notre équipe CIZA GROUP vous contactera rapidement.
+  </p>
+  <p>
+    📧 infos@cizagroup.com<br>
+    📱 WhatsApp : +1 514 502 9503
+  </p>
+</div>
+
+</div>
+
 <footer>
-    © 2026 CIZA GROUP — Design signed by CIZA GROUP<br>
-    <a href="mailto:infos@cizagroup.com">infos@cizagroup.com</a> |
-    WhatsApp : +1 514 502 9503
+© 2026 CIZA GROUP  
+<span>Design signed by CIZA GROUP</span>
+<a href="mailto:infos@cizagroup.com">infos@cizagroup.com</a>
 </footer>
 
+<div id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+
 <script>
-function showSuccess(){
-    setTimeout(()=>{
-        document.getElementById("formBox").style.display="none";
-        document.getElementById("success").style.display="block";
-        window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"});
-    },500);
+let basePrice = 0;
+
+function selectService(service,price){
+  basePrice = price;
+  document.getElementById("formBox").style.display="block";
+  document.getElementById("serviceField").value = service;
+  document.getElementById("priceField").value = price+" BIF";
+  document.getElementById("formBox").scrollIntoView({behavior:"smooth"});
 }
+
+function adjustPrice(type){
+  let final = basePrice;
+  if(type==="suv") final += 10000;
+  document.getElementById("priceField").value = final+" BIF";
+}
+
+function showSuccess(){
+  setTimeout(()=>{
+    document.getElementById("formBox").style.display="none";
+    document.getElementById("success").style.display="block";
+    window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"});
+  },500);
+}
+
 window.addEventListener("scroll",()=>{
-    document.getElementById("toTop").style.display =
-        window.scrollY>300 ? "flex" : "none";
+  document.getElementById("toTop").style.display =
+    window.scrollY>300 ? "flex" : "none";
 });
 </script>
 
