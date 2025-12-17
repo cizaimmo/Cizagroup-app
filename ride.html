@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CizaRide+ — Client</title>
+<link rel="icon" href="logotransparent.png">
+
+<!-- Leaflet -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+<style>
+:root{
+    --bg:#06142E;
+    --gold:#F2B840;
+    --glass:rgba(255,255,255,0.08);
+    --border:rgba(255,255,255,0.15);
+}
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:var(--bg);
+    color:white;
+}
+
+/* HEADER */
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:14px;
+    background:var(--glass);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--gold);
+}
+header img{width:42px;}
+header h1{font-size:18px;margin:0;}
+.back-btn{
+    font-size:22px;
+    cursor:pointer;
+    color:var(--gold);
+}
+
+/* MAP */
+#map{
+    height:55vh;
+    width:100%;
+}
+
+/* PANEL */
+.panel{
+    padding:18px;
+}
+.input{
+    width:100%;
+    padding:12px;
+    margin-bottom:10px;
+    border-radius:10px;
+    border:none;
+    background:#0B1C34;
+    color:white;
+}
+
+/* INFO BOX */
+.info{
+    background:var(--glass);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:15px;
+    margin-top:12px;
+}
+.info div{margin:6px 0;}
+
+/* BUTTONS */
+.btn{
+    width:100%;
+    padding:14px;
+    border-radius:14px;
+    border:none;
+    font-weight:bold;
+    margin-top:14px;
+    cursor:pointer;
+}
+.btn-primary{
+    background:var(--gold);
+    color:#06142E;
+}
+.btn-disabled{
+    background:#555;
+    color:#aaa;
+    cursor:not-allowed;
+}
+
+/* TOP BUTTON */
+#toTop{
+    position:fixed;
+    bottom:18px;
+    right:18px;
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    background:var(--gold);
+    color:#06142E;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    font-size:22px;
+    cursor:pointer;
+}
+
+/* FOOTER */
+footer{
+    text-align:center;
+    padding:25px;
+    font-size:13px;
+    opacity:.85;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="back-btn" onclick="history.back()">←</div>
+    <img src="logotransparent.png">
+    <h1>CizaRide+ — Client</h1>
+</header>
+
+<div id="map"></div>
+
+<div class="panel">
+    <input id="from" class="input" placeholder="Point de départ">
+    <input id="to" class="input" placeholder="Destination">
+
+    <div class="info">
+        <div>📏 Distance : <b id="distance">—</b></div>
+        <div>⏱️ Durée estimée : <b id="duration">—</b></div>
+        <div>💰 Prix estimé : <b id="price">—</b></div>
+    </div>
+
+    <button id="orderBtn" class="btn btn-disabled">Commander</button>
+</div>
+
+<footer>
+    © 2026 CIZA GROUP<br>
+    Design signed by CIZA GROUP
+</footer>
+
+<div id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+
+<!-- Leaflet -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+/* MAP INIT */
+const map = L.map('map').setView([-3.3614,29.3599],13); // Bujumbura
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+    attribution:'© OpenStreetMap'
+}).addTo(map);
+
+let markers=[], routeLine=null;
+let distanceKm=0;
+
+/* PRICING (BIF) */
+const PRICE_PER_KM = 1800;      // ajustable inflation
+const BASE_PRICE = 2500;        // déplacement chauffeur
+
+function resetMap(){
+    markers.forEach(m=>map.removeLayer(m));
+    markers=[];
+    if(routeLine){map.removeLayer(routeLine);}
+}
+
+/* CLICK MAP */
+map.on('click',e=>{
+    if(markers.length>=2) resetMap();
+
+    const marker=L.marker(e.latlng).addTo(map);
+    markers.push(marker);
+
+    if(markers.length===2){
+        calculateRoute();
+    }
+});
+
+/* ROUTE CALCULATION */
+function calculateRoute(){
+    const a=markers[0].getLatLng();
+    const b=markers[1].getLatLng();
+
+    routeLine=L.polyline([a,b],{color:'#F2B840',weight:4}).addTo(map);
+    map.fitBounds(routeLine.getBounds());
+
+    distanceKm=(map.distance(a,b)/1000).toFixed(2);
+    const durationMin=Math.round(distanceKm*2.5);
+
+    const price=Math.round(distanceKm*PRICE_PER_KM + BASE_PRICE);
+
+    document.getElementById("distance").textContent = distanceKm+" km";
+    document.getElementById("duration").textContent = durationMin+" min";
+    document.getElementById("price").textContent = price.toLocaleString()+" BIF";
+
+    const btn=document.getElementById("orderBtn");
+    btn.className="btn btn-primary";
+    btn.textContent="Commander";
+    btn.onclick=()=>alert("Commande prête — connexion & paiement (Firebase)");
+}
+
+/* TOP BUTTON */
+window.addEventListener("scroll",()=>{
+    document.getElementById("toTop").style.display =
+        window.scrollY>200 ? "flex":"none";
+});
+</script>
+
+</body>
+</html>
