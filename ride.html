@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CizaRide+ — Transport Officiel</title>
+<link rel="icon" href="logotransparent.png">
+
+<style>
+:root{
+  --bg:#06142E;
+  --gold:#F2B840;
+  --glass:rgba(255,255,255,.08);
+  --border:rgba(255,255,255,.18);
+}
+
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:var(--bg);
+  color:white;
+}
+
+header{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:var(--glass);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--gold);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 18px;
+}
+header span{ cursor:pointer; color:var(--gold); font-size:18px; }
+header b{ font-size:18px; }
+
+section{
+  width:92%;
+  max-width:720px;
+  margin:25px auto;
+  background:var(--glass);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:22px;
+}
+
+h2{ color:var(--gold); margin-top:0; }
+
+label{
+  display:block;
+  margin-top:12px;
+  font-size:14px;
+  opacity:.9;
+}
+select,input{
+  width:100%;
+  padding:12px;
+  margin-top:6px;
+  border-radius:10px;
+  border:none;
+  background:#0B1C34;
+  color:white;
+}
+
+.total{
+  font-size:22px;
+  margin-top:18px;
+  color:var(--gold);
+  font-weight:bold;
+}
+
+.btn{
+  margin-top:18px;
+  width:100%;
+  padding:14px;
+  border-radius:14px;
+  border:none;
+  background:var(--gold);
+  color:#06142E;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+footer{
+  margin:40px 0 80px;
+  text-align:center;
+  font-size:14px;
+  opacity:.85;
+}
+
+#top{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  width:46px;
+  height:46px;
+  border-radius:50%;
+  background:var(--gold);
+  color:#06142E;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <span onclick="history.back()">← Retour</span>
+  <b>CizaRide+</b>
+  <span onclick="switchLang()">FR</span>
+</header>
+
+<section>
+  <h2 id="title">Réserver un trajet</h2>
+
+  <label id="l1">Point de départ</label>
+  <input placeholder="Quartier / Rue">
+
+  <label id="l2">Destination</label>
+  <input placeholder="Quartier / Rue">
+
+  <label id="l3">Type de trajet</label>
+  <select id="type" onchange="calc()">
+    <option value="standard">Standard</option>
+    <option value="premium">Premium</option>
+  </select>
+
+  <label id="l4">Distance estimée</label>
+  <select id="distance" onchange="calc()">
+    <option value="5">0 – 5 km</option>
+    <option value="10">6 – 10 km</option>
+    <option value="20">11 – 20 km</option>
+    <option value="30">20+ km</option>
+  </select>
+
+  <label id="l5">Paiement</label>
+  <select>
+    <option>EcoCash</option>
+    <option>Lumicash</option>
+    <option>Mobile Money</option>
+    <option>Paiement sur place</option>
+  </select>
+
+  <div class="total" id="total">Total : 0 BIF</div>
+
+  <button class="btn" id="btn">Confirmer la réservation</button>
+</section>
+
+<section>
+  <h2 id="why">Pourquoi CizaRide+</h2>
+  <ul>
+    <li>Chauffeurs vérifiés</li>
+    <li>Tarifs transparents</li>
+    <li>Service sécurisé</li>
+    <li>Support local 24/7</li>
+  </ul>
+</section>
+
+<footer>
+  © 2026 CIZA GROUP<br>
+  Design signed by CIZA GROUP
+</footer>
+
+<div id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</div>
+
+<script>
+let lang="fr";
+
+function calc(){
+  const base=3000;
+  const km=parseInt(distance.value);
+  const premium = type.value==="premium" ? 4000 : 0;
+  const price = base + (km*500) + premium;
+  total.textContent = (lang==="fr"?"Total : ":"Total: ") + price + " BIF";
+}
+calc();
+
+function switchLang(){
+  lang = lang==="fr" ? "en":"fr";
+  document.querySelector("header span:last-child").textContent = lang.toUpperCase();
+
+  title.textContent = lang==="fr"?"Réserver un trajet":"Book a ride";
+  l1.textContent = lang==="fr"?"Point de départ":"Pickup location";
+  l2.textContent = lang==="fr"?"Destination":"Destination";
+  l3.textContent = lang==="fr"?"Type de trajet":"Ride type";
+  l4.textContent = lang==="fr"?"Distance estimée":"Estimated distance";
+  l5.textContent = lang==="fr"?"Paiement":"Payment";
+  btn.textContent = lang==="fr"?"Confirmer la réservation":"Confirm booking";
+  why.textContent = lang==="fr"?"Pourquoi CizaRide+":"Why CizaRide+";
+  calc();
+}
+
+window.addEventListener("scroll",()=>{
+  top.style.display = scrollY>300 ? "flex":"none";
+});
+</script>
+
+</body>
+</html>
