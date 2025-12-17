@@ -3,23 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CizaRide+ — Client</title>
-<link rel="icon" href="logotransparent.png">
 
-<!-- Leaflet -->
+<title>CizaRide+ — Commander une course</title>
+
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
 <style>
-:root{
-    --bg:#06142E;
-    --gold:#F2B840;
-    --glass:rgba(255,255,255,0.08);
-    --border:rgba(255,255,255,0.15);
-}
 body{
     margin:0;
     font-family:Arial, sans-serif;
-    background:var(--bg);
+    background:#06142E;
     color:white;
 }
 
@@ -28,20 +21,26 @@ header{
     position:sticky;
     top:0;
     z-index:1000;
+    background:rgba(6,20,46,0.9);
+    backdrop-filter:blur(12px);
+    border-bottom:2px solid #F2B840;
+    padding:14px 18px;
     display:flex;
     align-items:center;
-    gap:12px;
-    padding:14px;
-    background:var(--glass);
-    backdrop-filter:blur(14px);
-    border-bottom:1px solid var(--gold);
+    justify-content:space-between;
 }
-header img{width:42px;}
-header h1{font-size:18px;margin:0;}
-.back-btn{
-    font-size:22px;
+header h1{
+    font-size:18px;
+    margin:0;
+    color:#F2B840;
+}
+header button{
+    background:none;
+    border:2px solid #F2B840;
+    color:#F2B840;
+    padding:6px 12px;
+    border-radius:10px;
     cursor:pointer;
-    color:var(--gold);
 }
 
 /* MAP */
@@ -52,71 +51,62 @@ header h1{font-size:18px;margin:0;}
 
 /* PANEL */
 .panel{
-    padding:18px;
+    padding:20px;
 }
-.input{
+.panel h2{
+    color:#F2B840;
+    margin-top:0;
+}
+
+/* INPUTS */
+input{
     width:100%;
-    padding:12px;
-    margin-bottom:10px;
-    border-radius:10px;
+    padding:14px;
+    margin-top:12px;
+    border-radius:12px;
     border:none;
-    background:#0B1C34;
-    color:white;
+    font-size:15px;
 }
 
 /* INFO BOX */
 .info{
-    background:var(--glass);
-    border:1px solid var(--border);
-    border-radius:16px;
-    padding:15px;
-    margin-top:12px;
-}
-.info div{margin:6px 0;}
-
-/* BUTTONS */
-.btn{
-    width:100%;
+    margin-top:16px;
     padding:14px;
     border-radius:14px;
-    border:none;
-    font-weight:bold;
-    margin-top:14px;
-    cursor:pointer;
-}
-.btn-primary{
-    background:var(--gold);
-    color:#06142E;
-}
-.btn-disabled{
-    background:#555;
-    color:#aaa;
-    cursor:not-allowed;
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.15);
 }
 
-/* TOP BUTTON */
-#toTop{
+/* BUTTON */
+.main-btn{
+    width:100%;
+    margin-top:18px;
+    padding:16px;
+    background:#F2B840;
+    color:#06142E;
+    font-weight:bold;
+    font-size:16px;
+    border:none;
+    border-radius:14px;
+    cursor:pointer;
+    display:none;
+}
+
+/* SCROLL TOP */
+#topBtn{
     position:fixed;
-    bottom:18px;
-    right:18px;
-    width:45px;
-    height:45px;
+    bottom:20px;
+    right:20px;
+    width:46px;
+    height:46px;
     border-radius:50%;
-    background:var(--gold);
+    background:#F2B840;
     color:#06142E;
     display:none;
-    justify-content:center;
     align-items:center;
+    justify-content:center;
     font-size:22px;
     cursor:pointer;
-}
-
-/* FOOTER */
-footer{
-    text-align:center;
-    padding:25px;
-    font-size:13px;
-    opacity:.85;
 }
 </style>
 </head>
@@ -124,95 +114,96 @@ footer{
 <body>
 
 <header>
-    <div class="back-btn" onclick="history.back()">←</div>
-    <img src="logotransparent.png">
+    <button onclick="history.back()">←</button>
     <h1>CizaRide+ — Client</h1>
+    <button onclick="location.reload()">⟳</button>
 </header>
 
 <div id="map"></div>
 
 <div class="panel">
-    <input id="from" class="input" placeholder="Point de départ">
-    <input id="to" class="input" placeholder="Destination">
+    <h2>Votre trajet</h2>
 
-    <div class="info">
-        <div>📏 Distance : <b id="distance">—</b></div>
-        <div>⏱️ Durée estimée : <b id="duration">—</b></div>
-        <div>💰 Prix estimé : <b id="price">—</b></div>
+    <input id="start" placeholder="Lieu de départ">
+    <input id="end" placeholder="Destination">
+
+    <div class="info" id="result">
+        Distance : — <br>
+        Prix estimé : —
     </div>
 
-    <button id="orderBtn" class="btn btn-disabled">Commander</button>
+    <button class="main-btn" id="orderBtn">Commander la course</button>
 </div>
 
-<footer>
-    © 2026 CIZA GROUP<br>
-    Design signed by CIZA GROUP
-</footer>
+<div id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
 
-<div id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
-
-<!-- Leaflet -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
 
 <script>
-/* MAP INIT */
-const map = L.map('map').setView([-3.3614,29.3599],13); // Bujumbura
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+let map = L.map('map').setView([46.8139, -71.2080], 13); // Québec par défaut
+let routeControl;
+let pricePerKm = 1500; // BIF (modifiable)
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution:'© OpenStreetMap'
 }).addTo(map);
 
-let markers=[], routeLine=null;
-let distanceKm=0;
-
-/* PRICING (BIF) */
-const PRICE_PER_KM = 1800;      // ajustable inflation
-const BASE_PRICE = 2500;        // déplacement chauffeur
-
-function resetMap(){
-    markers.forEach(m=>map.removeLayer(m));
-    markers=[];
-    if(routeLine){map.removeLayer(routeLine);}
+// GEOLOCALISATION CLIENT
+if(navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(pos=>{
+        let lat = pos.coords.latitude;
+        let lng = pos.coords.longitude;
+        map.setView([lat,lng],14);
+        L.marker([lat,lng]).addTo(map).bindPopup("Votre position").openPopup();
+    });
 }
 
-/* CLICK MAP */
-map.on('click',e=>{
-    if(markers.length>=2) resetMap();
-
-    const marker=L.marker(e.latlng).addTo(map);
-    markers.push(marker);
-
-    if(markers.length===2){
-        calculateRoute();
-    }
-});
-
-/* ROUTE CALCULATION */
 function calculateRoute(){
-    const a=markers[0].getLatLng();
-    const b=markers[1].getLatLng();
+    let start = document.getElementById("start").value;
+    let end   = document.getElementById("end").value;
+    if(!start || !end) return;
 
-    routeLine=L.polyline([a,b],{color:'#F2B840',weight:4}).addTo(map);
-    map.fitBounds(routeLine.getBounds());
+    if(routeControl) map.removeControl(routeControl);
 
-    distanceKm=(map.distance(a,b)/1000).toFixed(2);
-    const durationMin=Math.round(distanceKm*2.5);
+    routeControl = L.Routing.control({
+        waypoints: [
+            L.Routing.waypoint(null, start),
+            L.Routing.waypoint(null, end)
+        ],
+        show:false,
+        addWaypoints:false
+    }).addTo(map);
 
-    const price=Math.round(distanceKm*PRICE_PER_KM + BASE_PRICE);
+    routeControl.on('routesfound', function(e){
+        let km = e.routes[0].summary.totalDistance / 1000;
+        let price = Math.round(km * pricePerKm);
 
-    document.getElementById("distance").textContent = distanceKm+" km";
-    document.getElementById("duration").textContent = durationMin+" min";
-    document.getElementById("price").textContent = price.toLocaleString()+" BIF";
+        document.getElementById("result").innerHTML =
+            "Distance : <b>"+km.toFixed(1)+" km</b><br>" +
+            "Prix estimé : <b>"+price.toLocaleString()+" BIF</b>";
 
-    const btn=document.getElementById("orderBtn");
-    btn.className="btn btn-primary";
-    btn.textContent="Commander";
-    btn.onclick=()=>alert("Commande prête — connexion & paiement (Firebase)");
+        document.getElementById("orderBtn").style.display = "block";
+    });
 }
 
-/* TOP BUTTON */
+document.getElementById("start").addEventListener("change", calculateRoute);
+document.getElementById("end").addEventListener("change", calculateRoute);
+
+// COMMANDER
+document.getElementById("orderBtn").onclick = ()=>{
+    alert(
+        "Course confirmée ✅\n\n" +
+        "Départ : " + document.getElementById("start").value + "\n" +
+        "Destination : " + document.getElementById("end").value + "\n\n" +
+        "Étape suivante : Paiement"
+    );
+};
+
+// SCROLL BTN
 window.addEventListener("scroll",()=>{
-    document.getElementById("toTop").style.display =
-        window.scrollY>200 ? "flex":"none";
+    document.getElementById("topBtn").style.display =
+        window.scrollY>300 ? "flex" : "none";
 });
 </script>
 
