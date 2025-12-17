@@ -3,93 +3,167 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CIZA CarWash — Simple</title>
+
+<title>CizaHome+ — Services à Domicile Premium</title>
+<link rel="icon" href="logotransparent.png">
 
 <style>
 body{
     margin:0;
     font-family:Arial, sans-serif;
-    background:linear-gradient(180deg,#06142E,#0B1C34);
+    background:#06142E;
     color:white;
 }
 
-/* HEADER */
-.header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:18px 20px;
-}
-.back{
-    cursor:pointer;
-    font-size:16px;
-    color:#F2B840;
-}
-.lang{
+/* Bouton retour */
+.back-btn{
+    position:fixed;
+    top:15px;
+    left:15px;
     background:#F2B840;
     color:#06142E;
-    padding:8px 14px;
+    padding:10px 14px;
     border-radius:12px;
     font-weight:bold;
+    cursor:pointer;
+    z-index:10000;
 }
 
-/* CARD */
-.card{
-    max-width:520px;
-    margin:60px auto;
-    background:rgba(255,255,255,0.06);
-    border:1px solid rgba(255,255,255,0.15);
-    border-radius:22px;
-    padding:40px 25px;
+/* Scroll top */
+#topBtn{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    background:#F2B840;
+    color:#06142E;
+    border:none;
+    padding:14px;
+    border-radius:50%;
+    font-size:18px;
+    cursor:pointer;
+    display:none;
+}
+
+/* Header */
+header{
     text-align:center;
-    box-shadow:0 0 40px rgba(0,0,0,0.4);
+    padding:100px 20px 60px;
 }
-
-.card h1{
+header h1{
     color:#F2B840;
-    margin-bottom:10px;
+    font-size:34px;
 }
-
-.status{
-    margin-top:18px;
-    padding:12px;
-    border-radius:12px;
-    background:#0B1C34;
+header p{
+    max-width:700px;
+    margin:auto;
     opacity:.9;
 }
 
-/* FOOTER */
-footer{
-    text-align:center;
-    font-size:13px;
-    opacity:.7;
-    margin:40px 0 20px;
+/* Sections */
+.section{
+    max-width:900px;
+    margin:auto;
+    padding:50px 20px;
 }
-footer b{color:#F2B840}
+.section h2{
+    color:#F2B840;
+    margin-bottom:20px;
+}
+
+/* Service cards */
+.card{
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.15);
+    padding:25px;
+    border-radius:20px;
+    margin-bottom:20px;
+}
+.card h3{color:#F2B840}
+
+/* Footer */
+footer{
+    margin-top:60px;
+    padding:30px 20px;
+    text-align:center;
+    background:#050d1f;
+    font-size:14px;
+    opacity:.9;
+}
 </style>
 </head>
 
 <body>
 
-<div class="header">
-    <div class="back" onclick="history.back()">← Retour</div>
-    <div class="lang">FR</div>
-</div>
+<div class="back-btn" onclick="history.back()">← Retour</div>
+<button id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
-<div class="card">
-    <h1>CarWash Simple</h1>
-    <p>Lavage extérieur rapide et efficace pour véhicules particuliers.</p>
+<header>
+    <h1>CizaHome+</h1>
+    <p>
+        CizaHome+ est le service premium de CIZA GROUP dédié aux services à domicile :
+        entretien ménager, nettoyage, car wash à domicile et jardinage,
+        avec des standards professionnels et des paiements flexibles.
+    </p>
+</header>
 
-    <div class="status">
-        🚧 Service en développement<br>
-        Phase Firebase & intégration App
+<section class="section">
+    <h2>Nos Services</h2>
+
+    <div class="card">
+        <h3>Entretien ménager à domicile</h3>
+        <p>Nettoyage régulier ou ponctuel, personnel formé, produits adaptés, respect des horaires.</p>
     </div>
-</div>
+
+    <div class="card">
+        <h3>Nettoyage approfondi</h3>
+        <p>Grand ménage, fin de chantier, après événement ou déménagement.</p>
+    </div>
+
+    <div class="card">
+        <h3>Car Wash à domicile</h3>
+        <p>Lavage intérieur et extérieur de véhicules directement chez vous ou au bureau.</p>
+    </div>
+
+    <div class="card">
+        <h3>Jardinage & entretien extérieur</h3>
+        <p>Entretien de jardins, taille, nettoyage des espaces verts résidentiels.</p>
+    </div>
+</section>
+
+<section class="section">
+    <h2>Paiements & Processus</h2>
+    <p>
+        Les clients peuvent payer via Mobile Money (Lumicash, Ecocash, Airtel Money),
+        par prestation ou sous forme d’abonnement mensuel.
+        La commande se fait via formulaire ou contact direct avec notre équipe.
+    </p>
+</section>
+
+<section class="section">
+    <h2>Pourquoi CizaHome+</h2>
+    <ul>
+        <li>Personnel vérifié et encadré</li>
+        <li>Services fiables et ponctuels</li>
+        <li>Paiements simples et sécurisés</li>
+        <li>Support client CIZA GROUP</li>
+    </ul>
+</section>
 
 <footer>
-    Design signed by <b>CIZA GROUP</b><br>
-    © 2025 — Tous droits réservés
+    <p>
+        © 2026 CIZA GROUP — Tous droits réservés<br>
+        Designed by CIZA GROUP<br>
+        <span lang="fr">Services à domicile premium</span> |
+        <span lang="en">Premium home services</span>
+    </p>
 </footer>
+
+<script>
+window.onscroll=function(){
+    document.getElementById("topBtn").style.display =
+        window.scrollY>300 ? "block" : "none";
+};
+</script>
 
 </body>
 </html>
