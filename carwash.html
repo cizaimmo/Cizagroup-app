@@ -93,7 +93,12 @@ footer{
   font-size:14px;
   opacity:.85;
 }
-footer a{color:var(--gold);text-decoration:none;display:block;margin-top:6px}
+footer a{
+  color:var(--gold);
+  text-decoration:none;
+  display:block;
+  margin-top:6px
+}
 #toTop{
   position:fixed;
   bottom:20px;
@@ -109,6 +114,24 @@ footer a{color:var(--gold);text-decoration:none;display:block;margin-top:6px}
   cursor:pointer;
   font-size:22px;
 }
+#whatsappBtn{
+  position:fixed;
+  bottom:80px;
+  right:20px;
+  width:55px;
+  height:55px;
+  border-radius:50%;
+  background:#25D366;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:28px;
+  cursor:pointer;
+  box-shadow:0 0 18px rgba(0,0,0,.35);
+  z-index:9999;
+}
+#whatsappBtn:hover{transform:scale(1.08)}
 </style>
 </head>
 
@@ -174,7 +197,7 @@ footer a{color:var(--gold);text-decoration:none;display:block;margin-top:6px}
 <input type="hidden" name="_captcha" value="false">
 <input type="hidden" name="_subject" value="Nouvelle réservation CizaCarWash+">
 
-<input type="text" name="Nom & Prénom" required placeholder="Nom et prénom">
+<input type="text" name="Nom et Prénom" required placeholder="Nom et prénom">
 <input type="tel" name="Téléphone" required placeholder="Téléphone">
 
 <select name="Type de véhicule" required onchange="adjustPrice(this.value)">
@@ -202,10 +225,8 @@ footer a{color:var(--gold);text-decoration:none;display:block;margin-top:6px}
 
 <div id="success">
   <h3>Merci pour votre réservation 🙏</h3>
-  <p>
-    Votre demande a bien été envoyée.<br>
-    Notre équipe CIZA GROUP vous contactera rapidement.
-  </p>
+  <p>Votre demande a bien été envoyée.<br>
+  Notre équipe vous contactera rapidement.</p>
   <p>
     📧 infos@cizagroup.com<br>
     📱 WhatsApp : +1 514 502 9503
@@ -218,9 +239,16 @@ footer a{color:var(--gold);text-decoration:none;display:block;margin-top:6px}
 © 2026 CIZA GROUP  
 <span>Design signed by CIZA GROUP</span>
 <a href="mailto:infos@cizagroup.com">infos@cizagroup.com</a>
+<a href="https://wa.me/15145029503" target="_blank">WhatsApp : +1 514 502 9503</a>
 </footer>
 
 <div id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+
+<div id="whatsappBtn"
+     onclick="window.open('https://wa.me/15145029503','_blank')"
+     title="Contacter CIZA GROUP sur WhatsApp">
+💬
+</div>
 
 <script>
 let basePrice = 0;
