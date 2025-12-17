@@ -4,364 +4,340 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>CIZA HOME+ — Services à Domicile</title>
+<title>CizaHome+ — Services à domicile Premium</title>
 <link rel="icon" href="logotransparent.png">
 
 <style>
 :root{
-    --bg:#06142E;
-    --gold:#F2B840;
-    --glass:rgba(255,255,255,0.08);
-    --border:rgba(255,255,255,0.15);
-    --text:#ffffff;
+  --bg:#06142E;
+  --glass:rgba(255,255,255,0.08);
+  --border:rgba(255,255,255,0.15);
+  --gold:#F2B840;
+  --text:#ffffff;
 }
 
 *{box-sizing:border-box}
+
 body{
-    margin:0;
-    background:var(--bg);
-    font-family:Arial, sans-serif;
-    color:var(--text);
-    overflow-x:hidden;
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:var(--bg);
+  color:var(--text);
 }
 
-/* 🔙 RETOUR */
-#backBtn{
-    position:fixed;
-    top:16px;
-    left:16px;
-    width:46px;
-    height:46px;
-    border-radius:50%;
-    background:var(--bg);
-    border:2px solid var(--gold);
-    color:var(--gold);
-    font-size:20px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    cursor:pointer;
-    z-index:9999;
+/* HEADER */
+header{
+  position:sticky;
+  top:0;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 18px;
+  background:var(--glass);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--gold);
+  z-index:1000;
 }
-
-/* ⬆️ TOP */
-#toTop{
-    position:fixed;
-    bottom:22px;
-    right:22px;
-    width:46px;
-    height:46px;
-    border-radius:50%;
-    background:var(--gold);
-    color:#06142E;
-    font-size:20px;
-    display:none;
-    align-items:center;
-    justify-content:center;
-    cursor:pointer;
-    z-index:9999;
+.back{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  border:2px solid var(--gold);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--gold);
+  cursor:pointer;
 }
-
-/* 🌐 LANG */
-#langSwitch{
-    position:fixed;
-    top:16px;
-    right:16px;
-    background:var(--gold);
-    color:#06142E;
-    padding:10px 16px;
-    border-radius:14px;
-    font-weight:bold;
-    cursor:pointer;
-    z-index:9999;
+.lang{
+  background:var(--gold);
+  color:#06142E;
+  padding:8px 14px;
+  border-radius:14px;
+  font-weight:bold;
+  cursor:pointer;
 }
 
 /* HERO */
 .hero{
-    padding:120px 20px 80px;
-    text-align:center;
-}
-.hero-card{
-    max-width:850px;
-    margin:auto;
-    background:var(--glass);
-    border:1px solid var(--border);
-    backdrop-filter:blur(12px);
-    border-radius:26px;
-    padding:60px 25px;
-    box-shadow:0 0 40px rgba(0,0,0,0.4);
-}
-.hero-logo{
-    width:150px;
-    height:150px;
-    margin:auto;
-    background:url('logotransparent.png') center/contain no-repeat;
-    animation:float 5s infinite ease-in-out;
-    filter:drop-shadow(0 0 15px var(--gold));
-}
-@keyframes float{
-    0%{transform:translateY(0)}
-    50%{transform:translateY(-12px)}
-    100%{transform:translateY(0)}
+  margin:30px auto;
+  width:90%;
+  background:var(--glass);
+  border:2px solid var(--gold);
+  border-radius:24px;
+  padding:30px 20px;
+  text-align:center;
 }
 .hero h1{
-    color:var(--gold);
-    font-size:34px;
-    margin:20px 0 10px;
+  margin:0;
+  color:var(--gold);
 }
 .hero p{
-    opacity:.9;
-    max-width:650px;
-    margin:auto;
-    font-size:18px;
-}
-.hero button{
-    margin-top:26px;
-    padding:14px 26px;
-    background:var(--gold);
-    color:#06142E;
-    border:none;
-    border-radius:14px;
-    font-weight:bold;
-    cursor:pointer;
+  opacity:.9;
+  margin-top:10px;
 }
 
 /* SECTIONS */
 .section{
-    max-width:900px;
-    margin:50px auto;
-    padding:0 20px;
+  width:90%;
+  margin:40px auto;
 }
 .section h2{
-    color:var(--gold);
-    font-size:26px;
-    margin-bottom:20px;
+  color:var(--gold);
+  margin-bottom:14px;
 }
 
 /* CARDS */
-.card{
-    background:var(--glass);
-    border:1px solid var(--border);
-    border-radius:20px;
-    padding:24px;
-    margin-bottom:20px;
-}
-.card h3{color:var(--gold);margin-top:0}
-
-/* SERVICES GRID */
 .grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:16px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
 }
-@media(max-width:700px){
-    .grid{grid-template-columns:1fr}
+.card{
+  background:var(--glass);
+  border:2px solid var(--border);
+  border-radius:18px;
+  padding:20px;
+}
+.card span{
+  font-size:28px;
 }
 
 /* PROCESS */
-.process li{
-    margin-bottom:10px;
+.steps{
+  display:grid;
+  gap:12px;
+}
+.step{
+  background:var(--glass);
+  border-left:4px solid var(--gold);
+  padding:16px;
+  border-radius:14px;
 }
 
-/* PAYMENT */
-.payments span{
-    display:inline-block;
-    margin-right:14px;
-    margin-top:10px;
-    padding:10px 16px;
-    border-radius:12px;
-    background:#0B1C34;
-    border:1px solid var(--border);
+/* PAY */
+.pay{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.pay div{
+  background:var(--glass);
+  border:1px solid var(--border);
+  padding:12px 16px;
+  border-radius:14px;
 }
 
-/* FORM */
-form input, form textarea{
-    width:100%;
-    margin-top:12px;
-    padding:12px;
-    background:#0B1C34;
-    border:none;
-    border-radius:10px;
-    color:white;
-}
-form textarea{height:120px;resize:none}
-form button{
-    margin-top:16px;
-    width:100%;
-    padding:14px;
-    background:var(--gold);
-    color:#06142E;
-    border:none;
-    border-radius:14px;
-    font-weight:bold;
+/* FAQ */
+.faq details{
+  background:var(--glass);
+  border:1px solid var(--border);
+  padding:14px;
+  border-radius:14px;
+  margin-bottom:10px;
 }
 
 /* FOOTER */
 footer{
-    margin-top:60px;
-    padding:30px 20px;
-    text-align:center;
-    font-size:13px;
-    opacity:.85;
+  margin-top:50px;
+  padding:30px;
+  text-align:center;
+  font-size:14px;
+  opacity:.85;
 }
-footer b{color:var(--gold)}
+footer a{
+  color:var(--gold);
+  display:block;
+  margin-top:6px;
+  text-decoration:none;
+}
+
+/* TOP */
+#top{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  width:45px;
+  height:45px;
+  background:var(--gold);
+  color:#06142E;
+  border-radius:50%;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  cursor:pointer;
+}
 </style>
 </head>
 
 <body>
 
-<div id="backBtn" onclick="history.back()">←</div>
-<div id="langSwitch">FR</div>
-<div id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+<header>
+  <div class="back" onclick="history.back()">←</div>
+  <div><b>CizaHome+</b></div>
+  <div class="lang" id="lang">FR</div>
+</header>
 
-<!-- HERO -->
 <section class="hero">
-    <div class="hero-card">
-        <div class="hero-logo"></div>
-        <h1 id="t-title"></h1>
-        <p id="t-sub"></p>
-        <button onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" id="t-cta"></button>
-    </div>
+  <h1 id="title"></h1>
+  <p id="subtitle"></p>
 </section>
 
-<!-- SERVICES -->
 <section class="section">
-<h2 id="t-services"></h2>
-<div class="grid">
+  <h2 id="servicesTitle"></h2>
+  <div class="grid">
     <div class="card">
-        <h3 id="s1-title"></h3>
-        <p id="s1-text"></p>
+      <span>🧹</span>
+      <h3 id="s1"></h3>
+      <p id="s1t"></p>
     </div>
     <div class="card">
-        <h3 id="s2-title"></h3>
-        <p id="s2-text"></p>
+      <span>🌿</span>
+      <h3 id="s2"></h3>
+      <p id="s2t"></p>
     </div>
-</div>
+  </div>
 </section>
 
-<!-- PROCESS -->
 <section class="section">
-<h2 id="t-process"></h2>
-<div class="card">
-<ul class="process" id="process-list"></ul>
-</div>
+  <h2 id="processTitle"></h2>
+  <div class="steps">
+    <div class="step" id="p1"></div>
+    <div class="step" id="p2"></div>
+    <div class="step" id="p3"></div>
+  </div>
 </section>
 
-<!-- PAYMENT -->
 <section class="section">
-<h2 id="t-payment"></h2>
-<div class="card payments" id="payments"></div>
+  <h2 id="payTitle"></h2>
+  <div class="pay">
+    <div>📱 EcoCash</div>
+    <div>📱 Lumicash</div>
+    <div>📱 Mobile Money</div>
+    <div>💵 Paiement sur place</div>
+  </div>
 </section>
 
-<!-- WHY US -->
 <section class="section">
-<h2 id="t-why"></h2>
-<div class="card" id="why-text"></div>
+  <h2 id="whyTitle"></h2>
+  <ul id="why"></ul>
 </section>
 
-<!-- FAQ -->
-<section class="section">
-<h2 id="t-faq"></h2>
-<div class="card" id="faq-text"></div>
-</section>
-
-<!-- CONTACT -->
-<section class="section" id="contact">
-<h2 id="t-contact"></h2>
-<div class="card">
-<form action="https://formsubmit.co/home@cizagroup.com" method="POST">
-<input type="hidden" name="_captcha" value="false">
-<input id="f-name" name="nom" required>
-<input id="f-phone" name="telephone" required>
-<textarea id="f-msg" name="message" required></textarea>
-<button id="f-send"></button>
-</form>
-</div>
+<section class="section faq">
+  <h2>FAQ</h2>
+  <details>
+    <summary id="f1q"></summary>
+    <p id="f1a"></p>
+  </details>
+  <details>
+    <summary id="f2q"></summary>
+    <p id="f2a"></p>
+  </details>
 </section>
 
 <footer>
-© 2026 CIZA GROUP<br>
-<b>Design signed by CIZA GROUP</b>
+  © 2026 CIZA GROUP  
+  <div>Design signed by <b>CIZA GROUP</b></div>
+  <a href="mailto:infos@cizagroup.com">Contact</a>
 </footer>
+
+<div id="top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
 
 <script>
 let lang="fr";
 const T={
-title:{fr:"CIZA Home+ — Services à Domicile",en:"CIZA Home+ — Home Services"},
-sub:{fr:"Ménage et jardinage professionnels, fiables et planifiés.",
-     en:"Professional, reliable and scheduled home services."},
-cta:{fr:"Commander un service",en:"Order a service"},
-services:{fr:"Nos services",en:"Our services"},
-s1t:{fr:"Ménage à domicile",en:"Home Cleaning"},
-s1x:{fr:"Nettoyage complet, régulier ou ponctuel, personnel vérifié.",
-     en:"Complete cleaning, regular or one-time, verified staff."},
-s2t:{fr:"Jardinage & entretien extérieur",en:"Gardening & Outdoor Care"},
-s2x:{fr:"Entretien des jardins, cours et espaces verts.",
-     en:"Garden, yard and green space maintenance."},
-process:{fr:"Comment ça marche",en:"How it works"},
-plist:{
-fr:["Demande via formulaire","Confirmation et planification",
-    "Intervention professionnelle","Paiement sécurisé"],
-en:["Request via form","Confirmation & scheduling",
-    "Professional service","Secure payment"]
+fr:{
+title:"CizaHome+",
+sub:"Services à domicile premium : ménage & jardinage",
+services:"Nos services",
+s1:"Ménage à domicile",
+s1t:"Nettoyage complet, régulier ou ponctuel par des agents vérifiés.",
+s2:"Jardinage",
+s2t:"Entretien, tonte, nettoyage et aménagement d’espaces verts.",
+process:"Comment commander",
+p1:"1️⃣ Choisissez le service et votre zone",
+p2:"2️⃣ Sélectionnez la date et l’heure",
+p3:"3️⃣ Payez et suivez votre service",
+pay:"Moyens de paiement",
+why:"Pourquoi CizaHome+",
+whyList:[
+"Personnel vérifié et formé",
+"Tarifs clairs et transparents",
+"Support client CIZA GROUP",
+"Paiement mobile sécurisé"
+],
+f1q:"Puis-je programmer un service récurrent ?",
+f1a:"Oui, hebdomadaire ou mensuel selon votre besoin.",
+f2q:"Le paiement est-il obligatoire à l’avance ?",
+f2a:"Paiement mobile ou sur place selon votre choix."
 },
-pay:{fr:"Moyens de paiement",en:"Payment methods"},
-why:{fr:"Pourquoi choisir CIZA Home+",
-     en:"Why choose CIZA Home+"},
-whyx:{
-fr:"Personnel vérifié • Prix transparents • Service fiable • Support client",
-en:"Verified staff • Transparent pricing • Reliable service • Customer support"
-},
-faq:{fr:"Questions fréquentes",en:"Frequently asked questions"},
-faqx:{
-fr:"Les services sont-ils assurés ? Oui. Peut-on planifier ? Oui.",
-en:"Are services insured? Yes. Can we schedule? Yes."
-},
-contact:{fr:"Demande de service",en:"Service request"},
-name:{fr:"Nom complet",en:"Full name"},
-phone:{fr:"Téléphone",en:"Phone"},
-msg:{fr:"Décrivez votre besoin",en:"Describe your request"},
-send:{fr:"Envoyer",en:"Send"}
+en:{
+title:"CizaHome+",
+sub:"Premium home services: cleaning & gardening",
+services:"Our services",
+s1:"Home cleaning",
+s1t:"Full or regular cleaning by verified professionals.",
+s2:"Gardening",
+s2t:"Maintenance, mowing and green space care.",
+process:"How to order",
+p1:"1️⃣ Choose the service and area",
+p2:"2️⃣ Select date and time",
+p3:"3️⃣ Pay and track your service",
+pay:"Payment methods",
+why:"Why CizaHome+",
+whyList:[
+"Verified staff",
+"Transparent pricing",
+"CIZA GROUP support",
+"Secure mobile payment"
+],
+f1q:"Can I schedule recurring services?",
+f1a:"Yes, weekly or monthly options available.",
+f2q:"Is advance payment required?",
+f2a:"Mobile or on-site payment available."
+}
 };
 
 function render(){
-document.getElementById("t-title").textContent=T.title[lang];
-document.getElementById("t-sub").textContent=T.sub[lang];
-document.getElementById("t-cta").textContent=T.cta[lang];
-document.getElementById("t-services").textContent=T.services[lang];
-document.getElementById("s1-title").textContent=T.s1t[lang];
-document.getElementById("s1-text").textContent=T.s1x[lang];
-document.getElementById("s2-title").textContent=T.s2t[lang];
-document.getElementById("s2-text").textContent=T.s2x[lang];
-document.getElementById("t-process").textContent=T.process[lang];
-document.getElementById("process-list").innerHTML =
-T.plist[lang].map(i=>`<li>${i}</li>`).join("");
-document.getElementById("t-payment").textContent=T.pay[lang];
-document.getElementById("payments").innerHTML =
-"<span>EcoCash</span><span>Lumicash</span><span>Mobile Money</span>";
-document.getElementById("t-why").textContent=T.why[lang];
-document.getElementById("why-text").textContent=T.whyx[lang];
-document.getElementById("t-faq").textContent=T.faq[lang];
-document.getElementById("faq-text").textContent=T.faqx[lang];
-document.getElementById("t-contact").textContent=T.contact[lang];
-document.getElementById("f-name").placeholder=T.name[lang];
-document.getElementById("f-phone").placeholder=T.phone[lang];
-document.getElementById("f-msg").placeholder=T.msg[lang];
-document.getElementById("f-send").textContent=T.send[lang];
+document.getElementById("title").textContent=T[lang].title;
+document.getElementById("subtitle").textContent=T[lang].sub;
+document.getElementById("servicesTitle").textContent=T[lang].services;
+document.getElementById("s1").textContent=T[lang].s1;
+document.getElementById("s1t").textContent=T[lang].s1t;
+document.getElementById("s2").textContent=T[lang].s2;
+document.getElementById("s2t").textContent=T[lang].s2t;
+document.getElementById("processTitle").textContent=T[lang].process;
+document.getElementById("p1").textContent=T[lang].p1;
+document.getElementById("p2").textContent=T[lang].p2;
+document.getElementById("p3").textContent=T[lang].p3;
+document.getElementById("payTitle").textContent=T[lang].pay;
+document.getElementById("whyTitle").textContent=T[lang].why;
+const ul=document.getElementById("why");
+ul.innerHTML="";
+T[lang].whyList.forEach(i=>{
+  const li=document.createElement("li");
+  li.textContent=i;
+  ul.appendChild(li);
+});
+document.getElementById("f1q").textContent=T[lang].f1q;
+document.getElementById("f1a").textContent=T[lang].f1a;
+document.getElementById("f2q").textContent=T[lang].f2q;
+document.getElementById("f2a").textContent=T[lang].f2a;
 }
 
-document.getElementById("langSwitch").onclick=()=>{
+document.getElementById("lang").onclick=()=>{
 lang=lang==="fr"?"en":"fr";
-document.getElementById("langSwitch").textContent=lang==="fr"?"FR":"EN";
+document.getElementById("lang").textContent=lang.toUpperCase();
 render();
 };
 
-window.addEventListener("scroll",()=>{
-document.getElementById("toTop").style.display =
-window.scrollY>400?"flex":"none";
-});
-
 render();
+
+window.addEventListener("scroll",()=>{
+document.getElementById("top").style.display=
+window.scrollY>300?"flex":"none";
+});
 </script>
 
 </body>
