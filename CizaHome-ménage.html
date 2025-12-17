@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CizaHome+ — Ménage Professionnel | CIZA GROUP</title>
+<link rel="icon" href="logotransparent.png">
+
+<style>
+:root{
+ --bg:#06142E;
+ --gold:#F2B840;
+ --glass:rgba(255,255,255,.08);
+ --border:rgba(255,255,255,.18);
+}
+*{box-sizing:border-box}
+body{
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:var(--bg);
+ color:white;
+}
+a{color:var(--gold);text-decoration:none}
+
+/* HEADER */
+header{
+ position:sticky;top:0;z-index:1000;
+ display:flex;align-items:center;gap:12px;
+ padding:14px 18px;
+ background:var(--glass);
+ backdrop-filter:blur(14px);
+ border-bottom:1px solid var(--gold);
+}
+header img{width:46px}
+header h1{font-size:18px;margin:0}
+
+/* NAV BUTTONS */
+#backBtn{
+ position:fixed;top:90px;left:15px;
+ background:var(--gold);
+ color:#06142E;
+ padding:8px 12px;
+ border-radius:12px;
+ font-weight:bold;
+ cursor:pointer;
+ z-index:2000;
+}
+#toTop{
+ position:fixed;bottom:20px;right:20px;
+ width:46px;height:46px;
+ background:var(--gold);
+ color:#06142E;
+ border-radius:50%;
+ display:none;
+ align-items:center;
+ justify-content:center;
+ font-size:22px;
+ cursor:pointer;
+}
+
+/* HERO */
+.hero{
+ padding:80px 20px 50px;
+ text-align:center;
+}
+.hero h2{color:var(--gold);font-size:30px;margin-bottom:8px}
+.hero p{max-width:760px;margin:auto;opacity:.9}
+
+/* SECTIONS */
+.section{
+ max-width:980px;
+ margin:40px auto;
+ padding:0 20px;
+}
+.section h3{
+ color:var(--gold);
+ border-left:4px solid var(--gold);
+ padding-left:10px;
+ margin-bottom:14px;
+}
+
+/* CARDS */
+.grid{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+ gap:16px;
+}
+.card{
+ background:var(--glass);
+ border:1px solid var(--border);
+ border-radius:18px;
+ padding:20px;
+}
+.card ul{padding-left:18px;margin:10px 0 0}
+
+/* PRICING */
+.price{
+ font-size:20px;
+ color:var(--gold);
+ font-weight:bold;
+ margin-top:8px;
+}
+.note{font-size:13px;opacity:.85}
+
+/* PROCESS */
+.process{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+ gap:14px;
+}
+.step{
+ background:var(--glass);
+ border:1px solid var(--border);
+ border-radius:16px;
+ padding:16px;
+}
+.step b{color:var(--gold)}
+
+/* FORM */
+form{
+ background:var(--glass);
+ border:1px solid var(--border);
+ padding:22px;
+ border-radius:18px;
+}
+input,select,textarea{
+ width:100%;
+ margin-top:10px;
+ padding:12px;
+ border-radius:10px;
+ border:none;
+ background:#0B1C34;
+ color:white;
+}
+button{
+ margin-top:16px;
+ width:100%;
+ padding:14px;
+ border:none;
+ border-radius:14px;
+ background:var(--gold);
+ color:#06142E;
+ font-weight:bold;
+ font-size:16px;
+ cursor:pointer;
+}
+
+/* FOOTER */
+footer{
+ margin-top:60px;
+ padding:30px 20px;
+ text-align:center;
+ font-size:14px;
+ opacity:.85;
+ border-top:1px solid var(--border);
+}
+</style>
+</head>
+
+<body>
+
+<header>
+ <img src="logotransparent.png" alt="CIZA GROUP">
+ <h1>CizaHome+ — Ménage Professionnel</h1>
+</header>
+
+<div id="backBtn" onclick="history.back()">← Retour</div>
+
+<section class="hero">
+ <h2>Ménage résidentiel & commercial</h2>
+ <p>
+ Service de ménage professionnel, structuré et contrôlé,
+ opéré par <b>CIZA GROUP</b> pour particuliers, entreprises
+ et institutions.
+ </p>
+</section>
+
+<section class="section">
+ <h3>Nos prestations de ménage</h3>
+
+ <div class="grid">
+  <div class="card">
+   <b>Ménage résidentiel</b>
+   <ul>
+    <li>Maisons & appartements</li>
+    <li>Intervention ponctuelle ou régulière</li>
+    <li>Produits & matériel inclus</li>
+   </ul>
+  </div>
+
+  <div class="card">
+   <b>Ménage bureaux & entreprises</b>
+   <ul>
+    <li>Bureaux, commerces, ONG</li>
+    <li>Planning contractuel</li>
+    <li>Équipe dédiée</li>
+   </ul>
+  </div>
+
+  <div class="card">
+   <b>Grand nettoyage</b>
+   <ul>
+    <li>Avant / après déménagement</li>
+    <li>Nettoyage en profondeur</li>
+   </ul>
+  </div>
+
+  <div class="card">
+   <b>Services complémentaires</b>
+   <ul>
+    <li>Vaisselle & repassage</li>
+    <li>Désinfection ciblée</li>
+   </ul>
+  </div>
+ </div>
+</section>
+
+<section class="section">
+ <h3>Tarifs indicatifs (monnaie locale)</h3>
+
+ <div class="grid">
+  <div class="card">
+   <b>Appartement standard</b>
+   <div class="price">À partir de 120 000 BIF</div>
+   <div class="note">Incluant déplacement & logistique</div>
+  </div>
+
+  <div class="card">
+   <b>Maison familiale</b>
+   <div class="price">À partir de 180 000 BIF</div>
+  </div>
+
+  <div class="card">
+   <b>Bureaux / entreprises</b>
+   <div class="price">Sur devis & contrat</div>
+   <div class="note">Facturation mensuelle</div>
+  </div>
+ </div>
+</section>
+
+<section class="section">
+ <h3>Processus de service</h3>
+
+ <div class="process">
+  <div class="step"><b>1.</b> Demande & informations client</div>
+  <div class="step"><b>2.</b> Validation & planification</div>
+  <div class="step"><b>3.</b> Intervention terrain</div>
+  <div class="step"><b>4.</b> Contrôle qualité & suivi</div>
+ </div>
+</section>
+
+<section class="section">
+ <h3>Demande de ménage / Réservation</h3>
+
+ <form action="https://formsubmit.co/infos@cizagroup.com" method="POST">
+  <input type="hidden" name="_captcha" value="false">
+  <input type="hidden" name="_subject" value="Demande CizaHome+ — Ménage">
+
+  <input type="text" name="Nom complet" placeholder="Nom complet" required>
+  <input type="email" name="Email" placeholder="Email" required>
+
+  <select name="Type de client" required>
+   <option>Particulier</option>
+   <option>Entreprise</option>
+  </select>
+
+  <select name="Type de ménage" required>
+   <option>Ménage résidentiel</option>
+   <option>Ménage entreprise</option>
+   <option>Grand nettoyage</option>
+  </select>
+
+  <textarea name="Détails" placeholder="Adresse, surface, date souhaitée, fréquence" required></textarea>
+
+  <button>Envoyer la demande</button>
+ </form>
+</section>
+
+<footer>
+ <div>© 2026 CIZA GROUP — Tous droits réservés</div>
+ <div>Design signed by <b>CIZA GROUP</b></div>
+ <div style="margin-top:8px">
+  <a href="#">FR</a> | <a href="#">EN</a>
+ </div>
+</footer>
+
+<div id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+
+<script>
+window.addEventListener("scroll",()=>{
+ document.getElementById("toTop").style.display =
+  window.scrollY>300 ? "flex" : "none";
+});
+</script>
+
+</body>
+</html>
