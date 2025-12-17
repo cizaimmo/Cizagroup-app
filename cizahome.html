@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CizaHome+ — Services Premium à Domicile</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#06142E;
+    color:#fff;
+}
+h1,h2,h3{color:#F2B840}
+section{padding:60px 20px;max-width:1000px;margin:auto}
+.card{
+    background:rgba(255,255,255,0.07);
+    border:1px solid rgba(255,255,255,0.15);
+    border-radius:18px;
+    padding:25px;
+    margin-bottom:25px;
+}
+button{
+    background:#F2B840;
+    border:none;
+    padding:12px 20px;
+    border-radius:12px;
+    font-weight:bold;
+    cursor:pointer;
+}
+button:hover{background:#d6a737}
+.fixed-btn{
+    position:fixed;
+    right:18px;
+    bottom:18px;
+    z-index:9999;
+}
+.back-btn{
+    position:fixed;
+    left:18px;
+    bottom:18px;
+    z-index:9999;
+}
+footer{
+    background:#050d20;
+    padding:30px;
+    text-align:center;
+    font-size:14px;
+    opacity:.85;
+}
+.lang{
+    position:fixed;
+    top:15px;
+    right:15px;
+    background:#F2B840;
+    color:#06142E;
+    padding:8px 14px;
+    border-radius:12px;
+    font-weight:bold;
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="lang" onclick="switchLang()">FR</div>
+
+<!-- HERO -->
+<section>
+    <h1 id="title"></h1>
+    <p id="subtitle"></p>
+</section>
+
+<!-- SERVICES -->
+<section>
+<h2 id="services-title"></h2>
+
+<div class="card">
+<h3 id="s1-title"></h3>
+<p id="s1-text"></p>
+</div>
+
+<div class="card">
+<h3 id="s2-title"></h3>
+<p id="s2-text"></p>
+</div>
+
+<div class="card">
+<h3 id="s3-title"></h3>
+<p id="s3-text"></p>
+</div>
+
+</section>
+
+<!-- PROCESSUS -->
+<section>
+<h2 id="process-title"></h2>
+<div class="card" id="process-text"></div>
+</section>
+
+<!-- PAIEMENTS -->
+<section>
+<h2 id="payment-title"></h2>
+<div class="card" id="payment-text"></div>
+</section>
+
+<!-- POURQUOI NOUS -->
+<section>
+<h2 id="why-title"></h2>
+<div class="card" id="why-text"></div>
+</section>
+
+<!-- FAQ -->
+<section>
+<h2>FAQ</h2>
+<div class="card" id="faq"></div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+<p id="footer-text"></p>
+</footer>
+
+<!-- BOUTONS FIXES -->
+<button class="back-btn" onclick="history.back()">⬅ Retour</button>
+<button class="fixed-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">⬆ Haut</button>
+
+<script>
+let lang="fr";
+
+const T={
+fr:{
+title:"CizaHome+ — Services Premium à Domicile",
+subtitle:"Ménage, CarWash et Jardinage professionnels à domicile, fiables et sécurisés.",
+services:"Nos Services",
+s1t:"🧹 Entretien ménager",
+s1x:"Nettoyage complet des maisons, appartements et bureaux. Personnel formé, matériel professionnel, respect strict des normes d’hygiène.",
+s2t:"🚗 CarWash à domicile",
+s2x:"Lavage intérieur et extérieur de véhicules directement chez vous, sans déplacement.",
+s3t:"🌿 Jardinage (optionnel)",
+s3x:"Entretien de jardins, pelouses, taille de haies et nettoyage extérieur.",
+process:"Comment ça marche",
+processt:"1. Choisissez votre service<br>2. Planifiez la date et l’heure<br>3. Paiement sécurisé<br>4. Intervention à domicile",
+pay:"Moyens de paiement",
+payt:"Paiement par Mobile Money, carte bancaire ou paiement sur place selon disponibilité.",
+why:"Pourquoi CizaHome+",
+whyt:"Service professionnel, personnel vérifié, transparence totale, support client CIZA GROUP.",
+faq:"Puis-je combiner plusieurs services ?<br>Oui, ménage + carwash + jardinage sont possibles.<br><br>Les agents sont-ils formés ?<br>Oui, chaque agent est validé par CIZA GROUP.",
+footer:"© 2026 CIZA GROUP — Designed by CIZA GROUP"
+},
+en:{
+title:"CizaHome+ — Premium Home Services",
+subtitle:"Professional home cleaning, car wash and gardening services.",
+services:"Our Services",
+s1t:"🧹 Home Cleaning",
+s1x:"Full cleaning for houses, apartments and offices with trained staff.",
+s2t:"🚗 Home Car Wash",
+s2x:"Interior and exterior vehicle wash at your home.",
+s3t:"🌿 Gardening (optional)",
+s3x:"Garden maintenance, lawn care and outdoor cleaning.",
+process:"How it works",
+processt:"1. Choose your service<br>2. Schedule date and time<br>3. Secure payment<br>4. Home service delivery",
+pay:"Payment methods",
+payt:"Mobile Money, card payment or on-site payment when available.",
+why:"Why CizaHome+",
+whyt:"Professional service, verified staff, full transparency and CIZA GROUP support.",
+faq:"Can I combine services?<br>Yes, multiple services are allowed.<br><br>Are staff trained?<br>Yes, all agents are validated.",
+footer:"© 2026 CIZA GROUP — Designed by CIZA GROUP"
+}
+};
+
+function apply(){
+    document.getElementById("title").innerHTML=T[lang].title;
+    document.getElementById("subtitle").innerHTML=T[lang].subtitle;
+    document.getElementById("services-title").innerHTML=T[lang].services;
+    document.getElementById("s1-title").innerHTML=T[lang].s1t;
+    document.getElementById("s1-text").innerHTML=T[lang].s1x;
+    document.getElementById("s2-title").innerHTML=T[lang].s2t;
+    document.getElementById("s2-text").innerHTML=T[lang].s2x;
+    document.getElementById("s3-title").innerHTML=T[lang].s3t;
+    document.getElementById("s3-text").innerHTML=T[lang].s3x;
+    document.getElementById("process-title").innerHTML=T[lang].process;
+    document.getElementById("process-text").innerHTML=T[lang].processt;
+    document.getElementById("payment-title").innerHTML=T[lang].pay;
+    document.getElementById("payment-text").innerHTML=T[lang].payt;
+    document.getElementById("why-title").innerHTML=T[lang].why;
+    document.getElementById("why-text").innerHTML=T[lang].whyt;
+    document.getElementById("faq").innerHTML=T[lang].faq;
+    document.getElementById("footer-text").innerHTML=T[lang].footer;
+}
+function switchLang(){
+    lang=(lang==="fr")?"en":"fr";
+    document.querySelector(".lang").innerText=lang.toUpperCase();
+    apply();
+}
+apply();
+</script>
+
+</body>
+</html>
