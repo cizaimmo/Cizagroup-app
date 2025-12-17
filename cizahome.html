@@ -4,129 +4,57 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CizaHome+ — Services à domicile</title>
-<link rel="icon" href="logotransparent.png">
 
 <style>
 :root{
   --bg:#06142E;
-  --card:#0B1C34;
+  --card:#0E2245;
   --gold:#F2B840;
-  --text:#fff;
+  --text:#ffffff;
+  --muted:#cfd6e6;
 }
-body{
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:var(--bg);
-  color:var(--text);
-}
+*{box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+body{margin:0;background:var(--bg);color:var(--text)}
 header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:14px 18px;
-  background:rgba(255,255,255,.06);
-  backdrop-filter:blur(12px);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 18px;background:rgba(255,255,255,.05);
+  border-bottom:1px solid var(--gold);backdrop-filter:blur(10px)
 }
-.back{
-  width:42px;height:42px;
-  border-radius:50%;
-  border:2px solid var(--gold);
-  color:var(--gold);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-}
-.lang{
-  background:var(--gold);
-  color:#06142E;
-  padding:8px 14px;
-  border-radius:14px;
-  font-weight:bold;
-  cursor:pointer;
-}
-.container{
-  max-width:420px;
-  margin:20px auto;
-  padding:0 15px;
-}
+.back{color:var(--gold);font-size:20px;cursor:pointer}
+.lang{background:var(--gold);color:#06142E;border:none;
+  padding:8px 14px;border-radius:14px;font-weight:bold;cursor:pointer}
+h1{color:var(--gold);margin:20px}
 .card{
-  background:var(--card);
-  border:1px solid rgba(255,255,255,.15);
-  border-radius:20px;
-  padding:18px;
-  margin-bottom:20px;
+  background:var(--card);margin:16px;border-radius:18px;
+  padding:18px;border:1px solid rgba(255,255,255,.08)
 }
-h1,h2{
-  color:var(--gold);
-  margin-top:0;
-}
-.grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-}
-.service{
-  background:#101E36;
-  border:1px solid rgba(255,255,255,.2);
-  border-radius:16px;
-  padding:16px;
-  text-align:center;
-}
-label{
-  display:block;
-  margin-top:12px;
-  font-size:14px;
-}
+label{display:block;margin-top:14px;color:var(--muted)}
 select,input{
-  width:100%;
-  padding:10px;
-  border-radius:12px;
-  border:none;
-  margin-top:6px;
+  width:100%;padding:12px;margin-top:6px;border-radius:12px;
+  border:none;font-size:15px
 }
+.total{font-size:26px;color:var(--gold);margin:20px 0}
 .btn{
-  width:100%;
-  margin-top:16px;
-  padding:14px;
-  background:var(--gold);
-  color:#06142E;
-  border:none;
-  border-radius:16px;
-  font-size:16px;
-  font-weight:bold;
-  cursor:pointer;
+  width:100%;padding:16px;border-radius:16px;border:none;
+  background:var(--gold);color:#06142E;font-size:16px;
+  font-weight:bold;cursor:pointer
 }
-.pay-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-}
-.pay{
-  background:#101E36;
-  border-radius:14px;
-  padding:14px;
-  text-align:center;
-  border:1px solid rgba(255,255,255,.2);
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.box{
+  background:#0B1C3A;padding:14px;border-radius:14px;
+  border:1px solid rgba(255,255,255,.08)
 }
 footer{
-  text-align:center;
-  padding:25px;
-  font-size:13px;
-  opacity:.85;
+  margin-top:40px;padding:24px;text-align:center;
+  font-size:13px;color:#ccc
 }
-#top{
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  width:46px;height:46px;
-  background:var(--gold);
-  color:#06142E;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
+footer span{color:var(--gold)}
+#topBtn{
+  position:fixed;right:18px;bottom:18px;
+  background:var(--gold);color:#06142E;
+  width:46px;height:46px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;cursor:pointer
 }
 </style>
 </head>
@@ -136,119 +64,119 @@ footer{
 <header>
   <div class="back" onclick="history.back()">←</div>
   <strong>CizaHome+</strong>
-  <div class="lang" onclick="toggleLang()">FR</div>
+  <button class="lang" onclick="toggleLang()">FR</button>
 </header>
 
-<div class="container">
-
-<h1 id="title">Services à domicile</h1>
+<h1 id="title">Réserver un service à domicile</h1>
 
 <div class="card">
-  <h2 id="servicesTitle">Nos services</h2>
-  <div class="grid">
-    <div class="service">🧹<br>Ménage complet</div>
-    <div class="service">🛋️<br>Ménage bureaux</div>
-    <div class="service">🪟<br>Vitres & sols</div>
-    <div class="service">🌿<br>Jardinage</div>
-    <div class="service">🧺<br>Nettoyage profond</div>
-    <div class="service">🏡<br>Entretien régulier</div>
+  <label id="lService">Type de service</label>
+  <select id="service" onchange="calc()">
+    <option value="20000">Ménage standard</option>
+    <option value="30000">Ménage approfondi</option>
+    <option value="25000">Jardinage</option>
+    <option value="45000">Ménage + Jardinage</option>
+  </select>
+
+  <label id="lSurface">Surface / Durée</label>
+  <select id="surface" onchange="calc()">
+    <option value="15000">Petit logement (1–2h)</option>
+    <option value="25000">Maison moyenne</option>
+    <option value="40000">Grande maison / villa</option>
+  </select>
+
+  <label id="lClient">Type de client</label>
+  <select id="client" onchange="calc()">
+    <option value="0">Particulier</option>
+    <option value="20000">Entreprise / Bureau</option>
+    <option value="50000">Contrat mensuel entreprise</option>
+  </select>
+
+  <label id="lDate">Date</label>
+  <input type="date">
+
+  <label id="lTime">Heure</label>
+  <input type="time">
+
+  <div class="total">
+    <span id="totalLabel">Total :</span>
+    <span id="total">0 BIF</span>
   </div>
-</div>
 
-<div class="card">
-  <h2 id="bookTitle">Réserver un service</h2>
-
-  <label id="l1">Type de service</label>
-  <select id="service">
-    <option>Ménage à domicile</option>
-    <option>Jardinage</option>
-    <option>Entretien régulier</option>
-  </select>
-
-  <label id="l2">Fréquence</label>
-  <select id="freq">
-    <option>Unique</option>
-    <option>Hebdomadaire</option>
-    <option>Mensuelle</option>
-  </select>
-
-  <label id="l3">Date</label>
-  <input type="date" id="date">
-
-  <label id="l4">Heure</label>
-  <input type="time" id="time">
-
-  <button class="btn" onclick="order()" id="confirm">
-    Confirmer la demande
+  <button class="btn" id="confirm">
+    Confirmer la réservation
   </button>
 </div>
 
 <div class="card">
-  <h2 id="processTitle">Comment ça marche</h2>
-  <p>1️⃣ Choisissez le service<br>
-     2️⃣ Planifiez date & heure<br>
-     3️⃣ Paiement sécurisé<br>
-     4️⃣ Agent Ciza certifié intervient</p>
+  <h3 style="color:var(--gold)" id="payTitle">Paiement accepté</h3>
+  <div class="grid">
+    <div class="box">📱 EcoCash</div>
+    <div class="box">📱 Lumicash</div>
+    <div class="box">📱 Mobile Money</div>
+    <div class="box">💵 Paiement sur place</div>
+  </div>
 </div>
 
 <div class="card">
-  <h2 id="whyTitle">Pourquoi CizaHome+</h2>
-  <p>
-    ✔ Personnel vérifié<br>
-    ✔ Matériel professionnel<br>
-    ✔ Support client 7j/7<br>
-    ✔ Paiement flexible
-  </p>
-</div>
-
-<div class="card">
-  <h2>FAQ</h2>
-  <p><b>Les produits sont inclus ?</b><br>Oui</p>
-  <p><b>Paiement après service ?</b><br>Possible</p>
-  <p><b>Annulation ?</b><br>Gratuite 12h avant</p>
-</div>
-
-<h2 id="payTitle">Paiements acceptés</h2>
-<div class="pay-grid">
-  <div class="pay">📱 EcoCash</div>
-  <div class="pay">📱 Lumicash</div>
-  <div class="pay">📱 Mobile Money</div>
-  <div class="pay">💵 Paiement sur place</div>
-</div>
-
+  <h3 style="color:var(--gold)" id="whyTitle">Pourquoi CizaHome+ ?</h3>
+  <ul>
+    <li>Personnel vérifié et formé</li>
+    <li>Intervention rapide et ponctuelle</li>
+    <li>Contrats entreprises prêts à signer</li>
+    <li>Service premium, sécurisé et traçable</li>
+  </ul>
 </div>
 
 <footer>
-  © 2026 CIZA GROUP<br>
-  Design signed by <b>CIZA GROUP</b>
+  © 2026 <span>CIZA GROUP</span><br>
+  CizaHome+ — Ménage & Jardinage<br>
+  Mentions légales • Confidentialité
 </footer>
 
-<div id="top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+<div id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
 
 <script>
 let lang="fr";
-function toggleLang(){
-  if(lang==="fr"){
-    lang="en";
-    title.innerText="Home services";
-    servicesTitle.innerText="Our services";
-    bookTitle.innerText="Book a service";
-    confirm.innerText="Confirm request";
-    processTitle.innerText="How it works";
-    whyTitle.innerText="Why CizaHome+";
-    payTitle.innerText="Accepted payments";
-  }else{
-    location.reload();
-  }
-}
 
-function order(){
-  let msg=`Bonjour CizaHome+,%0A
-Service : ${service.value}%0A
-Fréquence : ${freq.value}%0A
-Date : ${date.value}%0A
-Heure : ${time.value}`;
-  window.open("https://wa.me/25779945007?text="+msg,"_blank");
+function calc(){
+  const s=+service.value;
+  const a=+surface.value;
+  const c=+client.value;
+  const base=10000; // déplacement
+  const total=s+a+c+base;
+  document.getElementById("total").innerText=
+    total.toLocaleString()+" BIF";
+}
+calc();
+
+function toggleLang(){
+  lang = lang==="fr"?"en":"fr";
+  document.querySelector(".lang").innerText=lang.toUpperCase();
+
+  if(lang==="en"){
+    title.innerText="Book a home service";
+    lService.innerText="Service type";
+    lSurface.innerText="Area / Duration";
+    lClient.innerText="Client type";
+    lDate.innerText="Date";
+    lTime.innerText="Time";
+    totalLabel.innerText="Total:";
+    confirm.innerText="Confirm booking";
+    payTitle.innerText="Accepted payments";
+    whyTitle.innerText="Why CizaHome+?";
+  }else{
+    title.innerText="Réserver un service à domicile";
+    lService.innerText="Type de service";
+    lSurface.innerText="Surface / Durée";
+    lClient.innerText="Type de client";
+    lDate.innerText="Date";
+    lTime.innerText="Heure";
+    totalLabel.innerText="Total :";
+    confirm.innerText="Confirmer la réservation";
+    payTitle.innerText="Paiement accepté";
+    whyTitle.innerText="Pourquoi CizaHome+ ?";
+  }
 }
 </script>
 
