@@ -3,238 +3,227 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CizaCarWash+ — Services Premium</title>
+<title>CizaCarWash+ — Réservation</title>
 <link rel="icon" href="logotransparent.png">
 
 <style>
+:root{
+  --bg:#06142E;
+  --card:#0B1C34;
+  --gold:#F2B840;
+  --text:#fff;
+}
 body{
-    margin:0;
-    background:#06142E;
-    color:white;
-    font-family:Arial, sans-serif;
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:var(--bg);
+  color:var(--text);
 }
 header{
-    padding:20px;
-    text-align:center;
-    background:rgba(255,255,255,0.05);
-    border-bottom:2px solid #F2B840;
-}
-header h1{color:#F2B840;margin:0;}
-.section{
-    max-width:1000px;
-    margin:40px auto;
-    padding:0 20px;
-}
-.section h2{
-    color:#F2B840;
-    border-bottom:2px solid #F2B840;
-    padding-bottom:8px;
-}
-.card{
-    background:rgba(255,255,255,0.07);
-    border:1px solid rgba(255,255,255,0.15);
-    border-radius:18px;
-    padding:25px;
-    margin-top:20px;
-}
-.price{
-    font-size:22px;
-    color:#F2B840;
-    font-weight:bold;
-}
-ul{padding-left:20px;}
-footer{
-    margin-top:60px;
-    padding:30px;
-    text-align:center;
-    border-top:1px solid #F2B840;
-    font-size:14px;
-}
-.lang{
-    position:fixed;
-    top:15px;
-    right:15px;
-    background:#F2B840;
-    color:#06142E;
-    padding:8px 14px;
-    font-weight:bold;
-    border-radius:10px;
-    cursor:pointer;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 18px;
+  background:rgba(255,255,255,.06);
+  backdrop-filter:blur(10px);
 }
 .back{
-    position:fixed;
-    bottom:20px;
-    left:20px;
-    background:#F2B840;
-    color:#06142E;
-    width:45px;
-    height:45px;
-    border-radius:50%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-size:22px;
-    cursor:pointer;
+  border:2px solid var(--gold);
+  color:var(--gold);
+  border-radius:50%;
+  width:42px;height:42px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;
 }
-.top{
-    position:fixed;
-    bottom:20px;
-    right:20px;
-    background:#F2B840;
-    color:#06142E;
-    width:45px;
-    height:45px;
-    border-radius:50%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-size:22px;
-    cursor:pointer;
+.lang{
+  background:var(--gold);
+  color:#06142E;
+  padding:8px 14px;
+  border-radius:14px;
+  font-weight:bold;
 }
-.contract{
-    font-size:14px;
-    line-height:1.7;
-    opacity:0.95;
+.container{
+  max-width:420px;
+  margin:20px auto;
+  padding:0 15px;
+}
+.card{
+  background:var(--card);
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:20px;
+  padding:18px;
+  margin-bottom:20px;
+}
+h1,h2{
+  color:var(--gold);
+  margin-top:0;
+}
+label{
+  display:block;
+  margin-top:12px;
+  font-size:14px;
+}
+select,input{
+  width:100%;
+  margin-top:6px;
+  padding:10px;
+  border-radius:12px;
+  border:none;
+}
+.total{
+  font-size:26px;
+  margin-top:14px;
+  font-weight:bold;
+}
+.btn{
+  width:100%;
+  padding:14px;
+  margin-top:15px;
+  background:var(--gold);
+  color:#06142E;
+  border:none;
+  border-radius:16px;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+}
+.pay-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.pay{
+  background:#111C33;
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:14px;
+  padding:14px;
+  text-align:center;
+  cursor:pointer;
+}
+.pay.active{border-color:var(--gold);}
+footer{
+  text-align:center;
+  padding:25px;
+  font-size:13px;
+  opacity:.85;
+}
+#top{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:var(--gold);
+  color:#06142E;
+  width:46px;height:46px;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;
 }
 </style>
 </head>
 
 <body>
 
-<div class="lang" onclick="toggleLang()">FR / EN</div>
-<div class="back" onclick="history.back()">←</div>
-<div class="top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
-
 <header>
-    <h1>CizaCarWash+</h1>
-    <p id="subtitle">Service mobile premium de lavage automobile</p>
+  <div class="back" onclick="history.back()">←</div>
+  <strong>CizaCarWash+</strong>
+  <div class="lang" onclick="toggleLang()">FR</div>
 </header>
 
-<!-- PARTICULIERS -->
-<div class="section">
-<h2 id="p-title">Tarification Particuliers</h2>
+<div class="container">
+
+<h1 id="title">Réserver un lavage</h1>
 
 <div class="card">
-<h3>Formule Basic</h3>
-<p class="price">65 000 BIF / mois</p>
-<ul>
-<li>4 lavages complets</li>
-<li>Déplacement inclus (zone standard)</li>
-<li>Produits professionnels</li>
-</ul>
+  <label id="v1">Type de véhicule</label>
+  <select id="vehicle">
+    <option>SUV / 4x4</option>
+    <option>Berline</option>
+    <option>Moto</option>
+  </select>
+
+  <label id="v2">Type de service</label>
+  <select id="service">
+    <option>Lavage extérieur</option>
+    <option>Lavage complet</option>
+    <option>Premium intérieur</option>
+  </select>
+
+  <label id="v3">Lieu</label>
+  <select id="place">
+    <option>À domicile</option>
+    <option>Station Ciza</option>
+  </select>
+
+  <label id="v4">Date</label>
+  <input type="date" id="date">
+
+  <label id="v5">Heure</label>
+  <input type="time" id="time">
+
+  <div class="total">Total : <span id="price">25 USD</span></div>
+
+  <button class="btn" onclick="confirmOrder()" id="confirm">
+    Confirmer la réservation
+  </button>
 </div>
 
-<div class="card">
-<h3>Formule Standard</h3>
-<p class="price">120 000 BIF / mois</p>
-<ul>
-<li>8 lavages complets</li>
-<li>Déplacement inclus</li>
-<li>Priorité planning</li>
-</ul>
-</div>
-
-<div class="card">
-<h3>Formule Premium</h3>
-<p class="price">180 000 BIF / mois</p>
-<ul>
-<li>Lavages réguliers illimités*</li>
-<li>Déplacement inclus</li>
-<li>Service prioritaire</li>
-</ul>
-<p style="font-size:13px;">* selon planning raisonnable</p>
-</div>
-</div>
-
-<!-- ENTREPRISES -->
-<div class="section">
-<h2 id="e-title">Tarification Entreprises & Flottes</h2>
-
-<div class="card">
-<p class="price">30 000 BIF / véhicule / mois</p>
-<ul>
-<li>Flotte 5 à 10 véhicules</li>
-<li>Facturation mensuelle</li>
-<li>Planning fixe</li>
-</ul>
+<h2 id="paytitle">Paiement accepté</h2>
+<div class="pay-grid">
+  <div class="pay" onclick="setPay('EcoCash')">📱 EcoCash</div>
+  <div class="pay" onclick="setPay('Lumicash')">📱 Lumicash</div>
+  <div class="pay" onclick="setPay('Mobile Money')">📱 Mobile Money</div>
+  <div class="pay" onclick="setPay('Sur place')">💵 Sur place</div>
 </div>
 
 <div class="card">
-<p class="price">27 000 BIF / véhicule / mois</p>
-<ul>
-<li>Flotte 11 à 30 véhicules</li>
-<li>Contrat annuel</li>
-<li>Service dédié</li>
-</ul>
+  <h2>Abonnements & Entreprises</h2>
+  <p><b>Abonnement Pro</b><br>4 lavages / mois – priorité – tarif réduit</p>
+  <p><b>Flottes & Entreprises</b><br>Taxis, sociétés, ONG – contrat mensuel</p>
 </div>
 
-<div class="card">
-<p class="price">Sur devis</p>
-<ul>
-<li>Flotte 30+ véhicules</li>
-<li>Interventions groupées</li>
-<li>Contrat personnalisé</li>
-</ul>
-</div>
-</div>
-
-<!-- DEPLACEMENT -->
-<div class="section">
-<h2 id="d-title">Conditions de déplacement</h2>
-<div class="card">
-<ul>
-<li>Zone standard : incluse</li>
-<li>Hors zone : supplément de 5 000 à 10 000 BIF</li>
-<li>Distance évaluée avant confirmation</li>
-</ul>
-</div>
-</div>
-
-<!-- CONTRAT -->
-<div class="section">
-<h2 id="c-title">Contrat de Service – Prêt à signer</h2>
-<div class="card contract">
-<p>
-Le présent contrat engage CIZA GROUP – CizaCarWash+ à fournir un service de lavage automobile mobile,
-selon la formule choisie par le client.
-</p>
-
-<p>
-Le client s’engage à respecter le planning convenu et à garantir l’accès au véhicule.
-Les frais de déplacement hors zone standard peuvent s’appliquer.
-</p>
-
-<p>
-Les paiements sont acceptés via Mobile Money (Lumicash, EcoCash, autres).
-</p>
-
-<p>
-Le contrat est renouvelable mensuellement ou annuellement selon l’offre.
-</p>
-
-<p><b>Date :</b> ____________________</p>
-<p><b>Nom & Signature Client :</b> ____________________</p>
-<p><b>CIZA GROUP</b></p>
-</div>
 </div>
 
 <footer>
-© 2026 CIZA GROUP — Tous droits réservés<br>
-Design & Service signed by CIZA GROUP
+  © 2026 CIZA GROUP<br>
+  Design signed by <b>CIZA GROUP</b>
 </footer>
 
-<script>
-let fr=true;
-function toggleLang(){
-fr=!fr;
-document.getElementById("subtitle").innerText=fr?
-"Service mobile premium de lavage automobile":
-"Premium mobile car wash service";
+<div id="top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
 
-document.getElementById("p-title").innerText=fr?"Tarification Particuliers":"Individual Pricing";
-document.getElementById("e-title").innerText=fr?"Tarification Entreprises & Flottes":"Business & Fleet Pricing";
-document.getElementById("d-title").innerText=fr?"Conditions de déplacement":"Travel Conditions";
-document.getElementById("c-title").innerText=fr?"Contrat de Service – Prêt à signer":"Service Agreement – Ready to sign";
+<script>
+let payMethod="EcoCash";
+let lang="fr";
+
+function setPay(p){
+  payMethod=p;
+  document.querySelectorAll('.pay').forEach(x=>x.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+function confirmOrder(){
+  let msg=`Bonjour CizaCarWash+,%0A
+🚗 Véhicule : ${vehicle.value}%0A
+🧼 Service : ${service.value}%0A
+📍 Lieu : ${place.value}%0A
+📅 Date : ${date.value}%0A
+⏰ Heure : ${time.value}%0A
+💳 Paiement : ${payMethod}%0A
+💰 Total : 25 USD`;
+  window.open("https://wa.me/25779945007?text="+msg,"_blank");
+}
+
+function toggleLang(){
+  if(lang==="fr"){
+    lang="en";
+    title.innerText="Book a car wash";
+    confirm.innerText="Confirm booking";
+    paytitle.innerText="Accepted payments";
+  }else{
+    lang="fr";
+    title.innerText="Réserver un lavage";
+    confirm.innerText="Confirmer la réservation";
+    paytitle.innerText="Paiement accepté";
+  }
 }
 </script>
 
