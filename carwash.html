@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>CIZA CarWash+ — Service Professionnel</title>
+<link rel="icon" href="logotransparent.png">
+
+<style>
+:root{
+    --bg:#06142E;
+    --gold:#F2B840;
+    --glass:rgba(255,255,255,0.08);
+    --border:rgba(255,255,255,0.18);
+    --text:#ffffff;
+}
+
+*{box-sizing:border-box}
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+}
+
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:15px 20px;
+    background:var(--glass);
+    backdrop-filter:blur(14px);
+    border-bottom:2px solid var(--gold);
+}
+header img{height:45px}
+header h1{
+    font-size:20px;
+    color:var(--gold);
+    margin:0;
+}
+
+section{
+    max-width:900px;
+    margin:auto;
+    padding:30px 20px;
+}
+
+.card{
+    background:var(--glass);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:25px;
+    margin-bottom:25px;
+}
+
+h2{
+    color:var(--gold);
+    margin-top:0;
+}
+
+label{
+    display:block;
+    margin-top:15px;
+    font-size:14px;
+    opacity:.9;
+}
+
+input, select, button{
+    width:100%;
+    margin-top:6px;
+    padding:12px;
+    border-radius:10px;
+    border:none;
+    font-size:15px;
+}
+
+input, select{
+    background:#0B1C34;
+    color:white;
+}
+
+button{
+    margin-top:20px;
+    background:var(--gold);
+    color:#06142E;
+    font-weight:bold;
+    cursor:pointer;
+}
+button:hover{opacity:.9}
+
+.service-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.service{
+    padding:20px;
+    border-radius:16px;
+    background:rgba(242,184,64,0.08);
+    border:1px solid var(--gold);
+    text-align:center;
+    cursor:pointer;
+}
+.service:hover{background:rgba(242,184,64,0.18)}
+
+footer{
+    margin-top:40px;
+    padding:30px 20px;
+    text-align:center;
+    font-size:13px;
+    opacity:.85;
+    border-top:1px solid var(--border);
+}
+footer span{color:var(--gold)}
+
+#backBtn, #topBtn{
+    position:fixed;
+    bottom:20px;
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    background:var(--gold);
+    color:#06142E;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+    cursor:pointer;
+}
+#backBtn{left:20px}
+#topBtn{right:20px;display:none}
+</style>
+</head>
+
+<body>
+
+<header>
+    <img src="logotransparent.png">
+    <h1>CIZA CarWash+</h1>
+</header>
+
+<section class="card">
+    <h2>Service de Lavage Automobile Professionnel</h2>
+    <p>
+        CIZA CarWash+ propose des services de lavage haut de gamme
+        pour particuliers et entreprises, en station ou à domicile,
+        avec paiement sécurisé à l’avance.
+    </p>
+</section>
+
+<section class="card">
+    <h2>Choix du service</h2>
+    <div class="service-grid">
+        <div class="service" onclick="selectService('Lavage Standard – Station',25000)">
+            🚗 Lavage standard (station)
+        </div>
+        <div class="service" onclick="selectService('Lavage Premium – Station',40000)">
+            ✨ Lavage premium (station)
+        </div>
+        <div class="service" onclick="selectService('Lavage Mobile – Domicile',55000)">
+            🏠 Lavage mobile (domicile)
+        </div>
+        <div class="service" onclick="selectService('Contrat Entreprise',null)">
+            🏢 Contrat entreprise (sur devis)
+        </div>
+    </div>
+</section>
+
+<section class="card" id="form">
+    <h2>Formulaire de réservation officielle</h2>
+
+    <form>
+
+        <label>Nom</label>
+        <input required>
+
+        <label>Prénom</label>
+        <input required>
+
+        <label>Téléphone (Mobile Money)</label>
+        <input required>
+
+        <label>Service sélectionné</label>
+        <input id="service" readonly required>
+
+        <label>Montant total (BIF)</label>
+        <input id="price" readonly required>
+
+        <label>Date souhaitée</label>
+        <input type="date" required>
+
+        <label>Heure souhaitée</label>
+        <input type="time" required>
+
+        <label>Mode de paiement</label>
+        <select required>
+            <option value="">— Choisir —</option>
+            <option>EcoCash</option>
+            <option>Lumicash</option>
+            <option>Mobile Money</option>
+        </select>
+
+        <label style="font-size:13px;margin-top:10px;">
+            <input type="checkbox" required>
+            J’accepte le paiement à l’avance et les conditions CIZA GROUP.
+        </label>
+
+        <button>Confirmer la réservation</button>
+    </form>
+</section>
+
+<footer>
+    © 2026 <span>CIZA GROUP</span><br>
+    CIZA CarWash+ — Service officiel<br>
+    Design signed by CIZA GROUP
+</footer>
+
+<div id="backBtn" onclick="history.back()">←</div>
+<div id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+
+<script>
+function selectService(name, price){
+    document.getElementById("service").value = name;
+    document.getElementById("price").value = price ? price+" BIF" : "Sur devis";
+    document.getElementById("form").scrollIntoView({behavior:"smooth"});
+}
+
+window.addEventListener("scroll",()=>{
+    document.getElementById("topBtn").style.display =
+        window.scrollY>300 ? "flex" : "none";
+});
+</script>
+
+</body>
+</html>
