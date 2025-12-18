@@ -3,258 +3,278 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>CizaDelivery — Livraison & Tracking</title>
+<title>CizaDelivery+ — Livraison & Logistique</title>
 <link rel="icon" href="logotransparent.png">
 
 <style>
 :root{
-    --bg:#06142E;
-    --gold:#F2B840;
-    --glass:rgba(255,255,255,0.08);
-    --border:rgba(255,255,255,0.15);
+  --bg:#06142E;
+  --gold:#F2B840;
+  --glass:rgba(255,255,255,.08);
+  --border:rgba(255,255,255,.15);
+  --txt:#fff;
 }
-
 body{
-    margin:0;
-    font-family:Arial, sans-serif;
-    background:var(--bg);
-    color:white;
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:var(--bg);
+  color:var(--txt);
 }
-
-/* ===== BOUTONS FIXES ===== */
-#backBtn{
-    position:fixed;
-    top:15px;
-    left:15px;
-    width:42px;
-    height:42px;
-    border-radius:50%;
-    background:var(--bg);
-    border:2px solid var(--gold);
-    color:var(--gold);
-    font-size:20px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    cursor:pointer;
-    z-index:9999;
+header{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 18px;
+  background:var(--glass);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--gold);
 }
-
-#toTop{
-    position:fixed;
-    bottom:20px;
-    right:20px;
-    width:45px;
-    height:45px;
-    border-radius:50%;
-    background:var(--gold);
-    color:#06142E;
-    display:none;
-    align-items:center;
-    justify-content:center;
-    font-size:20px;
-    cursor:pointer;
+header img{width:46px}
+header button{
+  background:none;
+  border:none;
+  color:var(--gold);
+  font-size:18px;
+  cursor:pointer;
 }
-
-/* ===== HERO ===== */
-.hero{
-    text-align:center;
-    padding:80px 20px 40px;
+.container{
+  max-width:1000px;
+  margin:auto;
+  padding:25px;
 }
-.hero img{
-    width:120px;
-    filter:drop-shadow(0 0 15px var(--gold));
+h1,h2,h3{color:var(--gold)}
+.card{
+  background:var(--glass);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:22px;
+  margin-bottom:22px;
 }
-.hero h1{
-    color:var(--gold);
-    margin:15px 0 5px;
+.price{
+  font-weight:bold;
+  margin-top:10px;
 }
-.hero p{opacity:.9}
-
-/* ===== SECTIONS ===== */
-.section{
-    width:92%;
-    max-width:900px;
-    margin:25px auto;
-    background:var(--glass);
-    border:1px solid var(--border);
-    border-radius:18px;
-    padding:25px;
+.reserve-btn{
+  margin-top:15px;
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:12px;
+  background:var(--gold);
+  color:#06142E;
+  font-weight:bold;
+  cursor:pointer;
 }
-.section h2{
-    color:var(--gold);
-    margin-top:0;
+.form-box{
+  display:none;
+  margin-top:30px;
+  position:relative;
 }
-
-/* ===== FORM ===== */
-label{display:block;margin-top:14px;font-weight:bold;}
-input, select{
-    width:100%;
-    margin-top:6px;
-    padding:12px;
-    border-radius:10px;
-    border:none;
-    background:#0B1C34;
-    color:white;
+.close-form{
+  position:absolute;
+  top:12px;
+  right:15px;
+  font-size:22px;
+  cursor:pointer;
+  color:var(--gold);
 }
-button{
-    width:100%;
-    margin-top:20px;
-    padding:14px;
-    background:var(--gold);
-    border:none;
-    border-radius:12px;
-    font-weight:bold;
-    cursor:pointer;
+input,select,textarea{
+  width:100%;
+  margin-top:12px;
+  padding:12px;
+  border-radius:10px;
+  border:none;
 }
-
-/* ===== TRACKING ===== */
-.status{
-    margin-top:15px;
-    padding:12px;
-    border-left:4px solid var(--gold);
-    background:#0B1C34;
+#success{
+  display:none;
+  background:#0b1c34;
+  border:1px solid var(--gold);
+  border-radius:18px;
+  padding:25px;
+  margin-top:30px;
+  text-align:center;
 }
-.map{
-    margin-top:15px;
-    height:220px;
-    border-radius:12px;
-    background:#111;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    opacity:.8;
-}
-
-/* ===== FOOTER ===== */
 footer{
-    text-align:center;
-    font-size:13px;
-    opacity:.75;
-    margin:40px 0 25px;
+  margin-top:50px;
+  padding:25px;
+  text-align:center;
+  font-size:14px;
+  opacity:.85;
 }
-footer b{color:var(--gold)}
+footer a{
+  color:var(--gold);
+  text-decoration:none;
+  display:block;
+  margin-top:6px;
+}
+#toTop{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  background:var(--gold);
+  color:#06142E;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  cursor:pointer;
+  font-size:22px;
+}
 </style>
 </head>
 
 <body>
 
-<!-- Boutons fixes -->
-<div id="backBtn" onclick="history.back()">←</div>
-<div id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+<header>
+  <button onclick="history.back()">← Retour</button>
+  <img src="logotransparent.png">
+  <button onclick="location.reload()">⟳</button>
+</header>
 
-<!-- HERO -->
-<div class="hero">
-    <img src="logotransparent.png">
-    <h1 id="t-title"></h1>
-    <p id="t-sub"></p>
+<div class="container">
+
+<h1>CizaDelivery+ 📦</h1>
+<p>Service professionnel de livraison rapide et sécurisée — particuliers & entreprises.</p>
+
+<!-- COMMENT CA MARCHE -->
+<div class="card">
+<h3>📍 Comment ça marche</h3>
+<ol>
+<li>Vous choisissez le type de livraison</li>
+<li>Vous indiquez point de départ & destination</li>
+<li>Nous organisons la livraison</li>
+<li>Suivi & confirmation à la réception</li>
+</ol>
+<p style="opacity:.85;">
+📌 Le tracking GPS temps réel sera activé en Phase Firebase.
+</p>
 </div>
 
-<!-- FORMULAIRE COMMANDE -->
-<div class="section">
-    <h2 id="t-order"></h2>
-
-    <label id="l-name"></label>
-    <input type="text" required>
-
-    <label id="l-phone"></label>
-    <input type="text" required>
-
-    <label id="l-pickup"></label>
-    <input type="text" required>
-
-    <label id="l-drop"></label>
-    <input type="text" required>
-
-    <label id="l-type"></label>
-    <select>
-        <option>📄 Documents</option>
-        <option>📦 Colis standard</option>
-        <option>💻 Électronique</option>
-        <option>⚠️ Fragile</option>
-    </select>
-
-    <label id="l-pay"></label>
-    <select>
-        <option>Mobile Money</option>
-        <option>Cash (validé avant départ)</option>
-    </select>
-
-    <button id="t-confirm"></button>
+<!-- SERVICES -->
+<div class="card">
+<h3>🚲 Livraison Express — Ville</h3>
+<ul>
+<li>Petits colis & documents</li>
+<li>Livraison rapide intra-ville</li>
+<li>Confirmation de réception</li>
+</ul>
+<div class="price">À partir de 8 000 BIF</div>
+<button class="reserve-btn" onclick="openForm('Livraison Express — Ville')">
+Commander ce service
+</button>
 </div>
 
-<!-- TRACKING -->
-<div class="section">
-    <h2 id="t-track"></h2>
-
-    <div class="status" id="statusBox">
-        📦 Commande créée — En attente de chauffeur
-    </div>
-
-    <div class="map">
-        🗺️ Carte GPS en temps réel (Firebase — étape suivante)
-    </div>
+<div class="card">
+<h3>🚚 Livraison Standard — Ville & Périphérie</h3>
+<ul>
+<li>Colis moyens</li>
+<li>Délais optimisés</li>
+<li>Particuliers & entreprises</li>
+</ul>
+<div class="price">À partir de 15 000 BIF</div>
+<button class="reserve-btn" onclick="openForm('Livraison Standard')">
+Commander ce service
+</button>
 </div>
 
-<!-- FOOTER -->
+<div class="card">
+<h3>🏢 Livraison Entreprise</h3>
+<ul>
+<li>Contrats mensuels</li>
+<li>Facturation professionnelle</li>
+<li>Logistique dédiée</li>
+</ul>
+<div class="price">Sur devis</div>
+<button class="reserve-btn" onclick="openForm('Livraison Entreprise')">
+Demander un devis
+</button>
+</div>
+
+<!-- FORMULAIRE -->
+<div class="card form-box" id="formBox">
+<div class="close-form" onclick="closeForm()">✕</div>
+
+<h2>📋 Commande CizaDelivery+</h2>
+
+<form action="https://formsubmit.co/infos@cizagroup.com" method="POST" onsubmit="showSuccess()">
+<input type="hidden" name="_captcha" value="false">
+<input type="hidden" name="_subject" value="Nouvelle commande CizaDelivery+">
+
+<input type="text" id="serviceField" name="Service choisi" readonly>
+
+<input type="text" name="Nom & Prénom" required placeholder="Nom et prénom">
+<input type="tel" name="Téléphone" required placeholder="Téléphone">
+
+<input type="text" name="Lieu de départ" required placeholder="Point de départ">
+<input type="text" name="Lieu de destination" required placeholder="Destination">
+
+<select name="Type de colis" required>
+  <option value="">Type de colis</option>
+  <option>Documents</option>
+  <option>Petit colis</option>
+  <option>Colis moyen</option>
+  <option>Autre</option>
+</select>
+
+<select name="Mode de paiement" required>
+  <option>Mobile Money</option>
+  <option>Espèces</option>
+</select>
+
+<textarea name="Instructions" placeholder="Instructions particulières (optionnel)"></textarea>
+
+<button class="reserve-btn" type="submit">
+Confirmer la livraison
+</button>
+</form>
+
+<p style="margin-top:15px;font-size:14px;">
+📧 infos@cizagroup.com<br>
+📱 WhatsApp : +1 514 502 9503
+</p>
+</div>
+
+<div id="success">
+<h3>Merci 🙏</h3>
+<p>
+Votre demande de livraison a bien été envoyée.<br>
+Notre équipe CizaDelivery+ vous contactera rapidement.
+</p>
+</div>
+
+</div>
+
 <footer>
-    © 2026 <b>CIZA GROUP</b><br>
-    Service professionnel de livraison & logistique<br>
-    Designed by <b>CIZA GROUP</b>
+© 2026 CIZA GROUP  
+<span>Design signed by CIZA GROUP</span>
+<a href="mailto:infos@cizagroup.com">infos@cizagroup.com</a>
 </footer>
 
+<div id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+
 <script>
-/* ===== LANGUE ===== */
-const T={
-fr:{
- title:"CizaDelivery",
- sub:"Livraison rapide & suivi en temps réel",
- order:"Commander une livraison",
- name:"Nom complet",
- phone:"Téléphone",
- pickup:"Point de départ",
- drop:"Destination",
- type:"Type de colis",
- pay:"Mode de paiement",
- confirm:"Confirmer & payer",
- track:"Suivi de livraison"
-},
-en:{
- title:"CizaDelivery",
- sub:"Fast delivery & real-time tracking",
- order:"Create a delivery order",
- name:"Full name",
- phone:"Phone number",
- pickup:"Pickup location",
- drop:"Destination",
- type:"Package type",
- pay:"Payment method",
- confirm:"Confirm & pay",
- track:"Delivery tracking"
+function openForm(service){
+  document.getElementById("formBox").style.display="block";
+  document.getElementById("serviceField").value=service;
+  document.getElementById("formBox").scrollIntoView({behavior:"smooth"});
 }
-};
-
-let lang="fr";
-function apply(){
-    document.getElementById("t-title").innerText=T[lang].title;
-    document.getElementById("t-sub").innerText=T[lang].sub;
-    document.getElementById("t-order").innerText=T[lang].order;
-    document.getElementById("l-name").innerText=T[lang].name;
-    document.getElementById("l-phone").innerText=T[lang].phone;
-    document.getElementById("l-pickup").innerText=T[lang].pickup;
-    document.getElementById("l-drop").innerText=T[lang].drop;
-    document.getElementById("l-type").innerText=T[lang].type;
-    document.getElementById("l-pay").innerText=T[lang].pay;
-    document.getElementById("t-confirm").innerText=T[lang].confirm;
-    document.getElementById("t-track").innerText=T[lang].track;
+function closeForm(){
+  document.getElementById("formBox").style.display="none";
 }
-apply();
-
-/* Scroll top */
+function showSuccess(){
+  setTimeout(()=>{
+    document.getElementById("formBox").style.display="none";
+    document.getElementById("success").style.display="block";
+  },500);
+}
 window.addEventListener("scroll",()=>{
- document.getElementById("toTop").style.display =
- window.scrollY>300?"flex":"none";
+  document.getElementById("toTop").style.display =
+    window.scrollY>300 ? "flex" : "none";
 });
 </script>
 
