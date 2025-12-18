@@ -3,273 +3,264 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>CizaAssist — Assistance & Support Premium</title>
+<title>CizaAssist+ — Assistance & Services Premium</title>
 <link rel="icon" href="logotransparent.png">
 
 <style>
+:root{
+  --bg:#06142E;
+  --gold:#F2B840;
+  --glass:rgba(255,255,255,.08);
+  --border:rgba(255,255,255,.15);
+  --txt:#fff;
+}
 body{
-    margin:0;
-    font-family:Arial, sans-serif;
-    background:#06142E;
-    color:white;
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:var(--bg);
+  color:var(--txt);
 }
-a{text-decoration:none;color:inherit}
-
-/* Boutons fixes */
-#backBtn,#toTop{
-    position:fixed;
-    width:46px;height:46px;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:20px;
-    cursor:pointer;
-    z-index:9999;
+header{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 18px;
+  background:var(--glass);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--gold);
 }
-#backBtn{
-    top:15px;left:15px;
-    border:2px solid #F2B840;
-    color:#F2B840;
+header img{width:46px}
+header button{
+  background:none;
+  border:none;
+  color:var(--gold);
+  font-size:18px;
+  cursor:pointer;
+}
+.container{
+  max-width:1000px;
+  margin:auto;
+  padding:25px;
+}
+h1,h2,h3{color:var(--gold)}
+.card{
+  background:var(--glass);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:22px;
+  margin-bottom:22px;
+}
+.price{
+  font-weight:bold;
+  margin-top:10px;
+}
+.reserve-btn{
+  margin-top:15px;
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:12px;
+  background:var(--gold);
+  color:#06142E;
+  font-weight:bold;
+  cursor:pointer;
+}
+.form-box{
+  display:none;
+  margin-top:30px;
+  position:relative;
+}
+.close-form{
+  position:absolute;
+  top:12px;
+  right:15px;
+  font-size:22px;
+  cursor:pointer;
+  color:var(--gold);
+}
+input,select,textarea{
+  width:100%;
+  margin-top:12px;
+  padding:12px;
+  border-radius:10px;
+  border:none;
+}
+#success{
+  display:none;
+  background:#0b1c34;
+  border:1px solid var(--gold);
+  border-radius:18px;
+  padding:25px;
+  margin-top:30px;
+  text-align:center;
+}
+footer{
+  margin-top:50px;
+  padding:25px;
+  text-align:center;
+  font-size:14px;
+  opacity:.85;
+}
+footer a{
+  color:var(--gold);
+  text-decoration:none;
+  display:block;
+  margin-top:6px;
 }
 #toTop{
-    bottom:20px;right:20px;
-    background:#F2B840;
-    color:#06142E;
-    display:none;
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  background:var(--gold);
+  color:#06142E;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  cursor:pointer;
+  font-size:22px;
 }
-
-/* Header */
-header{
-    padding:90px 20px 50px;
-    text-align:center;
-}
-header h1{
-    color:#F2B840;
-    font-size:34px;
-}
-header p{
-    max-width:850px;
-    margin:auto;
-    opacity:.9;
-}
-
-/* Sections */
-.section{
-    max-width:1000px;
-    margin:50px auto;
-    padding:0 20px;
-}
-.section h2{
-    color:#F2B840;
-    margin-bottom:20px;
-}
-
-/* Cards */
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-    gap:20px;
-}
-.card{
-    background:rgba(255,255,255,0.07);
-    border:1px solid rgba(255,255,255,0.15);
-    border-radius:18px;
-    padding:25px;
-    transition:.3s;
-}
-.card:hover{
-    transform:translateY(-6px);
-    border-color:#F2B840;
-}
-.card h3{
-    color:#F2B840;
-    margin-top:0;
-}
-
-/* Form */
-form input, form select, form textarea{
-    width:100%;
-    margin-top:10px;
-    padding:12px;
-    border:none;
-    border-radius:10px;
-    background:#0B1C34;
-    color:white;
-}
-form textarea{height:120px}
-button{
-    margin-top:15px;
-    background:#F2B840;
-    color:#06142E;
-    border:none;
-    padding:14px;
-    width:100%;
-    border-radius:12px;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-/* Footer */
-footer{
-    margin-top:60px;
-    padding:30px;
-    text-align:center;
-    font-size:13px;
-    opacity:.85;
-}
-footer b{color:#F2B840}
 </style>
 </head>
 
 <body>
 
-<div id="backBtn" onclick="history.back()">←</div>
-<div id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
-
 <header>
-    <h1>CizaAssist</h1>
-    <p>
-        Service d’assistance humaine, administrative et personnelle,
-        pour particuliers, entreprises et diaspora.
-        Une équipe réelle, des solutions concrètes.
-    </p>
+  <button onclick="history.back()">← Retour</button>
+  <img src="logotransparent.png">
+  <button onclick="location.reload()">⟳</button>
 </header>
 
-<!-- POURQUOI -->
-<section class="section">
-    <h2>Pourquoi CizaAssist ?</h2>
-    <div class="card">
-        <p>
-            Beaucoup de personnes manquent de temps, de connaissances
-            ou d’accès pour gérer certaines démarches.
-        </p>
-        <p>
-            <b>CizaAssist</b> agit à votre place, vous accompagne,
-            vous informe et vous aide jusqu’à la résolution.
-        </p>
-    </div>
-</section>
+<div class="container">
+
+<h1>CizaAssist+ 🤝</h1>
+<p>Assistance administrative, personnelle et professionnelle sur mesure.</p>
+
+<!-- COMMENT CA MARCHE -->
+<div class="card">
+<h3>📌 Comment ça marche</h3>
+<ol>
+<li>Vous choisissez le type d’assistance</li>
+<li>Vous décrivez votre besoin précis</li>
+<li>CIZA ASSIST vous contacte rapidement</li>
+<li>Service exécuté avec suivi professionnel</li>
+</ol>
+</div>
 
 <!-- SERVICES -->
-<section class="section">
-    <h2>Nos services d’assistance</h2>
-    <div class="grid">
+<div class="card">
+<h3>🗂 Assistance Administrative</h3>
+<ul>
+<li>Démarches administratives</li>
+<li>Suivi de dossiers</li>
+<li>Documents officiels</li>
+<li>Assistance diaspora à distance</li>
+</ul>
+<div class="price">À partir de 30 000 BIF</div>
+<button class="reserve-btn" onclick="openForm('Assistance Administrative')">Demander ce service</button>
+</div>
 
-        <div class="card">
-            <h3>📄 Assistance administrative</h3>
-            <p>
-                Dossiers, formulaires, suivi administratif,
-                accompagnement dans les démarches officielles.
-            </p>
-        </div>
+<div class="card">
+<h3>🏠 Assistance Personnelle</h3>
+<ul>
+<li>Organisation de services</li>
+<li>Coordination locale</li>
+<li>Assistance familiale</li>
+<li>Gestion de demandes urgentes</li>
+</ul>
+<div class="price">À partir de 35 000 BIF</div>
+<button class="reserve-btn" onclick="openForm('Assistance Personnelle')">Demander ce service</button>
+</div>
 
-        <div class="card">
-            <h3>🏢 Assistance entreprises</h3>
-            <p>
-                Support opérationnel, démarches locales,
-                représentation et suivi terrain.
-            </p>
-        </div>
-
-        <div class="card">
-            <h3>🌍 Assistance diaspora</h3>
-            <p>
-                Gestion de dossiers à distance,
-                suivi local pour familles et investissements.
-            </p>
-        </div>
-
-        <div class="card">
-            <h3>🧭 Assistance personnelle</h3>
-            <p>
-                Aide quotidienne, organisation,
-                accompagnement personnalisé.
-            </p>
-        </div>
-
-        <div class="card">
-            <h3>🚨 Assistance urgente (non médicale)</h3>
-            <p>
-                Intervention rapide, accompagnement,
-                coordination locale.
-            </p>
-        </div>
-
-    </div>
-</section>
-
-<!-- PROCESSUS -->
-<section class="section">
-    <h2>Comment ça fonctionne ?</h2>
-    <div class="card">
-        <ol>
-            <li>Vous décrivez votre besoin</li>
-            <li>Analyse et confirmation par notre équipe</li>
-            <li>Validation du coût et du délai</li>
-            <li>Paiement sécurisé</li>
-            <li>Exécution et suivi jusqu’à résolution</li>
-        </ol>
-    </div>
-</section>
+<div class="card">
+<h3>🏢 Assistance Entreprise</h3>
+<ul>
+<li>Support opérationnel</li>
+<li>Coordination terrain</li>
+<li>Suivi partenaires</li>
+<li>Services sur mesure</li>
+</ul>
+<div class="price">Sur devis</div>
+<button class="reserve-btn" onclick="openForm('Assistance Entreprise')">Demander ce service</button>
+</div>
 
 <!-- FORMULAIRE -->
-<section class="section">
-    <h2>Demande d’assistance</h2>
-    <div class="card">
-        <form action="https://formsubmit.co/assist@cizagroup.com" method="POST">
-            <input type="hidden" name="_captcha" value="false">
+<div class="card form-box" id="formBox">
+<div class="close-form" onclick="closeForm()">✕</div>
 
-            <input type="text" name="nom" placeholder="Nom et prénom" required>
-            <input type="tel" name="telephone" placeholder="Téléphone" required>
+<h2>📋 Demande CizaAssist+</h2>
 
-            <select name="type_assistance" required>
-                <option value="">Type d’assistance</option>
-                <option>Administrative</option>
-                <option>Entreprise</option>
-                <option>Diaspora</option>
-                <option>Personnelle</option>
-                <option>Urgente (non médicale)</option>
-            </select>
+<form action="https://formsubmit.co/infos@cizagroup.com" method="POST" onsubmit="showSuccess()">
+<input type="hidden" name="_captcha" value="false">
+<input type="hidden" name="_subject" value="Nouvelle demande CizaAssist+">
 
-            <select name="paiement" required>
-                <option value="">Mode de paiement</option>
-                <option>Mobile Money</option>
-                <option>Paiement en BIF</option>
-            </select>
+<input type="text" id="serviceField" name="Service demandé" readonly>
 
-            <textarea name="details" placeholder="Décrivez précisément votre besoin" required></textarea>
+<input type="text" name="Nom & Prénom" required placeholder="Nom et prénom">
+<input type="email" name="Email" required placeholder="Email">
+<input type="tel" name="Téléphone" required placeholder="Téléphone">
 
-            <button>Envoyer la demande</button>
-        </form>
-    </div>
-</section>
+<select name="Type de client" required>
+  <option value="">Type de client</option>
+  <option>Particulier</option>
+  <option>Entreprise</option>
+  <option>Diaspora</option>
+</select>
 
-<!-- CONFIANCE -->
-<section class="section">
-    <h2>Engagement & confidentialité</h2>
-    <div class="card">
-        <p>
-            Toutes les demandes sont traitées de manière confidentielle.
-            Nos équipes sont identifiées, formées et responsables.
-        </p>
-        <p>
-            <b>CizaAssist</b> est un service humain, pas un robot.
-        </p>
-    </div>
-</section>
+<textarea name="Description du besoin" placeholder="Décrivez votre besoin en détail" required></textarea>
+
+<button class="reserve-btn" type="submit">
+Envoyer la demande
+</button>
+</form>
+
+<p style="margin-top:15px;font-size:14px;">
+📧 infos@cizagroup.com<br>
+📱 WhatsApp : +1 514 502 9503
+</p>
+</div>
+
+<div id="success">
+<h3>Merci 🙏</h3>
+<p>
+Votre demande a bien été envoyée.<br>
+Un conseiller CIZA ASSIST vous contactera rapidement.
+</p>
+</div>
+
+</div>
 
 <footer>
-    © 2026 <b>CIZA GROUP</b><br>
-    CizaAssist — Assistance & Support Premium<br>
-    Design signed by <b>CIZA GROUP</b>
+© 2026 CIZA GROUP  
+<span>Design signed by CIZA GROUP</span>
+<a href="mailto:infos@cizagroup.com">infos@cizagroup.com</a>
 </footer>
 
+<div id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+
 <script>
+function openForm(service){
+  document.getElementById("formBox").style.display="block";
+  document.getElementById("serviceField").value=service;
+  document.getElementById("formBox").scrollIntoView({behavior:"smooth"});
+}
+function closeForm(){
+  document.getElementById("formBox").style.display="none";
+}
+function showSuccess(){
+  setTimeout(()=>{
+    document.getElementById("formBox").style.display="none";
+    document.getElementById("success").style.display="block";
+  },500);
+}
 window.addEventListener("scroll",()=>{
-    document.getElementById("toTop").style.display =
-        window.scrollY>300 ? "flex" : "none";
+  document.getElementById("toTop").style.display =
+    window.scrollY>300 ? "flex" : "none";
 });
 </script>
 
