@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CizaCarWash+ — Tableau Client</title>
+<title>CizaCarWash+ — Suivi de réservation</title>
 <link rel="icon" href="logotransparent.png">
 
 <style>
@@ -47,8 +47,6 @@ header button{
   padding:25px;
 }
 
-h1,h2{color:var(--gold)}
-
 .card{
   background:var(--glass);
   border:1px solid var(--border);
@@ -57,43 +55,29 @@ h1,h2{color:var(--gold)}
   margin-bottom:20px;
 }
 
-.line{
-  display:flex;
-  justify-content:space-between;
-  margin:8px 0;
-  border-bottom:1px dashed rgba(255,255,255,.15);
-  padding-bottom:6px;
-}
+h1,h2{color:var(--gold)}
+.label{opacity:.7;font-size:14px;margin-top:12px}
+.value{font-size:18px;font-weight:bold}
 
-.badge{
-  display:inline-block;
-  padding:6px 12px;
-  background:var(--gold);
-  color:#06142E;
-  border-radius:12px;
-  font-weight:bold;
-  margin-top:8px;
-}
-
-.btn{
-  width:100%;
-  margin-top:14px;
+.status{
+  margin-top:20px;
   padding:14px;
-  border:none;
   border-radius:12px;
-  background:var(--gold);
-  color:#06142E;
+  text-align:center;
   font-weight:bold;
-  cursor:pointer;
 }
-.btn.secondary{
-  background:none;
-  color:var(--gold);
-  border:1px solid var(--gold);
+.received{background:#1f3b63}
+.progress{background:#8a6d1d}
+.done{background:#1d6b3b}
+
+#empty{
+  text-align:center;
+  padding:40px;
+  opacity:.85;
 }
 
 footer{
-  margin-top:40px;
+  margin-top:50px;
   padding:25px;
   text-align:center;
   font-size:14px;
@@ -116,6 +100,23 @@ footer a{color:var(--gold);text-decoration:none;display:block;margin-top:6px}
   cursor:pointer;
   font-size:22px;
 }
+
+#whatsappBtn{
+  position:fixed;
+  bottom:80px;
+  right:20px;
+  width:55px;
+  height:55px;
+  border-radius:50%;
+  background:#25D366;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:28px;
+  cursor:pointer;
+  box-shadow:0 0 18px rgba(0,0,0,.35);
+}
 </style>
 </head>
 
@@ -129,69 +130,34 @@ footer a{color:var(--gold);text-decoration:none;display:block;margin-top:6px}
 
 <div class="container">
 
-<h1>🧼 CizaCarWash+ — Espace Client</h1>
-<p>Merci pour votre confiance. Voici le résumé de votre réservation.</p>
+<h1>📊 Suivi CizaCarWash+</h1>
 
-<div class="card">
-  <h2>📌 Détails de la réservation</h2>
-
-  <div class="line">
-    <span>Numéro de réservation</span>
-    <strong id="resId"></strong>
-  </div>
-
-  <div class="line">
-    <span>Service</span>
-    <strong id="service"></strong>
-  </div>
-
-  <div class="line">
-    <span>Type de véhicule</span>
-    <strong id="vehicule"></strong>
-  </div>
-
-  <div class="line">
-    <span>Prix total</span>
-    <strong id="price"></strong>
-  </div>
-
-  <div class="line">
-    <span>Date</span>
-    <strong id="date"></strong>
-  </div>
-
-  <div class="line">
-    <span>Heure</span>
-    <strong id="time"></strong>
-  </div>
-
-  <div class="badge">⏳ En attente de confirmation</div>
+<div id="empty" style="display:none">
+  <p>Aucune réservation trouvée.</p>
+  <p>Veuillez effectuer une réservation.</p>
 </div>
 
-<div class="card">
-  <h2>📞 Contact & assistance</h2>
-  <p>
-    Une question ou un changement ?  
-    Contactez-nous directement.
-  </p>
+<div class="card" id="orderBox" style="display:none">
+  <h2>🚗 Détails de votre service</h2>
 
-  <a href="https://wa.me/15145029503" target="_blank">
-    <button class="btn">📱 WhatsApp CIZA GROUP</button>
-  </a>
+  <div class="label">Numéro de commande</div>
+  <div class="value" id="orderId"></div>
 
-  <a href="mailto:infos@cizagroup.com">
-    <button class="btn secondary">📧 infos@cizagroup.com</button>
-  </a>
-</div>
+  <div class="label">Service</div>
+  <div class="value" id="orderService"></div>
 
-<div class="card">
-  <h2>ℹ️ Prochaines étapes</h2>
-  <ul>
-    <li>Notre équipe valide votre réservation</li>
-    <li>Vous êtes contacté par téléphone ou WhatsApp</li>
-    <li>Le lavage est effectué à la date prévue</li>
-    <li>Paiement selon le mode choisi</li>
-  </ul>
+  <div class="label">Prix total</div>
+  <div class="value" id="orderPrice"></div>
+
+  <div class="label">Date</div>
+  <div class="value" id="orderDate"></div>
+
+  <div class="label">Heure</div>
+  <div class="value" id="orderTime"></div>
+
+  <div class="status received" id="orderStatus">
+    📥 Demande reçue — en attente de traitement
+  </div>
 </div>
 
 </div>
@@ -199,27 +165,42 @@ footer a{color:var(--gold);text-decoration:none;display:block;margin-top:6px}
 <footer>
 © 2026 CIZA GROUP  
 <span>Design signed by CIZA GROUP</span>
-<a href="legal.html">Mentions légales</a>
-<a href="privacy.html">Confidentialité</a>
+<a href="mailto:infos@cizagroup.com">infos@cizagroup.com</a>
+<a href="https://wa.me/15145029503">WhatsApp : +1 514 502 9503</a>
 </footer>
 
 <div id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+<div id="whatsappBtn" onclick="window.open('https://wa.me/15145029503','_blank')">💬</div>
 
 <script>
-/* 🔐 Chargement des données depuis carwash.html */
-const data = JSON.parse(localStorage.getItem("cizaCarwashOrder")) || {};
+const data = localStorage.getItem("cizaCarwashOrder");
 
-document.getElementById("resId").textContent = data.id || "—";
-document.getElementById("service").textContent = data.service || "—";
-document.getElementById("vehicule").textContent = data.vehicule || "—";
-document.getElementById("price").textContent = data.price || "—";
-document.getElementById("date").textContent = data.date || "—";
-document.getElementById("time").textContent = data.time || "—";
+if(!data){
+  document.getElementById("empty").style.display="block";
+}else{
+  const order = JSON.parse(data);
+  document.getElementById("orderBox").style.display="block";
+  document.getElementById("orderId").textContent = order.id;
+  document.getElementById("orderService").textContent = order.service;
+  document.getElementById("orderPrice").textContent = order.price;
+  document.getElementById("orderDate").textContent = order.date;
+  document.getElementById("orderTime").textContent = order.time;
 
-/* Bouton monter */
+  // Simulation évolution statut
+  setTimeout(()=>{
+    document.getElementById("orderStatus").className="status progress";
+    document.getElementById("orderStatus").textContent="🧽 Service en cours de préparation";
+  },4000);
+
+  setTimeout(()=>{
+    document.getElementById("orderStatus").className="status done";
+    document.getElementById("orderStatus").textContent="✅ Service terminé — merci pour votre confiance";
+  },9000);
+}
+
 window.addEventListener("scroll",()=>{
   document.getElementById("toTop").style.display =
-    window.scrollY>300 ? "flex" : "none";
+    window.scrollY>300 ? "flex":"none";
 });
 </script>
 
