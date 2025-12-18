@@ -151,7 +151,6 @@ footer a{color:var(--gold);text-decoration:none;display:block;margin-top:6px}
 <h1>CizaCarWash+ 🚗🧼</h1>
 <p>Service professionnel de lavage automobile — station & mobile.</p>
 
-<!-- SERVICES (inchangés) -->
 <div class="card">
   <h3>🧼 Lavage Standard — Station</h3>
   <ul>
@@ -185,13 +184,12 @@ footer a{color:var(--gold);text-decoration:none;display:block;margin-top:6px}
   <button class="reserve-btn" onclick="selectService('Lavage Mobile — Domicile',55000)">Réserver</button>
 </div>
 
-<!-- FORMULAIRE -->
 <div class="card form-box" id="formBox">
-  <div id="closeForm" onclick="closeForm()">✕</div>
+<div id="closeForm" onclick="closeForm()">✕</div>
 
 <h2>📋 Confirmation de réservation</h2>
 
-<form action="https://formsubmit.co/infos@cizagroup.com" method="POST" onsubmit="showSuccess()">
+<form action="https://formsubmit.co/infos@cizagroup.com" method="POST">
 <input type="hidden" name="_captcha" value="false">
 
 <input type="text" name="Nom et Prénom" required placeholder="Nom et prénom">
@@ -216,7 +214,7 @@ footer a{color:var(--gold);text-decoration:none;display:block;margin-top:6px}
 
 <textarea placeholder="Adresse / instructions"></textarea>
 
-<button class="reserve-btn">Confirmer</button>
+<button class="reserve-btn" type="button" onclick="saveCarwashOrder()">Confirmer</button>
 </form>
 </div>
 
@@ -236,7 +234,6 @@ footer a{color:var(--gold);text-decoration:none;display:block;margin-top:6px}
 </footer>
 
 <div id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
-
 <div id="whatsappBtn" onclick="window.open('https://wa.me/15145029503','_blank')">💬</div>
 
 <script>
@@ -260,12 +257,20 @@ function closeForm(){
   document.getElementById("formBox").style.display="none";
 }
 
-function showSuccess(){
-  setTimeout(()=>{
-    document.getElementById("formBox").style.display="none";
-    document.getElementById("success").style.display="block";
-  },400);
+/* ===== PATCH AJOUTÉ (SEUL AJOUT) ===== */
+function saveCarwashOrder(){
+  const order={
+    id:"CW-"+Date.now().toString().slice(-6),
+    service:document.getElementById("serviceField").value,
+    price:document.getElementById("priceField").value,
+    date:document.querySelector("input[type='date']").value,
+    time:document.querySelector("input[type='time']").value
+  };
+  localStorage.setItem("cizaCarwashOrder",JSON.stringify(order));
+  document.querySelector("form").submit();
+  setTimeout(()=>{window.location.href="carwash-dashboard.html"},600);
 }
+/* =================================== */
 
 window.addEventListener("scroll",()=>{
   document.getElementById("toTop").style.display =
