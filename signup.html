@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CIZA GROUP — Créer un compte</title>
+<link rel="icon" href="logotransparent.png">
+
+<style>
+:root{
+  --bg:#06142E;
+  --gold:#F2B840;
+  --glass:rgba(255,255,255,.08);
+  --border:rgba(255,255,255,.15);
+  --txt:#fff;
+}
+
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:var(--bg);
+  color:var(--txt);
+}
+
+header{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 18px;
+  background:var(--glass);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--gold);
+}
+header img{width:48px}
+header button{
+  background:none;
+  border:none;
+  color:var(--gold);
+  font-size:18px;
+  cursor:pointer;
+}
+
+.container{
+  max-width:520px;
+  margin:auto;
+  padding:30px 22px;
+}
+
+h1{
+  color:var(--gold);
+  text-align:center;
+}
+
+.card{
+  background:var(--glass);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:24px;
+  margin-top:20px;
+}
+
+input{
+  width:100%;
+  margin-top:14px;
+  padding:14px;
+  border-radius:12px;
+  border:none;
+  font-size:15px;
+}
+
+button.main{
+  margin-top:20px;
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:14px;
+  background:var(--gold);
+  color:#06142E;
+  font-weight:bold;
+  font-size:16px;
+  cursor:pointer;
+}
+
+button.main:hover{opacity:.9}
+
+p.note{
+  font-size:13px;
+  opacity:.8;
+  margin-top:15px;
+  text-align:center;
+}
+
+#success{
+  display:none;
+  background:#0b1c34;
+  border:1px solid var(--gold);
+  border-radius:18px;
+  padding:22px;
+  margin-top:25px;
+  text-align:center;
+}
+
+footer{
+  margin-top:50px;
+  padding:25px;
+  text-align:center;
+  font-size:14px;
+  opacity:.85;
+}
+
+#toTop{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  background:var(--gold);
+  color:#06142E;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  cursor:pointer;
+  font-size:22px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <button onclick="history.back()">← Retour</button>
+  <img src="logotransparent.png">
+  <button onclick="location.reload()">⟳</button>
+</header>
+
+<div class="container">
+
+<h1>Créer un compte</h1>
+<p style="text-align:center;opacity:.85;">
+Accédez aux services CIZA GROUP
+</p>
+
+<div class="card" id="formBox">
+
+<input type="text" id="name" placeholder="Nom complet" required>
+<input type="email" id="email" placeholder="Email" required>
+<input type="tel" id="phone" placeholder="Téléphone" required>
+<input type="password" id="password" placeholder="Mot de passe" required>
+
+<button class="main" onclick="createAccount()">Créer mon compte</button>
+
+<p class="note">
+En créant un compte, vous acceptez nos conditions d’utilisation.
+</p>
+</div>
+
+<div id="success">
+  <h3>Compte créé avec succès ✅</h3>
+  <p>
+    Votre compte est prêt.<br>
+    Redirection vers la connexion…
+  </p>
+</div>
+
+</div>
+
+<footer>
+© 2026 CIZA GROUP  
+<br>Design signed by CIZA GROUP
+</footer>
+
+<div id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+
+<script>
+function createAccount(){
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const password = document.getElementById("password").value;
+
+  if(!name || !email || !phone || !password){
+    alert("Veuillez remplir tous les champs");
+    return;
+  }
+
+  const user = {
+    name,
+    email,
+    phone,
+    password,
+    role:"client",
+    createdAt:new Date().toISOString()
+  };
+
+  localStorage.setItem("cizaUser", JSON.stringify(user));
+
+  document.getElementById("formBox").style.display="none";
+  document.getElementById("success").style.display="block";
+
+  setTimeout(()=>{
+    window.location.href="login.html";
+  },2500);
+}
+
+window.addEventListener("scroll",()=>{
+  document.getElementById("toTop").style.display =
+    window.scrollY>300 ? "flex" : "none";
+});
+</script>
+
+</body>
+</html>
