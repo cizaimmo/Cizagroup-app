@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CizaDelivery+ — Livraison & Logistique</title>
+<title>CizaDelivery+ — Livraison & Suivi</title>
 <link rel="icon" href="logotransparent.png">
 
 <style>
@@ -25,14 +25,14 @@ header{
   top:0;
   z-index:1000;
   display:flex;
-  align-items:center;
   justify-content:space-between;
+  align-items:center;
   padding:14px 18px;
   background:var(--glass);
   backdrop-filter:blur(12px);
   border-bottom:1px solid var(--gold);
 }
-header img{width:46px}
+header img{width:48px}
 header button{
   background:none;
   border:none;
@@ -51,13 +51,16 @@ h1,h2,h3{color:var(--gold)}
   border:1px solid var(--border);
   border-radius:18px;
   padding:22px;
-  margin-bottom:22px;
+  margin-bottom:25px;
 }
-.price{
-  font-weight:bold;
-  margin-top:10px;
+input,select,textarea{
+  width:100%;
+  margin-top:12px;
+  padding:12px;
+  border-radius:10px;
+  border:none;
 }
-.reserve-btn{
+.btn{
   margin-top:15px;
   width:100%;
   padding:14px;
@@ -68,34 +71,14 @@ h1,h2,h3{color:var(--gold)}
   font-weight:bold;
   cursor:pointer;
 }
-.form-box{
+.btn:hover{opacity:.9}
+#trackingResult{
   display:none;
-  margin-top:30px;
-  position:relative;
+  margin-top:20px;
 }
-.close-form{
-  position:absolute;
-  top:12px;
-  right:15px;
-  font-size:22px;
-  cursor:pointer;
-  color:var(--gold);
-}
-input,select,textarea{
-  width:100%;
-  margin-top:12px;
-  padding:12px;
-  border-radius:10px;
-  border:none;
-}
-#success{
-  display:none;
-  background:#0b1c34;
-  border:1px solid var(--gold);
-  border-radius:18px;
-  padding:25px;
-  margin-top:30px;
-  text-align:center;
+.status{
+  font-weight:bold;
+  margin-top:8px;
 }
 footer{
   margin-top:50px;
@@ -125,6 +108,17 @@ footer a{
   cursor:pointer;
   font-size:22px;
 }
+.whatsapp{
+  position:fixed;
+  bottom:20px;
+  left:20px;
+  background:#25D366;
+  color:white;
+  padding:12px 16px;
+  border-radius:30px;
+  font-weight:bold;
+  text-decoration:none;
+}
 </style>
 </head>
 
@@ -138,87 +132,30 @@ footer a{
 
 <div class="container">
 
-<h1>CizaDelivery+ 📦</h1>
-<p>Service professionnel de livraison rapide et sécurisée — particuliers & entreprises.</p>
+<h1>🚚 CizaDelivery+</h1>
+<p>Service de livraison rapide et sécurisé — Burundi & Diaspora.</p>
 
-<!-- COMMENT CA MARCHE -->
+<!-- COMMANDE -->
 <div class="card">
-<h3>📍 Comment ça marche</h3>
-<ol>
-<li>Vous choisissez le type de livraison</li>
-<li>Vous indiquez point de départ & destination</li>
-<li>Nous organisons la livraison</li>
-<li>Suivi & confirmation à la réception</li>
-</ol>
-<p style="opacity:.85;">
-📌 Le tracking GPS temps réel sera activé en Phase Firebase.
-</p>
-</div>
+<h2>📦 Commander une livraison</h2>
 
-<!-- SERVICES -->
-<div class="card">
-<h3>🚲 Livraison Express — Ville</h3>
-<ul>
-<li>Petits colis & documents</li>
-<li>Livraison rapide intra-ville</li>
-<li>Confirmation de réception</li>
-</ul>
-<div class="price">À partir de 8 000 BIF</div>
-<button class="reserve-btn" onclick="openForm('Livraison Express — Ville')">
-Commander ce service
-</button>
-</div>
-
-<div class="card">
-<h3>🚚 Livraison Standard — Ville & Périphérie</h3>
-<ul>
-<li>Colis moyens</li>
-<li>Délais optimisés</li>
-<li>Particuliers & entreprises</li>
-</ul>
-<div class="price">À partir de 15 000 BIF</div>
-<button class="reserve-btn" onclick="openForm('Livraison Standard')">
-Commander ce service
-</button>
-</div>
-
-<div class="card">
-<h3>🏢 Livraison Entreprise</h3>
-<ul>
-<li>Contrats mensuels</li>
-<li>Facturation professionnelle</li>
-<li>Logistique dédiée</li>
-</ul>
-<div class="price">Sur devis</div>
-<button class="reserve-btn" onclick="openForm('Livraison Entreprise')">
-Demander un devis
-</button>
-</div>
-
-<!-- FORMULAIRE -->
-<div class="card form-box" id="formBox">
-<div class="close-form" onclick="closeForm()">✕</div>
-
-<h2>📋 Commande CizaDelivery+</h2>
-
-<form action="https://formsubmit.co/infos@cizagroup.com" method="POST" onsubmit="showSuccess()">
+<form action="https://formsubmit.co/infos@cizagroup.com" method="POST" onsubmit="generateTracking()">
 <input type="hidden" name="_captcha" value="false">
 <input type="hidden" name="_subject" value="Nouvelle commande CizaDelivery+">
-
-<input type="text" id="serviceField" name="Service choisi" readonly>
+<input type="hidden" id="trackingField" name="Numéro de suivi">
 
 <input type="text" name="Nom & Prénom" required placeholder="Nom et prénom">
 <input type="tel" name="Téléphone" required placeholder="Téléphone">
 
-<input type="text" name="Lieu de départ" required placeholder="Point de départ">
-<input type="text" name="Lieu de destination" required placeholder="Destination">
+<input type="text" name="Lieu de départ" required placeholder="Lieu de départ">
+<input type="text" name="Destination" required placeholder="Destination">
 
 <select name="Type de colis" required>
   <option value="">Type de colis</option>
-  <option>Documents</option>
+  <option>Document</option>
   <option>Petit colis</option>
   <option>Colis moyen</option>
-  <option>Autre</option>
+  <option>Colis volumineux</option>
 </select>
 
 <select name="Mode de paiement" required>
@@ -226,25 +163,25 @@ Demander un devis
   <option>Espèces</option>
 </select>
 
-<textarea name="Instructions" placeholder="Instructions particulières (optionnel)"></textarea>
+<textarea name="Instructions" placeholder="Instructions particulières"></textarea>
 
-<button class="reserve-btn" type="submit">
-Confirmer la livraison
-</button>
+<button class="btn" type="submit">Confirmer la livraison</button>
 </form>
-
-<p style="margin-top:15px;font-size:14px;">
-📧 infos@cizagroup.com<br>
-📱 WhatsApp : +1 514 502 9503
-</p>
 </div>
 
-<div id="success">
-<h3>Merci 🙏</h3>
-<p>
-Votre demande de livraison a bien été envoyée.<br>
-Notre équipe CizaDelivery+ vous contactera rapidement.
-</p>
+<!-- SUIVI -->
+<div class="card">
+<h2>📍 Suivre mon colis</h2>
+
+<input type="text" id="trackingInput" placeholder="Numéro de suivi (ex: CD-2026-0001)">
+<button class="btn" onclick="trackPackage()">Suivre</button>
+
+<div id="trackingResult" class="card">
+  <h3>📦 Détails du colis</h3>
+  <p><b>Numéro :</b> <span id="tNum"></span></p>
+  <p><b>Statut :</b> <span class="status" id="tStatus"></span></p>
+  <p><b>Dernière mise à jour :</b> <span id="tTime"></span></p>
+</div>
 </div>
 
 </div>
@@ -255,23 +192,29 @@ Notre équipe CizaDelivery+ vous contactera rapidement.
 <a href="mailto:infos@cizagroup.com">infos@cizagroup.com</a>
 </footer>
 
+<a class="whatsapp" href="https://wa.me/15145029503" target="_blank">
+💬 WhatsApp
+</a>
+
 <div id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
 
 <script>
-function openForm(service){
-  document.getElementById("formBox").style.display="block";
-  document.getElementById("serviceField").value=service;
-  document.getElementById("formBox").scrollIntoView({behavior:"smooth"});
+function generateTracking(){
+  const id = "CD-2026-" + Math.floor(1000 + Math.random()*9000);
+  document.getElementById("trackingField").value = id;
+  alert("Votre numéro de suivi : " + id);
 }
-function closeForm(){
-  document.getElementById("formBox").style.display="none";
+
+function trackPackage(){
+  const code = document.getElementById("trackingInput").value;
+  if(!code){ alert("Entrez un numéro de suivi"); return; }
+
+  document.getElementById("tNum").textContent = code;
+  document.getElementById("tStatus").textContent = "🚚 En cours de livraison";
+  document.getElementById("tTime").textContent = "Il y a quelques minutes";
+  document.getElementById("trackingResult").style.display = "block";
 }
-function showSuccess(){
-  setTimeout(()=>{
-    document.getElementById("formBox").style.display="none";
-    document.getElementById("success").style.display="block";
-  },500);
-}
+
 window.addEventListener("scroll",()=>{
   document.getElementById("toTop").style.display =
     window.scrollY>300 ? "flex" : "none";
