@@ -189,7 +189,7 @@ footer a{color:var(--gold);text-decoration:none;display:block;margin-top:6px}
 
 <h2>📋 Confirmation de réservation</h2>
 
-<form action="https://formsubmit.co/infos@cizagroup.com" method="POST">
+<form action="https://formsubmit.co/infos@cizagroup.com" method="POST" onsubmit="saveCarwashOrder(event)">
 <input type="hidden" name="_captcha" value="false">
 
 <input type="text" name="Nom et Prénom" required placeholder="Nom et prénom">
@@ -212,15 +212,16 @@ footer a{color:var(--gold);text-decoration:none;display:block;margin-top:6px}
   <option>Espèces</option>
 </select>
 
-<textarea placeholder="Adresse / instructions"></textarea>
+<textarea name="Instructions" placeholder="Adresse / instructions"></textarea>
 
-<button class="reserve-btn" type="button" onclick="saveCarwashOrder()">Confirmer</button>
+<button class="reserve-btn" type="submit">Confirmer</button>
 </form>
 </div>
 
 <div id="success">
 <h3>Merci pour votre réservation 🙏</h3>
-<p>Votre demande a bien été envoyée.</p>
+<p>Votre demande a bien été envoyée.<br>
+Notre équipe vous contactera rapidement.</p>
 <p>📧 infos@cizagroup.com<br>📱 WhatsApp : +1 514 502 9503</p>
 </div>
 
@@ -257,20 +258,24 @@ function closeForm(){
   document.getElementById("formBox").style.display="none";
 }
 
-/* ===== PATCH AJOUTÉ (SEUL AJOUT) ===== */
-function saveCarwashOrder(){
+function saveCarwashOrder(e){
+  e.preventDefault();
+
   const order={
-    id:"CW-"+Date.now().toString().slice(-6),
-    service:document.getElementById("serviceField").value,
-    price:document.getElementById("priceField").value,
-    date:document.querySelector("input[type='date']").value,
-    time:document.querySelector("input[type='time']").value
+    id:"CW-"+Date.now(),
+    service:serviceField.value,
+    price:priceField.value
   };
   localStorage.setItem("cizaCarwashOrder",JSON.stringify(order));
+
   document.querySelector("form").submit();
-  setTimeout(()=>{window.location.href="carwash-dashboard.html"},600);
+
+  setTimeout(()=>{
+    document.getElementById("formBox").style.display="none";
+    document.getElementById("success").style.display="block";
+    window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"});
+  },500);
 }
-/* =================================== */
 
 window.addEventListener("scroll",()=>{
   document.getElementById("toTop").style.display =
