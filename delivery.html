@@ -123,33 +123,35 @@ footer a{color:var(--gold);text-decoration:none;display:block;margin-top:6px}
 <div class="container">
 
 <h1>CizaDelivery+ 📦</h1>
-<p>Service de livraison sécurisé — suivi réel par numéro unique.</p>
+<p>Livraison sécurisée avec numéro de suivi automatique.</p>
 
-<!-- SERVICE -->
 <div class="card">
   <h3>🚚 Livraison Standard</h3>
   <ul>
-    <li>Prise en charge rapide</li>
+    <li>Collecte rapide</li>
     <li>Livraison intra-ville</li>
-    <li>Notification client</li>
-    <li>Numéro de suivi automatique</li>
+    <li>Suivi par numéro unique</li>
   </ul>
   <div class="price">À partir de 8 000 BIF</div>
-  <button class="btn" onclick="openForm()">Commander la livraison</button>
+  <button class="btn" onclick="openForm()">Commander</button>
 </div>
 
-<!-- FORMULAIRE -->
 <div class="card form-box" id="formBox">
-<h2>📋 Détails de la livraison</h2>
+<h2>📋 Informations client</h2>
 
 <form 
   action="https://formsubmit.co/infos@cizagroup.com"
   method="POST"
-  onsubmit="attachTracking()"
+  onsubmit="prepareSubmit()"
 >
 <input type="hidden" name="_captcha" value="false">
-<input type="hidden" name="_subject" value="Nouvelle livraison CizaDelivery+">
-<input type="hidden" name="Numero de suivi" id="trackingField">
+<input type="hidden" name="_subject" value="Nouvelle commande CizaDelivery+">
+<input type="hidden" name="Numéro de suivi" id="trackingField">
+
+<!-- EMAIL CLIENT (OBLIGATOIRE) -->
+<input type="email" name="email" required placeholder="Email du client">
+
+<input type="hidden" name="_autoresponse" id="autoMsg">
 
 <input type="text" name="Nom complet" required placeholder="Nom et prénom">
 <input type="tel" name="Téléphone" required placeholder="Téléphone">
@@ -169,17 +171,17 @@ footer a{color:var(--gold);text-decoration:none;display:block;margin-top:6px}
   <option>Espèces</option>
 </select>
 
-<textarea name="Instructions" placeholder="Instructions particulières"></textarea>
+<textarea name="Instructions" placeholder="Instructions supplémentaires"></textarea>
 
-<button class="btn" type="submit">Confirmer la commande</button>
+<button class="btn" type="submit">Confirmer la livraison</button>
 </form>
 </div>
 
 <div id="success">
-  <h3>Commande envoyée ✅</h3>
+  <h3>Merci pour votre commande ✅</h3>
   <p>
-    Merci pour votre confiance.<br>
-    Votre demande a bien été transmise à CIZA GROUP.
+    Votre demande a été envoyée.<br>
+    Un email de confirmation avec votre numéro de suivi vous a été transmis.
   </p>
   <p>
     📧 infos@cizagroup.com<br>
@@ -198,12 +200,10 @@ footer a{color:var(--gold);text-decoration:none;display:block;margin-top:6px}
 <div id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
 
 <script>
-function generateTrackingNumber(){
+function generateTracking(){
   const d = new Date();
-  const y = d.getFullYear();
-  const m = String(d.getMonth()+1).padStart(2,'0');
-  const r = Math.floor(1000 + Math.random()*9000);
-  return `CDZ-${y}-${m}-${r}`;
+  return "CDZ-" + d.getFullYear() + "-" +
+         Math.floor(100000 + Math.random()*900000);
 }
 
 function openForm(){
@@ -211,13 +211,24 @@ function openForm(){
   document.getElementById("formBox").scrollIntoView({behavior:"smooth"});
 }
 
-function attachTracking(){
-  const tracking = generateTrackingNumber();
+function prepareSubmit(){
+  const tracking = generateTracking();
   document.getElementById("trackingField").value = tracking;
+  document.getElementById("autoMsg").value =
+`Bonjour,
+
+Merci pour votre commande CizaDelivery+.
+
+Numéro de suivi : ${tracking}
+
+Notre équipe vous contactera rapidement.
+
+— CIZA GROUP`;
+
   setTimeout(()=>{
     document.getElementById("formBox").style.display="none";
     document.getElementById("success").style.display="block";
-    alert("Merci !\nVotre numéro de suivi : "+tracking);
+    alert("Numéro de suivi : " + tracking);
   },300);
 }
 
