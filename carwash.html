@@ -191,9 +191,26 @@ footer a{color:var(--gold);text-decoration:none;display:block;margin-top:6px}
 
 <form action="https://formsubmit.co/infos@cizagroup.com" method="POST" onsubmit="saveCarwashOrder(event)">
 <input type="hidden" name="_captcha" value="false">
+<input type="hidden" name="_replyto" value="infos@cizagroup.com">
+
+<input type="hidden" name="_autoresponse" value="Bonjour,
+
+Nous avons bien reçu votre réservation CizaCarWash+.
+
+Service : {{Service choisi}}
+Prix : {{Prix total (BIF)}}
+Date : {{Date souhaitée}}
+Heure : {{Heure souhaitée}}
+
+Notre équipe vous contactera rapidement.
+
+CIZA GROUP
+WhatsApp : +1 514 502 9503
+Email : infos@cizagroup.com">
 
 <input type="text" name="Nom et Prénom" required placeholder="Nom et prénom">
 <input type="tel" name="Téléphone" required placeholder="Téléphone">
+<input type="email" name="email" required placeholder="Email du client">
 
 <select required onchange="adjustPrice(this.value)">
   <option value="">Type de véhicule</option>
@@ -204,10 +221,10 @@ footer a{color:var(--gold);text-decoration:none;display:block;margin-top:6px}
 <input type="text" id="serviceField" name="Service choisi" readonly>
 <input type="text" id="priceField" name="Prix total (BIF)" readonly>
 
-<input type="date" required>
-<input type="time" required>
+<input type="date" name="Date souhaitée" required>
+<input type="time" name="Heure souhaitée" required>
 
-<select required>
+<select name="Mode de paiement" required>
   <option>Mobile Money</option>
   <option>Espèces</option>
 </select>
@@ -220,8 +237,10 @@ footer a{color:var(--gold);text-decoration:none;display:block;margin-top:6px}
 
 <div id="success">
 <h3>Merci pour votre réservation 🙏</h3>
-<p>Votre demande a bien été envoyée.<br>
-Notre équipe vous contactera rapidement.</p>
+<p>
+Votre demande a bien été envoyée.<br>
+Un email de confirmation vous a été transmis.
+</p>
 <p>📧 infos@cizagroup.com<br>📱 WhatsApp : +1 514 502 9503</p>
 </div>
 
@@ -260,21 +279,12 @@ function closeForm(){
 
 function saveCarwashOrder(e){
   e.preventDefault();
-
-  const order={
-    id:"CW-"+Date.now(),
-    service:serviceField.value,
-    price:priceField.value
-  };
-  localStorage.setItem("cizaCarwashOrder",JSON.stringify(order));
-
   document.querySelector("form").submit();
-
   setTimeout(()=>{
     document.getElementById("formBox").style.display="none";
     document.getElementById("success").style.display="block";
     window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"});
-  },500);
+  },400);
 }
 
 window.addEventListener("scroll",()=>{
