@@ -8,46 +8,48 @@
 <style>
 body{
   margin:0;
-  background:#06142E;
-  color:#fff;
+  height:100vh;
+  background:linear-gradient(135deg,#06142E,#0A3D91);
   font-family:system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   display:flex;
   align-items:center;
   justify-content:center;
-  height:100vh;
+  color:#fff;
 }
 .card{
-  background:#0B1E3C;
-  padding:24px;
   width:100%;
   max-width:360px;
-  border-radius:14px;
-  box-shadow:0 10px 30px rgba(0,0,0,.35);
+  background:rgba(255,255,255,.08);
+  backdrop-filter:blur(14px);
+  border-radius:18px;
+  padding:26px;
+  box-shadow:0 15px 40px rgba(0,0,0,.4);
 }
 h1{
-  margin:0 0 10px;
-  font-size:22px;
+  margin:0 0 6px;
   text-align:center;
 }
 p{
+  margin:0 0 18px;
+  text-align:center;
   opacity:.85;
   font-size:14px;
-  text-align:center;
 }
-input, select, button{
+input,select,button{
   width:100%;
-  padding:12px;
   margin-top:12px;
-  border-radius:10px;
+  padding:13px;
+  border-radius:12px;
   border:none;
   font-size:15px;
 }
-input, select{
-  background:#111C36;
+input,select{
+  background:rgba(0,0,0,.35);
   color:#fff;
 }
 button{
-  background:#004AAD;
+  margin-top:18px;
+  background:#00A6FF;
   color:#fff;
   font-weight:600;
   cursor:pointer;
@@ -56,9 +58,9 @@ button:disabled{
   opacity:.6;
 }
 .msg{
-  margin-top:12px;
-  font-size:14px;
+  margin-top:14px;
   text-align:center;
+  font-size:14px;
 }
 </style>
 </head>
@@ -78,7 +80,6 @@ button:disabled{
   </select>
 
   <button id="loginBtn">Se connecter</button>
-
   <div class="msg" id="msg"></div>
 </div>
 
@@ -87,14 +88,14 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/fireba
 import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { getFirestore, doc, getDoc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-/* 🔥 CONFIG FIREBASE (À REMPLACER) */
+/* 🔥 CONFIG FIREBASE — REMPLACE AVEC TES VRAIES CLÉS */
 const firebaseConfig = {
-  apiKey: "API_KEY",
-  authDomain: "PROJECT_ID.firebaseapp.com",
-  projectId: "PROJECT_ID",
-  storageBucket: "PROJECT_ID.appspot.com",
-  messagingSenderId: "SENDER_ID",
-  appId: "APP_ID"
+  apiKey: "REMPLACE_API_KEY",
+  authDomain: "cizagroup-app.firebaseapp.com",
+  projectId: "cizagroup-app",
+  storageBucket: "cizagroup-app.appspot.com",
+  messagingSenderId: "REMPLACE_SENDER_ID",
+  appId: "REMPLACE_APP_ID"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -134,14 +135,14 @@ btn.onclick = async () => {
       });
     }
 
-    if(role === "client"){
-      window.location.href = "dashboard-client.html";
-    }else{
+    if(role === "driver"){
       window.location.href = "dashboard-driver.html";
+    }else{
+      window.location.href = "dashboard-client.html";
     }
 
   }catch(e){
-    msg.textContent = "Erreur de connexion";
+    msg.textContent = "Email ou mot de passe incorrect";
     btn.disabled = false;
   }
 };
