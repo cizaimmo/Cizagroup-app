@@ -135,11 +135,8 @@ btn.onclick = async () => {
       });
     }
 
-    if(role === "driver"){
-      window.location.href = "dashboard-driver.html";
-    }else{
-      window.location.href = "dashboard-client.html";
-    }
+    /* ✅ REDIRECTION SÛRE (PAS DE 404) */
+    window.location.href = "index.html";
 
   }catch(e){
     msg.textContent = "Email ou mot de passe incorrect";
