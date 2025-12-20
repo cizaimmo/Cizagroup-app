@@ -3,80 +3,137 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CIZA GROUP — Connexion</title>
+
+<title>CIZA GROUP — Connexion sécurisée</title>
+<link rel="icon" href="logotransparent.png">
 
 <style>
+:root{
+  --bg:#06142E;
+  --gold:#F2B840;
+  --glass:rgba(255,255,255,.08);
+  --border:rgba(255,255,255,.15);
+  --txt:#fff;
+}
 body{
   margin:0;
-  height:100vh;
-  background:#06142E;
+  height:100svh;
+  background:var(--bg);
+  font-family:Arial, sans-serif;
+  color:var(--txt);
   display:flex;
-  align-items:center;
   justify-content:center;
-  font-family:Arial,sans-serif;
-  color:white;
+  align-items:center;
 }
-.box{
-  background:rgba(255,255,255,.08);
-  border:2px solid #F2B840;
-  border-radius:20px;
-  padding:30px;
+.card{
   width:90%;
-  max-width:360px;
+  max-width:380px;
+  background:var(--glass);
+  border:2px solid var(--gold);
+  border-radius:22px;
+  padding:28px;
   text-align:center;
+  box-shadow:0 0 25px rgba(242,184,64,.35);
 }
-h2{color:#F2B840}
+.card img{
+  width:110px;
+  margin-bottom:10px;
+  filter:drop-shadow(0 0 12px var(--gold));
+}
+h2{color:var(--gold);margin:10px 0}
+p{opacity:.85;font-size:14px}
+
 input{
   width:100%;
+  margin-top:14px;
   padding:14px;
-  margin-top:15px;
   border-radius:12px;
   border:none;
-  font-size:16px;
+  background:#0b1c34;
+  color:white;
+  font-size:15px;
+  text-align:center;
+  letter-spacing:1px;
 }
+
 button{
+  margin-top:18px;
   width:100%;
-  margin-top:20px;
   padding:14px;
   border:none;
-  border-radius:12px;
-  background:#F2B840;
+  border-radius:14px;
+  background:var(--gold);
   color:#06142E;
   font-weight:bold;
   font-size:16px;
   cursor:pointer;
 }
-.note{
-  margin-top:15px;
-  font-size:13px;
-  opacity:.8;
+
+#error{
+  margin-top:14px;
+  color:#ff6b6b;
+  display:none;
+  font-size:14px;
+}
+
+.back{
+  margin-top:18px;
+  font-size:14px;
+  color:var(--gold);
+  cursor:pointer;
+  opacity:.9;
+}
+
+footer{
+  position:fixed;
+  bottom:15px;
+  text-align:center;
+  font-size:12px;
+  opacity:.7;
+  width:100%;
 }
 </style>
 </head>
 
 <body>
 
-<div class="box">
-  <h2>Connexion CIZA GROUP</h2>
-  <p>Entrez votre code d’accès</p>
+<div class="card">
+  <img src="logotransparent.png" alt="CIZA GROUP">
 
-  <input type="text" id="accessCode" placeholder="Ex : CIZA-ACCESS-2026">
-  <button onclick="validate()">Se connecter</button>
+  <h2>Connexion sécurisée</h2>
+  <p>
+    Accès réservé aux clients autorisés.<br>
+    Entrez votre <b>code d’accès CIZA GROUP</b>.
+  </p>
 
-  <div class="note">
-    Code fourni par CIZA GROUP après validation
-  </div>
+  <input
+    type="text"
+    id="accessCode"
+    placeholder="Code d’accès"
+    autocomplete="off"
+  >
+
+  <button onclick="login()">Se connecter</button>
+
+  <div id="error">❌ Code invalide. Veuillez réessayer.</div>
+
+  <div class="back" onclick="history.back()">← Retour</div>
 </div>
 
+<footer>
+© 2026 CIZA GROUP — Secure Access
+</footer>
+
 <script>
-function validate(){
+function login(){
   const code = document.getElementById("accessCode").value.trim();
 
+  // 🔑 CODE D’ACCÈS OFFICIEL
   if(code === "CIZA-ACCESS-2026"){
     localStorage.setItem("ciza_user_status","active");
-    window.location.href = "index.html";
+    window.location.replace("index.html");
   } else {
-    alert("Code invalide. Contactez CIZA GROUP.");
+    document.getElementById("error").style.display="block";
   }
 }
 </script>
