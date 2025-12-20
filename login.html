@@ -3,146 +3,193 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CizaRide+ — Connexion</title>
+<title>CIZA GROUP — Connexion</title>
+<link rel="icon" href="logotransparent.png">
 
 <style>
+:root{
+  --bg:#06142E;
+  --gold:#F2B840;
+  --glass:rgba(255,255,255,.08);
+  --border:rgba(255,255,255,.15);
+  --txt:#fff;
+}
+*{box-sizing:border-box}
 body{
   margin:0;
-  height:100vh;
-  background:linear-gradient(135deg,#06142E,#0A3D91);
-  font-family:system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  min-height:100vh;
+  background:linear-gradient(135deg,#06142E,#0B1C34);
+  font-family:Arial,sans-serif;
+  color:var(--txt);
   display:flex;
   align-items:center;
   justify-content:center;
-  color:#fff;
 }
+
 .card{
   width:100%;
-  max-width:360px;
-  background:rgba(255,255,255,.08);
-  backdrop-filter:blur(14px);
-  border-radius:18px;
-  padding:26px;
-  box-shadow:0 15px 40px rgba(0,0,0,.4);
+  max-width:380px;
+  background:var(--glass);
+  border:1px solid var(--gold);
+  border-radius:22px;
+  padding:28px;
+  box-shadow:0 0 25px rgba(0,0,0,.45);
+  text-align:center;
+  animation:fadeUp .6s ease;
 }
+
+@keyframes fadeUp{
+  from{transform:translateY(20px);opacity:0}
+  to{transform:translateY(0);opacity:1}
+}
+
+.logo{
+  width:90px;
+  margin:auto;
+  filter:drop-shadow(0 0 12px var(--gold));
+}
+
 h1{
-  margin:0 0 6px;
-  text-align:center;
+  margin:15px 0 5px;
+  color:var(--gold);
+  font-size:24px;
 }
+
 p{
-  margin:0 0 18px;
-  text-align:center;
-  opacity:.85;
   font-size:14px;
+  opacity:.9;
 }
-input,select,button{
+
+input{
   width:100%;
-  margin-top:12px;
-  padding:13px;
+  margin-top:14px;
+  padding:14px;
   border-radius:12px;
   border:none;
+  background:#0B1C34;
+  color:white;
   font-size:15px;
 }
-input,select{
-  background:rgba(0,0,0,.35);
-  color:#fff;
-}
-button{
+
+.btn{
   margin-top:18px;
-  background:#00A6FF;
-  color:#fff;
-  font-weight:600;
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:14px;
+  background:var(--gold);
+  color:#06142E;
+  font-weight:bold;
+  font-size:16px;
   cursor:pointer;
 }
-button:disabled{
-  opacity:.6;
-}
-.msg{
+
+.link{
   margin-top:14px;
-  text-align:center;
   font-size:14px;
+}
+.link span{
+  color:var(--gold);
+  cursor:pointer;
+}
+
+.lang{
+  position:absolute;
+  top:15px;
+  right:15px;
+  background:var(--gold);
+  color:#06142E;
+  padding:8px 14px;
+  border-radius:14px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.back{
+  position:absolute;
+  top:15px;
+  left:15px;
+  color:var(--gold);
+  font-size:22px;
+  cursor:pointer;
+}
+
+footer{
+  position:fixed;
+  bottom:15px;
+  width:100%;
+  text-align:center;
+  font-size:12px;
+  opacity:.75;
 }
 </style>
 </head>
 
 <body>
 
+<div class="back" onclick="history.back()">←</div>
+<div class="lang" id="langBtn">FR</div>
+
 <div class="card">
-  <h1>CizaRide+</h1>
-  <p>Connexion sécurisée</p>
 
-  <input type="email" id="email" placeholder="Email">
-  <input type="password" id="password" placeholder="Mot de passe">
+<img src="logotransparent.png" class="logo" alt="CIZA GROUP">
 
-  <select id="role">
-    <option value="client">Client</option>
-    <option value="driver">Chauffeur</option>
-  </select>
+<h1 id="title">Connexion</h1>
+<p id="subtitle">Accédez à votre espace CIZA GROUP</p>
 
-  <button id="loginBtn">Se connecter</button>
-  <div class="msg" id="msg"></div>
+<form onsubmit="login(event)">
+  <input type="email" id="email" placeholder="Email" required>
+  <input type="password" id="password" placeholder="Mot de passe" required>
+  <button class="btn" type="submit" id="btn">Se connecter</button>
+</form>
+
+<div class="link">
+  <span id="create" onclick="location.href='signup.html'">
+    Créer un compte
+  </span>
 </div>
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getFirestore, doc, getDoc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+</div>
 
-/* 🔥 CONFIG FIREBASE — REMPLACE AVEC TES VRAIES CLÉS */
-const firebaseConfig = {
-  apiKey: "REMPLACE_API_KEY",
-  authDomain: "cizagroup-app.firebaseapp.com",
-  projectId: "cizagroup-app",
-  storageBucket: "cizagroup-app.appspot.com",
-  messagingSenderId: "REMPLACE_SENDER_ID",
-  appId: "REMPLACE_APP_ID"
+<footer>
+© 2026 CIZA GROUP — Designed & powered by CIZA GROUP
+</footer>
+
+<script>
+let lang="fr";
+
+const T={
+  title:{fr:"Connexion",en:"Login"},
+  sub:{fr:"Accédez à votre espace CIZA GROUP",en:"Access your CIZA GROUP account"},
+  btn:{fr:"Se connecter",en:"Login"},
+  create:{fr:"Créer un compte",en:"Create account"}
 };
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+function translate(){
+  document.getElementById("title").textContent=T.title[lang];
+  document.getElementById("subtitle").textContent=T.sub[lang];
+  document.getElementById("btn").textContent=T.btn[lang];
+  document.getElementById("create").textContent=T.create[lang];
+}
 
-const btn = document.getElementById("loginBtn");
-const msg = document.getElementById("msg");
-
-btn.onclick = async () => {
-  msg.textContent = "";
-  btn.disabled = true;
-
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value.trim();
-  const role = document.getElementById("role").value;
-
-  if(!email || !password){
-    msg.textContent = "Veuillez remplir tous les champs";
-    btn.disabled = false;
-    return;
-  }
-
-  try{
-    const cred = await signInWithEmailAndPassword(auth, email, password);
-    const uid = cred.user.uid;
-
-    const ref = doc(db, "users", uid);
-    const snap = await getDoc(ref);
-
-    if(!snap.exists()){
-      await setDoc(ref, {
-        email: email,
-        role: role,
-        status: "active",
-        createdAt: serverTimestamp()
-      });
-    }
-
-    /* ✅ REDIRECTION SÛRE (PAS DE 404) */
-    window.location.href = "index.html";
-
-  }catch(e){
-    msg.textContent = "Email ou mot de passe incorrect";
-    btn.disabled = false;
-  }
+document.getElementById("langBtn").onclick=()=>{
+  lang = lang==="fr"?"en":"fr";
+  document.getElementById("langBtn").textContent = lang.toUpperCase();
+  translate();
 };
+
+translate();
+
+/* LOGIN LOGIC (temporaire sans Firebase) */
+function login(e){
+  e.preventDefault();
+
+  // Simulation login OK
+  localStorage.setItem("cizaUser","connected");
+
+  // Redirection vers l’index (super-app)
+  location.href="index.html";
+}
 </script>
 
 </body>
