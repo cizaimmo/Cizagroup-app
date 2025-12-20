@@ -153,33 +153,18 @@ footer a{color:var(--gold);text-decoration:none;display:block;margin-top:6px}
 
 <div class="card">
   <h3>🧼 Lavage Standard — Station</h3>
-  <ul>
-    <li>Lavage extérieur haute pression</li>
-    <li>Nettoyage jantes & pneus</li>
-    <li>Séchage manuel</li>
-    <li>Durée : 30–40 min</li>
-  </ul>
   <div class="price">25 000 BIF (léger) / 35 000 BIF (SUV)</div>
   <button class="reserve-btn" onclick="selectService('Lavage Standard — Station',25000)">Réserver</button>
 </div>
 
 <div class="card">
   <h3>🧼 Lavage Premium — Station</h3>
-  <ul>
-    <li>Nettoyage intérieur & extérieur</li>
-    <li>Aspiration complète</li>
-    <li>Tableau de bord & vitres</li>
-  </ul>
   <div class="price">40 000 BIF (léger) / 55 000 BIF (SUV)</div>
   <button class="reserve-btn" onclick="selectService('Lavage Premium — Station',40000)">Réserver</button>
 </div>
 
 <div class="card">
   <h3>🚗 Lavage Mobile — Domicile</h3>
-  <ul>
-    <li>Déplacement inclus</li>
-    <li>Produits professionnels</li>
-  </ul>
   <div class="price">55 000 BIF / 70 000 BIF</div>
   <button class="reserve-btn" onclick="selectService('Lavage Mobile — Domicile',55000)">Réserver</button>
 </div>
@@ -189,50 +174,58 @@ footer a{color:var(--gold);text-decoration:none;display:block;margin-top:6px}
 
 <h2>📋 Confirmation de réservation</h2>
 
-<form action="https://formsubmit.co/infos@cizagroup.com" method="POST" onsubmit="saveCarwashOrder(event)">
-<input type="hidden" name="_captcha" value="false">
-<input type="hidden" name="_replyto" value="infos@cizagroup.com">
+<form
+  action="https://formsubmit.co/infos@cizagroup.com"
+  method="POST"
+  target="hidden_iframe"
+  onsubmit="handleSubmit()"
+>
+  <input type="hidden" name="_captcha" value="false">
+  <input type="hidden" name="_template" value="table">
+  <input type="hidden" name="_subject" value="Nouvelle réservation CizaCarWash+">
 
-<input type="hidden" name="_autoresponse" value="Bonjour,
+  <!-- Copie client -->
+  <input type="hidden" name="_cc" id="ccField">
 
-Nous avons bien reçu votre réservation CizaCarWash+.
+  <!-- Auto-réponse client -->
+  <input type="hidden" name="_autoresponse" value="
+Merci pour votre réservation CizaCarWash+.
 
-Service : {{Service choisi}}
-Prix : {{Prix total (BIF)}}
-Date : {{Date souhaitée}}
-Heure : {{Heure souhaitée}}
-
-Notre équipe vous contactera rapidement.
+Notre équipe vous contactera rapidement pour confirmation.
 
 CIZA GROUP
 WhatsApp : +1 514 502 9503
-Email : infos@cizagroup.com">
+Burundi : +257 79 64 48 93
+Email : infos@cizagroup.com
+">
 
-<input type="text" name="Nom et Prénom" required placeholder="Nom et prénom">
-<input type="tel" name="Téléphone" required placeholder="Téléphone">
-<input type="email" name="email" required placeholder="Email du client">
+  <input type="text" name="Nom et Prénom" required placeholder="Nom et prénom">
+  <input type="email" name="email" required placeholder="Email du client">
+  <input type="tel" name="Téléphone" required placeholder="Téléphone">
 
-<select required onchange="adjustPrice(this.value)">
-  <option value="">Type de véhicule</option>
-  <option value="leger">Véhicule léger</option>
-  <option value="suv">SUV / 4x4</option>
-</select>
+  <select name="Type de véhicule" required onchange="adjustPrice(this.value)">
+    <option value="">Type de véhicule</option>
+    <option value="Véhicule léger">Véhicule léger</option>
+    <option value="SUV / 4x4">SUV / 4x4</option>
+  </select>
 
-<input type="text" id="serviceField" name="Service choisi" readonly>
-<input type="text" id="priceField" name="Prix total (BIF)" readonly>
+  <input type="text" id="serviceField" name="Service choisi" readonly>
+  <input type="text" id="priceField" name="Prix total (BIF)" readonly>
 
-<input type="date" name="Date souhaitée" required>
-<input type="time" name="Heure souhaitée" required>
+  <input type="date" name="Date souhaitée" required>
+  <input type="time" name="Heure souhaitée" required>
 
-<select name="Mode de paiement" required>
-  <option>Mobile Money</option>
-  <option>Espèces</option>
-</select>
+  <select name="Mode de paiement" required>
+    <option>Mobile Money</option>
+    <option>Espèces</option>
+  </select>
 
-<textarea name="Instructions" placeholder="Adresse / instructions"></textarea>
+  <textarea name="Instructions" placeholder="Adresse / instructions"></textarea>
 
-<button class="reserve-btn" type="submit">Confirmer</button>
+  <button class="reserve-btn" type="submit">Confirmer</button>
 </form>
+
+<iframe name="hidden_iframe" style="display:none;"></iframe>
 </div>
 
 <div id="success">
@@ -257,39 +250,40 @@ Un email de confirmation vous a été transmis.
 <div id="whatsappBtn" onclick="window.open('https://wa.me/15145029503','_blank')">💬</div>
 
 <script>
-let basePrice=0;
+let basePrice = 0;
 
-function selectService(service,price){
-  basePrice=price;
-  document.getElementById("formBox").style.display="block";
-  document.getElementById("serviceField").value=service;
-  document.getElementById("priceField").value=price+" BIF";
+function selectService(service, price){
+  basePrice = price;
+  document.getElementById("serviceField").value = service;
+  document.getElementById("priceField").value = price + " BIF";
+  document.getElementById("formBox").style.display = "block";
   document.getElementById("formBox").scrollIntoView({behavior:"smooth"});
 }
 
 function adjustPrice(type){
-  let final=basePrice;
-  if(type==="suv") final+=10000;
-  document.getElementById("priceField").value=final+" BIF";
+  let final = basePrice;
+  if(type.includes("SUV")) final += 10000;
+  document.getElementById("priceField").value = final + " BIF";
 }
 
 function closeForm(){
-  document.getElementById("formBox").style.display="none";
+  document.getElementById("formBox").style.display = "none";
 }
 
-function saveCarwashOrder(e){
-  e.preventDefault();
-  document.querySelector("form").submit();
+function handleSubmit(){
+  const email = document.querySelector("input[name='email']").value;
+  document.getElementById("ccField").value = email;
+
   setTimeout(()=>{
-    document.getElementById("formBox").style.display="none";
-    document.getElementById("success").style.display="block";
+    document.getElementById("formBox").style.display = "none";
+    document.getElementById("success").style.display = "block";
     window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"});
-  },400);
+  }, 600);
 }
 
 window.addEventListener("scroll",()=>{
   document.getElementById("toTop").style.display =
-    window.scrollY>300 ? "flex":"none";
+    window.scrollY > 300 ? "flex" : "none";
 });
 </script>
 
