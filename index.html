@@ -28,7 +28,6 @@ body{background:var(--bg);color:var(--text);}
     position:fixed;bottom:5%;right:5%;
     opacity:.05;font-size:70px;color:var(--gold);z-index:-1;
 }
-
 #splash{
     position:fixed;inset:0;height:100svh;
     background:var(--bg);display:flex;
@@ -112,6 +111,17 @@ footer a{color:var(--gold);display:block;margin-top:6px}
     font-size:22px;cursor:pointer;
 }
 </style>
+
+<!-- 🔐 BARRIÈRE D’ACCÈS (NE CASSE RIEN) -->
+<script>
+(function(){
+  const status = localStorage.getItem("ciza_user_status");
+  if(status !== "active"){
+    window.location.replace("login.html");
+  }
+})();
+</script>
+
 </head>
 
 <body>
@@ -142,9 +152,7 @@ footer a{color:var(--gold);display:block;margin-top:6px}
 </div>
 
 <div class="section-title">🌍 CIZA DIASPORA+</div>
-<div class="card" onclick="location.href='diaspora.html'">
-🌍 Services Diaspora
-</div>
+<div class="card" onclick="location.href='diaspora.html'">🌍 Services Diaspora</div>
 
 <div class="section-title">🇧🇮 Services Locaux</div>
 <div class="grid">
@@ -158,12 +166,10 @@ footer a{color:var(--gold);display:block;margin-top:6px}
 </div>
 
 <div class="section-title">🏢 Solutions Entreprises</div>
-<div class="card" onclick="location.href='business.html'">
-🏢 Business & ONG
-</div>
+<div class="card" onclick="location.href='business.html'">🏢 Business & ONG</div>
 
 <footer>
-Sign designed by  © 2026 CIZA GROUP
+Sign designed by © 2026 CIZA GROUP
   <a href="legal.html">Mentions légales</a>
   <a href="privacy.html">Confidentialité</a>
   <a href="mailto:infos@cizagroup.com">Contact</a>
