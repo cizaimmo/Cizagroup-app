@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CIZA GROUP — Supprimer mon compte</title>
+<title>CIZA GROUP — Suppression de compte</title>
 <link rel="icon" href="logotransparent.png">
 
 <style>
@@ -14,6 +14,7 @@
   --border:rgba(255,255,255,.15);
   --txt:#fff;
 }
+*{box-sizing:border-box}
 body{
   margin:0;
   font-family:Arial,sans-serif;
@@ -23,47 +24,77 @@ body{
 header{
   position:sticky;
   top:0;
+  z-index:1000;
   display:flex;
   justify-content:space-between;
   align-items:center;
   padding:14px 18px;
   background:var(--glass);
-  backdrop-filter:blur(12px);
+  backdrop-filter:blur(14px);
   border-bottom:1px solid var(--gold);
 }
-header img{height:40px}
+header img{height:44px}
 header button{
   background:none;
   border:none;
   color:var(--gold);
-  font-size:18px;
+  font-size:20px;
   cursor:pointer;
 }
 .container{
-  max-width:800px;
-  margin:auto;
-  padding:30px 20px;
+  max-width:520px;
+  margin:40px auto;
+  padding:20px;
 }
-h1,h2{color:var(--gold)}
 .card{
   background:var(--glass);
   border:1px solid var(--border);
-  border-radius:18px;
-  padding:25px;
+  border-radius:22px;
+  padding:28px;
+  box-shadow:0 0 22px rgba(242,184,64,.25);
+}
+h1{
+  color:var(--gold);
+  text-align:center;
+  margin-top:0;
+}
+.warning{
+  background:#0b1c34;
+  border-left:4px solid #ff4d4d;
+  padding:14px;
+  border-radius:10px;
+  font-size:14px;
   margin-bottom:20px;
 }
-.btn{
-  display:block;
+input, textarea{
   width:100%;
-  margin-top:20px;
+  margin-top:14px;
   padding:14px;
-  border:none;
   border-radius:12px;
-  background:var(--gold);
-  color:#06142E;
+  border:none;
+  background:#0b1c34;
+  color:#fff;
+  font-size:15px;
+}
+textarea{min-height:110px}
+button.btn{
+  margin-top:22px;
+  width:100%;
+  padding:15px;
+  border:none;
+  border-radius:14px;
+  background:#ff4d4d;
+  color:#fff;
   font-weight:bold;
+  font-size:16px;
+  cursor:pointer;
+}
+#success{
+  display:none;
   text-align:center;
-  text-decoration:none;
+}
+#success h2{
+  color:var(--gold);
 }
 footer{
   margin-top:40px;
@@ -79,53 +110,84 @@ footer span{display:block;margin-top:6px}
 <body>
 
 <header>
-  <button onclick="history.back()">← Retour</button>
+  <button onclick="history.back()">←</button>
   <img src="logotransparent.png" alt="CIZA GROUP">
   <button onclick="location.href='index.html'">🏠</button>
 </header>
 
 <div class="container">
 
-<h1>❌ Supprimer mon compte</h1>
+<div class="card" id="formBox">
 
-<div class="card">
-  <h2>Procédure</h2>
-  <p>
-    Chez <b>CIZA GROUP</b>, la suppression de compte est traitée de manière
-    sécurisée et humaine afin de protéger vos données.
-  </p>
-  <ol>
-    <li>Envoyez une demande par email</li>
-    <li>Indiquez votre adresse email utilisée dans l’application</li>
-    <li>Notre équipe confirme la suppression</li>
-  </ol>
+<h1>Suppression de compte</h1>
+
+<div class="warning">
+⚠️ Cette action est <b>définitive</b>.<br>
+Votre compte CIZA GROUP sera supprimé après vérification d’identité.
 </div>
 
-<div class="card">
-  <h2>Données concernées</h2>
-  <p>
-    La suppression du compte entraîne la suppression de :
-  </p>
-  <ul>
-    <li>Vos informations personnelles</li>
-    <li>Vos demandes et dossiers</li>
-    <li>Votre accès à l’application</li>
-  </ul>
+<form id="deleteForm">
+
+<input type="text" name="Nom complet" required placeholder="Nom complet">
+<input type="email" name="Email du compte" required placeholder="Email du compte">
+<input type="tel" name="Téléphone" placeholder="Téléphone (optionnel)">
+
+<textarea name="Motif (optionnel)" placeholder="Pourquoi souhaitez-vous supprimer votre compte ?"></textarea>
+
+<button type="submit" class="btn">
+Supprimer mon compte
+</button>
+
+</form>
+
+<p style="font-size:13px;opacity:.75;margin-top:14px;text-align:center">
+La demande sera traitée par notre équipe conformément à notre politique de confidentialité.
+</p>
+
 </div>
 
-<a class="btn" href="mailto:infos@cizagroup.com?subject=Suppression de compte CIZA GROUP">
-📩 Demander la suppression de mon compte
-</a>
+<div class="card" id="success">
+<h2>Demande envoyée ✔️</h2>
+<p>
+Votre demande de suppression a bien été reçue.<br><br>
+Notre équipe CIZA GROUP vous contactera pour confirmation finale.
+</p>
+<p style="margin-top:15px;">
+📧 infos@cizagroup.com<br>
+🌍 International : +1 514 502 9503<br>
+🇧🇮 Burundi / East Africa : +257 79 94 50 • +257 79 64 48 93
+</p>
+
+<button class="btn" style="background:var(--gold);color:#06142E"
+onclick="location.href='index.html'">
+Retour à l’accueil
+</button>
+</div>
 
 </div>
 
 <footer>
 © 2026 CIZA GROUP  
-<span>Design & Powered — CIZA GROUP</span>
-<span>infos@cizagroup.com</span>
-<span>International : +1 514 502 9503</span>
-<span>Burundi / East Africa : +257 79 94 50 • +257 79 64 48 93</span>
+<span>Design & System — CIZA GROUP</span>
+<span>@cizagroup_official</span>
 </footer>
+
+<script>
+document.getElementById("deleteForm").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  const data = new FormData(this);
+
+  fetch("https://formsubmit.co/ajax/infos@cizagroup.com",{
+    method:"POST",
+    body:data
+  }).then(()=>{
+    document.getElementById("formBox").style.display="none";
+    document.getElementById("success").style.display="block";
+    window.scrollTo({top:0,behavior:"smooth"});
+  });
+});
+</script>
 
 </body>
 </html>
