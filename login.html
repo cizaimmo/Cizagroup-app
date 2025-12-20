@@ -17,64 +17,66 @@
 *{box-sizing:border-box}
 body{
   margin:0;
-  min-height:100vh;
-  background:linear-gradient(135deg,#06142E,#0B1C34);
   font-family:Arial,sans-serif;
+  background:var(--bg);
   color:var(--txt);
+}
+header{
+  position:sticky;
+  top:0;
+  z-index:1000;
   display:flex;
+  justify-content:space-between;
   align-items:center;
-  justify-content:center;
-}
-
-.card{
-  width:100%;
-  max-width:380px;
+  padding:14px 18px;
   background:var(--glass);
-  border:1px solid var(--gold);
-  border-radius:22px;
-  padding:28px;
-  box-shadow:0 0 25px rgba(0,0,0,.45);
-  text-align:center;
-  animation:fadeUp .6s ease;
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--gold);
 }
-
-@keyframes fadeUp{
-  from{transform:translateY(20px);opacity:0}
-  to{transform:translateY(0);opacity:1}
-}
-
-.logo{
-  width:90px;
-  margin:auto;
-  filter:drop-shadow(0 0 12px var(--gold));
-}
-
-h1{
-  margin:15px 0 5px;
+header img{height:44px}
+header button{
+  background:none;
+  border:none;
   color:var(--gold);
-  font-size:24px;
+  font-size:20px;
+  cursor:pointer;
 }
-
-p{
-  font-size:14px;
-  opacity:.9;
+.container{
+  max-width:420px;
+  margin:40px auto;
+  padding:20px;
 }
-
+.card{
+  background:var(--glass);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:26px;
+  box-shadow:0 0 22px rgba(242,184,64,.25);
+}
+h1{
+  text-align:center;
+  color:var(--gold);
+  margin-top:0;
+}
+p.sub{
+  text-align:center;
+  opacity:.85;
+  margin-bottom:20px;
+}
 input{
   width:100%;
   margin-top:14px;
   padding:14px;
   border-radius:12px;
   border:none;
-  background:#0B1C34;
-  color:white;
+  background:#0b1c34;
+  color:#fff;
   font-size:15px;
 }
-
-.btn{
-  margin-top:18px;
+button.btn{
+  margin-top:20px;
   width:100%;
-  padding:14px;
+  padding:15px;
   border:none;
   border-radius:14px;
   background:var(--gold);
@@ -83,113 +85,100 @@ input{
   font-size:16px;
   cursor:pointer;
 }
-
-.link{
-  margin-top:14px;
-  font-size:14px;
-}
-.link span{
-  color:var(--gold);
-  cursor:pointer;
-}
-
-.lang{
-  position:absolute;
-  top:15px;
-  right:15px;
-  background:var(--gold);
-  color:#06142E;
-  padding:8px 14px;
-  border-radius:14px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-.back{
-  position:absolute;
-  top:15px;
-  left:15px;
-  color:var(--gold);
-  font-size:22px;
-  cursor:pointer;
-}
-
-footer{
-  position:fixed;
-  bottom:15px;
-  width:100%;
-  text-align:center;
-  font-size:12px;
+.notice{
+  font-size:13px;
   opacity:.75;
+  margin-top:14px;
+  text-align:center;
 }
+#success{
+  display:none;
+  text-align:center;
+}
+#success h2{
+  color:var(--gold);
+}
+footer{
+  margin-top:40px;
+  padding:25px;
+  text-align:center;
+  font-size:14px;
+  opacity:.85;
+}
+footer span{display:block;margin-top:6px}
 </style>
 </head>
 
 <body>
 
-<div class="back" onclick="history.back()">←</div>
-<div class="lang" id="langBtn">FR</div>
+<header>
+  <button onclick="history.back()">←</button>
+  <img src="logotransparent.png" alt="CIZA GROUP">
+  <button onclick="location.href='signup.html'">➕</button>
+</header>
 
-<div class="card">
+<div class="container">
 
-<img src="logotransparent.png" class="logo" alt="CIZA GROUP">
+<div class="card" id="formBox">
 
-<h1 id="title">Connexion</h1>
-<p id="subtitle">Accédez à votre espace CIZA GROUP</p>
+<h1>Connexion</h1>
+<p class="sub">Accédez à votre espace CIZA GROUP</p>
 
-<form onsubmit="login(event)">
-  <input type="email" id="email" placeholder="Email" required>
-  <input type="password" id="password" placeholder="Mot de passe" required>
-  <button class="btn" type="submit" id="btn">Se connecter</button>
+<form id="loginForm">
+
+<input type="email" name="Email" required placeholder="Email">
+<input type="text" name="Numéro de téléphone" placeholder="Téléphone (optionnel)">
+
+<button type="submit" class="btn">Se connecter</button>
+
 </form>
 
-<div class="link">
-  <span id="create" onclick="location.href='signup.html'">
-    Créer un compte
-  </span>
+<p class="notice">
+La connexion est validée par notre équipe pour garantir sécurité et qualité de service.
+</p>
+
+</div>
+
+<div class="card" id="success">
+<h2>Connexion en cours 🔐</h2>
+<p>
+Votre demande de connexion a été transmise.<br><br>
+Si votre compte est actif, vous recevrez une confirmation ou un appel rapide.
+</p>
+<p style="margin-top:15px;">
+📧 infos@cizagroup.com<br>
+🌍 International : +1 514 502 9503<br>
+🇧🇮 Burundi / East Africa : +257 79 94 50 • +257 79 64 48 93
+</p>
+
+<button class="btn" onclick="location.href='index.html'">
+Retour à l’accueil
+</button>
 </div>
 
 </div>
 
 <footer>
-© 2026 CIZA GROUP — Designed & powered by CIZA GROUP
+© 2026 CIZA GROUP  
+<span>Design & System — CIZA GROUP</span>
+<span>@cizagroup_official</span>
 </footer>
 
 <script>
-let lang="fr";
-
-const T={
-  title:{fr:"Connexion",en:"Login"},
-  sub:{fr:"Accédez à votre espace CIZA GROUP",en:"Access your CIZA GROUP account"},
-  btn:{fr:"Se connecter",en:"Login"},
-  create:{fr:"Créer un compte",en:"Create account"}
-};
-
-function translate(){
-  document.getElementById("title").textContent=T.title[lang];
-  document.getElementById("subtitle").textContent=T.sub[lang];
-  document.getElementById("btn").textContent=T.btn[lang];
-  document.getElementById("create").textContent=T.create[lang];
-}
-
-document.getElementById("langBtn").onclick=()=>{
-  lang = lang==="fr"?"en":"fr";
-  document.getElementById("langBtn").textContent = lang.toUpperCase();
-  translate();
-};
-
-translate();
-
-/* LOGIN LOGIC (temporaire sans Firebase) */
-function login(e){
+document.getElementById("loginForm").addEventListener("submit", function(e){
   e.preventDefault();
 
-  // Simulation login OK
-  localStorage.setItem("cizaUser","connected");
+  const data = new FormData(this);
 
-  // Redirection vers l’index (super-app)
-  location.href="index.html";
-}
+  fetch("https://formsubmit.co/ajax/infos@cizagroup.com",{
+    method:"POST",
+    body:data
+  }).then(()=>{
+    document.getElementById("formBox").style.display="none";
+    document.getElementById("success").style.display="block";
+    window.scrollTo({top:0,behavior:"smooth"});
+  });
+});
 </script>
 
 </body>
