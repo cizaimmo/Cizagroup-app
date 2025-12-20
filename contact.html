@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CIZA GROUP — Contact</title>
+<link rel="icon" href="logotransparent.png">
+
+<style>
+body{margin:0;font-family:Arial;background:#06142E;color:#fff}
+header{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:14px 16px;background:rgba(255,255,255,.08);
+  border-bottom:1px solid #F2B840;
+}
+header button{background:none;border:none;color:#F2B840;font-size:18px}
+.container{max-width:900px;margin:auto;padding:30px 20px}
+h1{color:#F2B840}
+.card{background:rgba(255,255,255,.08);border-radius:18px;padding:22px}
+footer{text-align:center;margin:40px 0;opacity:.85}
+</style>
+</head>
+
+<body>
+
+<header>
+  <button onclick="history.back()">←</button>
+  <img src="logotransparent.png" height="38">
+  <button onclick="toggleLang()">EN</button>
+</header>
+
+<div class="container">
+<h1 id="title"></h1>
+
+<div class="card" id="content"></div>
+</div>
+
+<footer>
+© 2026 CIZA GROUP — Design & System
+</footer>
+
+<script>
+let lang="fr";
+const c={
+fr:{
+ title:"📩 Contact",
+ text:`<p>📧 infos@cizagroup.com</p>
+ <p>🌍 International : +1 514 502 9503</p>
+ <p>🇧🇮 Burundi / East Africa :<br>
+ +257 79 94 50<br>+257 79 64 48 93</p>`
+},
+en:{
+ title:"📩 Contact",
+ text:`<p>📧 infos@cizagroup.com</p>
+ <p>🌍 International: +1 514 502 9503</p>
+ <p>🇧🇮 Burundi / East Africa:<br>
+ +257 79 94 50<br>+257 79 64 48 93</p>`
+}
+};
+function render(){title.innerHTML=c[lang].title;content.innerHTML=c[lang].text;}
+function toggleLang(){lang=lang==="fr"?"en":"fr";render();}
+render();
+</script>
+
+</body>
+</html>
