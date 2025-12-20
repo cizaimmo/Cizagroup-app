@@ -20,6 +20,8 @@ body{
   background:var(--bg);
   color:var(--txt);
 }
+
+/* HEADER */
 header{
   position:sticky;
   top:0;
@@ -41,12 +43,46 @@ header button{
 }
 header img{height:42px}
 
+/* LANG */
+#langBtn{
+  position:fixed;
+  top:90px;
+  right:15px;
+  background:var(--gold);
+  color:#06142E;
+  padding:10px 14px;
+  border-radius:14px;
+  font-weight:bold;
+  cursor:pointer;
+  z-index:9999;
+}
+
+/* HERO */
+.hero{
+  text-align:center;
+  padding:80px 20px 40px;
+}
+.hero-logo{
+  width:140px;
+  height:140px;
+  margin:auto;
+  background:url("logotransparent.png") center/contain no-repeat;
+  animation:float 5s ease-in-out infinite;
+  filter:drop-shadow(0 0 15px #F2B84080);
+}
+@keyframes float{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-14px)}
+  100%{transform:translateY(0)}
+}
+.hero h1{color:var(--gold);margin-top:20px}
+
+/* CONTENT */
 .container{
   max-width:900px;
   margin:auto;
   padding:30px 20px;
 }
-h1,h2,h3{color:var(--gold)}
 .card{
   background:var(--glass);
   border:1px solid var(--border);
@@ -54,6 +90,7 @@ h1,h2,h3{color:var(--gold)}
   padding:22px;
   margin-bottom:22px;
 }
+h2,h3{color:var(--gold)}
 
 input,select,textarea{
   width:100%;
@@ -78,6 +115,19 @@ textarea{min-height:120px}
   cursor:pointer;
 }
 
+/* FAQ */
+.faq-q{
+  cursor:pointer;
+  font-weight:bold;
+  margin-top:10px;
+}
+.faq-a{
+  display:none;
+  opacity:.9;
+  margin-top:6px;
+}
+
+/* SUCCESS */
 #success{
   display:none;
   text-align:center;
@@ -87,6 +137,7 @@ textarea{min-height:120px}
   padding:25px;
 }
 
+/* FOOTER */
 footer{
   margin-top:50px;
   padding:25px;
@@ -96,6 +147,7 @@ footer{
 }
 footer span{display:block;margin-top:6px}
 
+/* SCROLL TOP */
 #topBtn{
   position:fixed;
   bottom:20px;
@@ -118,65 +170,86 @@ footer span{display:block;margin-top:6px}
 
 <header>
   <button onclick="history.back()">←</button>
-  <img src="logotransparent.png" alt="CIZA GROUP">
+  <img src="logotransparent.png">
   <button onclick="location.reload()">⟳</button>
 </header>
 
+<div id="langBtn">EN</div>
+
+<section class="hero">
+  <div class="hero-logo"></div>
+  <h1 id="title"></h1>
+  <p id="subtitle"></p>
+</section>
+
 <div class="container">
 
-<h1>Diaspora Services — CIZA GROUP</h1>
-<p>
-Solutions premium pour la diaspora burundaise et africaine : immobilier,
-investissement, assistance administrative et représentation locale.
-</p>
-
+<!-- POURQUOI -->
 <div class="card">
-<h3>📌 Comment ça fonctionne</h3>
-<ol>
-<li>Vous choisissez le service souhaité</li>
-<li>Un numéro de dossier est généré automatiquement</li>
-<li>Notre équipe vous contacte pour confirmation</li>
-<li>Traitement professionnel de votre dossier</li>
-</ol>
+<h2 id="whyTitle"></h2>
+<p id="whyText"></p>
 </div>
 
+<!-- PROCESS -->
 <div class="card">
-<h2>📋 Formulaire Diaspora</h2>
+<h2 id="processTitle"></h2>
+<ol id="processList"></ol>
+</div>
+
+<!-- FORM -->
+<div class="card">
+<h2 id="formTitle"></h2>
 
 <form id="diasporaForm">
+<input type="hidden" id="dossier" name="Numéro de dossier">
 
-<input type="hidden" name="Numéro de dossier" id="dossier">
-
-<input type="text" name="Nom complet" required placeholder="Nom complet">
+<input type="text" name="Nom" required placeholder="Nom complet">
 <input type="email" name="Email" required placeholder="Email">
 <input type="tel" name="Téléphone" placeholder="Téléphone">
 
-<select name="Service demandé" required>
-  <option value="">— Choisir un service —</option>
-  <option>Immobilier – Achat & Construction</option>
-  <option>Gestion immobilière à distance</option>
-  <option>Investissement sécurisé Burundi</option>
-  <option>Création d’entreprise à distance</option>
-  <option>Assistance administrative diaspora</option>
-  <option>Logistique & envoi de colis</option>
-  <option>Représentation locale / Mandat</option>
-  <option>Autre demande diaspora</option>
+<select name="Service" required>
+<option value="">— Choisir un service —</option>
+<option>Immobilier & Construction</option>
+<option>Gestion immobilière</option>
+<option>Investissement</option>
+<option>Création d’entreprise</option>
+<option>Assistance administrative</option>
+<option>Logistique diaspora</option>
+<option>Représentation locale</option>
 </select>
 
-<textarea name="Message" placeholder="Décrivez brièvement votre besoin"></textarea>
+<textarea name="Message" placeholder="Votre message"></textarea>
 
-<button class="btn" type="submit">Envoyer la demande</button>
+<button class="btn" type="submit" id="sendBtn"></button>
 </form>
 </div>
 
 <div id="success">
-<h3>Merci 🙏</h3>
-<p>
-Votre demande a été reçue avec succès.<br><br>
-<b>Numéro de dossier :</b><br>
-<span id="dossierShow"></span><br><br>
-Notre équipe CIZA GROUP vous contactera rapidement pour confirmation.
-</p>
+<h3 id="successTitle"></h3>
+<p id="successText"></p>
+<p><b id="dossierShow"></b></p>
+</div>
+
+<!-- FAQ -->
+<div class="card">
+<h2>FAQ</h2>
+
+<div class="faq-q" onclick="toggleFaq(this)">❓ Les services sont-ils sécurisés ?</div>
+<div class="faq-a">Oui. Toutes les opérations sont suivies, documentées et validées.</div>
+
+<div class="faq-q" onclick="toggleFaq(this)">❓ Puis-je gérer à distance ?</div>
+<div class="faq-a">Oui. CIZA GROUP est conçu pour la diaspora.</div>
+
+<div class="faq-q" onclick="toggleFaq(this)">❓ Délai de traitement ?</div>
+<div class="faq-a">Vous êtes contacté sous 24–48h après soumission.</div>
+</div>
+
+<!-- TEMOIGNAGES -->
+<div class="card">
+<h2>Témoignages</h2>
+<p>🇨🇦 Jean-Marie (Canada) — “Service fiable, suivi sérieux.”</p>
+<p>🇧🇪 Chantal (Belgique) — “Investissement sécurisé et transparent.”</p>
+<p>🇫🇷 Eric (France) — “Enfin une solution diaspora professionnelle.”</p>
 </div>
 
 </div>
@@ -184,42 +257,88 @@ Notre équipe CIZA GROUP vous contactera rapidement pour confirmation.
 <footer>
 © 2026 CIZA GROUP  
 <span>Design & System — CIZA GROUP</span>
-<span>📧 infos@cizagroup.com</span>
-<span>🌍 International : +1 514 502 9503</span>
-<span>🇧🇮 Burundi / East Africa : +257 79 94 50 • +257 79 64 48 93</span>
+<span>infos@cizagroup.com</span>
+<span>International : +1 514 502 9503</span>
+<span>Burundi / East Africa : +257 79 94 50 • +257 79 64 48 93</span>
 </footer>
 
 <div id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
 
 <script>
-/* Numéro de dossier */
-const dossierId =
-  "CIZA-DIAS-" +
-  new Date().toISOString().slice(0,10).replace(/-/g,"") +
-  "-" + Math.floor(1000 + Math.random()*9000);
+/* DOSSIER */
+const dossierId="CIZA-DIAS-"+Date.now().toString().slice(-6);
+document.getElementById("dossier").value=dossierId;
 
-document.getElementById("dossier").value = dossierId;
-
-/* Envoi sans page blanche */
-document.getElementById("diasporaForm").addEventListener("submit", function(e){
-  e.preventDefault();
-
-  const formData = new FormData(this);
-  fetch("https://formsubmit.co/ajax/infos@cizagroup.com",{
-    method:"POST",
-    body:formData
-  }).then(()=>{
-    document.getElementById("diasporaForm").style.display="none";
-    document.getElementById("success").style.display="block";
-    document.getElementById("dossierShow").textContent = dossierId;
-  });
+/* SUBMIT */
+document.getElementById("diasporaForm").addEventListener("submit",e=>{
+e.preventDefault();
+fetch("https://formsubmit.co/ajax/infos@cizagroup.com",{method:"POST",body:new FormData(e.target)})
+.then(()=>{
+  e.target.style.display="none";
+  document.getElementById("success").style.display="block";
+  document.getElementById("dossierShow").textContent="Dossier : "+dossierId;
+});
 });
 
-/* Scroll top */
+/* SCROLL */
 window.addEventListener("scroll",()=>{
-  document.getElementById("topBtn").style.display =
-    window.scrollY>300 ? "flex":"none";
+  document.getElementById("topBtn").style.display=window.scrollY>300?"flex":"none";
 });
+
+/* FAQ */
+function toggleFaq(el){
+  const a=el.nextElementSibling;
+  a.style.display=a.style.display==="block"?"none":"block";
+}
+
+/* LANG */
+let lang="fr";
+const T={
+fr:{
+title:"Diaspora Services — CIZA GROUP",
+sub:"Solutions premium pour la diaspora africaine",
+whyT:"Pourquoi CIZA GROUP ?",
+why:"Présence locale, transparence, équipe terrain & diaspora.",
+procT:"Procédure",
+proc:["Choix du service","Numéro de dossier","Confirmation","Traitement"],
+form:"Formulaire Diaspora",
+send:"Envoyer",
+ok:"Merci",
+okTxt:"Votre demande est bien reçue."
+},
+en:{
+title:"Diaspora Services — CIZA GROUP",
+sub:"Premium solutions for the African diaspora",
+whyT:"Why CIZA GROUP?",
+why:"Local presence, transparency and professional follow-up.",
+procT:"Process",
+proc:["Service selection","File number","Confirmation","Execution"],
+form:"Diaspora Form",
+send:"Submit",
+ok:"Thank you",
+okTxt:"Your request has been received."
+}
+};
+
+function translate(){
+document.getElementById("title").textContent=T[lang].title;
+document.getElementById("subtitle").textContent=T[lang].sub;
+document.getElementById("whyTitle").textContent=T[lang].whyT;
+document.getElementById("whyText").textContent=T[lang].why;
+document.getElementById("processTitle").textContent=T[lang].procT;
+document.getElementById("processList").innerHTML=T[lang].proc.map(i=>"<li>"+i+"</li>").join("");
+document.getElementById("formTitle").textContent=T[lang].form;
+document.getElementById("sendBtn").textContent=T[lang].send;
+document.getElementById("successTitle").textContent=T[lang].ok;
+document.getElementById("successText").textContent=T[lang].okTxt;
+}
+translate();
+
+document.getElementById("langBtn").onclick=()=>{
+lang=lang==="fr"?"en":"fr";
+document.getElementById("langBtn").textContent=lang==="fr"?"EN":"FR";
+translate();
+};
 </script>
 
 </body>
