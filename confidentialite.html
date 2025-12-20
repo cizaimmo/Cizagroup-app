@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CIZA GROUP — Confidentialité</title>
+<link rel="icon" href="logotransparent.png">
+
+<style>
+body{margin:0;font-family:Arial;background:#06142E;color:#fff}
+header{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:14px 16px;
+  background:rgba(255,255,255,.08);
+  border-bottom:1px solid #F2B840;
+}
+header button{background:none;border:none;color:#F2B840;font-size:18px}
+.container{max-width:900px;margin:auto;padding:30px 20px}
+h1{color:#F2B840}
+.card{background:rgba(255,255,255,.08);border-radius:18px;padding:22px}
+footer{text-align:center;margin:40px 0;opacity:.85}
+</style>
+</head>
+
+<body>
+
+<header>
+  <button onclick="history.back()">✕</button>
+  <img src="logotransparent.png" height="38">
+  <button onclick="toggleLang()">EN</button>
+</header>
+
+<div class="container">
+<h1 id="title"></h1>
+<div class="card" id="content"></div>
+</div>
+
+<footer>
+© 2026 CIZA GROUP — Design & System
+</footer>
+
+<script>
+let lang="fr";
+const d={
+fr:{
+ title:"🔐 Politique de confidentialité",
+ text:`<p>CIZA GROUP protège les données de ses utilisateurs.</p>
+ <p>Les informations servent uniquement au traitement des dossiers
+ et à la communication client.</p>
+ <p>Aucune revente de données.</p>`
+},
+en:{
+ title:"🔐 Privacy Policy",
+ text:`<p>CIZA GROUP protects user data.</p>
+ <p>Information is used only for service processing and communication.</p>
+ <p>No data resale.</p>`
+}
+};
+function render(){title.innerHTML=d[lang].title;content.innerHTML=d[lang].text;}
+function toggleLang(){lang=lang==="fr"?"en":"fr";render();}
+render();
+</script>
+
+</body>
+</html>
