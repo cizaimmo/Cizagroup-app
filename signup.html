@@ -14,67 +14,69 @@
   --border:rgba(255,255,255,.15);
   --txt:#fff;
 }
-
+*{box-sizing:border-box}
 body{
   margin:0;
-  font-family:Arial, sans-serif;
+  font-family:Arial,sans-serif;
   background:var(--bg);
   color:var(--txt);
 }
-
 header{
   position:sticky;
   top:0;
   z-index:1000;
   display:flex;
-  align-items:center;
   justify-content:space-between;
+  align-items:center;
   padding:14px 18px;
   background:var(--glass);
-  backdrop-filter:blur(12px);
+  backdrop-filter:blur(14px);
   border-bottom:1px solid var(--gold);
 }
-header img{width:48px}
+header img{height:44px}
 header button{
   background:none;
   border:none;
   color:var(--gold);
-  font-size:18px;
+  font-size:20px;
   cursor:pointer;
 }
-
 .container{
-  max-width:520px;
-  margin:auto;
-  padding:30px 22px;
+  max-width:420px;
+  margin:40px auto;
+  padding:20px;
 }
-
-h1{
-  color:var(--gold);
-  text-align:center;
-}
-
 .card{
   background:var(--glass);
   border:1px solid var(--border);
-  border-radius:18px;
-  padding:24px;
-  margin-top:20px;
+  border-radius:22px;
+  padding:26px;
+  box-shadow:0 0 22px rgba(242,184,64,.25);
 }
-
+h1{
+  text-align:center;
+  color:var(--gold);
+  margin-top:0;
+}
+p.sub{
+  text-align:center;
+  opacity:.85;
+  margin-bottom:20px;
+}
 input{
   width:100%;
   margin-top:14px;
   padding:14px;
   border-radius:12px;
   border:none;
+  background:#0b1c34;
+  color:#fff;
   font-size:15px;
 }
-
-button.main{
+button.btn{
   margin-top:20px;
   width:100%;
-  padding:14px;
+  padding:15px;
   border:none;
   border-radius:14px;
   background:var(--gold);
@@ -83,132 +85,102 @@ button.main{
   font-size:16px;
   cursor:pointer;
 }
-
-button.main:hover{opacity:.9}
-
-p.note{
+.notice{
   font-size:13px;
-  opacity:.8;
-  margin-top:15px;
+  opacity:.75;
+  margin-top:14px;
   text-align:center;
 }
-
 #success{
   display:none;
-  background:#0b1c34;
-  border:1px solid var(--gold);
-  border-radius:18px;
-  padding:22px;
-  margin-top:25px;
   text-align:center;
 }
-
+#success h2{
+  color:var(--gold);
+}
 footer{
-  margin-top:50px;
+  margin-top:40px;
   padding:25px;
   text-align:center;
   font-size:14px;
   opacity:.85;
 }
-
-#toTop{
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  width:45px;
-  height:45px;
-  border-radius:50%;
-  background:var(--gold);
-  color:#06142E;
-  display:none;
-  justify-content:center;
-  align-items:center;
-  cursor:pointer;
-  font-size:22px;
-}
+footer span{display:block;margin-top:6px}
 </style>
 </head>
 
 <body>
 
 <header>
-  <button onclick="history.back()">← Retour</button>
-  <img src="logotransparent.png">
-  <button onclick="location.reload()">⟳</button>
+  <button onclick="history.back()">←</button>
+  <img src="logotransparent.png" alt="CIZA GROUP">
+  <button onclick="location.href='login.html'">🔐</button>
 </header>
 
 <div class="container">
 
-<h1>Créer un compte</h1>
-<p style="text-align:center;opacity:.85;">
-Accédez aux services CIZA GROUP
-</p>
-
 <div class="card" id="formBox">
 
-<input type="text" id="name" placeholder="Nom complet" required>
-<input type="email" id="email" placeholder="Email" required>
-<input type="tel" id="phone" placeholder="Téléphone" required>
-<input type="password" id="password" placeholder="Mot de passe" required>
+<h1>Créer un compte</h1>
+<p class="sub">Accédez à l’écosystème CIZA GROUP</p>
 
-<button class="main" onclick="createAccount()">Créer mon compte</button>
+<form id="signupForm">
 
-<p class="note">
-En créant un compte, vous acceptez nos conditions d’utilisation.
+<input type="hidden" name="Type" value="Création de compte CIZA GROUP">
+
+<input type="text" name="Nom complet" required placeholder="Nom et prénom">
+<input type="email" name="Email" required placeholder="Email">
+<input type="tel" name="Téléphone" required placeholder="Téléphone">
+
+<button type="submit" class="btn">Créer mon compte</button>
+
+</form>
+
+<p class="notice">
+Votre compte sera activé après validation humaine par notre équipe.
 </p>
+
 </div>
 
-<div id="success">
-  <h3>Compte créé avec succès ✅</h3>
-  <p>
-    Votre compte est prêt.<br>
-    Redirection vers la connexion…
-  </p>
+<div class="card" id="success">
+<h2>Compte en cours de validation ✅</h2>
+<p>
+Merci pour votre inscription.<br><br>
+Notre équipe CIZA GROUP va vérifier vos informations et vous contactera rapidement.
+</p>
+<p style="margin-top:15px;">
+📧 infos@cizagroup.com<br>
+🌍 International : +1 514 502 9503<br>
+🇧🇮 Burundi / East Africa : +257 79 94 50 • +257 79 64 48 93
+</p>
+
+<button class="btn" onclick="location.href='login.html'">
+Se connecter
+</button>
 </div>
 
 </div>
 
 <footer>
 © 2026 CIZA GROUP  
-<br>Design signed by CIZA GROUP
+<span>Design & System — CIZA GROUP</span>
+<span>@cizagroup_official</span>
 </footer>
 
-<div id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
-
 <script>
-function createAccount(){
-  const name = document.getElementById("name").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const phone = document.getElementById("phone").value.trim();
-  const password = document.getElementById("password").value;
+document.getElementById("signupForm").addEventListener("submit", function(e){
+  e.preventDefault();
 
-  if(!name || !email || !phone || !password){
-    alert("Veuillez remplir tous les champs");
-    return;
-  }
+  const data = new FormData(this);
 
-  const user = {
-    name,
-    email,
-    phone,
-    password,
-    role:"client",
-    createdAt:new Date().toISOString()
-  };
-
-  localStorage.setItem("cizaUser", JSON.stringify(user));
-
-  document.getElementById("formBox").style.display="none";
-  document.getElementById("success").style.display="block";
-
-  setTimeout(()=>{
-    window.location.href="login.html";
-  },2500);
-}
-
-window.addEventListener("scroll",()=>{
-  document.getElementById("toTop").style.display =
-    window.scrollY>300 ? "flex" : "none";
+  fetch("https://formsubmit.co/ajax/infos@cizagroup.com",{
+    method:"POST",
+    body:data
+  }).then(()=>{
+    document.getElementById("formBox").style.display="none";
+    document.getElementById("success").style.display="block";
+    window.scrollTo({top:0,behavior:"smooth"});
+  });
 });
 </script>
 
