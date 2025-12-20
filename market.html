@@ -142,7 +142,6 @@ footer a{
 <h1>CizaMarket+ 🛒</h1>
 <p>Packs alimentaires essentiels — Particuliers, Familles & Entreprises.</p>
 
-<!-- PACK 1 -->
 <div class="card">
   <h3>🟢 Pack Essentiel — Usage Quotidien</h3>
   <ul>
@@ -157,7 +156,6 @@ footer a{
   <button class="reserve-btn" onclick="selectPack('Pack Essentiel',85000)">Commander ce pack</button>
 </div>
 
-<!-- PACK 2 -->
 <div class="card">
   <h3>🔵 Pack Famille — Confort Mensuel</h3>
   <ul>
@@ -172,7 +170,6 @@ footer a{
   <button class="reserve-btn" onclick="selectPack('Pack Famille',150000)">Commander ce pack</button>
 </div>
 
-<!-- PACK 3 -->
 <div class="card">
   <h3>🟡 Pack Premium — Sérénité Totale</h3>
   <ul>
@@ -186,13 +183,15 @@ footer a{
   <button class="reserve-btn" onclick="selectPack('Pack Premium',280000)">Commander ce pack</button>
 </div>
 
-<!-- FORMULAIRE -->
 <div class="card form-box" id="formBox">
 <div class="close-form" onclick="closeForm()">✕</div>
 
 <h2>📋 Confirmation de commande</h2>
 
-<form action="https://formsubmit.co/infos@cizagroup.com" method="POST" onsubmit="showSuccess()">
+<form action="https://formsubmit.co/infos@cizagroup.com"
+      method="POST"
+      onsubmit="handleMarketSubmit(event)">
+
 <input type="hidden" name="_captcha" value="false">
 <input type="hidden" name="_subject" value="Nouvelle commande CizaMarket+">
 
@@ -222,7 +221,7 @@ footer a{
 <h3>Merci pour votre commande 🙏</h3>
 <p>
 Votre demande a bien été envoyée.<br>
-L’équipe CIZA GROUP vous contactera rapidement.
+L’équipe <b>CIZA GROUP</b> vous contactera rapidement.
 </p>
 </div>
 
@@ -246,12 +245,23 @@ function selectPack(pack,price){
 function closeForm(){
   document.getElementById("formBox").style.display="none";
 }
-function showSuccess(){
-  setTimeout(()=>{
+
+function handleMarketSubmit(e){
+  e.preventDefault();
+  const form = e.target;
+
+  fetch(form.action, {
+    method: "POST",
+    body: new FormData(form),
+    headers: { "Accept": "application/json" }
+  }).then(() => {
     document.getElementById("formBox").style.display="none";
     document.getElementById("success").style.display="block";
-  },500);
+    window.scrollTo({top:0,behavior:'smooth'});
+    form.reset();
+  });
 }
+
 window.addEventListener("scroll",()=>{
   document.getElementById("toTop").style.display =
     window.scrollY>300 ? "flex" : "none";
