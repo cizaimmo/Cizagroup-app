@@ -3,64 +3,59 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CizaJobs+ — CIZA GROUP</title>
+<title>CizaJobs+ — Talents & Entreprises</title>
 <link rel="icon" href="logotransparent.png">
 
 <style>
 :root{
   --bg:#06142E;
-  --card:#0B1E3A;
   --gold:#F2B840;
-  --text:#ffffff;
-  --muted:#cbd5e1;
+  --glass:rgba(255,255,255,.08);
+  --border:rgba(255,255,255,.15);
+  --txt:#fff;
 }
-*{box-sizing:border-box;font-family:system-ui,-apple-system,Segoe UI,Roboto;}
 body{
   margin:0;
-  background:linear-gradient(180deg,#06142E,#040B18);
-  color:var(--text);
+  font-family:Arial,sans-serif;
+  background:var(--bg);
+  color:var(--txt);
 }
 header{
-  position:sticky;top:0;
-  background:#071830;
+  position:sticky;top:0;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
   padding:14px 18px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  border-bottom:1px solid rgba(242,184,64,.3);
+  background:var(--glass);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--gold);
 }
-header .back{color:var(--gold);cursor:pointer}
-header img{height:34px}
-.container{max-width:720px;margin:auto;padding:22px}
-h1{color:var(--gold);font-size:32px;margin:10px 0}
-.subtitle{opacity:.85;margin-bottom:25px}
+header img{width:46px}
+header button{
+  background:none;border:none;color:var(--gold);
+  font-size:18px;cursor:pointer;
+}
+.container{max-width:1000px;margin:auto;padding:25px}
+h1,h2,h3{color:var(--gold)}
 .card{
-  background:rgba(255,255,255,.06);
-  border:1px solid rgba(242,184,64,.25);
+  background:var(--glass);
+  border:1px solid var(--border);
   border-radius:18px;
-  padding:20px;
-  margin-bottom:20px;
-  position:relative;
+  padding:22px;
+  margin-bottom:22px;
 }
-.card h2{color:var(--gold)}
-.btn{
-  width:100%;padding:14px;margin-top:10px;
-  border:none;border-radius:14px;
-  font-size:16px;cursor:pointer;
-  background:var(--gold);color:#06142E;font-weight:600;
+.reserve-btn{
+  margin-top:15px;width:100%;padding:14px;
+  border:none;border-radius:12px;
+  background:var(--gold);color:#06142E;
+  font-weight:bold;cursor:pointer;
 }
-.btn.secondary{background:#1e293b;color:white}
-input{
-  width:100%;padding:12px;margin:8px 0 14px;
-  border-radius:10px;border:1px solid rgba(255,255,255,.2);
-  background:#020617;color:white;
-}
-label{font-size:14px;color:var(--muted)}
-.checkbox{font-size:14px}
-.hidden{display:none}
-.close{
-  position:absolute;top:14px;right:16px;
+.form-box{display:none;margin-top:30px;position:relative}
+.close-form{
+  position:absolute;top:12px;right:15px;
   font-size:22px;cursor:pointer;color:var(--gold);
+}
+input,textarea{
+  width:100%;margin-top:12px;padding:12px;
+  border-radius:10px;border:none;
 }
 #success{
   display:none;
@@ -70,13 +65,16 @@ label{font-size:14px;color:var(--muted)}
   padding:25px;
   text-align:center;
 }
-footer{text-align:center;padding:25px;font-size:13px;opacity:.85}
-#topBtn{
+footer{
+  margin-top:50px;padding:25px;
+  text-align:center;font-size:14px;opacity:.85;
+}
+#toTop{
   position:fixed;bottom:20px;right:20px;
-  width:46px;height:46px;border-radius:50%;
+  width:45px;height:45px;border-radius:50%;
   background:var(--gold);color:#06142E;
-  font-size:22px;display:none;
-  align-items:center;justify-content:center;cursor:pointer;
+  display:none;justify-content:center;align-items:center;
+  cursor:pointer;font-size:22px;
 }
 </style>
 </head>
@@ -84,122 +82,118 @@ footer{text-align:center;padding:25px;font-size:13px;opacity:.85}
 <body>
 
 <header>
-  <div class="back" onclick="history.back()">← Retour</div>
+  <button onclick="history.back()">← Retour</button>
   <img src="logotransparent.png">
-  <div>FR / EN</div>
+  <button onclick="location.reload()">⟳</button>
 </header>
 
 <div class="container">
+
 <h1>CizaJobs+ 💼</h1>
-<p class="subtitle">Former, structurer et connecter les talents aux entreprises.</p>
+<p>Former, structurer et connecter les talents aux entreprises.</p>
 
-<button class="btn" onclick="openForm('candidat')">👤 Je suis Candidat</button>
-<button class="btn secondary" onclick="openForm('entreprise')">🏢 Je suis une Entreprise</button>
-
-<div id="candidat" class="card hidden">
-<div class="close" onclick="closeForms()">✕</div>
-<h2>Formulaire Candidat</h2>
-<form id="candidatForm">
-<label>Nom complet</label>
-<input required name="nom">
-<label>Email</label>
-<input type="email" required name="email">
-<label>Profil / Métier</label>
-<input required name="profil">
-<label class="checkbox"><input type="checkbox" required> J’accepte l’analyse</label>
-<button class="btn">Envoyer</button>
-</form>
+<div class="card">
+<h3>📌 Comment ça marche</h3>
+<ol>
+<li>Dépôt du dossier</li>
+<li>Analyse par CIZA GROUP</li>
+<li>Sélection & structuration</li>
+<li>Mise en relation ciblée</li>
+</ol>
 </div>
 
-<div id="entreprise" class="card hidden">
-<div class="close" onclick="closeForms()">✕</div>
-<h2>Entreprise Partenaire</h2>
-<form id="entrepriseForm">
-<label>Entreprise</label>
-<input required name="entreprise">
-<label>Email</label>
-<input type="email" required name="email">
-<label>Secteur</label>
-<input required name="secteur">
-<label class="checkbox"><input type="checkbox" required> Compris</label>
-<button class="btn">Envoyer</button>
+<div class="card">
+<h3>⭐ Pourquoi CizaJobs+</h3>
+<ul>
+<li>Processus professionnel</li>
+<li>Sélection humaine</li>
+<li>Talents fiables</li>
+<li>Vision long terme</li>
+</ul>
+</div>
+
+<div class="card">
+<button class="reserve-btn" onclick="openForm('Candidat')">👤 Je suis Candidat</button>
+<button class="reserve-btn" onclick="openForm('Entreprise')">🏢 Je suis une Entreprise</button>
+</div>
+
+<div class="card form-box" id="formBox">
+<div class="close-form" onclick="closeForm()">✕</div>
+
+<h2>📋 Soumission CizaJobs+</h2>
+
+<form id="jobForm">
+<input type="hidden" name="_captcha" value="false">
+<input type="hidden" name="_subject" value="Nouvelle demande CizaJobs+">
+<input type="hidden" name="Numéro de dossier" id="dossierField">
+<input type="hidden" name="Type" id="roleField">
+
+<input type="text" name="Nom & Prénom" required placeholder="Nom et prénom">
+<input type="email" name="Email" required placeholder="Email">
+<input type="tel" name="Téléphone" required placeholder="Téléphone">
+<input type="text" name="Profil / Domaine" placeholder="Métier ou secteur">
+
+<textarea name="Message" placeholder="Présentation ou besoins"></textarea>
+
+<button class="reserve-btn" type="submit">Envoyer la demande</button>
 </form>
 </div>
 
 <div id="success">
 <h3>Merci 🙏</h3>
-<p>Votre demande a été enregistrée.<br>
-Numéro de dossier généré automatiquement.</p>
+<p id="successText"></p>
 </div>
+
 </div>
 
 <footer>
-CIZA GROUP — Burundi & Canada © 2026
+© 2026 CIZA GROUP<br>
+infos@cizagroup.com<br>
+WhatsApp : +1 514 502 9503
 </footer>
 
-<div id="topBtn" onclick="scrollTo({top:0,behavior:'smooth'})">↑</div>
+<div id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
 
-<!-- 🔥 FIREBASE -->
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, addDoc, collection, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "TA_API_KEY",
-  authDomain: "TON_PROJET.firebaseapp.com",
-  projectId: "TON_PROJET"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-function dossier(){
-  return "CJ-" + Date.now();
+<script>
+function generateDossier(){
+  const year = new Date().getFullYear();
+  const rnd = Math.floor(100000 + Math.random()*900000);
+  return "CJ-" + year + "-" + rnd;
 }
 
-document.getElementById("candidatForm").onsubmit = async e=>{
-  e.preventDefault();
-  const f = e.target;
-  await addDoc(collection(db,"candidats"),{
-    nom:f.nom.value,
-    email:f.email.value,
-    profil:f.profil.value,
-    dossier:dossier(),
-    date:serverTimestamp()
-  });
-  done();
-};
-
-document.getElementById("entrepriseForm").onsubmit = async e=>{
-  e.preventDefault();
-  const f = e.target;
-  await addDoc(collection(db,"entreprises"),{
-    entreprise:f.entreprise.value,
-    email:f.email.value,
-    secteur:f.secteur.value,
-    dossier:dossier(),
-    date:serverTimestamp()
-  });
-  done();
-};
-
-function done(){
-  closeForms();
-  document.getElementById("success").style.display="block";
-  scrollTo({top:0,behavior:'smooth'});
+function openForm(role){
+  document.getElementById("formBox").style.display="block";
+  document.getElementById("roleField").value = role;
+  window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"});
 }
 
-window.openForm=id=>{
-  closeForms();
-  document.getElementById(id).classList.remove("hidden");
-};
-window.closeForms=()=>{
-  document.getElementById("candidat").classList.add("hidden");
-  document.getElementById("entreprise").classList.add("hidden");
-};
+function closeForm(){
+  document.getElementById("formBox").style.display="none";
+}
+
+document.getElementById("jobForm").addEventListener("submit",function(e){
+  e.preventDefault();
+
+  const dossier = generateDossier();
+  document.getElementById("dossierField").value = dossier;
+
+  fetch("https://formsubmit.co/infos@cizagroup.com",{
+    method:"POST",
+    body:new FormData(this)
+  }).then(()=>{
+    document.getElementById("formBox").style.display="none";
+    document.getElementById("success").style.display="block";
+    document.getElementById("successText").innerHTML =
+      "Votre dossier a été enregistré.<br><br><b>Numéro de dossier :</b><br>" +
+      "<span style='color:#F2B840;font-size:20px'>" + dossier + "</span><br><br>" +
+      "Conservez ce numéro pour tout suivi.";
+    window.scrollTo({top:0,behavior:"smooth"});
+    this.reset();
+  });
+});
 
 window.addEventListener("scroll",()=>{
-  document.getElementById("topBtn").style.display =
+  document.getElementById("toTop").style.display =
     window.scrollY>300 ? "flex":"none";
 });
 </script>
