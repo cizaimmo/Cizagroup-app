@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CIZA GROUP — Mentions légales</title>
+<link rel="icon" href="logotransparent.png">
+<style>
+body{margin:0;font-family:Arial,sans-serif;background:#06142E;color:#fff}
+header{display:flex;justify-content:space-between;align-items:center;padding:15px;background:rgba(255,255,255,.08);backdrop-filter:blur(12px);border-bottom:1px solid #F2B840}
+button{background:none;border:none;color:#F2B840;font-size:18px;cursor:pointer}
+.container{max-width:900px;margin:auto;padding:25px}
+h1,h2{color:#F2B840}
+footer{text-align:center;padding:25px;font-size:14px;opacity:.85}
+</style>
+</head>
+
+<body>
+<header>
+<button onclick="history.back()">←</button>
+<img src="logotransparent.png" height="40">
+<button id="lang">EN</button>
+</header>
+
+<div class="container">
+<h1 id="t1">Mentions légales</h1>
+
+<p id="c1">
+CIZA GROUP est une plateforme de services multisectoriels opérant au Burundi,
+en Afrique de l’Est et à l’international.
+</p>
+
+<h2 id="t2">Éditeur</h2>
+<p id="c2">
+CIZA GROUP<br>
+Email : infos@cizagroup.com<br>
+International : +1 514 502 9503<br>
+Burundi / East Africa : +257 79 94 50 • +257 79 64 48 93
+</p>
+
+<h2 id="t3">Responsabilité</h2>
+<p id="c3">
+Les services sont déclenchés après validation humaine.
+CIZA GROUP ne garantit aucun service automatisé sans confirmation officielle.
+</p>
+</div>
+
+<footer>
+© 2026 CIZA GROUP — Design signed by CIZA GROUP
+</footer>
+
+<script>
+let fr=true;
+const T={
+fr:{
+t1:"Mentions légales",
+c1:"CIZA GROUP est une plateforme de services multisectoriels opérant au Burundi, en Afrique de l’Est et à l’international.",
+t2:"Éditeur",
+c2:"CIZA GROUP<br>Email : infos@cizagroup.com<br>International : +1 514 502 9503<br>Burundi / East Africa : +257 79 94 50 • +257 79 64 48 93",
+t3:"Responsabilité",
+c3:"Les services sont déclenchés après validation humaine. CIZA GROUP ne garantit aucun service automatisé sans confirmation officielle."
+},
+en:{
+t1:"Legal notice",
+c1:"CIZA GROUP is a multi-service platform operating in Burundi, East Africa and internationally.",
+t2:"Publisher",
+c2:"CIZA GROUP<br>Email: infos@cizagroup.com<br>International: +1 514 502 9503<br>Burundi / East Africa: +257 79 94 50 • +257 79 64 48 93",
+t3:"Liability",
+c3:"Services are activated after human validation. CIZA GROUP does not provide automated services without confirmation."
+}};
+document.getElementById("lang").onclick=()=>{
+fr=!fr;
+for(let k in T.fr){
+document.getElementById(k).innerHTML=T[fr?"fr":"en"][k];
+}
+document.getElementById("lang").textContent=fr?"EN":"FR";
+};
+</script>
+</body>
+</html>
