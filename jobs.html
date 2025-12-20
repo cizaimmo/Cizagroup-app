@@ -5,8 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CizaJobs+ — CIZA GROUP</title>
 <link rel="icon" href="logotransparent.png">
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#06142E">
 
 <style>
 :root{
@@ -22,7 +20,6 @@ body{
   background:linear-gradient(180deg,#06142E,#040B18);
   color:var(--text);
 }
-a{color:var(--gold);text-decoration:none}
 header{
   position:sticky;top:0;
   background:#071830;
@@ -46,6 +43,7 @@ h1{color:var(--gold);font-size:32px;margin:10px 0}
   border-radius:18px;
   padding:20px;
   margin-bottom:20px;
+  position:relative;
 }
 .card h2{color:var(--gold);margin-top:0}
 
@@ -61,12 +59,9 @@ h1{color:var(--gold);font-size:32px;margin:10px 0}
   color:#06142E;
   font-weight:600;
 }
-.btn.secondary{
-  background:#1e293b;
-  color:white;
-}
+.btn.secondary{background:#1e293b;color:white}
 
-input,textarea{
+input{
   width:100%;
   padding:12px;
   margin:8px 0 14px;
@@ -79,28 +74,32 @@ label{font-size:14px;color:var(--muted)}
 .checkbox{font-size:14px;line-height:1.6}
 .hidden{display:none}
 
-footer{
-  text-align:center;
-  padding:25px;
-  font-size:13px;
-  opacity:.85;
+.close{
+  position:absolute;
+  top:14px;
+  right:16px;
+  font-size:22px;
+  cursor:pointer;
+  color:var(--gold);
 }
-footer a{display:block;margin-top:6px}
+
+#success{
+  display:none;
+  background:#0b1c34;
+  border:1px solid var(--gold);
+  border-radius:18px;
+  padding:25px;
+  text-align:center;
+}
+
+footer{text-align:center;padding:25px;font-size:13px;opacity:.85}
 
 #topBtn{
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  width:46px;
-  height:46px;
-  border-radius:50%;
-  background:var(--gold);
-  color:#06142E;
-  font-size:22px;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
+  position:fixed;bottom:20px;right:20px;
+  width:46px;height:46px;border-radius:50%;
+  background:var(--gold);color:#06142E;
+  font-size:22px;display:none;
+  align-items:center;justify-content:center;cursor:pointer;
 }
 </style>
 </head>
@@ -109,7 +108,7 @@ footer a{display:block;margin-top:6px}
 
 <header>
   <div class="back" onclick="history.back()">← Retour</div>
-  <img src="logotransparent.png" alt="CIZA">
+  <img src="logotransparent.png">
   <div>FR / EN</div>
 </header>
 
@@ -118,51 +117,47 @@ footer a{display:block;margin-top:6px}
 <h1>CizaJobs+ 💼</h1>
 <p class="subtitle">Former, structurer et connecter les talents aux entreprises.</p>
 
-<!-- 🔹 COMMENT ÇA MARCHE -->
 <div class="card">
-  <h2>📌 Comment ça marche</h2>
-  <ol>
-    <li>Dépôt du CV et profil</li>
-    <li>Analyse et structuration par CIZA</li>
-    <li>Accès entreprises partenaires</li>
-    <li>Mise en relation directe</li>
-  </ol>
+<h2>📌 Comment ça marche</h2>
+<ol>
+<li>Dépôt du CV et profil</li>
+<li>Analyse et structuration par CIZA</li>
+<li>Accès entreprises partenaires</li>
+<li>Mise en relation directe</li>
+</ol>
 </div>
 
-<!-- 🔹 POURQUOI CIZAJOBS+ -->
 <div class="card">
-  <h2>⭐ Pourquoi CizaJobs+</h2>
-  <ul>
-    <li>Talents qualifiés</li>
-    <li>Gain de temps RH</li>
-    <li>Local & international</li>
-    <li>Approche humaine</li>
-  </ul>
+<h2>⭐ Pourquoi CizaJobs+</h2>
+<ul>
+<li>Talents qualifiés</li>
+<li>Gain de temps RH</li>
+<li>Local & international</li>
+<li>Approche humaine</li>
+</ul>
 </div>
 
-<!-- BOUTONS -->
-<button class="btn" onclick="showForm('candidat')">👤 Je suis Candidat</button>
-<button class="btn secondary" onclick="showForm('entreprise')">🏢 Je suis une Entreprise</button>
+<button class="btn" onclick="openForm('candidat')">👤 Je suis Candidat</button>
+<button class="btn secondary" onclick="openForm('entreprise')">🏢 Je suis une Entreprise</button>
 
 <!-- FORM CANDIDAT -->
 <div id="candidat" class="card hidden">
+<div class="close" onclick="closeForms()">✕</div>
 <h2>Formulaire Candidat</h2>
-<form action="https://formsubmit.co/infos@cizagroup.com" method="POST">
-<input type="hidden" name="_captcha" value="false">
-<input type="hidden" name="_subject" value="Nouveau Candidat — CizaJobs+">
 
+<form id="candidatForm">
 <label>Nom complet</label>
-<input required name="Nom">
+<input name="Nom" required>
 
 <label>Email</label>
-<input type="email" required name="Email">
+<input type="email" name="Email" required>
 
 <label>Profil / Métier</label>
-<input required name="Profil">
+<input name="Profil" required>
 
 <label class="checkbox">
 <input type="checkbox" required>
-J’accepte l’analyse et la transmission de mon profil à des entreprises partenaires.
+J’accepte l’analyse et la transmission de mon profil.
 </label>
 
 <button class="btn">Envoyer</button>
@@ -171,27 +166,34 @@ J’accepte l’analyse et la transmission de mon profil à des entreprises part
 
 <!-- FORM ENTREPRISE -->
 <div id="entreprise" class="card hidden">
+<div class="close" onclick="closeForms()">✕</div>
 <h2>Entreprise Partenaire</h2>
-<form action="https://formsubmit.co/infos@cizagroup.com" method="POST">
-<input type="hidden" name="_captcha" value="false">
-<input type="hidden" name="_subject" value="Entreprise Partenaire — CizaJobs+">
 
+<form id="entrepriseForm">
 <label>Nom de l’entreprise</label>
-<input required name="Entreprise">
+<input name="Entreprise" required>
 
 <label>Email professionnel</label>
-<input type="email" required name="Email">
+<input type="email" name="Email" required>
 
 <label>Secteur</label>
-<input required name="Secteur">
+<input name="Secteur" required>
 
 <label class="checkbox">
 <input type="checkbox" required>
-Je comprends que CIZA GROUP n’est pas l’employeur.
+CIZA GROUP n’est pas l’employeur.
 </label>
 
 <button class="btn">Envoyer</button>
 </form>
+</div>
+
+<div id="success">
+<h3>Merci 🙏</h3>
+<p>
+Votre demande a bien été envoyée.<br>
+L’équipe CIZA GROUP vous contactera.
+</p>
 </div>
 
 </div>
@@ -199,21 +201,77 @@ Je comprends que CIZA GROUP n’est pas l’employeur.
 <footer>
 <b>CIZA GROUP</b><br>
 Burundi : +257 79 64 48 93 / +257 79 94 50 07<br>
-Canada : +1 514 502 9503<br><br>
-<a href="legal.html">Mentions légales</a>
-<a href="cgu.html">Conditions d’utilisation</a>
-<a href="privacy.html">Confidentialité</a><br><br>
-Sign & Designed by <b>Ciza Group</b> © 2026
+Canada : +1 514 502 9503<br>
+Sign & Designed by Ciza Group © 2026
 </footer>
 
-<div id="topBtn" onclick="scrollTo({top:0,behavior:'smooth'})">↑</div>
+<div id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+
+<!-- 🔥 FIREBASE -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "TA_API_KEY",
+  authDomain: "TON_PROJET.firebaseapp.com",
+  projectId: "TON_PROJET",
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// Utils
+function generateId(prefix){
+  return prefix + "-" + new Date().getFullYear() + "-" + Math.floor(100000 + Math.random()*900000);
+}
+
+// CANDIDAT
+document.getElementById("candidatForm").addEventListener("submit", async (e)=>{
+  e.preventDefault();
+  const f = e.target;
+
+  await addDoc(collection(db,"candidates"),{
+    dossier: generateId("CJ"),
+    nom: f.Nom.value,
+    email: f.Email.value,
+    profil: f.Profil.value,
+    status: "reçu",
+    createdAt: new Date()
+  });
+
+  closeForms();
+  document.getElementById("success").style.display="block";
+  f.reset();
+});
+
+// ENTREPRISE
+document.getElementById("entrepriseForm").addEventListener("submit", async (e)=>{
+  e.preventDefault();
+  const f = e.target;
+
+  await addDoc(collection(db,"companies"),{
+    entreprise: f.Entreprise.value,
+    email: f.Email.value,
+    secteur: f.Secteur.value,
+    createdAt: new Date()
+  });
+
+  closeForms();
+  document.getElementById("success").style.display="block";
+  f.reset();
+});
+</script>
 
 <script>
-function showForm(id){
-  document.getElementById('candidat').classList.add('hidden');
-  document.getElementById('entreprise').classList.add('hidden');
-  document.getElementById(id).classList.remove('hidden');
+function openForm(id){
+  closeForms();
+  document.getElementById(id).classList.remove("hidden");
   window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
+}
+function closeForms(){
+  document.getElementById("candidat").classList.add("hidden");
+  document.getElementById("entreprise").classList.add("hidden");
 }
 window.addEventListener("scroll",()=>{
   document.getElementById("topBtn").style.display =
