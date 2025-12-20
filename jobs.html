@@ -31,12 +31,9 @@ header{
 }
 header .back{color:var(--gold);cursor:pointer}
 header img{height:34px}
-
 .container{max-width:720px;margin:auto;padding:22px}
-
 h1{color:var(--gold);font-size:32px;margin:10px 0}
 .subtitle{opacity:.85;margin-bottom:25px}
-
 .card{
   background:rgba(255,255,255,.06);
   border:1px solid rgba(242,184,64,.25);
@@ -45,44 +42,26 @@ h1{color:var(--gold);font-size:32px;margin:10px 0}
   margin-bottom:20px;
   position:relative;
 }
-.card h2{color:var(--gold);margin-top:0}
-
+.card h2{color:var(--gold)}
 .btn{
-  width:100%;
-  padding:14px;
-  margin-top:10px;
-  border:none;
-  border-radius:14px;
-  font-size:16px;
-  cursor:pointer;
-  background:var(--gold);
-  color:#06142E;
-  font-weight:600;
+  width:100%;padding:14px;margin-top:10px;
+  border:none;border-radius:14px;
+  font-size:16px;cursor:pointer;
+  background:var(--gold);color:#06142E;font-weight:600;
 }
 .btn.secondary{background:#1e293b;color:white}
-
 input{
-  width:100%;
-  padding:12px;
-  margin:8px 0 14px;
-  border-radius:10px;
-  border:1px solid rgba(255,255,255,.2);
-  background:#020617;
-  color:white;
+  width:100%;padding:12px;margin:8px 0 14px;
+  border-radius:10px;border:1px solid rgba(255,255,255,.2);
+  background:#020617;color:white;
 }
 label{font-size:14px;color:var(--muted)}
-.checkbox{font-size:14px;line-height:1.6}
+.checkbox{font-size:14px}
 .hidden{display:none}
-
 .close{
-  position:absolute;
-  top:14px;
-  right:16px;
-  font-size:22px;
-  cursor:pointer;
-  color:var(--gold);
+  position:absolute;top:14px;right:16px;
+  font-size:22px;cursor:pointer;color:var(--gold);
 }
-
 #success{
   display:none;
   background:#0b1c34;
@@ -91,9 +70,7 @@ label{font-size:14px;color:var(--muted)}
   padding:25px;
   text-align:center;
 }
-
 footer{text-align:center;padding:25px;font-size:13px;opacity:.85}
-
 #topBtn{
   position:fixed;bottom:20px;right:20px;
   width:46px;height:46px;border-radius:50%;
@@ -113,166 +90,114 @@ footer{text-align:center;padding:25px;font-size:13px;opacity:.85}
 </header>
 
 <div class="container">
-
 <h1>CizaJobs+ 💼</h1>
 <p class="subtitle">Former, structurer et connecter les talents aux entreprises.</p>
-
-<div class="card">
-<h2>📌 Comment ça marche</h2>
-<ol>
-<li>Dépôt du CV et profil</li>
-<li>Analyse et structuration par CIZA</li>
-<li>Accès entreprises partenaires</li>
-<li>Mise en relation directe</li>
-</ol>
-</div>
-
-<div class="card">
-<h2>⭐ Pourquoi CizaJobs+</h2>
-<ul>
-<li>Talents qualifiés</li>
-<li>Gain de temps RH</li>
-<li>Local & international</li>
-<li>Approche humaine</li>
-</ul>
-</div>
 
 <button class="btn" onclick="openForm('candidat')">👤 Je suis Candidat</button>
 <button class="btn secondary" onclick="openForm('entreprise')">🏢 Je suis une Entreprise</button>
 
-<!-- FORM CANDIDAT -->
 <div id="candidat" class="card hidden">
 <div class="close" onclick="closeForms()">✕</div>
 <h2>Formulaire Candidat</h2>
-
 <form id="candidatForm">
 <label>Nom complet</label>
-<input name="Nom" required>
-
+<input required name="nom">
 <label>Email</label>
-<input type="email" name="Email" required>
-
+<input type="email" required name="email">
 <label>Profil / Métier</label>
-<input name="Profil" required>
-
-<label class="checkbox">
-<input type="checkbox" required>
-J’accepte l’analyse et la transmission de mon profil.
-</label>
-
+<input required name="profil">
+<label class="checkbox"><input type="checkbox" required> J’accepte l’analyse</label>
 <button class="btn">Envoyer</button>
 </form>
 </div>
 
-<!-- FORM ENTREPRISE -->
 <div id="entreprise" class="card hidden">
 <div class="close" onclick="closeForms()">✕</div>
 <h2>Entreprise Partenaire</h2>
-
 <form id="entrepriseForm">
-<label>Nom de l’entreprise</label>
-<input name="Entreprise" required>
-
-<label>Email professionnel</label>
-<input type="email" name="Email" required>
-
+<label>Entreprise</label>
+<input required name="entreprise">
+<label>Email</label>
+<input type="email" required name="email">
 <label>Secteur</label>
-<input name="Secteur" required>
-
-<label class="checkbox">
-<input type="checkbox" required>
-CIZA GROUP n’est pas l’employeur.
-</label>
-
+<input required name="secteur">
+<label class="checkbox"><input type="checkbox" required> Compris</label>
 <button class="btn">Envoyer</button>
 </form>
 </div>
 
 <div id="success">
 <h3>Merci 🙏</h3>
-<p>
-Votre demande a bien été envoyée.<br>
-L’équipe CIZA GROUP vous contactera.
-</p>
+<p>Votre demande a été enregistrée.<br>
+Numéro de dossier généré automatiquement.</p>
 </div>
-
 </div>
 
 <footer>
-<b>CIZA GROUP</b><br>
-Burundi : +257 79 64 48 93 / +257 79 94 50 07<br>
-Canada : +1 514 502 9503<br>
-Sign & Designed by Ciza Group © 2026
+CIZA GROUP — Burundi & Canada © 2026
 </footer>
 
-<div id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+<div id="topBtn" onclick="scrollTo({top:0,behavior:'smooth'})">↑</div>
 
 <!-- 🔥 FIREBASE -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getFirestore, addDoc, collection, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "TA_API_KEY",
   authDomain: "TON_PROJET.firebaseapp.com",
-  projectId: "TON_PROJET",
+  projectId: "TON_PROJET"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Utils
-function generateId(prefix){
-  return prefix + "-" + new Date().getFullYear() + "-" + Math.floor(100000 + Math.random()*900000);
+function dossier(){
+  return "CJ-" + Date.now();
 }
 
-// CANDIDAT
-document.getElementById("candidatForm").addEventListener("submit", async (e)=>{
+document.getElementById("candidatForm").onsubmit = async e=>{
   e.preventDefault();
   const f = e.target;
-
-  await addDoc(collection(db,"candidates"),{
-    dossier: generateId("CJ"),
-    nom: f.Nom.value,
-    email: f.Email.value,
-    profil: f.Profil.value,
-    status: "reçu",
-    createdAt: new Date()
+  await addDoc(collection(db,"candidats"),{
+    nom:f.nom.value,
+    email:f.email.value,
+    profil:f.profil.value,
+    dossier:dossier(),
+    date:serverTimestamp()
   });
+  done();
+};
 
-  closeForms();
-  document.getElementById("success").style.display="block";
-  f.reset();
-});
-
-// ENTREPRISE
-document.getElementById("entrepriseForm").addEventListener("submit", async (e)=>{
+document.getElementById("entrepriseForm").onsubmit = async e=>{
   e.preventDefault();
   const f = e.target;
-
-  await addDoc(collection(db,"companies"),{
-    entreprise: f.Entreprise.value,
-    email: f.Email.value,
-    secteur: f.Secteur.value,
-    createdAt: new Date()
+  await addDoc(collection(db,"entreprises"),{
+    entreprise:f.entreprise.value,
+    email:f.email.value,
+    secteur:f.secteur.value,
+    dossier:dossier(),
+    date:serverTimestamp()
   });
+  done();
+};
 
+function done(){
   closeForms();
   document.getElementById("success").style.display="block";
-  f.reset();
-});
-</script>
+  scrollTo({top:0,behavior:'smooth'});
+}
 
-<script>
-function openForm(id){
+window.openForm=id=>{
   closeForms();
   document.getElementById(id).classList.remove("hidden");
-  window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
-}
-function closeForms(){
+};
+window.closeForms=()=>{
   document.getElementById("candidat").classList.add("hidden");
   document.getElementById("entreprise").classList.add("hidden");
-}
+};
+
 window.addEventListener("scroll",()=>{
   document.getElementById("topBtn").style.display =
     window.scrollY>300 ? "flex":"none";
