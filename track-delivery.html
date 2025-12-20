@@ -3,89 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Suivi Livraison — CizaDelivery+</title>
-<link rel="icon" href="logotransparent.png">
+<title>Suivi de colis — CizaDelivery+</title>
 
 <style>
-:root{
-  --bg:#06142E;
-  --gold:#F2B840;
-  --glass:rgba(255,255,255,.08);
-  --border:rgba(255,255,255,.15);
-  --txt:#fff;
-}
 body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:var(--bg);
-  color:var(--txt);
+ margin:0;font-family:Arial;background:#06142E;color:white;text-align:center
 }
-
-/* HEADER */
 header{
-  position:sticky;
-  top:0;
-  z-index:10;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:14px 18px;
-  background:var(--glass);
-  backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--gold);
+ padding:18px;border-bottom:1px solid #F2B840;
+ display:flex;justify-content:space-between;align-items:center
 }
 header img{width:46px}
-header button{
-  background:none;
-  border:none;
-  color:var(--gold);
-  font-size:18px;
-  cursor:pointer;
-}
-
-/* HERO IMAGE */
 .hero{
-  width:100%;
-  height:220px;
-  background:
-    linear-gradient(rgba(6,20,46,.75),rgba(6,20,46,.85)),
-    url("D2307CF2-A56B-4D64-8396-D1E75C110DFD.png") center/cover no-repeat;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
+ padding:40px 20px
 }
-.hero h1{
-  color:var(--gold);
-  font-size:28px;
+.hero img{
+ width:100%;max-width:420px;border-radius:18px;margin-bottom:20px
 }
-
-/* CONTENT */
-.container{
-  max-width:850px;
-  margin:auto;
-  padding:30px 22px;
+.box{
+ background:rgba(255,255,255,.08);
+ margin:20px;padding:22px;border-radius:18px
 }
-.card{
-  background:var(--glass);
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:26px;
-  text-align:center;
-}
-
-/* FOOTER */
-footer{
-  text-align:center;
-  padding:25px;
-  font-size:14px;
-  opacity:.85;
-}
-footer a{
-  color:var(--gold);
-  text-decoration:none;
-  display:block;
-  margin-top:6px;
+.gold{color:#F2B840}
+.btn{
+ background:#F2B840;color:#06142E;
+ padding:14px;border:none;border-radius:12px;
+ width:100%;font-weight:bold
 }
 </style>
 </head>
@@ -93,54 +36,38 @@ footer a{
 <body>
 
 <header>
-  <button onclick="history.back()">← Retour</button>
-  <img src="logotransparent.png" alt="CIZA">
-  <div></div>
+<button onclick="history.back()">← Retour</button>
+<img src="logotransparent.png">
 </header>
 
-<!-- HERO -->
 <div class="hero">
-  <h1>Suivi de votre livraison</h1>
+<img src="D2307CF2-A56B-4D64-8396-D1E75C110DFD.png" alt="Ciza Logistique">
+<h2 class="gold">Suivi de votre colis</h2>
 </div>
 
-<div class="container">
+<div class="box">
+<p>
+Merci d’avoir choisi <b>Ciza Group</b> 🙏<br><br>
 
-<div class="card">
-  <h2>📦 Merci d’avoir choisi Ciza Group</h2>
+Le département <b>Logistique & Livraison</b> traite actuellement votre demande.<br>
+Une confirmation de prise en charge et de livraison vous sera envoyée.
+</p>
 
-  <p style="font-size:17px;line-height:1.6;margin-top:15px">
-    Le département <b>Logistique & Livraison</b> traite actuellement votre demande.<br><br>
-    Votre colis est bien enregistré dans notre système.
-  </p>
-
-  <p style="margin-top:18px">
-    <b>Numéro de suivi :</b><br>
-    <span id="track" style="color:var(--gold);font-size:22px"></span>
-  </p>
-
-  <p style="margin-top:20px;opacity:.9">
-    Une confirmation de livraison vous sera envoyée dès que le colis sera pris en charge.
-    Notre équipe peut vous contacter si nécessaire.
-  </p>
-
-  <p style="margin-top:25px">
-    📧 infos@cizagroup.com<br>
-    🇧🇮 Burundi : +257 79 64 48 93 / +257 79 94 50 07<br>
-    🇨🇦 Canada : +1 514 502 9503
-  </p>
+<p>
+<b>Numéro de suivi :</b><br>
+<span class="gold" id="track"></span>
+</p>
 </div>
 
+<div class="box">
+📧 infos@cizagroup.com<br><br>
+🇧🇮 Burundi : +257 79 64 48 93 / +257 79 94 50 07<br>
+🇨🇦 Canada : +1 514 502 9503
 </div>
-
-<footer>
-© 2026 CIZA GROUP — Département Logistique & Livraison<br>
-Design & Signature by <b>Ciza Group</b>
-</footer>
 
 <script>
-const params = new URLSearchParams(window.location.search);
 document.getElementById("track").textContent =
-  params.get("track") || "—";
+ localStorage.getItem("cizaTracking") || "—";
 </script>
 
 </body>
