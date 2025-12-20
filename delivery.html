@@ -21,12 +21,8 @@ body{
   color:var(--txt);
 }
 header{
-  position:sticky;
-  top:0;
-  z-index:1000;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
+  position:sticky;top:0;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
   padding:14px 18px;
   background:var(--glass);
   backdrop-filter:blur(12px);
@@ -34,17 +30,10 @@ header{
 }
 header img{width:48px}
 header button{
-  background:none;
-  border:none;
-  color:var(--gold);
-  font-size:18px;
-  cursor:pointer;
+  background:none;border:none;color:var(--gold);
+  font-size:18px;cursor:pointer;
 }
-.container{
-  max-width:1000px;
-  margin:auto;
-  padding:25px;
-}
+.container{max-width:1000px;margin:auto;padding:25px}
 h1,h2,h3{color:var(--gold)}
 .card{
   background:var(--glass);
@@ -53,73 +42,23 @@ h1,h2,h3{color:var(--gold)}
   padding:22px;
   margin-bottom:20px;
 }
-.price{
-  font-size:20px;
-  font-weight:bold;
-  margin-top:10px;
-}
 .btn{
-  margin-top:15px;
-  width:100%;
-  padding:14px;
-  border:none;
-  border-radius:12px;
-  background:var(--gold);
-  color:#06142E;
-  font-weight:bold;
-  cursor:pointer;
-}
-.btn.secondary{
-  background:#1e293b;
-  color:white;
+  margin-top:15px;width:100%;
+  padding:14px;border:none;border-radius:12px;
+  background:var(--gold);color:#06142E;
+  font-weight:bold;cursor:pointer;
 }
 .form-box{display:none;margin-top:30px}
 input,select,textarea{
-  width:100%;
-  margin-top:12px;
-  padding:12px;
-  border-radius:10px;
-  border:none;
+  width:100%;margin-top:12px;padding:12px;
+  border-radius:10px;border:none;
 }
-#trackBox{
-  display:none;
-  margin-top:30px;
-}
-.track-status{
-  background:#0b1c34;
-  border:1px solid var(--gold);
-  border-radius:14px;
-  padding:18px;
-  margin-top:15px;
-}
-.track-image{
-  width:100%;
-  border-radius:14px;
-  margin-bottom:15px;
-}
+#resultBox{display:none;margin-top:30px}
 footer{
-  margin-top:50px;
-  padding:25px;
-  text-align:center;
-  font-size:14px;
-  opacity:.85;
+  margin-top:50px;padding:25px;text-align:center;
+  font-size:14px;opacity:.85;
 }
 footer a{color:var(--gold);text-decoration:none;display:block;margin-top:6px}
-#toTop{
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  width:45px;
-  height:45px;
-  border-radius:50%;
-  background:var(--gold);
-  color:#06142E;
-  display:none;
-  justify-content:center;
-  align-items:center;
-  cursor:pointer;
-  font-size:22px;
-}
 </style>
 </head>
 
@@ -134,9 +73,8 @@ footer a{color:var(--gold);text-decoration:none;display:block;margin-top:6px}
 <div class="container">
 
 <h1>CizaDelivery+ 📦</h1>
-<p>Livraison sécurisée avec suivi par numéro unique.</p>
+<p>Livraison sécurisée et professionnelle.</p>
 
-<!-- SERVICE -->
 <div class="card">
   <h3>🚚 Livraison Standard</h3>
   <ul>
@@ -144,27 +82,24 @@ footer a{color:var(--gold);text-decoration:none;display:block;margin-top:6px}
     <li>Livraison intra-ville</li>
     <li>Numéro de suivi automatique</li>
   </ul>
-  <div class="price">À partir de 8 000 BIF</div>
-
+  <div style="font-weight:bold">À partir de 8 000 BIF</div>
   <button class="btn" onclick="openForm()">Commander une livraison</button>
-  <button class="btn secondary" onclick="openTracking()">📍 Suivre votre colis</button>
 </div>
 
 <!-- FORMULAIRE -->
 <div class="card form-box" id="formBox">
 <h2>📋 Informations de livraison</h2>
 
-<form
-  action="https://formsubmit.co/infos@cizagroup.com"
-  method="POST"
-  onsubmit="prepareSubmit(event)"
->
+<form action="https://formsubmit.co/infos@cizagroup.com"
+      method="POST"
+      onsubmit="handleSubmit(event)">
+
 <input type="hidden" name="_captcha" value="false">
 <input type="hidden" name="_subject" value="Nouvelle commande CizaDelivery+">
 <input type="hidden" name="Numéro de suivi" id="trackingField">
 <input type="hidden" name="_autoresponse" id="autoMsg">
 
-<input type="email" name="Email client" required placeholder="Email du client">
+<input type="email" name="email" required placeholder="Email du client">
 <input type="text" name="Nom complet" required placeholder="Nom et prénom">
 <input type="tel" name="Téléphone" required placeholder="Téléphone">
 
@@ -189,29 +124,22 @@ footer a{color:var(--gold);text-decoration:none;display:block;margin-top:6px}
 </form>
 </div>
 
-<!-- TRACKING -->
-<div class="card" id="trackBox">
-<h2>📍 Suivi de votre colis</h2>
-
-<img
-  src="https://github.com/cizaimmo/Cizagroup-app/raw/main/D2307CF2-A56B-4D64-8396-D1E75C110DFD.png"
-  class="track-image"
-  alt="CizaDelivery Tracking">
+<!-- RÉSULTAT CLIENT -->
+<div class="card" id="resultBox">
+<h2>✅ Commande enregistrée</h2>
 
 <p>
-<b>Numéro de suivi :</b>
-<span id="trackNumber" style="color:var(--gold)"></span>
+<b>Numéro de suivi :</b><br>
+<span id="trackingNumber" style="color:var(--gold);font-size:20px"></span>
 </p>
 
-<div class="track-status">
-✔️ Commande enregistrée<br>
-🚚 Chauffeur en attente<br>
-📦 Livraison en cours
-</div>
+<button class="btn"
+onclick="goTrack()">🔍 Suivre mon colis</button>
 
-<p style="margin-top:15px;font-size:14px;">
+<p style="margin-top:15px;font-size:14px">
 📧 infos@cizagroup.com<br>
-📱 WhatsApp : +1 514 502 9503
+📱 Burundi : +257 79 64 48 93 / +257 79 94 50 07<br>
+📱 Canada : +1 514 502 9503
 </p>
 </div>
 
@@ -223,12 +151,11 @@ footer a{color:var(--gold);text-decoration:none;display:block;margin-top:6px}
 <a href="mailto:infos@cizagroup.com">infos@cizagroup.com</a>
 </footer>
 
-<div id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
-
 <script>
+let lastTracking = "";
+
 function generateTracking(){
-  const d = new Date();
-  return "CDZ-" + d.getFullYear() + "-" +
+  return "CDZ-" + new Date().getFullYear() + "-" +
          Math.floor(100000 + Math.random()*900000);
 }
 
@@ -237,42 +164,35 @@ function openForm(){
   document.getElementById("formBox").scrollIntoView({behavior:"smooth"});
 }
 
-function openTracking(){
-  document.getElementById("trackBox").style.display="block";
-  document.getElementById("trackBox").scrollIntoView({behavior:"smooth"});
-}
-
-function prepareSubmit(e){
+function handleSubmit(e){
   e.preventDefault();
 
-  const tracking = generateTracking();
-  document.getElementById("trackingField").value = tracking;
-  document.getElementById("trackNumber").textContent = tracking;
+  lastTracking = generateTracking();
+  document.getElementById("trackingField").value = lastTracking;
+  document.getElementById("trackingNumber").textContent = lastTracking;
 
   document.getElementById("autoMsg").value =
-`Bonjour,
+`Merci d’avoir choisi CIZA GROUP.
 
-Merci pour votre commande CizaDelivery+.
+Votre demande de livraison est en cours de traitement.
 
-Numéro de suivi : ${tracking}
+Numéro de suivi : ${lastTracking}
 
-Conservez ce numéro pour suivre votre colis.
+Notre département logistique vous contactera.
 
-— CIZA GROUP
-infos@cizagroup.com
-WhatsApp : +1 514 502 9503`;
+CIZA GROUP
+infos@cizagroup.com`;
 
   e.target.submit();
 
   document.getElementById("formBox").style.display="none";
-  document.getElementById("trackBox").style.display="block";
-  document.getElementById("trackBox").scrollIntoView({behavior:"smooth"});
+  document.getElementById("resultBox").style.display="block";
+  document.getElementById("resultBox").scrollIntoView({behavior:"smooth"});
 }
 
-window.addEventListener("scroll",()=>{
-  document.getElementById("toTop").style.display =
-    window.scrollY>300 ? "flex" : "none";
-});
+function goTrack(){
+  window.location.href = "track-delivery.html?tracking=" + lastTracking;
+}
 </script>
 
 </body>
