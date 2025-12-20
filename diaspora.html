@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CIZA GROUP — Diaspora Services</title>
+<title>CIZA GROUP — Diaspora+</title>
 <link rel="icon" href="logotransparent.png">
 
 <style>
@@ -14,117 +14,113 @@
   --border:rgba(255,255,255,.15);
   --txt:#fff;
 }
+*{box-sizing:border-box}
 body{
   margin:0;
-  font-family:Arial, sans-serif;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,Arial;
   background:var(--bg);
   color:var(--txt);
 }
 
 /* HEADER */
 header{
-  position:sticky;
-  top:0;
-  z-index:1000;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:14px 18px;
+  position:sticky;top:0;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 16px;
   background:var(--glass);
-  backdrop-filter:blur(12px);
+  backdrop-filter:blur(14px);
   border-bottom:1px solid var(--gold);
 }
+header img{height:40px}
 header button{
-  background:none;
-  border:none;
-  color:var(--gold);
-  font-size:18px;
-  cursor:pointer;
+  background:none;border:none;color:var(--gold);
+  font-size:18px;cursor:pointer;
 }
-header img{height:42px}
-
-/* LANG */
 #langBtn{
-  position:fixed;
-  top:90px;
-  right:15px;
   background:var(--gold);
   color:#06142E;
-  padding:10px 14px;
-  border-radius:14px;
-  font-weight:bold;
-  cursor:pointer;
-  z-index:9999;
+  border-radius:20px;
+  padding:8px 14px;
+  font-weight:700;
 }
 
 /* HERO */
 .hero{
+  position:relative;
+  padding:90px 20px 70px;
   text-align:center;
-  padding:80px 20px 40px;
+  overflow:hidden;
 }
-.hero-logo{
-  width:140px;
-  height:140px;
+.hero::before{
+  content:"";
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,#051026,#0B1C34,#06142E);
+  z-index:-2;
+}
+.hero canvas{
+  position:absolute;inset:0;
+  z-index:-1;
+}
+.logo-float{
+  width:140px;height:140px;
   margin:auto;
-  background:url("logotransparent.png") center/contain no-repeat;
-  animation:float 5s ease-in-out infinite;
-  filter:drop-shadow(0 0 15px #F2B84080);
+  background:url('logotransparent.png') center/contain no-repeat;
+  animation:float 6s ease-in-out infinite;
+  filter:drop-shadow(0 0 18px #F2B84088);
 }
 @keyframes float{
   0%{transform:translateY(0)}
   50%{transform:translateY(-14px)}
   100%{transform:translateY(0)}
 }
-.hero h1{color:var(--gold);margin-top:20px}
+.hero h1{
+  margin:22px 0 10px;
+  color:var(--gold);
+  font-size:30px;
+}
+.hero p{opacity:.9;font-size:16px}
+.hero .cta{
+  margin-top:22px;
+  padding:14px 26px;
+  border:none;border-radius:14px;
+  background:var(--gold);
+  color:#06142E;
+  font-weight:800;
+}
 
-/* CONTENT */
-.container{
-  max-width:900px;
-  margin:auto;
-  padding:30px 20px;
+/* LAYOUT */
+.container{max-width:900px;margin:auto;padding:30px 20px}
+.section-title{
+  color:var(--gold);
+  font-size:24px;
+  margin:40px 0 18px;
 }
 .card{
   background:var(--glass);
   border:1px solid var(--border);
   border-radius:20px;
   padding:22px;
-  margin-bottom:22px;
+  margin-bottom:20px;
 }
-h2,h3{color:var(--gold)}
 
+/* LISTS */
+ul{padding-left:18px}
+li{margin-bottom:6px}
+
+/* FORM */
 input,select,textarea{
-  width:100%;
-  margin-top:12px;
-  padding:12px;
-  border-radius:10px;
-  border:none;
-  background:#0b1c34;
-  color:#fff;
+  width:100%;margin-top:12px;
+  padding:12px;border-radius:10px;
+  border:none;background:#0b1c34;color:#fff;
 }
 textarea{min-height:120px}
-
 .btn{
-  margin-top:16px;
-  width:100%;
-  padding:14px;
-  border:none;
+  margin-top:16px;width:100%;
+  padding:14px;border:none;
   border-radius:12px;
   background:var(--gold);
   color:#06142E;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-/* FAQ */
-.faq-q{
-  cursor:pointer;
-  font-weight:bold;
-  margin-top:10px;
-}
-.faq-a{
-  display:none;
-  opacity:.9;
-  margin-top:6px;
+  font-weight:800;
 }
 
 /* SUCCESS */
@@ -134,34 +130,37 @@ textarea{min-height:120px}
   background:#0b1c34;
   border:1px solid var(--gold);
   border-radius:20px;
-  padding:25px;
+  padding:26px;
 }
+
+/* FAQ */
+.faq-item{margin-bottom:14px}
+.faq-q{
+  font-weight:700;color:var(--gold);
+  cursor:pointer;
+}
+.faq-a{display:none;opacity:.9;margin-top:6px}
 
 /* FOOTER */
 footer{
-  margin-top:50px;
-  padding:25px;
+  margin-top:60px;
+  padding:30px 18px;
   text-align:center;
   font-size:14px;
-  opacity:.85;
+  opacity:.9;
 }
 footer span{display:block;margin-top:6px}
 
-/* SCROLL TOP */
+/* TOP BTN */
 #topBtn{
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  width:45px;
-  height:45px;
+  position:fixed;bottom:18px;right:18px;
+  width:46px;height:46px;
   border-radius:50%;
   background:var(--gold);
   color:#06142E;
   display:none;
-  align-items:center;
-  justify-content:center;
-  font-size:20px;
-  cursor:pointer;
+  align-items:center;justify-content:center;
+  font-size:20px;cursor:pointer;
 }
 </style>
 </head>
@@ -171,37 +170,44 @@ footer span{display:block;margin-top:6px}
 <header>
   <button onclick="history.back()">←</button>
   <img src="logotransparent.png">
-  <button onclick="location.reload()">⟳</button>
+  <button id="langBtn">EN</button>
 </header>
 
-<div id="langBtn">EN</div>
-
 <section class="hero">
-  <div class="hero-logo"></div>
-  <h1 id="title"></h1>
-  <p id="subtitle"></p>
+  <canvas id="particles"></canvas>
+  <div class="logo-float"></div>
+  <h1 id="t-hero-title">CIZA DIASPORA+</h1>
+  <p id="t-hero-sub">Services mondiaux pour la diaspora, exécution locale maîtrisée.</p>
+  <button class="cta" onclick="document.getElementById('form').scrollIntoView({behavior:'smooth'})"
+    id="t-hero-btn">Faire une demande</button>
 </section>
 
 <div class="container">
 
-<!-- POURQUOI -->
+<h2 class="section-title" id="t-why-title">Pourquoi CIZA GROUP</h2>
 <div class="card">
-<h2 id="whyTitle"></h2>
-<p id="whyText"></p>
+<ul id="t-why-list">
+<li>Présence locale réelle au Burundi & East Africa</li>
+<li>Suivi transparent et numéro de dossier unique</li>
+<li>Communication diaspora → terrain sans intermédiaire</li>
+<li>Vision Super-App, pas un service isolé</li>
+</ul>
 </div>
 
-<!-- PROCESS -->
+<h2 class="section-title" id="t-process-title">Procédure</h2>
 <div class="card">
-<h2 id="processTitle"></h2>
-<ol id="processList"></ol>
+<ol id="t-process-list">
+<li>Choix du service diaspora</li>
+<li>Création automatique du dossier</li>
+<li>Appel de confirmation CIZA GROUP</li>
+<li>Traitement + suivi professionnel</li>
+</ol>
 </div>
 
-<!-- FORM -->
+<h2 class="section-title" id="t-form-title">Formulaire Diaspora</h2>
 <div class="card">
-<h2 id="formTitle"></h2>
-
-<form id="diasporaForm">
-<input type="hidden" id="dossier" name="Numéro de dossier">
+<form id="form">
+<input type="hidden" name="Dossier" id="dossier">
 
 <input type="text" name="Nom" required placeholder="Nom complet">
 <input type="email" name="Email" required placeholder="Email">
@@ -210,52 +216,48 @@ footer span{display:block;margin-top:6px}
 <select name="Service" required>
 <option value="">— Choisir un service —</option>
 <option>Immobilier & Construction</option>
-<option>Gestion immobilière</option>
-<option>Investissement</option>
+<option>Gestion immobilière à distance</option>
+<option>Investissement sécurisé</option>
 <option>Création d’entreprise</option>
 <option>Assistance administrative</option>
 <option>Logistique diaspora</option>
-<option>Représentation locale</option>
+<option>Mandat & représentation locale</option>
 </select>
 
-<textarea name="Message" placeholder="Votre message"></textarea>
-
-<button class="btn" type="submit" id="sendBtn"></button>
+<textarea name="Message" placeholder="Décrivez votre besoin"></textarea>
+<button class="btn" type="submit" id="t-send">Envoyer</button>
 </form>
 </div>
 
 <div id="success">
-<h3 id="successTitle"></h3>
-<p id="successText"></p>
+<h3 id="t-success-title">Merci</h3>
+<p id="t-success-text"></p>
 <p><b id="dossierShow"></b></p>
 </div>
 
-<!-- FAQ -->
+<h2 class="section-title" id="t-test-title">Témoignages</h2>
 <div class="card">
-<h2>FAQ</h2>
-
-<div class="faq-q" onclick="toggleFaq(this)">❓ Les services sont-ils sécurisés ?</div>
-<div class="faq-a">Oui. Toutes les opérations sont suivies, documentées et validées.</div>
-
-<div class="faq-q" onclick="toggleFaq(this)">❓ Puis-je gérer à distance ?</div>
-<div class="faq-a">Oui. CIZA GROUP est conçu pour la diaspora.</div>
-
-<div class="faq-q" onclick="toggleFaq(this)">❓ Délai de traitement ?</div>
-<div class="faq-a">Vous êtes contacté sous 24–48h après soumission.</div>
+<p>🇨🇦 Jean-Marie — « Service fiable, suivi sérieux. »</p>
+<p>🇧🇪 Chantal — « Investissement sécurisé et transparent. »</p>
+<p>🇫🇷 Eric — « Enfin une vraie solution diaspora. »</p>
 </div>
 
-<!-- TEMOIGNAGES -->
+<h2 class="section-title">FAQ</h2>
 <div class="card">
-<h2>Témoignages</h2>
-<p>🇨🇦 Jean-Marie (Canada) — “Service fiable, suivi sérieux.”</p>
-<p>🇧🇪 Chantal (Belgique) — “Investissement sécurisé et transparent.”</p>
-<p>🇫🇷 Eric (France) — “Enfin une solution diaspora professionnelle.”</p>
+<div class="faq-item">
+<div class="faq-q">Comment suis-je contacté ?</div>
+<div class="faq-a">Par appel ou WhatsApp après validation du dossier.</div>
+</div>
+<div class="faq-item">
+<div class="faq-q">Puis-je être à l’étranger ?</div>
+<div class="faq-a">Oui, tout est conçu pour la diaspora.</div>
+</div>
 </div>
 
 </div>
 
 <footer>
-© 2026 CIZA GROUP  
+© 2026 CIZA GROUP
 <span>Design & System — CIZA GROUP</span>
 <span>infos@cizagroup.com</span>
 <span>International : +1 514 502 9503</span>
@@ -266,78 +268,53 @@ footer span{display:block;margin-top:6px}
 
 <script>
 /* DOSSIER */
-const dossierId="CIZA-DIAS-"+Date.now().toString().slice(-6);
-document.getElementById("dossier").value=dossierId;
+const id="CIZA-DIAS-"+Date.now().toString().slice(-8);
+document.getElementById("dossier").value=id;
 
-/* SUBMIT */
-document.getElementById("diasporaForm").addEventListener("submit",e=>{
-e.preventDefault();
-fetch("https://formsubmit.co/ajax/infos@cizagroup.com",{method:"POST",body:new FormData(e.target)})
-.then(()=>{
-  e.target.style.display="none";
-  document.getElementById("success").style.display="block";
-  document.getElementById("dossierShow").textContent="Dossier : "+dossierId;
-});
-});
-
-/* SCROLL */
-window.addEventListener("scroll",()=>{
-  document.getElementById("topBtn").style.display=window.scrollY>300?"flex":"none";
+/* FORM */
+document.getElementById("form").addEventListener("submit",e=>{
+  e.preventDefault();
+  fetch("https://formsubmit.co/ajax/infos@cizagroup.com",{method:"POST",body:new FormData(e.target)})
+  .then(()=>{
+    e.target.style.display="none";
+    document.getElementById("success").style.display="block";
+    document.getElementById("dossierShow").textContent=id;
+  });
 });
 
 /* FAQ */
-function toggleFaq(el){
-  const a=el.nextElementSibling;
-  a.style.display=a.style.display==="block"?"none":"block";
+document.querySelectorAll(".faq-q").forEach(q=>{
+  q.onclick=()=>q.nextElementSibling.style.display=
+    q.nextElementSibling.style.display==="block"?"none":"block";
+});
+
+/* TOP */
+window.addEventListener("scroll",()=>{
+  topBtn.style.display=window.scrollY>300?"flex":"none";
+});
+
+/* PARTICLES */
+const c=document.getElementById("particles"),ctx=c.getContext("2d");
+let w,h,p=[];
+function resize(){w=c.width=innerWidth;h=c.height=300}
+resize();onresize=resize;
+for(let i=0;i<50;i++)p.push({x:Math.random()*w,y:Math.random()*h,r:1+Math.random()*2});
+function anim(){
+  ctx.clearRect(0,0,w,h);
+  ctx.fillStyle="#F2B840";
+  p.forEach(o=>{ctx.globalAlpha=.2;ctx.beginPath();ctx.arc(o.x,o.y,o.r,0,6.28);ctx.fill();o.y+=.3;if(o.y>h)o.y=0});
+  requestAnimationFrame(anim);
 }
+anim();
 
 /* LANG */
 let lang="fr";
-const T={
-fr:{
-title:"Diaspora Services — CIZA GROUP",
-sub:"Solutions premium pour la diaspora africaine",
-whyT:"Pourquoi CIZA GROUP ?",
-why:"Présence locale, transparence, équipe terrain & diaspora.",
-procT:"Procédure",
-proc:["Choix du service","Numéro de dossier","Confirmation","Traitement"],
-form:"Formulaire Diaspora",
-send:"Envoyer",
-ok:"Merci",
-okTxt:"Votre demande est bien reçue."
-},
-en:{
-title:"Diaspora Services — CIZA GROUP",
-sub:"Premium solutions for the African diaspora",
-whyT:"Why CIZA GROUP?",
-why:"Local presence, transparency and professional follow-up.",
-procT:"Process",
-proc:["Service selection","File number","Confirmation","Execution"],
-form:"Diaspora Form",
-send:"Submit",
-ok:"Thank you",
-okTxt:"Your request has been received."
-}
-};
-
-function translate(){
-document.getElementById("title").textContent=T[lang].title;
-document.getElementById("subtitle").textContent=T[lang].sub;
-document.getElementById("whyTitle").textContent=T[lang].whyT;
-document.getElementById("whyText").textContent=T[lang].why;
-document.getElementById("processTitle").textContent=T[lang].procT;
-document.getElementById("processList").innerHTML=T[lang].proc.map(i=>"<li>"+i+"</li>").join("");
-document.getElementById("formTitle").textContent=T[lang].form;
-document.getElementById("sendBtn").textContent=T[lang].send;
-document.getElementById("successTitle").textContent=T[lang].ok;
-document.getElementById("successText").textContent=T[lang].okTxt;
-}
-translate();
-
-document.getElementById("langBtn").onclick=()=>{
-lang=lang==="fr"?"en":"fr";
-document.getElementById("langBtn").textContent=lang==="fr"?"EN":"FR";
-translate();
+langBtn.onclick=()=>{
+  lang=lang==="fr"?"en":"fr";
+  langBtn.textContent=lang.toUpperCase();
+  document.getElementById("t-hero-sub").textContent=
+    lang==="fr"?"Services mondiaux pour la diaspora, exécution locale maîtrisée."
+               :"Global services for the diaspora with local execution.";
 };
 </script>
 
