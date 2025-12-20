@@ -50,25 +50,61 @@ h1{color:var(--gold);font-size:32px;margin:10px 0}
 .card h2{color:var(--gold);margin-top:0}
 
 .btn{
-  width:100%;padding:14px;margin-top:10px;border:none;border-radius:14px;
-  font-size:16px;cursor:pointer;background:var(--gold);color:#06142E;font-weight:600;
+  width:100%;
+  padding:14px;
+  margin-top:10px;
+  border:none;
+  border-radius:14px;
+  font-size:16px;
+  cursor:pointer;
+  background:var(--gold);
+  color:#06142E;
+  font-weight:600;
 }
-.btn.secondary{background:#1e293b;color:white}
+.btn.secondary{
+  background:#1e293b;
+  color:white;
+}
 
 input,textarea{
-  width:100%;padding:12px;margin:8px 0 14px;border-radius:10px;
-  border:1px solid rgba(255,255,255,.2);background:#020617;color:white;
+  width:100%;
+  padding:12px;
+  margin:8px 0 14px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,.2);
+  background:#020617;
+  color:white;
 }
 label{font-size:14px;color:var(--muted)}
 .checkbox{font-size:14px;line-height:1.6}
 .hidden{display:none}
 
-footer{text-align:center;padding:25px;font-size:13px;opacity:.85}
+footer{
+  text-align:center;
+  padding:25px;
+  font-size:13px;
+  opacity:.85;
+}
 footer a{display:block;margin-top:6px}
 
-#topBtn{position:fixed;bottom:20px;right:20px;width:46px;height:46px;border-radius:50%;background:var(--gold);color:#06142E;font-size:22px;display:none;align-items:center;justify-content:center;cursor:pointer}
+#topBtn{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  width:46px;
+  height:46px;
+  border-radius:50%;
+  background:var(--gold);
+  color:#06142E;
+  font-size:22px;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+}
 </style>
 </head>
+
 <body>
 
 <header>
@@ -78,29 +114,33 @@ footer a{display:block;margin-top:6px}
 </header>
 
 <div class="container">
+
 <h1>CizaJobs+ 💼</h1>
 <p class="subtitle">Former, structurer et connecter les talents aux entreprises.</p>
 
+<!-- 🔹 COMMENT ÇA MARCHE -->
 <div class="card">
-<h2>📌 Comment ça marche</h2>
-<ol>
-<li>Dépôt du CV et profil</li>
-<li>Analyse et structuration par CIZA</li>
-<li>Accès entreprises partenaires</li>
-<li>Mise en relation directe</li>
-</ol>
+  <h2>📌 Comment ça marche</h2>
+  <ol>
+    <li>Dépôt du CV et profil</li>
+    <li>Analyse et structuration par CIZA</li>
+    <li>Accès entreprises partenaires</li>
+    <li>Mise en relation directe</li>
+  </ol>
 </div>
 
+<!-- 🔹 POURQUOI CIZAJOBS+ -->
 <div class="card">
-<h2>⭐ Pourquoi CizaJobs+</h2>
-<ul>
-<li>Talents qualifiés</li>
-<li>Gain de temps RH</li>
-<li>Local & international</li>
-<li>Approche humaine</li>
-</ul>
+  <h2>⭐ Pourquoi CizaJobs+</h2>
+  <ul>
+    <li>Talents qualifiés</li>
+    <li>Gain de temps RH</li>
+    <li>Local & international</li>
+    <li>Approche humaine</li>
+  </ul>
 </div>
 
+<!-- BOUTONS -->
 <button class="btn" onclick="showForm('candidat')">👤 Je suis Candidat</button>
 <button class="btn secondary" onclick="showForm('entreprise')">🏢 Je suis une Entreprise</button>
 
@@ -108,18 +148,23 @@ footer a{display:block;margin-top:6px}
 <div id="candidat" class="card hidden">
 <h2>Formulaire Candidat</h2>
 <form action="https://formsubmit.co/infos@cizagroup.com" method="POST">
-<input type="hidden" name="_cc" value="{{Email}}">
+<input type="hidden" name="_captcha" value="false">
 <input type="hidden" name="_subject" value="Nouveau Candidat — CizaJobs+">
-<input type="hidden" name="_next" value="merci-cizajobs.html">
 
 <label>Nom complet</label>
 <input required name="Nom">
+
 <label>Email</label>
 <input type="email" required name="Email">
+
 <label>Profil / Métier</label>
 <input required name="Profil">
 
-<label class="checkbox"><input type="checkbox" required> J’accepte l’analyse et la transmission de mon profil à des entreprises partenaires.</label>
+<label class="checkbox">
+<input type="checkbox" required>
+J’accepte l’analyse et la transmission de mon profil à des entreprises partenaires.
+</label>
+
 <button class="btn">Envoyer</button>
 </form>
 </div>
@@ -128,20 +173,27 @@ footer a{display:block;margin-top:6px}
 <div id="entreprise" class="card hidden">
 <h2>Entreprise Partenaire</h2>
 <form action="https://formsubmit.co/infos@cizagroup.com" method="POST">
+<input type="hidden" name="_captcha" value="false">
 <input type="hidden" name="_subject" value="Entreprise Partenaire — CizaJobs+">
-<input type="hidden" name="_next" value="merci-cizajobs.html">
 
 <label>Nom de l’entreprise</label>
 <input required name="Entreprise">
+
 <label>Email professionnel</label>
 <input type="email" required name="Email">
+
 <label>Secteur</label>
 <input required name="Secteur">
 
-<label class="checkbox"><input type="checkbox" required> Je comprends que CIZA GROUP n’est pas l’employeur.</label>
+<label class="checkbox">
+<input type="checkbox" required>
+Je comprends que CIZA GROUP n’est pas l’employeur.
+</label>
+
 <button class="btn">Envoyer</button>
 </form>
 </div>
+
 </div>
 
 <footer>
@@ -154,7 +206,7 @@ Canada : +1 514 502 9503<br><br>
 Sign & Designed by <b>Ciza Group</b> © 2026
 </footer>
 
-<div id="topBtn" onclick="scrollTo(0,0)">↑</div>
+<div id="topBtn" onclick="scrollTo({top:0,behavior:'smooth'})">↑</div>
 
 <script>
 function showForm(id){
@@ -164,15 +216,9 @@ function showForm(id){
   window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
 }
 window.addEventListener("scroll",()=>{
-  document.getElementById("topBtn").style.display = window.scrollY>300 ? "flex":"none";
+  document.getElementById("topBtn").style.display =
+    window.scrollY>300 ? "flex":"none";
 });
-</script>
-
-<!-- PWA -->
-<script>
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js');
-}
 </script>
 
 </body>
