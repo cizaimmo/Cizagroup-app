@@ -3,232 +3,124 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CIZA GROUP — Business & Enterprise Solutions</title>
+<title>CIZA GROUP — Solutions Entreprises</title>
 <link rel="icon" href="logotransparent.png">
 
 <style>
 :root{
- --bg:#06142E;
- --gold:#F2B840;
- --glass:rgba(255,255,255,.08);
- --border:rgba(242,184,64,.55);
- --txt:#fff;
+  --bg:#06142E;
+  --gold:#F2B840;
+  --glass:rgba(255,255,255,.08);
+  --border:rgba(242,184,64,.45);
+  --txt:#fff;
 }
-*{box-sizing:border-box}
 body{
- margin:0;
- font-family:system-ui,Arial;
- background:var(--bg);
- color:var(--txt);
- overflow-x:hidden;
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:var(--bg);
+  color:var(--txt);
 }
-
-/* HEADER */
 header{
- position:sticky;top:0;z-index:999;
- display:flex;justify-content:space-between;align-items:center;
- padding:14px 18px;
- background:rgba(6,20,46,.88);
- backdrop-filter:blur(10px);
- border-bottom:1px solid var(--gold);
+  position:sticky;top:0;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 18px;
+  background:var(--glass);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--gold);
 }
+header button{background:none;border:none;color:var(--gold);font-size:18px;cursor:pointer}
 header img{height:42px}
-header button{
- background:none;border:none;color:var(--gold);
- font-size:18px;cursor:pointer;
-}
 
-/* LANG */
-#lang{
- position:fixed;top:16px;right:16px;z-index:2000;
- background:var(--gold);color:#06142E;
- padding:8px 14px;border-radius:14px;
- font-weight:700;cursor:pointer;
-}
-
-/* HERO */
 .hero{
- position:relative;
- padding:120px 20px;
- text-align:center;
- overflow:hidden;
+  position:relative;
+  padding:110px 20px 90px;
+  text-align:center;
+  overflow:hidden;
 }
 .hero::before{
- content:"";
- position:absolute;inset:0;
- background:linear-gradient(135deg,#050f24,#0b1c34,#071a33);
- z-index:-3;
+  content:"";
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,#051026,#0B1C34,#071A33,#0a2240);
+  background-size:300% 300%;
+  animation:grad 12s ease infinite;
+  z-index:-2;
 }
-.hero canvas{
- position:absolute;inset:0;
- z-index:-1;opacity:.25;
-}
-.hero-card{
- max-width:920px;margin:auto;
- background:var(--glass);
- border:1px solid var(--border);
- border-radius:28px;
- padding:60px 30px;
- backdrop-filter:blur(14px);
- box-shadow:0 0 40px rgba(0,0,0,.45);
- animation:fadeUp 1.3s ease forwards;
-}
-@keyframes fadeUp{
- from{opacity:0;transform:translateY(30px)}
- to{opacity:1;transform:none}
-}
+@keyframes grad{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 .hero-logo{
- width:160px;height:160px;margin:auto;
- background:url('logotransparent.png') center/contain no-repeat;
- animation:float 5s ease-in-out infinite;
- filter:drop-shadow(0 0 14px #F2B84099);
+  width:150px;height:150px;margin:auto;
+  background:url('logotransparent.png') center/contain no-repeat;
+  animation:float 5s ease-in-out infinite;
+  filter:drop-shadow(0 0 14px #F2B840aa);
 }
-@keyframes float{
- 0%{transform:translateY(0)}
- 50%{transform:translateY(-14px)}
- 100%{transform:translateY(0)}
-}
-.hero h1{color:var(--gold);font-size:34px;margin:18px 0}
-.hero p{opacity:.9;font-size:18px;max-width:760px;margin:auto}
-.hero .btn{
- margin:22px 6px 0;
- padding:14px 26px;
- border-radius:14px;
- border:none;
- background:var(--gold);
- color:#06142E;
- font-weight:700;
- cursor:pointer;
+@keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-14px)}100%{transform:translateY(0)}}
+.hero h1{color:var(--gold);margin:18px 0 8px}
+.hero p{max-width:720px;margin:auto;opacity:.9}
+.hero .actions{margin-top:22px}
+.hero .actions button{
+  margin:6px;
+  padding:14px 26px;border:none;border-radius:14px;
+  background:var(--gold);color:#06142E;font-weight:bold;cursor:pointer
 }
 
-/* SECTIONS */
-.section{
- max-width:900px;margin:auto;
- padding:50px 20px;
-}
-.section h2{
- color:var(--gold);
- margin-bottom:20px;
-}
+.container{max-width:980px;margin:auto;padding:30px 20px}
+.section{margin-top:40px}
+.section-title{color:var(--gold);font-size:26px;margin-bottom:18px}
 
-/* CARDS */
+.cards{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:20px;
+}
 .card{
- background:var(--glass);
- border:1px solid var(--border);
- border-radius:20px;
- padding:24px;
- margin-bottom:22px;
+  background:var(--glass);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:22px;
 }
+.card h3{color:var(--gold);margin-top:0}
 
-/* SERVICES */
-.services{
- display:grid;
- grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
- gap:18px;
-}
-.service{
- border:1px solid var(--border);
- border-radius:18px;
- padding:20px;
- background:rgba(255,255,255,.06);
-}
-
-/* PROCESS */
-.steps{display:grid;gap:16px}
-.step{
- border-left:4px solid var(--gold);
- padding-left:14px;
-}
-
-/* TESTIMONIALS */
 .testimonials{
- display:flex;
- gap:18px;
- overflow:hidden;
+  display:flex;gap:18px;overflow:hidden
 }
-.testimonials .card{
- min-width:280px;
- animation:slide 20s linear infinite;
+.testimonial{
+  min-width:280px;
+  animation:slide 30s linear infinite;
 }
-@keyframes slide{
- 0%{transform:translateX(0)}
- 100%{transform:translateX(-100%)}
-}
+@keyframes slide{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
 
-/* FAQ */
-details{
- background:rgba(255,255,255,.06);
- border:1px solid var(--border);
- border-radius:14px;
- padding:14px;
- margin-bottom:12px;
+.form-box{
+  background:var(--glass);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:26px;
 }
-summary{cursor:pointer;font-weight:600}
-
-/* FORM */
 input,select,textarea{
- width:100%;
- margin-top:12px;
- padding:12px;
- border-radius:10px;
- border:none;
- background:#0b1c34;
- color:#fff;
+  width:100%;margin-top:12px;padding:12px;border-radius:10px;border:none;
+  background:#0b1c34;color:#fff
 }
 textarea{min-height:120px}
-.submit{
- margin-top:16px;
- padding:14px;
- width:100%;
- background:var(--gold);
- color:#06142E;
- border:none;
- border-radius:12px;
- font-weight:700;
- cursor:pointer;
+.btn{
+  margin-top:18px;width:100%;padding:14px;border:none;border-radius:12px;
+  background:var(--gold);color:#06142E;font-weight:bold;cursor:pointer
 }
 
-/* SUCCESS */
 #success{
- display:none;
- background:linear-gradient(135deg,#0b1c34,#06142E);
- border:2px solid var(--gold);
- border-radius:24px;
- padding:40px 24px;
- text-align:center;
- box-shadow:0 0 40px #F2B84055;
-}
-#success h2{color:var(--gold)}
-#dossierBox{
- margin:20px auto;
- padding:18px;
- border:2px dashed var(--gold);
- border-radius:18px;
- font-size:20px;
- font-weight:700;
+  display:none;
+  background:#0b1c34;border:1px solid var(--gold);
+  border-radius:18px;padding:28px;text-align:center
 }
 
-/* FOOTER */
 footer{
- border-top:1px solid var(--gold);
- margin-top:60px;
- padding:30px 20px;
- text-align:center;
- font-size:14px;
- opacity:.9;
+  margin-top:60px;padding:28px;text-align:center;font-size:14px;opacity:.9;
+  border-top:1px solid var(--border)
 }
 footer span{display:block;margin-top:6px}
 
-/* TOP */
-#top{
- position:fixed;right:20px;bottom:20px;
- width:44px;height:44px;
- border-radius:50%;
- background:var(--gold);
- color:#06142E;
- display:none;
- align-items:center;justify-content:center;
- font-size:20px;cursor:pointer;
+#topBtn{
+  position:fixed;bottom:20px;right:20px;
+  width:46px;height:46px;border-radius:50%;
+  background:var(--gold);color:#06142E;
+  display:none;align-items:center;justify-content:center;
+  font-size:20px;cursor:pointer
 }
 </style>
 </head>
@@ -236,198 +128,135 @@ footer span{display:block;margin-top:6px}
 <body>
 
 <header>
- <button onclick="history.back()">←</button>
- <img src="logotransparent.png">
- <button onclick="location.reload()">⟳</button>
+  <button onclick="history.back()">←</button>
+  <img src="logotransparent.png" alt="CIZA GROUP">
+  <button onclick="location.reload()">⟳</button>
 </header>
-
-<div id="lang">FR</div>
 
 <!-- HERO -->
 <section class="hero">
- <canvas id="particles"></canvas>
- <div class="hero-card">
   <div class="hero-logo"></div>
-  <h1 id="heroTitle"></h1>
-  <p id="heroSub"></p>
-  <button class="btn" onclick="document.getElementById('form').scrollIntoView({behavior:'smooth'})" id="heroBtn"></button>
- </div>
+  <h1>Solutions Entreprises — CIZA GROUP</h1>
+  <p>
+    Accompagnement stratégique pour entreprises, ONG et projets en
+    <b>Burundi & East Africa</b>. Structuration, exécution terrain et suivi premium.
+  </p>
+  <div class="actions">
+    <button onclick="document.getElementById('form').scrollIntoView({behavior:'smooth'})">Demander un service</button>
+    <button onclick="history.back()">Retour</button>
+  </div>
 </section>
+
+<div class="container">
 
 <!-- SERVICES -->
 <section class="section">
- <h2 id="servicesTitle"></h2>
- <div class="services">
-  <div class="service">Création & structuration d’entreprise</div>
-  <div class="service">Solutions pour ONG & projets humanitaires</div>
-  <div class="service">Accompagnement investisseurs East Africa</div>
-  <div class="service">Conseil stratégique & gouvernance</div>
-  <div class="service">Implantation Burundi & région</div>
-  <div class="service">Assistance administrative & légale</div>
- </div>
+  <h2 class="section-title">Nos Solutions Business</h2>
+  <div class="cards">
+    <div class="card"><h3>Structuration d’entreprise</h3><p>Création, conformité, process, représentation locale.</p></div>
+    <div class="card"><h3>ONG & Projets</h3><p>Implantation, coordination terrain, reporting.</p></div>
+    <div class="card"><h3>Gestion & Opérations</h3><p>Supervision équipes, partenaires et fournisseurs.</p></div>
+    <div class="card"><h3>Logistique & Achats</h3><p>Import/export, commandes locales, traçabilité.</p></div>
+  </div>
 </section>
 
 <!-- PROCESS -->
 <section class="section">
- <h2 id="processTitle"></h2>
- <div class="steps">
-  <div class="step" id="p1"></div>
-  <div class="step" id="p2"></div>
-  <div class="step" id="p3"></div>
-  <div class="step" id="p4"></div>
- </div>
+  <h2 class="section-title">Processus</h2>
+  <div class="cards">
+    <div class="card"><h3>1</h3><p>Analyse du besoin entreprise</p></div>
+    <div class="card"><h3>2</h3><p>Création du dossier & validation</p></div>
+    <div class="card"><h3>3</h3><p>Exécution terrain & suivi</p></div>
+    <div class="card"><h3>4</h3><p>Rapport & clôture</p></div>
+  </div>
 </section>
 
-<!-- WHY -->
+<!-- TEMOIGNAGES -->
 <section class="section">
- <h2 id="whyTitle"></h2>
- <div class="card" id="whyText"></div>
+  <h2 class="section-title">Témoignages</h2>
+  <div class="testimonials">
+    <div class="card testimonial"><p>“CIZA GROUP nous a accompagnés sur tout le projet au Burundi.”</p><span>— ONG, Nairobi</span></div>
+    <div class="card testimonial"><p>“Enfin un partenaire fiable pour nos opérations locales.”</p><span>— PME, Bujumbura</span></div>
+    <div class="card testimonial"><p>“Reporting clair et exécution sérieuse.”</p><span>— Startup, Kigali</span></div>
+  </div>
 </section>
 
-<!-- TESTIMONIALS -->
+<!-- GARANTIE -->
 <section class="section">
- <h2 id="testTitle"></h2>
- <div class="testimonials">
-  <div class="card">“Implantation réussie au Burundi.”<br><b>ONG — Bujumbura</b></div>
-  <div class="card">“Structure fiable et sérieuse.”<br><b>Entreprise — Nairobi</b></div>
-  <div class="card">“Accompagnement stratégique réel.”<br><b>PME — Kigali</b></div>
- </div>
-</section>
-
-<!-- FAQ -->
-<section class="section">
- <h2>FAQ</h2>
- <details><summary>Travaillez-vous avec les ONG ?</summary>Oui, locales et internationales.</details>
- <details><summary>Opérez-vous en East Africa ?</summary>Oui, Burundi, Rwanda, Kenya, Tanzanie.</details>
- <details><summary>Le suivi est-il humain ?</summary>Oui, chaque dossier est traité individuellement.</details>
+  <h2 class="section-title">Garantie CIZA GROUP</h2>
+  <div class="card">
+    ✔ Dossier officiel avec numéro unique<br>
+    ✔ Présence locale & internationale<br>
+    ✔ Aucun engagement sans validation<br>
+    ✔ Suivi professionnel documenté
+  </div>
 </section>
 
 <!-- FORM -->
 <section class="section" id="form">
- <h2 id="formTitle"></h2>
+  <h2 class="section-title">Demande Entreprise</h2>
+  <div class="form-box">
+    <form id="businessForm">
+      <input type="hidden" name="Numéro de dossier" id="dossier">
+      <input required placeholder="Nom de l’entreprise">
+      <input type="email" required placeholder="Email">
+      <input type="tel" placeholder="Téléphone">
+      <select required>
+        <option value="">Service souhaité</option>
+        <option>Structuration entreprise</option>
+        <option>ONG / Projet</option>
+        <option>Gestion & Opérations</option>
+        <option>Logistique</option>
+        <option>Autre</option>
+      </select>
+      <textarea placeholder="Décrivez votre besoin"></textarea>
+      <button class="btn">Envoyer</button>
+    </form>
+  </div>
 
- <div class="card">
-  <form id="businessForm">
-   <input type="hidden" name="Dossier" id="dossier">
-   <input type="text" name="Organisation" required placeholder="Entreprise / Organisation">
-   <input type="email" name="Email" required placeholder="Email">
-   <select name="Type de demande" required>
-    <option value="">Choisir le type</option>
-    <option>Entreprise privée</option>
-    <option>ONG / Projet humanitaire</option>
-    <option>Investisseur</option>
-    <option>Institution</option>
-   </select>
-   <textarea name="Message" placeholder="Décrivez votre besoin"></textarea>
-   <button class="submit">Envoyer</button>
-  </form>
- </div>
-
- <div id="success">
-  <h2>Demande enregistrée</h2>
-  <p>Votre dossier Business est créé chez CIZA GROUP.</p>
-  <div id="dossierBox"></div>
-  <p>Veuillez conserver ce numéro de dossier.<br>Notre équipe vous contactera.</p>
- </div>
+  <div id="success">
+    <h3>Dossier enregistré ✅</h3>
+    <p>
+      Numéro de dossier :<br>
+      <b id="dossierShow" style="color:#F2B840;font-size:18px"></b><br><br>
+      Veuillez conserver ce numéro.
+      Un conseiller CIZA GROUP vous contactera.
+    </p>
+  </div>
 </section>
 
+</div>
+
 <footer>
- <span>📧 infos@cizagroup.com</span>
- <span>🌍 International : +1 514 502 9503</span>
- <span>🇧🇮 Burundi / East Africa : +257 79 94 50 • +257 79 64 48 93</span>
- <span>Designed & System by <b>CIZA GROUP</b></span>
+© 2026 CIZA GROUP
+<span>Sign & Designed by CIZA GROUP</span>
+<span>📧 infos@cizagroup.com</span>
+<span>🌍 International : +1 514 502 9503</span>
+<span>🇧🇮 Burundi / East Africa : +257 79 94 50 • +257 79 64 48 93</span>
 </footer>
 
-<div id="top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+<div id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
 
 <script>
-/* LANG */
-let lang="fr";
-const T={
- fr:{
-  heroTitle:"Business & Enterprise Solutions — CIZA GROUP",
-  heroSub:"Solutions professionnelles pour entreprises, ONG et investisseurs en Afrique de l’Est.",
-  heroBtn:"Contacter CIZA GROUP",
-  services:"Solutions Business",
-  process:"Notre processus",
-  p1:"Analyse de la demande",
-  p2:"Création du dossier",
-  p3:"Contact stratégique",
-  p4:"Exécution terrain",
-  why:"Pourquoi CIZA GROUP",
-  whyText:"Nous combinons expertise locale, vision internationale et exécution réelle.",
-  form:"Formulaire Business"
- },
- en:{
-  heroTitle:"Business & Enterprise Solutions — CIZA GROUP",
-  heroSub:"Professional solutions for enterprises, NGOs and investors in East Africa.",
-  heroBtn:"Contact CIZA GROUP",
-  services:"Business Solutions",
-  process:"Our process",
-  p1:"Request analysis",
-  p2:"File creation",
-  p3:"Strategic contact",
-  p4:"On-ground execution",
-  why:"Why CIZA GROUP",
-  whyText:"We combine local expertise with international vision.",
-  form:"Business Form"
- }
-};
-function apply(){
- const L=T[lang];
- heroTitle.textContent=L.heroTitle;
- heroSub.textContent=L.heroSub;
- heroBtn.textContent=L.heroBtn;
- servicesTitle.textContent=L.services;
- processTitle.textContent=L.process;
- p1.textContent=L.p1;
- p2.textContent=L.p2;
- p3.textContent=L.p3;
- p4.textContent=L.p4;
- whyTitle.textContent=L.why;
- whyText.textContent=L.whyText;
- formTitle.textContent=L.form;
-}
-lang.onclick=()=>{
- lang=(lang==="fr")?"en":"fr";
- document.getElementById("lang").textContent=lang.toUpperCase();
- apply();
-};
-apply();
+/* dossier */
+const id="CIZA-BIZ-"+new Date().toISOString().slice(0,10).replace(/-/g,"")+"-"+Math.floor(1000+Math.random()*9000);
+document.getElementById("dossier").value=id;
 
-/* DOSSIER */
-const id="CIZA-BIZ-"+Date.now().toString().slice(-6);
-dossier.value=id;
+/* submit sans page blanche */
+document.getElementById("businessForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  fetch("https://formsubmit.co/ajax/infos@cizagroup.com",{method:"POST",body:new FormData(e.target)})
+  .then(()=>{
+    e.target.style.display="none";
+    document.getElementById("success").style.display="block";
+    document.getElementById("dossierShow").textContent=id;
+  });
+});
 
-/* SUBMIT */
-businessForm.onsubmit=e=>{
- e.preventDefault();
- fetch("https://formsubmit.co/ajax/infos@cizagroup.com",{method:"POST",body:new FormData(businessForm)})
- .then(()=>{
-  businessForm.style.display="none";
-  success.style.display="block";
-  dossierBox.textContent=id;
- });
-};
-
-/* TOP */
-window.onscroll=()=>top.style.display=scrollY>300?"flex":"none";
-
-/* PARTICLES */
-const c=particles,ctx=c.getContext("2d");
-function resize(){c.width=innerWidth;c.height=hero.offsetHeight}
-resize();onresize=resize;
-let ps=[...Array(60)].map(()=>({x:Math.random()*c.width,y:Math.random()*c.height,r:1+Math.random()*2,d:.3+Math.random()}));
-(function anim(){
- ctx.clearRect(0,0,c.width,c.height);
- ctx.fillStyle="#F2B840";
- ps.forEach(p=>{
-  p.y+=p.d;if(p.y>c.height)p.y=0;
-  ctx.globalAlpha=.3;
-  ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,7);ctx.fill();
- });
- requestAnimationFrame(anim);
-})();
+/* scroll top */
+window.addEventListener("scroll",()=>{
+  document.getElementById("topBtn").style.display=window.scrollY>300?"flex":"none";
+});
 </script>
 
 </body>
