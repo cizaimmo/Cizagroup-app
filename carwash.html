@@ -11,7 +11,7 @@
   --bg:#06142E;
   --gold:#F2B840;
   --glass:rgba(255,255,255,.08);
-  --border:rgba(255,255,255,.15);
+  --border:rgba(242,184,64,.55);
   --txt:#fff;
 }
 body{
@@ -46,19 +46,28 @@ header button{
   padding:25px;
 }
 h1,h2,h3{color:var(--gold)}
+
 .card{
   background:var(--glass);
   border:1px solid var(--border);
-  border-radius:18px;
+  border-radius:16px;
   padding:22px;
-  margin-bottom:20px;
-  position:relative;
+  margin-bottom:24px;
 }
+
+.card ul{
+  margin:12px 0 0;
+  padding-left:18px;
+  opacity:.9;
+}
+.card ul li{margin-bottom:6px}
+
 .price{
   font-size:20px;
   font-weight:bold;
   margin-top:10px;
 }
+
 .reserve-btn{
   margin-top:15px;
   width:100%;
@@ -70,7 +79,8 @@ h1,h2,h3{color:var(--gold)}
   font-weight:bold;
   cursor:pointer;
 }
-.form-box{display:none;margin-top:30px}
+
+.form-box{display:none;margin-top:30px;position:relative}
 input,select,textarea{
   width:100%;
   margin-top:12px;
@@ -78,6 +88,7 @@ input,select,textarea{
   border-radius:10px;
   border:none;
 }
+
 #closeForm{
   position:absolute;
   top:14px;
@@ -86,23 +97,34 @@ input,select,textarea{
   color:var(--gold);
   cursor:pointer;
 }
+
 #success{
   display:none;
   background:#0b1c34;
   border:1px solid var(--gold);
   border-radius:18px;
-  padding:25px;
-  margin-top:30px;
+  padding:30px;
+  margin-top:40px;
   text-align:center;
 }
+
+#success strong{
+  display:block;
+  font-size:20px;
+  color:var(--gold);
+  margin:12px 0;
+}
+
 footer{
-  margin-top:50px;
-  padding:25px;
+  margin-top:60px;
+  padding:30px;
   text-align:center;
   font-size:14px;
-  opacity:.85;
+  opacity:.9;
+  border-top:1px solid rgba(255,255,255,.15);
 }
-footer a{color:var(--gold);text-decoration:none;display:block;margin-top:6px}
+footer span{display:block;margin-top:6px}
+
 #toTop{
   position:fixed;
   bottom:20px;
@@ -118,6 +140,7 @@ footer a{color:var(--gold);text-decoration:none;display:block;margin-top:6px}
   cursor:pointer;
   font-size:22px;
 }
+
 #whatsappBtn{
   position:fixed;
   bottom:80px;
@@ -151,24 +174,53 @@ footer a{color:var(--gold);text-decoration:none;display:block;margin-top:6px}
 <h1>CizaCarWash+ 🚗🧼</h1>
 <p>Service professionnel de lavage automobile — station & mobile.</p>
 
+<!-- SERVICES -->
 <div class="card">
   <h3>🧼 Lavage Standard — Station</h3>
+  <ul>
+    <li>Lavage extérieur complet</li>
+    <li>Nettoyage jantes & pneus</li>
+    <li>Séchage manuel professionnel</li>
+  </ul>
   <div class="price">25 000 BIF (léger) / 35 000 BIF (SUV)</div>
   <button class="reserve-btn" onclick="selectService('Lavage Standard — Station',25000)">Réserver</button>
 </div>
 
 <div class="card">
-  <h3>🧼 Lavage Premium — Station</h3>
+  <h3>✨ Lavage Premium — Station</h3>
+  <ul>
+    <li>Lavage extérieur & intérieur</li>
+    <li>Aspiration complète</li>
+    <li>Nettoyage tableau de bord</li>
+    <li>Finition premium</li>
+  </ul>
   <div class="price">40 000 BIF (léger) / 55 000 BIF (SUV)</div>
   <button class="reserve-btn" onclick="selectService('Lavage Premium — Station',40000)">Réserver</button>
 </div>
 
 <div class="card">
   <h3>🚗 Lavage Mobile — Domicile</h3>
+  <ul>
+    <li>Service à domicile ou bureau</li>
+    <li>Équipement professionnel mobile</li>
+    <li>Gain de temps garanti</li>
+  </ul>
   <div class="price">55 000 BIF / 70 000 BIF</div>
   <button class="reserve-btn" onclick="selectService('Lavage Mobile — Domicile',55000)">Réserver</button>
 </div>
 
+<!-- PROCESSUS -->
+<div class="card">
+<h3>🔄 Comment ça fonctionne</h3>
+<ol>
+<li>Choisissez votre service</li>
+<li>Un numéro de dossier est généré automatiquement</li>
+<li>Notre équipe vous contacte pour confirmation</li>
+<li>Votre véhicule est pris en charge par CIZA GROUP</li>
+</ol>
+</div>
+
+<!-- FORM -->
 <div class="card form-box" id="formBox">
 <div id="closeForm" onclick="closeForm()">✕</div>
 
@@ -184,20 +236,8 @@ footer a{color:var(--gold);text-decoration:none;display:block;margin-top:6px}
   <input type="hidden" name="_template" value="table">
   <input type="hidden" name="_subject" value="Nouvelle réservation CizaCarWash+">
 
-  <!-- Copie client -->
+  <input type="hidden" name="Numéro de dossier" id="dossierField">
   <input type="hidden" name="_cc" id="ccField">
-
-  <!-- Auto-réponse client -->
-  <input type="hidden" name="_autoresponse" value="
-Merci pour votre réservation CizaCarWash+.
-
-Notre équipe vous contactera rapidement pour confirmation.
-
-CIZA GROUP
-WhatsApp : +1 514 502 9503
-Burundi : +257 79 64 48 93
-Email : infos@cizagroup.com
-">
 
   <input type="text" name="Nom et Prénom" required placeholder="Nom et prénom">
   <input type="email" name="email" required placeholder="Email du client">
@@ -229,12 +269,13 @@ Email : infos@cizagroup.com
 </div>
 
 <div id="success">
-<h3>Merci pour votre réservation 🙏</h3>
+<h3>Merci pour votre confiance 🙏</h3>
+<p>Votre réservation CizaCarWash+ a été reçue avec succès.</p>
+<strong id="dossierShow"></strong>
 <p>
-Votre demande a bien été envoyée.<br>
-Un email de confirmation vous a été transmis.
+Veuillez conserver ce numéro de dossier.<br>
+Il sera utilisé pour toute communication avec CIZA GROUP.
 </p>
-<p>📧 infos@cizagroup.com<br>📱 WhatsApp : +1 514 502 9503</p>
 </div>
 
 </div>
@@ -242,48 +283,53 @@ Un email de confirmation vous a été transmis.
 <footer>
 © 2026 CIZA GROUP  
 <span>Design signed by CIZA GROUP</span>
-<a href="mailto:infos@cizagroup.com">infos@cizagroup.com</a>
-<a href="https://wa.me/15145029503">WhatsApp : +1 514 502 9503</a>
+<span>📧 infos@cizagroup.com</span>
+<span>🌍 International : +1 514 502 9503</span>
+<span>🇧🇮 Burundi / East Africa : +257 79 94 50 • +257 79 64 48 93</span>
 </footer>
 
 <div id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
 <div id="whatsappBtn" onclick="window.open('https://wa.me/15145029503','_blank')">💬</div>
 
 <script>
-let basePrice = 0;
+let basePrice=0;
 
-function selectService(service, price){
-  basePrice = price;
-  document.getElementById("serviceField").value = service;
-  document.getElementById("priceField").value = price + " BIF";
-  document.getElementById("formBox").style.display = "block";
+/* Numéro de dossier */
+const dossierId="CIZA-CW-"+new Date().toISOString().slice(0,10).replace(/-/g,"")+"-"+Math.floor(1000+Math.random()*9000);
+document.getElementById("dossierField").value=dossierId;
+
+function selectService(service,price){
+  basePrice=price;
+  document.getElementById("serviceField").value=service;
+  document.getElementById("priceField").value=price+" BIF";
+  document.getElementById("formBox").style.display="block";
   document.getElementById("formBox").scrollIntoView({behavior:"smooth"});
 }
 
 function adjustPrice(type){
-  let final = basePrice;
-  if(type.includes("SUV")) final += 10000;
-  document.getElementById("priceField").value = final + " BIF";
+  let final=basePrice;
+  if(type.includes("SUV")) final+=10000;
+  document.getElementById("priceField").value=final+" BIF";
 }
 
 function closeForm(){
-  document.getElementById("formBox").style.display = "none";
+  document.getElementById("formBox").style.display="none";
 }
 
 function handleSubmit(){
-  const email = document.querySelector("input[name='email']").value;
-  document.getElementById("ccField").value = email;
+  const email=document.querySelector("input[name='email']").value;
+  document.getElementById("ccField").value=email;
 
   setTimeout(()=>{
-    document.getElementById("formBox").style.display = "none";
-    document.getElementById("success").style.display = "block";
+    document.getElementById("formBox").style.display="none";
+    document.getElementById("success").style.display="block";
+    document.getElementById("dossierShow").textContent="Numéro de dossier : "+dossierId;
     window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"});
-  }, 600);
+  },600);
 }
 
 window.addEventListener("scroll",()=>{
-  document.getElementById("toTop").style.display =
-    window.scrollY > 300 ? "flex" : "none";
+  document.getElementById("toTop").style.display=window.scrollY>300?"flex":"none";
 });
 </script>
 
