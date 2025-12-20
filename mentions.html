@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CIZA GROUP — Mentions légales</title>
+<link rel="icon" href="logotransparent.png">
+
+<style>
+body{margin:0;font-family:Arial;background:#06142E;color:#fff}
+header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 16px;
+  background:rgba(255,255,255,.08);
+  border-bottom:1px solid #F2B840;
+}
+header button{
+  background:none;border:none;color:#F2B840;font-size:18px;cursor:pointer
+}
+.lang{font-weight:bold}
+.container{max-width:900px;margin:auto;padding:30px 20px}
+h1{color:#F2B840}
+.card{
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:18px;
+  padding:22px;
+}
+footer{text-align:center;margin:40px 0;opacity:.85}
+</style>
+</head>
+
+<body>
+
+<header>
+  <button onclick="history.back()">←</button>
+  <img src="logotransparent.png" height="38">
+  <button class="lang" onclick="toggleLang()">EN</button>
+</header>
+
+<div class="container">
+<h1 id="title"></h1>
+
+<div class="card" id="content"></div>
+</div>
+
+<footer>
+© 2026 CIZA GROUP<br>
+Design & System — CIZA GROUP
+</footer>
+
+<script>
+let lang="fr";
+const data={
+fr:{
+ title:"📘 Mentions légales",
+ text:`<p><b>CIZA GROUP</b> est une Super App multiservices opérant au Burundi,
+ en Afrique de l’Est et à l’international.</p>
+ <p>Domaines : mobilité, diaspora, services professionnels, assistance.</p>
+ <p>Contact officiel : <b>infos@cizagroup.com</b></p>`
+},
+en:{
+ title:"📘 Legal Notice",
+ text:`<p><b>CIZA GROUP</b> is a multi-service Super App operating in Burundi,
+ East Africa and internationally.</p>
+ <p>Services: mobility, diaspora, professional & assistance services.</p>
+ <p>Official contact: <b>infos@cizagroup.com</b></p>`
+}
+};
+function render(){
+ document.getElementById("title").innerHTML=data[lang].title;
+ document.getElementById("content").innerHTML=data[lang].text;
+}
+function toggleLang(){
+ lang=lang==="fr"?"en":"fr";
+ document.querySelector(".lang").textContent=lang==="fr"?"EN":"FR";
+ render();
+}
+render();
+</script>
+
+</body>
+</html>
