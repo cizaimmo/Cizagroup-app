@@ -5,61 +5,71 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CIZA GROUP — Confidentialité</title>
 <link rel="icon" href="logotransparent.png">
-
 <style>
 body{margin:0;font-family:Arial;background:#06142E;color:#fff}
-header{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:14px 16px;
-  background:rgba(255,255,255,.08);
-  border-bottom:1px solid #F2B840;
-}
-header button{background:none;border:none;color:#F2B840;font-size:18px}
-.container{max-width:900px;margin:auto;padding:30px 20px}
-h1{color:#F2B840}
-.card{background:rgba(255,255,255,.08);border-radius:18px;padding:22px}
-footer{text-align:center;margin:40px 0;opacity:.85}
+header{display:flex;justify-content:space-between;align-items:center;padding:15px;background:rgba(255,255,255,.08);border-bottom:1px solid #F2B840}
+button{background:none;border:none;color:#F2B840;font-size:18px}
+.container{max-width:900px;margin:auto;padding:25px}
+h1,h2{color:#F2B840}
+footer{text-align:center;padding:25px;font-size:14px;opacity:.85}
 </style>
 </head>
 
 <body>
-
 <header>
-  <button onclick="history.back()">✕</button>
-  <img src="logotransparent.png" height="38">
-  <button onclick="toggleLang()">EN</button>
+<button onclick="history.back()">←</button>
+<img src="logotransparent.png" height="40">
+<button id="lang">EN</button>
 </header>
 
 <div class="container">
-<h1 id="title"></h1>
-<div class="card" id="content"></div>
+<h1 id="t1">Politique de confidentialité</h1>
+<p id="c1">
+CIZA GROUP respecte la confidentialité de ses utilisateurs.
+Les informations collectées servent uniquement au traitement des demandes.
+</p>
+
+<h2 id="t2">Données collectées</h2>
+<p id="c2">
+Nom, email, téléphone et informations liées aux services demandés.
+</p>
+
+<h2 id="t3">Protection</h2>
+<p id="c3">
+Aucune donnée n’est vendue ni partagée avec des tiers.
+</p>
 </div>
 
 <footer>
-© 2026 CIZA GROUP — Design & System
+© 2026 CIZA GROUP — Design signed by CIZA GROUP
 </footer>
 
 <script>
-let lang="fr";
-const d={
+let fr=true;
+const T={
 fr:{
- title:"🔐 Politique de confidentialité",
- text:`<p>CIZA GROUP protège les données de ses utilisateurs.</p>
- <p>Les informations servent uniquement au traitement des dossiers
- et à la communication client.</p>
- <p>Aucune revente de données.</p>`
+t1:"Politique de confidentialité",
+c1:"CIZA GROUP respecte la confidentialité de ses utilisateurs. Les informations collectées servent uniquement au traitement des demandes.",
+t2:"Données collectées",
+c2:"Nom, email, téléphone et informations liées aux services demandés.",
+t3:"Protection",
+c3:"Aucune donnée n’est vendue ni partagée avec des tiers."
 },
 en:{
- title:"🔐 Privacy Policy",
- text:`<p>CIZA GROUP protects user data.</p>
- <p>Information is used only for service processing and communication.</p>
- <p>No data resale.</p>`
+t1:"Privacy policy",
+c1:"CIZA GROUP respects user privacy. Collected data is used only to process requests.",
+t2:"Collected data",
+c2:"Name, email, phone number and service-related information.",
+t3:"Protection",
+c3:"No data is sold or shared with third parties."
+}};
+document.getElementById("lang").onclick=()=>{
+fr=!fr;
+for(let k in T.fr){
+document.getElementById(k).innerHTML=T[fr?"fr":"en"][k];
 }
+document.getElementById("lang").textContent=fr?"EN":"FR";
 };
-function render(){title.innerHTML=d[lang].title;content.innerHTML=d[lang].text;}
-function toggleLang(){lang=lang==="fr"?"en":"fr";render();}
-render();
 </script>
-
 </body>
 </html>
