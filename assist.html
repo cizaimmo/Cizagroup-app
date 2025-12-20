@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CizaAssist+ — Assistance & Services Premium</title>
+<link rel="icon" href="logotransparent.png">
+
+<style>
+:root{
+  --bg:#06142E;
+  --gold:#F2B840;
+  --glass:rgba(255,255,255,.08);
+  --border:rgba(255,255,255,.15);
+  --txt:#fff;
+}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:var(--bg);
+  color:var(--txt);
+}
+header{
+  position:sticky;top:0;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 18px;
+  background:var(--glass);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--gold);
+}
+header img{width:46px}
+header button{
+  background:none;border:none;color:var(--gold);
+  font-size:18px;cursor:pointer;
+}
+.container{
+  max-width:1000px;margin:auto;padding:25px;
+}
+h1,h2,h3{color:var(--gold)}
+.card{
+  background:var(--glass);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:22px;
+  margin-bottom:22px;
+}
+.reserve-btn{
+  margin-top:15px;width:100%;padding:14px;
+  border:none;border-radius:12px;
+  background:var(--gold);color:#06142E;
+  font-weight:bold;cursor:pointer;
+}
+.form-box{
+  display:none;margin-top:30px;position:relative;
+}
+.close-form{
+  position:absolute;top:12px;right:15px;
+  font-size:22px;cursor:pointer;color:var(--gold);
+}
+input,select,textarea{
+  width:100%;margin-top:12px;padding:12px;
+  border-radius:10px;border:none;
+}
+#success{
+  display:none;
+  background:#0b1c34;
+  border:1px solid var(--gold);
+  border-radius:18px;
+  padding:25px;
+  margin-top:30px;
+  text-align:center;
+}
+footer{
+  margin-top:50px;padding:25px;
+  text-align:center;font-size:14px;opacity:.85;
+}
+footer a{color:var(--gold);text-decoration:none;display:block;margin-top:6px}
+#toTop{
+  position:fixed;bottom:20px;right:20px;
+  width:45px;height:45px;border-radius:50%;
+  background:var(--gold);color:#06142E;
+  display:none;justify-content:center;align-items:center;
+  cursor:pointer;font-size:22px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <button onclick="history.back()">← Retour</button>
+  <img src="logotransparent.png">
+  <button onclick="location.reload()">⟳</button>
+</header>
+
+<div class="container">
+
+<h1>CizaAssist+ 🤝</h1>
+<p>Assistance administrative, personnelle et professionnelle sur mesure.</p>
+
+<div class="card">
+<h3>📌 Comment ça marche</h3>
+<ol>
+<li>Vous choisissez le type d’assistance</li>
+<li>Vous décrivez votre besoin précis</li>
+<li>CIZA ASSIST vous contacte rapidement</li>
+<li>Le dossier est traité avec suivi humain</li>
+</ol>
+</div>
+
+<div class="card">
+<h3>🗂 Assistance Administrative</h3>
+<ul>
+<li>Démarches administratives</li>
+<li>Suivi de dossiers</li>
+<li>Documents officiels</li>
+<li>Assistance diaspora</li>
+</ul>
+<button class="reserve-btn" onclick="openForm('Assistance Administrative')">Demander ce service</button>
+</div>
+
+<div class="card">
+<h3>🏠 Assistance Personnelle</h3>
+<ul>
+<li>Organisation & coordination</li>
+<li>Assistance familiale</li>
+<li>Demandes urgentes</li>
+</ul>
+<button class="reserve-btn" onclick="openForm('Assistance Personnelle')">Demander ce service</button>
+</div>
+
+<div class="card">
+<h3>🏢 Assistance Entreprise</h3>
+<ul>
+<li>Support opérationnel</li>
+<li>Coordination terrain</li>
+<li>Services sur mesure</li>
+</ul>
+<button class="reserve-btn" onclick="openForm('Assistance Entreprise')">Demander ce service</button>
+</div>
+
+<!-- FORMULAIRE -->
+<div class="card form-box" id="formBox">
+<div class="close-form" onclick="closeForm()">✕</div>
+
+<h2>📋 Demande CizaAssist+</h2>
+
+<form onsubmit="submitAssist(event)">
+<input type="hidden" name="_captcha" value="false">
+<input type="hidden" name="_subject" value="Nouvelle demande — CizaAssist+">
+<input type="hidden" name="Numéro de dossier" id="dossierField">
+
+<input type="text" id="serviceField" name="Service demandé" readonly>
+
+<input type="text" name="Nom & Prénom" required placeholder="Nom et prénom">
+<input type="email" name="Email" required placeholder="Email">
+<input type="tel" name="Téléphone" required placeholder="Téléphone">
+
+<select name="Type de client" required>
+  <option value="">Type de client</option>
+  <option>Particulier</option>
+  <option>Entreprise</option>
+  <option>Diaspora</option>
+</select>
+
+<textarea name="Description du besoin" required placeholder="Décrivez votre besoin en détail"></textarea>
+
+<button class="reserve-btn" type="submit">Envoyer la demande</button>
+</form>
+</div>
+
+<div id="success">
+<h3>Merci pour votre confiance 🙏</h3>
+<p>
+Votre demande a bien été reçue par <b>CIZA GROUP</b>.<br><br>
+<b>Numéro de dossier :</b><br>
+<span id="dossierDisplay" style="color:var(--gold);font-size:20px;"></span><br><br>
+Notre équipe va vous contacter rapidement pour confirmer les informations et démarrer le traitement de votre dossier.<br><br>
+📞 Merci de garder votre téléphone disponible.
+</p>
+</div>
+
+</div>
+
+<footer>
+© 2026 CIZA GROUP  
+<span>Design signed by CIZA GROUP</span>
+<a href="mailto:infos@cizagroup.com">infos@cizagroup.com</a>
+</footer>
+
+<div id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+
+<script>
+function generateDossier(){
+  const d=new Date();
+  return "CA-"+d.getFullYear()+"-"+Math.floor(100000+Math.random()*900000);
+}
+function openForm(service){
+  document.getElementById("formBox").style.display="block";
+  document.getElementById("serviceField").value=service;
+  document.getElementById("formBox").scrollIntoView({behavior:"smooth"});
+}
+function closeForm(){
+  document.getElementById("formBox").style.display="none";
+}
+function submitAssist(e){
+  e.preventDefault();
+  const dossier=generateDossier();
+  document.getElementById("dossierField").value=dossier;
+  document.getElementById("dossierDisplay").textContent=dossier;
+
+  fetch("https://formsubmit.co/infos@cizagroup.com",{
+    method:"POST",
+    body:new FormData(e.target)
+  }).then(()=>{
+    document.getElementById("formBox").style.display="none";
+    document.getElementById("success").style.display="block";
+    window.scrollTo({top:0,behavior:'smooth'});
+    e.target.reset();
+  });
+}
+window.addEventListener("scroll",()=>{
+  document.getElementById("toTop").style.display =
+    window.scrollY>300 ? "flex" : "none";
+});
+</script>
+
+</body>
+</html>
