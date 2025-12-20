@@ -3,96 +3,95 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CizaDelivery+ — Suivi GPS</title>
-
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<title>Suivi de colis — CizaDelivery+</title>
+<link rel="icon" href="logotransparent.png">
 
 <style>
 body{
   margin:0;
+  font-family:Arial,sans-serif;
   background:#06142E;
   color:white;
-  font-family:Arial,sans-serif;
 }
-header{
-  padding:14px;
+.hero{
+  padding:50px 20px;
   text-align:center;
-  background:#0B1C34;
-  border-bottom:2px solid #F2B840;
+  background:linear-gradient(180deg,#0b1c34,#06142E);
 }
-#map{
-  height:80vh;
-  width:100%;
+.hero img{
+  width:120px;
+  margin-bottom:15px;
 }
-.info{
-  padding:14px;
-  background:#0B1C34;
+.container{
+  max-width:700px;
+  margin:auto;
+  padding:25px;
 }
-.status{
-  color:#F2B840;
-  font-weight:bold;
+.card{
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(242,184,64,.3);
+  border-radius:18px;
+  padding:22px;
 }
+h1{color:#F2B840}
+footer{
+  margin-top:40px;
+  text-align:center;
+  font-size:14px;
+  opacity:.85;
+}
+footer a{color:#F2B840;text-decoration:none;display:block;margin-top:6px}
 </style>
 </head>
 
 <body>
 
-<header>
-  <h2>📦 Suivi CizaDelivery+</h2>
-</header>
-
-<div id="map"></div>
-
-<div class="info">
-  <div>Commande : <span id="orderId"></span></div>
-  <div>Statut : <span class="status" id="status">Connexion...</span></div>
-  <div>Dernière position : <span id="time"></span></div>
+<div class="hero">
+  <img src="logotransparent.png">
+  <h1>Suivi de livraison</h1>
 </div>
 
-<!-- Leaflet -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<div class="container">
+<div class="card">
 
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<p style="font-size:18px">
+<b>Merci d’avoir choisi CIZA GROUP 🤝</b>
+</p>
+
+<p>
+Le département <b>CizaDelivery+ (Logistique)</b> traite actuellement votre demande.
+</p>
+
+<p>
+Votre colis est en cours de prise en charge par notre équipe.<br>
+Une confirmation de livraison vous sera envoyée dès l’avancement du traitement.
+</p>
+
+<p style="margin-top:15px">
+<b>Numéro de suivi :</b><br>
+<span id="tracking" style="color:#F2B840;font-size:20px"></span>
+</p>
+
+<hr style="opacity:.2">
+
+<p>
+📧 infos@cizagroup.com<br>
+🇧🇮 Burundi : +257 79 64 48 93 / +257 79 94 50 07<br>
+🇨🇦 Canada : +1 514 502 9503
+</p>
+
+</div>
+</div>
+
+<footer>
+© 2026 CIZA GROUP  
+<span>Logistique & Livraison</span>
+</footer>
 
 <script>
-// 🔐 CONFIG FIREBASE (À REMPLACER)
-const firebaseConfig = {
-  apiKey: "TA_CLE_API",
-  authDomain: "ciza-delivery.firebaseapp.com",
-  projectId: "ciza-delivery",
-};
-
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-
-// 📦 ID COMMANDE
 const params = new URLSearchParams(window.location.search);
-const orderId = params.get("order");
-document.getElementById("orderId").textContent = orderId || "Inconnu";
-
-// 🗺️ MAP
-const map = L.map('map').setView([-3.3614, 29.3599], 13); // Bujumbura
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-  maxZoom:19
-}).addTo(map);
-
-let marker = L.marker([-3.3614, 29.3599]).addTo(map);
-
-// 🔁 GPS LIVE
-db.collection("deliveries").doc(orderId)
-.onSnapshot(doc=>{
-  if(!doc.exists) return;
-
-  const d = doc.data();
-  marker.setLatLng([d.lat, d.lng]);
-  map.setView([d.lat, d.lng], 15);
-
-  document.getElementById("status").textContent = d.status;
-  document.getElementById("time").textContent =
-    new Date(d.updatedAt.seconds*1000).toLocaleTimeString();
-});
+document.getElementById("tracking").textContent =
+  params.get("tracking") || "—";
 </script>
 
 </body>
