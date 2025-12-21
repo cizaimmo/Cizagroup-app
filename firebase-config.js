@@ -1,17 +1,17 @@
-// firebase-config.js
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 
-const firebaseConfig = {
-  apiKey: "TA_API_KEY",
-  authDomain: "cizagroup-app.firebaseapp.com",
-  projectId: "cizagroup-app",
-  storageBucket: "cizagroup-app.appspot.com",
-  messagingSenderId: "XXXX",
-  appId: "XXXX"
-};
+<script>
+  const firebaseConfig = {
+    apiKey: "REMPLACE_API_KEY",
+    authDomain: "cizagroup-app.firebaseapp.com",
+    projectId: "cizagroup-app",
+    storageBucket: "cizagroup-app.appspot.com",
+    messagingSenderId: "REMPLACE_SENDER_ID",
+    appId: "REMPLACE_APP_ID"
+  };
 
-export const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
-export const db = getFirestore(app);
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+</script>
