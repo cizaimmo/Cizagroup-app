@@ -6,11 +6,23 @@
 <title>CIZA GROUP — App Officielle</title>
 <link rel="icon" href="logotransparent.png">
 
+<!-- 🛑 ANTI-FLASH GLOBAL -->
+<style>
+html,body{background:#06142E}
+body{opacity:0;transition:opacity .35s ease}
+</style>
+
 <!-- 🔐 BARRIÈRE D’ACCÈS -->
 <script>
-if(localStorage.getItem("ciza_user_status") !== "active"){
-  window.location.replace("login.html");
-}
+(function(){
+  if(localStorage.getItem("ciza_user_status")!=="active"){
+    window.location.replace("login.html");
+    return;
+  }
+  document.addEventListener("DOMContentLoaded",()=>{
+    document.body.style.opacity="1";
+  });
+})();
 </script>
 
 <style>
@@ -31,36 +43,28 @@ html,body{
 }
 body{background:var(--bg);color:var(--txt)}
 
-/* ===== SPLASH PREMIUM ===== */
+/* ===== SPLASH ===== */
 #splash{
   position:fixed;
   inset:0;
-  background:radial-gradient(circle at center,#0b1c34,#06142E);
+  background:radial-gradient(circle,#0b1c34,#06142E);
   z-index:9999;
   display:flex;
   justify-content:center;
   align-items:center;
   overflow:hidden;
-  animation:splashFade 2.8s ease 2.8s forwards;
+  animation:splashFade 2.6s ease 2.6s forwards;
 }
 @keyframes splashFade{to{opacity:0;visibility:hidden}}
 
-#splashCanvas{
-  position:absolute;
-  inset:0;
-}
-
-.splash-content{
-  position:relative;
-  z-index:2;
-  text-align:center;
-}
+#splashCanvas{position:absolute;inset:0}
+.splash-content{text-align:center;z-index:2}
 .splash-logo{
   width:200px;
   filter:drop-shadow(0 0 35px #F2B840);
-  animation:logoFloat 3s ease-in-out infinite;
+  animation:float 3s ease-in-out infinite;
 }
-@keyframes logoFloat{
+@keyframes float{
   0%{transform:translateY(0)}
   50%{transform:translateY(-14px)}
   100%{transform:translateY(0)}
@@ -86,23 +90,14 @@ header{
   border-bottom:1px solid var(--gold);
   backdrop-filter:blur(15px);
 }
-header img{
-  width:55px;
-  filter:drop-shadow(0 0 8px var(--gold));
-}
-.menu-btn{
-  font-size:32px;
-  color:var(--gold);
-  cursor:pointer;
-}
+header img{width:55px;filter:drop-shadow(0 0 8px var(--gold))}
+.menu-btn{font-size:32px;color:var(--gold);cursor:pointer}
 
 /* ===== MENU ===== */
 #menu{
   position:fixed;
   top:0;right:0;
-  width:75%;
-  max-width:320px;
-  height:100svh;
+  width:75%;max-width:320px;height:100svh;
   background:var(--glass);
   backdrop-filter:blur(25px);
   border-left:2px solid var(--gold);
@@ -179,13 +174,12 @@ footer a{
   text-decoration:none;
 }
 
-/* ===== TOP ===== */
+/* TOP */
 #toTop{
   position:fixed;
   bottom:20px;
   right:20px;
-  width:45px;
-  height:45px;
+  width:45px;height:45px;
   border-radius:50%;
   background:var(--gold);
   color:#06142E;
@@ -219,8 +213,6 @@ footer a{
   <div class="menu-close" onclick="toggleMenu()">✕</div>
   <div class="menu-item" onclick="location.href='index.html'">🏠 Accueil</div>
   <div class="menu-item" onclick="location.href='about.html'">ℹ️ À propos</div>
-  <div class="menu-item" onclick="location.href='signup.html'">📝 Créer un compte</div>
-  <div class="menu-item" onclick="location.href='login.html'">🔐 Connexion</div>
   <div class="menu-item" onclick="logout()">🚪 Déconnexion</div>
   <div class="menu-item" onclick="location.href='legal.html'">📘 Mentions légales</div>
 </div>
@@ -248,33 +240,30 @@ footer a{
 <div class="card" onclick="location.href='business.html'">🏢 Business & ONG</div>
 
 <footer>
-Sign designed by © 2026 CIZA GROUP
-  <a href="legal.html">Mentions légales</a>
-  <a href="privacy.html">Confidentialité</a>
-  <a href="mailto:infos@cizagroup.com">Contact</a>
-  <a href="https://www.instagram.com/cizagroup_official" target="_blank">
-    📸 Instagram : @cizagroup_official
-  </a>
+© 2026 CIZA GROUP
+<a href="legal.html">Mentions légales</a>
+<a href="privacy.html">Confidentialité</a>
+<a href="mailto:infos@cizagroup.com">Contact</a>
+<a href="https://www.instagram.com/cizagroup_official" target="_blank">
+📸 Instagram : @cizagroup_official
+</a>
 </footer>
 
 <div id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
 
 <script>
-/* MENU */
 function toggleMenu(){
   document.getElementById("menu").classList.toggle("open");
 }
-
-/* LOGOUT */
 function logout(){
-  localStorage.removeItem("ciza_user_status");
-  alert("Déconnecté.");
-  window.location.replace("login.html");
+  document.body.style.opacity="0";
+  setTimeout(()=>{
+    localStorage.removeItem("ciza_user_status");
+    window.location.replace("login.html");
+  },180);
 }
-
-/* SCROLL */
 window.addEventListener("scroll",()=>{
-  document.getElementById("toTop").style.display =
+  document.getElementById("toTop").style.display=
     window.scrollY>300?"flex":"none";
 });
 
@@ -283,7 +272,6 @@ const canvas=document.getElementById("splashCanvas");
 const ctx=canvas.getContext("2d");
 function resize(){canvas.width=innerWidth;canvas.height=innerHeight}
 resize();addEventListener("resize",resize);
-
 const particles=[];
 for(let i=0;i<160;i++){
   particles.push({
@@ -294,7 +282,7 @@ for(let i=0;i<160;i++){
     vy:(Math.random()-.5)*0.4
   });
 }
-function animate(){
+(function animate(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
   ctx.fillStyle="#F2B840";
   particles.forEach(p=>{
@@ -307,8 +295,7 @@ function animate(){
     if(p.y<0||p.y>canvas.height)p.vy*=-1;
   });
   requestAnimationFrame(animate);
-}
-animate();
+})();
 </script>
 
 </body>
