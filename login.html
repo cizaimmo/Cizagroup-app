@@ -52,7 +52,7 @@ button{
 <div class="card">
   <img src="logotransparent.png" width="90"><br><br>
   <h2>Accès sécurisé</h2>
-  <p>Code envoyé par SMS / WhatsApp</p>
+  <p>Code envoyé par SMS</p>
 
   <input id="phone" placeholder="+25779945007">
   <div id="recaptcha-container"></div>
@@ -67,7 +67,11 @@ button{
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
-import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+import { 
+  getAuth, 
+  RecaptchaVerifier, 
+  signInWithPhoneNumber 
+} from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBAiJHbBvRO6cDFpm6C-5mQk6SiTtzcI8o",
@@ -79,16 +83,27 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
+// 🔐 OBLIGATOIRE — reCAPTCHA
 window.recaptchaVerifier = new RecaptchaVerifier(
   auth,
   "recaptcha-container",
-  { size: "invisible" }
+  {
+    size: "invisible",
+    callback: () => {
+      console.log("reCAPTCHA OK");
+    }
+  }
 );
+
+// ⚠️ RENDU EXPLICITE (CRITIQUE)
+await window.recaptchaVerifier.render();
 
 let confirmationResult;
 
 window.sendCode = async () => {
   const phone = document.getElementById("phone").value;
+  document.getElementById("msg").innerText = "Envoi du code...";
+
   try{
     confirmationResult = await signInWithPhoneNumber(
       auth,
@@ -97,12 +112,15 @@ window.sendCode = async () => {
     );
     document.getElementById("msg").innerText = "Code envoyé ✅";
   }catch(e){
+    console.error(e);
     document.getElementById("msg").innerText = "Erreur SMS ❌";
+    window.recaptchaVerifier.reset();
   }
 };
 
 window.verifyCode = async () => {
   const code = document.getElementById("code").value;
+
   try{
     await confirmationResult.confirm(code);
     localStorage.setItem("ciza_user_status","active");
