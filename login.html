@@ -6,16 +6,19 @@
 <title>Connexion — CIZA GROUP</title>
 <link rel="icon" href="logotransparent.png">
 
+<!-- ANTI FLASH -->
 <style>
+html,body{background:#06142E}
 body{
   margin:0;
-  background:#06142E;
   color:white;
   font-family:Arial,sans-serif;
   display:flex;
   justify-content:center;
   align-items:center;
   height:100vh;
+  opacity:0;
+  transition:opacity .3s ease;
 }
 .card{
   width:90%;
@@ -73,7 +76,7 @@ import {
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
 
-/* 🔥 CONFIG FIREBASE */
+/* 🔥 FIREBASE CONFIG */
 const firebaseConfig = {
   apiKey: "AIzaSyBAiJHbBvRO6cDFpm6C-5mQk6SiTtzcI8o",
   authDomain: "cizagroup-app.firebaseapp.com",
@@ -84,10 +87,13 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-/* ✅ SI DÉJÀ CONNECTÉ → REDIRECTION */
+/* ✅ AUTH STATE = SOURCE DE VÉRITÉ */
 onAuthStateChanged(auth, (user) => {
   if (user) {
+    localStorage.setItem("ciza_user_status","active");
     window.location.href = "index.html";
+  } else {
+    document.body.style.opacity = "1";
   }
 });
 
@@ -106,7 +112,7 @@ window.login = async () => {
 
   try {
     await signInWithEmailAndPassword(auth, email, password);
-    window.location.href = "index.html";
+    // ❌ PAS DE REDIRECTION ICI
   } catch (e) {
     msg.innerText = "Email ou mot de passe incorrect ❌";
   }
