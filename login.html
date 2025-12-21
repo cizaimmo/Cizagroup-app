@@ -43,11 +43,8 @@ button{
   font-size:18px;
   cursor:pointer;
 }
-#msg{
-  margin-top:12px;
-  font-size:14px;
-  min-height:18px;
-}
+#msg{margin-top:12px;min-height:18px}
+a{color:#F2B840;text-decoration:none;font-size:14px}
 </style>
 </head>
 
@@ -61,6 +58,10 @@ button{
   <input id="password" type="password" placeholder="Mot de passe">
 
   <button onclick="login()">Se connecter</button>
+
+  <p style="margin-top:15px">
+    <a href="signup.html">Créer un compte</a>
+  </p>
 
   <div id="msg"></div>
 </div>
@@ -80,27 +81,22 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 window.login = async () => {
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value.trim();
-  const msg = document.getElementById("msg");
+  const email = email.value.trim();
+  const password = password.value.trim();
+  msg.innerText = "";
 
-  if (!email || !password) {
+  if(!email || !password){
     msg.innerText = "Veuillez remplir tous les champs";
     return;
   }
 
   msg.innerText = "Connexion en cours...";
 
-  try {
-    await signInWithEmailAndPassword(auth, email, password);
-
-    // 🔐 ACTIVER L’ACCÈS À L’APP
+  try{
+    await signInWithEmailAndPassword(auth,email,password);
     localStorage.setItem("ciza_user_status","active");
-
-    // ➜ REDIRECTION PROPRE
-    window.location.replace("index.html");
-
-  } catch (e) {
+    window.location.href = "index.html";
+  }catch(e){
     msg.innerText = "Email ou mot de passe incorrect ❌";
   }
 };
