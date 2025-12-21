@@ -6,87 +6,174 @@
 <title>CIZA GROUP — App Officielle</title>
 <link rel="icon" href="logotransparent.png">
 
-<!-- ANTI FLASH -->
-<style>
-html,body{margin:0;background:#06142E}
-body{opacity:0;transition:opacity .35s ease;font-family:Arial,sans-serif}
-</style>
-
+<!-- 🔐 BARRIÈRE D’ACCÈS (ANTI ACCÈS DIRECT) -->
 <script>
-document.addEventListener("DOMContentLoaded",()=>{
-  const status = localStorage.getItem("ciza_user_status");
-
-  if(status !== "active"){
-    // 🔴 IMPORTANT : pas de splash, pas d’animation
-    window.location.href = "login.html";
-    return;
-  }
-
-  // ✅ Accès autorisé → on affiche la page
-  document.body.style.opacity = "1";
-});
+if(localStorage.getItem("ciza_user_status") !== "active"){
+  window.location.replace("login.html");
+}
 </script>
 
 <style>
-:root{
-  --bg:#06142E;
-  --gold:#F2B840;
-  --glass:rgba(255,255,255,.08);
-  --border:rgba(255,255,255,.15);
-  --txt:#fff;
+*{box-sizing:border-box}
+html,body{
+  margin:0;
+  width:100%;
+  max-width:100vw;
+  overflow-x:hidden;
+  font-family:Arial,sans-serif;
+  background:#06142E;
+  color:#fff;
 }
-body{background:var(--bg);color:var(--txt)}
 
+/* ===== SPLASH ===== */
+#splash{
+  position:fixed;
+  inset:0;
+  background:radial-gradient(circle,#0b1c34,#06142E);
+  z-index:9999;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  animation:fadeSplash 2.5s ease 2.5s forwards;
+}
+@keyframes fadeSplash{to{opacity:0;visibility:hidden}}
+
+.splash-box{text-align:center}
+.splash-logo{
+  width:200px;
+  filter:drop-shadow(0 0 35px #F2B840);
+  animation:float 3s ease-in-out infinite;
+}
+@keyframes float{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-14px)}
+  100%{transform:translateY(0)}
+}
+.splash-text{
+  margin-top:12px;
+  font-size:32px;
+  letter-spacing:4px;
+  color:#F2B840;
+}
+
+/* ===== HEADER ===== */
 header{
-  position:sticky;top:0;z-index:1000;
-  display:flex;justify-content:space-between;align-items:center;
+  position:sticky;
+  top:0;
+  z-index:1000;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
   padding:15px 20px;
-  background:var(--glass);
-  border-bottom:1px solid var(--gold);
+  background:rgba(255,255,255,.08);
   backdrop-filter:blur(15px);
+  border-bottom:1px solid #F2B840;
 }
 header img{width:55px}
-.menu-btn{font-size:32px;color:var(--gold);cursor:pointer}
+.menu-btn{font-size:32px;color:#F2B840;cursor:pointer}
 
+/* ===== MENU ===== */
 #menu{
-  position:fixed;top:0;right:0;width:75%;max-width:320px;height:100vh;
-  background:var(--glass);backdrop-filter:blur(25px);
-  border-left:2px solid var(--gold);
-  padding:30px;transform:translateX(100%);
-  transition:.4s;z-index:9999;
+  position:fixed;
+  top:0;right:0;
+  width:75%;
+  max-width:320px;
+  height:100vh;
+  background:rgba(255,255,255,.1);
+  backdrop-filter:blur(25px);
+  padding:30px;
+  transform:translateX(100%);
+  transition:.4s;
+  z-index:99999;
 }
 #menu.open{transform:translateX(0)}
-.menu-close{font-size:26px;color:var(--gold);text-align:right;cursor:pointer}
-.menu-item{padding:14px 0;border-bottom:1px solid var(--border);cursor:pointer}
+.menu-close{text-align:right;font-size:28px;color:#F2B840;cursor:pointer}
+.menu-item{
+  padding:14px 0;
+  border-bottom:1px solid rgba(255,255,255,.15);
+  cursor:pointer;
+}
+.menu-item:hover{color:#F2B840}
 
+/* ===== CONTENT ===== */
 .hero{
-  width:90%;margin:25px auto;padding:25px;
-  background:var(--glass);border:2px solid var(--gold);
-  border-radius:22px;text-align:center;
+  width:90%;
+  margin:25px auto;
+  background:rgba(255,255,255,.08);
+  border:2px solid #F2B840;
+  border-radius:22px;
+  padding:25px;
+  text-align:center;
 }
-.section-title{width:90%;margin:25px auto 10px;color:var(--gold);font-size:22px}
-.grid{width:90%;margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.hero h2{margin:0;color:#F2B840}
+
+.section-title{
+  width:90%;
+  margin:25px auto 10px;
+  font-size:22px;
+  font-weight:bold;
+  color:#F2B840;
+}
+.grid{
+  width:90%;
+  margin:auto;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
 .card{
-  background:var(--glass);border:2px solid var(--gold);
-  padding:18px;border-radius:16px;text-align:center;cursor:pointer
+  background:rgba(255,255,255,.08);
+  border:2px solid #F2B840;
+  padding:18px;
+  border-radius:16px;
+  text-align:center;
+  cursor:pointer;
 }
-footer{margin-top:40px;padding:30px;text-align:center;font-size:14px}
-footer a{color:var(--gold);display:block;margin-top:6px;text-decoration:none}
+.card:hover{transform:scale(1.05)}
+
+/* ===== FOOTER ===== */
+footer{
+  margin-top:40px;
+  padding:30px;
+  text-align:center;
+  font-size:14px;
+  opacity:.85;
+}
+footer a{
+  color:#F2B840;
+  display:block;
+  margin-top:6px;
+  text-decoration:none;
+}
 </style>
 </head>
 
 <body>
+
+<!-- SPLASH -->
+<div id="splash">
+  <div class="splash-box">
+    <img src="logotransparent.png" class="splash-logo">
+    <div class="splash-text">CIZA&nbsp;GROUP</div>
+  </div>
+</div>
 
 <header>
   <img src="logotransparent.png">
   <div class="menu-btn" onclick="toggleMenu()">☰</div>
 </header>
 
+<!-- MENU -->
 <div id="menu">
   <div class="menu-close" onclick="toggleMenu()">✕</div>
+
   <div class="menu-item" onclick="location.href='index.html'">🏠 Accueil</div>
   <div class="menu-item" onclick="location.href='about.html'">ℹ️ À propos</div>
-  <div class="menu-item" onclick="logout()">🚪 Déconnexion</div>
+
+  <div class="menu-item" id="menu-login" onclick="location.href='login.html'">🔐 Connexion</div>
+  <div class="menu-item" id="menu-signup" onclick="location.href='signup.html'">📝 Créer un compte</div>
+  <div class="menu-item" id="menu-logout" onclick="logout()">🚪 Déconnexion</div>
+
   <div class="menu-item" onclick="location.href='legal.html'">📘 Mentions légales</div>
 </div>
 
@@ -126,9 +213,17 @@ footer a{color:var(--gold);display:block;margin-top:6px;text-decoration:none}
 function toggleMenu(){
   document.getElementById("menu").classList.toggle("open");
 }
+
+/* MENU INTELLIGENT */
+const connected = localStorage.getItem("ciza_user_status")==="active";
+document.getElementById("menu-login").style.display  = connected?"none":"block";
+document.getElementById("menu-signup").style.display = connected?"none":"block";
+document.getElementById("menu-logout").style.display = connected?"block":"none";
+
+/* LOGOUT */
 function logout(){
   localStorage.removeItem("ciza_user_status");
-  window.location.href = "login.html";
+  window.location.replace("login.html");
 }
 </script>
 
