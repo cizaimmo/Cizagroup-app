@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CizaRide+ — Réservation VIP</title>
+<title>CizaRide+ — Service VIP</title>
 <link rel="icon" href="logotransparent.png">
 
 <style>
@@ -25,10 +25,9 @@ body{
   color:var(--txt);
 }
 
-/* CONTAINER */
 .container{
-  max-width:420px;
-  margin:30px auto;
+  max-width:430px;
+  margin:26px auto;
   padding:26px;
   background:var(--glass);
   border:1.5px solid var(--border);
@@ -52,26 +51,27 @@ body{
 }
 .header p{
   font-size:14px;
-  opacity:.85;
-  line-height:1.5;
+  opacity:.9;
+  line-height:1.6;
 }
 
-/* LANG */
-.lang{
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  margin-bottom:18px;
+/* SECTION */
+.section{
+  margin-top:28px;
 }
-.lang button{
-  background:#0b1c34;
-  color:white;
-  border:1px solid var(--border);
-  padding:6px 12px;
-  border-radius:10px;
-  cursor:pointer;
+.section h3{
+  color:var(--gold);
+  font-size:17px;
+  margin-bottom:10px;
 }
-.lang button:hover{color:var(--gold)}
+.section p, .section li{
+  font-size:14px;
+  opacity:.9;
+  line-height:1.6;
+}
+.section ul{
+  padding-left:18px;
+}
 
 /* FORM */
 label{
@@ -90,11 +90,9 @@ input, textarea{
 }
 textarea{resize:none}
 
-/* BUTTONS */
 .actions{
   display:flex;
   gap:10px;
-  margin-top:10px;
 }
 .actions button{
   flex:1;
@@ -114,30 +112,21 @@ textarea{resize:none}
   font-weight:bold;
 }
 
-/* PRIVACY */
-.privacy{
-  margin-top:18px;
-  font-size:12px;
-  opacity:.75;
-  line-height:1.5;
-}
-
-/* WHATSAPP */
-.whatsapp{
-  display:block;
-  margin-top:18px;
-  text-align:center;
-  color:var(--gold);
-  text-decoration:none;
-  font-size:14px;
-}
-
 /* FOOTER */
 .footer{
   margin-top:26px;
   text-align:center;
   font-size:12px;
-  opacity:.6;
+  opacity:.65;
+}
+
+.whatsapp{
+  display:block;
+  margin-top:14px;
+  text-align:center;
+  color:var(--gold);
+  text-decoration:none;
+  font-size:14px;
 }
 </style>
 </head>
@@ -150,75 +139,112 @@ textarea{resize:none}
   <div class="header">
     <img src="logotransparent.png">
     <h2>CizaRide+ VIP</h2>
-    <p id="desc">
-      Veuillez remplir ce formulaire pour réserver un chauffeur privé VIP.
+    <p>
+      Service de transport privé haut de gamme.<br>
+      Discrétion, sécurité et confort avant tout.
     </p>
   </div>
 
-  <!-- LANG -->
-  <div class="lang">
-    <button onclick="setLang('fr')">FR</button>
-    <button onclick="setLang('en')">EN</button>
-    <button onclick="setLang('rn')">RN</button>
+  <!-- C’EST QUOI -->
+  <div class="section">
+    <h3>🚘 C’est quoi CizaRide+ VIP ?</h3>
+    <p>
+      CizaRide+ VIP est un service de <b>voiture avec chauffeur privé</b>,
+      destiné aux clients qui souhaitent :
+    </p>
+    <ul>
+      <li>Éviter les taxis ordinaires</li>
+      <li>Voyager en toute discrétion</li>
+      <li>Réserver à l’avance</li>
+      <li>Avoir un service fiable et encadré</li>
+    </ul>
   </div>
 
-  <!-- FORM -->
-  <form action="mailto:infos@cizagroup.com" method="post" enctype="text/plain">
-
-    <label>Nom complet</label>
-    <input name="Nom" required>
-
-    <label>Téléphone / WhatsApp</label>
-    <input name="Téléphone" required placeholder="+257…">
-
-    <label>Date & heure souhaitées</label>
-    <input name="Date et heure" type="datetime-local" required>
-
-    <label>Point de départ</label>
-    <input name="Départ" required>
-
-    <label>Destination</label>
-    <input name="Destination" required>
-
-    <label>Message (optionnel)</label>
-    <textarea name="Message" rows="3"></textarea>
-
-    <!-- ACTIONS -->
-    <div class="actions">
-      <button type="button" class="back" onclick="history.back()">← Retour</button>
-      <button type="submit" class="send">Envoyer la demande</button>
-    </div>
-
-  </form>
-
-  <!-- PRIVACY -->
-  <div class="privacy">
-    🔒 Vos informations sont strictement confidentielles.<br>
-    Elles sont utilisées uniquement pour traiter votre demande CizaRide+.
+  <!-- POURQUOI NOUS -->
+  <div class="section">
+    <h3>⭐ Pourquoi nous faire confiance ?</h3>
+    <ul>
+      <li>Chauffeurs sélectionnés et identifiés</li>
+      <li>Réservation confirmée par l’équipe CIZA</li>
+      <li>Aucun paiement improvisé</li>
+      <li>Assistance humaine disponible</li>
+    </ul>
   </div>
 
-  <!-- WHATSAPP -->
+  <!-- COMMENT ÇA MARCHE -->
+  <div class="section">
+    <h3>📋 Comment ça fonctionne ?</h3>
+    <ol>
+      <li>Vous remplissez le formulaire ci-dessous</li>
+      <li>Notre équipe vous contacte pour confirmation</li>
+      <li>Le chauffeur est assigné</li>
+      <li>Le service est exécuté selon l’horaire convenu</li>
+    </ol>
+  </div>
+
+  <!-- PAIEMENT -->
+  <div class="section">
+    <h3>💳 Comment le service est payé ?</h3>
+    <p>
+      Le paiement se fait <b>à l’avance</b> après confirmation :
+    </p>
+    <ul>
+      <li>Au bureau CIZA</li>
+      <li>Ou selon les instructions communiquées par l’équipe</li>
+    </ul>
+  </div>
+
+  <!-- URGENCE -->
+  <div class="section">
+    <h3>🚨 En cas de détresse ou urgence</h3>
+    <p>
+      Contactez immédiatement notre support :
+    </p>
+    <p>
+      📞 Burundi / WhatsApp : <b>+257 79 94 50 07</b><br>
+      📞 Canada / WhatsApp : <b>+1 514 502 9503</b>
+    </p>
+  </div>
+
+  <!-- FORMULAIRE -->
+  <div class="section">
+    <h3>📝 Demande de réservation VIP</h3>
+
+    <form action="mailto:infos@cizagroup.com" method="post" enctype="text/plain">
+      <label>Nom complet</label>
+      <input name="Nom" required>
+
+      <label>Téléphone / WhatsApp</label>
+      <input name="Téléphone" required>
+
+      <label>Date & heure souhaitées</label>
+      <input type="datetime-local" name="Date" required>
+
+      <label>Point de départ</label>
+      <input name="Départ" required>
+
+      <label>Destination</label>
+      <input name="Destination" required>
+
+      <label>Message (optionnel)</label>
+      <textarea rows="3" name="Message"></textarea>
+
+      <div class="actions">
+        <button type="button" class="back" onclick="history.back()">← Retour</button>
+        <button type="submit" class="send">Envoyer la demande</button>
+      </div>
+    </form>
+  </div>
+
   <a class="whatsapp" href="https://wa.me/25779945007" target="_blank">
     💬 Assistance immédiate via WhatsApp
   </a>
 
-  <!-- FOOTER -->
   <div class="footer">
-    © 2026 CIZA GROUP — Service Premium
+    © 2026 CIZA GROUP — Service Premium & Confidentiel
   </div>
 
 </div>
-
-<script>
-function setLang(l){
-  if(l==='fr')
-    desc.innerText="Veuillez remplir ce formulaire pour réserver un chauffeur privé VIP.";
-  if(l==='en')
-    desc.innerText="Please complete this form to request a VIP private driver.";
-  if(l==='rn')
-    desc.innerText="Uzuza iyi formulaire kugira usabe umudrive wa VIP.";
-}
-</script>
 
 </body>
 </html>
