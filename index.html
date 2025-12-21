@@ -3,125 +3,196 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <title>CIZA GROUP — App Officielle</title>
 <link rel="icon" href="logotransparent.png">
 
+<!-- 🔐 BARRIÈRE D’ACCÈS -->
+<script>
+if(localStorage.getItem("ciza_user_status") !== "active"){
+  window.location.href = "login.html";
+}
+</script>
+
 <style>
-*{ box-sizing:border-box; }
+*{box-sizing:border-box}
 html,body{
-    margin:0;
-    width:100%;
-    max-width:100vw;
-    overflow-x:hidden;
-    font-family:Arial, sans-serif;
+  margin:0;
+  width:100%;
+  max-width:100vw;
+  overflow-x:hidden;
+  font-family:Arial,sans-serif;
 }
 :root{
-    --bg:#06142E;
-    --text:white;
-    --glass:rgba(255,255,255,0.08);
-    --border:rgba(255,255,255,0.15);
-    --gold:#F2B840;
+  --bg:#06142E;
+  --gold:#F2B840;
+  --glass:rgba(255,255,255,.08);
+  --border:rgba(255,255,255,.15);
+  --txt:#fff;
 }
-body{background:var(--bg);color:var(--text);}
+body{background:var(--bg);color:var(--txt)}
+
 #watermark{
-    position:fixed;bottom:5%;right:5%;
-    opacity:.05;font-size:70px;color:var(--gold);z-index:-1;
+  position:fixed;
+  bottom:5%;
+  right:5%;
+  opacity:.05;
+  font-size:70px;
+  color:var(--gold);
+  z-index:-1;
 }
+
+/* SPLASH */
 #splash{
-    position:fixed;inset:0;height:100svh;
-    background:var(--bg);display:flex;
-    justify-content:center;align-items:center;
-    z-index:9999;animation:fadeOut 1.7s ease 2.9s forwards;
+  position:fixed;
+  inset:0;
+  background:var(--bg);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+  animation:fadeOut 1.7s ease 2.9s forwards;
 }
 #splash img{
-    width:240px;animation:zoom 2.4s ease forwards;
-    filter:drop-shadow(0 0 25px var(--gold));
+  width:240px;
+  animation:zoom 2.4s ease forwards;
+  filter:drop-shadow(0 0 25px var(--gold));
 }
-@keyframes zoom{0%{scale:.5;opacity:0}60%{scale:1.2}100%{scale:1}}
-@keyframes fadeOut{to{opacity:0;visibility:hidden}}
+@keyframes zoom{
+  0%{transform:scale(.5);opacity:0}
+  60%{transform:scale(1.2);opacity:1}
+  100%{transform:scale(1)}
+}
+@keyframes fadeOut{
+  to{opacity:0;visibility:hidden}
+}
 
+/* HEADER */
 header{
-    position:sticky;top:0;z-index:1000;
-    display:flex;justify-content:space-between;
-    align-items:center;padding:15px 20px;
-    background:var(--glass);
-    border-bottom:1px solid var(--gold);
-    backdrop-filter:blur(15px);
+  position:sticky;
+  top:0;
+  z-index:1000;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 20px;
+  background:var(--glass);
+  border-bottom:1px solid var(--gold);
+  backdrop-filter:blur(15px);
 }
-header img{width:55px;filter:drop-shadow(0 0 8px var(--gold))}
-.menu-btn{font-size:32px;color:var(--gold);cursor:pointer}
+header img{
+  width:55px;
+  filter:drop-shadow(0 0 8px var(--gold));
+}
+.menu-btn{
+  font-size:32px;
+  color:var(--gold);
+  cursor:pointer;
+}
 
+/* MENU */
 #menu{
-    position:fixed;top:0;right:0;
-    width:75%;max-width:320px;height:100svh;
-    background:var(--glass);backdrop-filter:blur(25px);
-    border-left:2px solid var(--gold);
-    padding:30px;transform:translateX(100%);
-    transition:.45s;z-index:99999;
+  position:fixed;
+  top:0;right:0;
+  width:75%;
+  max-width:320px;
+  height:100svh;
+  background:var(--glass);
+  backdrop-filter:blur(25px);
+  border-left:2px solid var(--gold);
+  padding:30px;
+  transform:translateX(100%);
+  transition:.45s;
+  z-index:99999;
 }
 #menu.open{transform:translateX(0)}
+
+/* ❌ CLOSE BUTTON */
+.menu-close{
+  font-size:28px;
+  color:var(--gold);
+  text-align:right;
+  cursor:pointer;
+  margin-bottom:20px;
+}
+
 .menu-item{
-    font-size:18px;padding:14px 0;
-    border-bottom:1px solid var(--border);
-    cursor:pointer;
+  font-size:18px;
+  padding:14px 0;
+  border-bottom:1px solid var(--border);
+  cursor:pointer;
 }
 .menu-item:hover{color:var(--gold)}
 
+/* HERO */
 .hero{
-    width:90%;margin:25px auto;
-    background:var(--glass);
-    border:2px solid var(--gold);
-    border-radius:22px;padding:25px;text-align:center;
+  width:90%;
+  margin:25px auto;
+  background:var(--glass);
+  border:2px solid var(--gold);
+  border-radius:22px;
+  padding:25px;
+  text-align:center;
 }
 .hero h2{margin:0;color:var(--gold)}
 
+/* SECTIONS */
 .section-title{
-    width:90%;margin:25px auto 10px;
-    color:var(--gold);font-size:22px;font-weight:bold;
+  width:90%;
+  margin:25px auto 10px;
+  color:var(--gold);
+  font-size:22px;
+  font-weight:bold;
 }
 .grid{
-    width:90%;margin:auto;
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:14px;
+  width:90%;
+  margin:auto;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
 }
 .card{
-    background:var(--glass);
-    border:2px solid var(--gold);
-    padding:18px;
-    border-radius:16px;
-    text-align:center;
-    cursor:pointer;
-    transition:.25s;
+  background:var(--glass);
+  border:2px solid var(--gold);
+  padding:18px;
+  border-radius:16px;
+  text-align:center;
+  cursor:pointer;
+  transition:.25s;
 }
 .card:hover{transform:scale(1.05)}
 
+/* FOOTER */
 footer{
-    margin-top:40px;padding:30px;
-    text-align:center;font-size:14px;opacity:.85;
+  margin-top:40px;
+  padding:30px;
+  text-align:center;
+  font-size:14px;
+  opacity:.85;
 }
-footer a{color:var(--gold);display:block;margin-top:6px}
+footer a{
+  color:var(--gold);
+  display:block;
+  margin-top:6px;
+  text-decoration:none;
+}
 
+/* TOP */
 #toTop{
-    position:fixed;bottom:20px;right:20px;
-    width:45px;height:45px;border-radius:50%;
-    background:var(--gold);color:#06142E;
-    display:none;align-items:center;justify-content:center;
-    font-size:22px;cursor:pointer;
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  background:var(--gold);
+  color:#06142E;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  cursor:pointer;
 }
 </style>
-
-<!-- 🔐 BARRIÈRE D’ACCÈS (NE CASSE RIEN) -->
-<script>
-(function(){
-  const status = localStorage.getItem("ciza_user_status");
-  if(status !== "active"){
-    window.location.replace("login.html");
-  }
-})();
-</script>
-
 </head>
 
 <body>
@@ -137,23 +208,32 @@ footer a{color:var(--gold);display:block;margin-top:6px}
   <div class="menu-btn" onclick="toggleMenu()">☰</div>
 </header>
 
+<!-- MENU -->
 <div id="menu">
+  <div class="menu-close" onclick="toggleMenu()">✕</div>
+
   <div class="menu-item" onclick="location.href='index.html'">🏠 Accueil</div>
   <div class="menu-item" onclick="location.href='about.html'">ℹ️ À propos</div>
   <div class="menu-item" onclick="location.href='signup.html'">📝 Créer un compte</div>
   <div class="menu-item" onclick="location.href='login.html'">🔐 Connexion</div>
+  <div class="menu-item" onclick="logout()">🚪 Déconnexion</div>
   <div class="menu-item" onclick="location.href='delete-account.html'">❌ Supprimer mon compte</div>
   <div class="menu-item" onclick="location.href='legal.html'">📘 Mentions légales</div>
 </div>
 
+<!-- HERO -->
 <div class="hero">
   <h2>CIZA GROUP</h2>
   <p>Écosystème de services dans vos mains</p>
 </div>
 
+<!-- DIASPORA -->
 <div class="section-title">🌍 CIZA DIASPORA+</div>
-<div class="card" onclick="location.href='diaspora.html'">🌍 Services Diaspora</div>
+<div class="card" onclick="location.href='diaspora.html'">
+🌍 Services Diaspora
+</div>
 
+<!-- SERVICES LOCAUX -->
 <div class="section-title">🇧🇮 Services Locaux</div>
 <div class="grid">
   <div class="card" onclick="location.href='portail.html'">🚗 CizaRide+</div>
@@ -165,9 +245,13 @@ footer a{color:var(--gold);display:block;margin-top:6px}
   <div class="card" onclick="location.href='jobs.html'">💼 CizaJobs</div>
 </div>
 
+<!-- BUSINESS -->
 <div class="section-title">🏢 Solutions Entreprises</div>
-<div class="card" onclick="location.href='business.html'">🏢 Business & ONG</div>
+<div class="card" onclick="location.href='business.html'">
+🏢 Business & ONG
+</div>
 
+<!-- FOOTER -->
 <footer>
 Sign designed by © 2026 CIZA GROUP
   <a href="legal.html">Mentions légales</a>
@@ -184,9 +268,19 @@ Sign designed by © 2026 CIZA GROUP
 function toggleMenu(){
   document.getElementById("menu").classList.toggle("open");
 }
+
+/* 🔓 LOGOUT */
+function logout(){
+  localStorage.removeItem("ciza_user_status");
+  localStorage.removeItem("ciza_access_code");
+  alert("Vous êtes déconnecté.\nUne clé d’accès sera requise pour revenir.");
+  window.location.href = "login.html";
+}
+
+/* SCROLL */
 window.addEventListener("scroll",()=>{
   document.getElementById("toTop").style.display =
-    window.scrollY>300?"flex":"none";
+    window.scrollY>300 ? "flex" : "none";
 });
 </script>
 
