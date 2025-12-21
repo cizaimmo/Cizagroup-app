@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Accès sécurisé — CIZA GROUP</title>
+<title>Connexion — CIZA GROUP</title>
 <link rel="icon" href="logotransparent.png">
 
 <style>
@@ -43,7 +43,7 @@ button{
   font-size:18px;
   cursor:pointer;
 }
-#msg{margin-top:10px}
+#msg{margin-top:12px;font-size:14px}
 </style>
 </head>
 
@@ -51,27 +51,19 @@ button{
 
 <div class="card">
   <img src="logotransparent.png" width="90"><br><br>
-  <h2>Accès sécurisé</h2>
-  <p>Code envoyé par SMS</p>
+  <h2>Connexion</h2>
 
-  <input id="phone" placeholder="+25779945007">
-  <div id="recaptcha-container"></div>
+  <input id="email" type="email" placeholder="Adresse email">
+  <input id="password" type="password" placeholder="Mot de passe">
 
-  <button onclick="sendCode()">Recevoir le code</button>
-
-  <input id="code" placeholder="Code reçu">
-  <button onclick="verifyCode()">Accéder</button>
+  <button onclick="login()">Se connecter</button>
 
   <div id="msg"></div>
 </div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
-import { 
-  getAuth, 
-  RecaptchaVerifier, 
-  signInWithPhoneNumber 
-} from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBAiJHbBvRO6cDFpm6C-5mQk6SiTtzcI8o",
@@ -83,50 +75,22 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-// 🔐 OBLIGATOIRE — reCAPTCHA
-window.recaptchaVerifier = new RecaptchaVerifier(
-  auth,
-  "recaptcha-container",
-  {
-    size: "invisible",
-    callback: () => {
-      console.log("reCAPTCHA OK");
-    }
+window.login = async () => {
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
+  const msg = document.getElementById("msg");
+
+  if(!email || !password){
+    msg.innerText = "Veuillez remplir tous les champs";
+    return;
   }
-);
-
-// ⚠️ RENDU EXPLICITE (CRITIQUE)
-await window.recaptchaVerifier.render();
-
-let confirmationResult;
-
-window.sendCode = async () => {
-  const phone = document.getElementById("phone").value;
-  document.getElementById("msg").innerText = "Envoi du code...";
 
   try{
-    confirmationResult = await signInWithPhoneNumber(
-      auth,
-      phone,
-      window.recaptchaVerifier
-    );
-    document.getElementById("msg").innerText = "Code envoyé ✅";
-  }catch(e){
-    console.error(e);
-    document.getElementById("msg").innerText = "Erreur SMS ❌";
-    window.recaptchaVerifier.reset();
-  }
-};
-
-window.verifyCode = async () => {
-  const code = document.getElementById("code").value;
-
-  try{
-    await confirmationResult.confirm(code);
+    await signInWithEmailAndPassword(auth, email, password);
     localStorage.setItem("ciza_user_status","active");
     window.location.href = "index.html";
   }catch(e){
-    document.getElementById("msg").innerText = "Code invalide ❌";
+    msg.innerText = "Connexion refusée ❌";
   }
 };
 </script>
