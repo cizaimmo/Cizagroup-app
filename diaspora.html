@@ -162,7 +162,6 @@ footer span{display:block;margin-top:6px}
   <button onclick="location.reload()">⟳</button>
 </header>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-logo"></div>
   <h1>Diaspora Services — CIZA GROUP</h1>
@@ -226,6 +225,29 @@ footer span{display:block;margin-top:6px}
 </div>
 </section>
 
+<!-- ⭐ AJOUT : LAISSER UN AVIS -->
+<section class="section">
+<h2 class="section-title">⭐ Laisser un avis Diaspora</h2>
+
+<div class="form-box">
+<form action="https://formsubmit.co/infos@cizagroup.com" method="POST">
+  <input type="hidden" name="_subject" value="Nouvel avis Diaspora — CIZA GROUP">
+  <input type="hidden" name="_captcha" value="false">
+
+  <input name="Nom" required placeholder="Votre nom">
+  <input name="Pays" required placeholder="Pays de résidence">
+  <textarea name="Avis" required placeholder="Votre témoignage"></textarea>
+
+  <button class="btn">Envoyer mon avis</button>
+</form>
+
+<p style="margin-top:12px;font-size:13px;opacity:.7">
+Vos informations restent confidentielles.  
+Votre avis pourra être publié de manière anonyme.
+</p>
+</div>
+</section>
+
 <!-- FAQ -->
 <section class="section">
 <h2 class="section-title">FAQ</h2>
@@ -285,11 +307,9 @@ Un conseiller CIZA GROUP vous contactera rapidement.
 <div id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
 
 <script>
-/* Numéro de dossier */
 const dossierId="CIZA-DIAS-"+new Date().toISOString().slice(0,10).replace(/-/g,"")+"-"+Math.floor(1000+Math.random()*9000);
 document.getElementById("dossier").value=dossierId;
 
-/* Envoi sans page blanche */
 document.getElementById("diasporaForm").addEventListener("submit",e=>{
   e.preventDefault();
   fetch("https://formsubmit.co/ajax/infos@cizagroup.com",{method:"POST",body:new FormData(e.target)})
@@ -300,7 +320,6 @@ document.getElementById("diasporaForm").addEventListener("submit",e=>{
   });
 });
 
-/* Scroll top */
 window.addEventListener("scroll",()=>{
   document.getElementById("topBtn").style.display=window.scrollY>300?"flex":"none";
 });
