@@ -15,21 +15,32 @@
   --txt:#fff;
 }
 
-body{
+html,body{
   margin:0;
   min-height:100vh;
   background:linear-gradient(160deg,#06142E,#0b1c34);
   font-family:Arial,sans-serif;
-  display:flex;
-  align-items:center;
-  justify-content:center;
   color:var(--txt);
+  overflow:hidden;
+}
+
+/* PARTICULES */
+#particles{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
 }
 
 /* CARD */
 .card{
+  position:relative;
+  z-index:2;
   width:92%;
   max-width:380px;
+  margin:auto;
+  top:50%;
+  transform:translateY(-50%);
   background:var(--glass);
   backdrop-filter:blur(18px);
   border:1.5px solid var(--border);
@@ -41,14 +52,21 @@ body{
 }
 
 @keyframes fadeUp{
-  from{opacity:0;transform:translateY(12px)}
-  to{opacity:1;transform:translateY(0)}
+  from{opacity:0;transform:translateY(calc(-50% + 12px))}
+  to{opacity:1;transform:translateY(-50%)}
 }
 
 .logo{
   width:96px;
   margin-bottom:10px;
   filter:drop-shadow(0 0 18px rgba(242,184,64,.6));
+  animation:logoGlow 2.6s ease-in-out infinite;
+}
+
+@keyframes logoGlow{
+  0%{filter:drop-shadow(0 0 12px rgba(242,184,64,.4))}
+  50%{filter:drop-shadow(0 0 28px rgba(242,184,64,.9))}
+  100%{filter:drop-shadow(0 0 12px rgba(242,184,64,.4))}
 }
 
 h2{
@@ -75,14 +93,12 @@ input{
   background:#0b1c34;
   color:white;
 }
-
 input::placeholder{opacity:.7}
 
 /* BUTTON */
 button{
   width:100%;
   padding:14px;
-  margin-top:6px;
   border:none;
   border-radius:14px;
   background:linear-gradient(135deg,#F2B840,#ffd977);
@@ -92,7 +108,6 @@ button{
   cursor:pointer;
   transition:.25s;
 }
-
 button:hover{
   transform:translateY(-1px);
   box-shadow:0 8px 20px rgba(242,184,64,.45);
@@ -103,7 +118,6 @@ button:hover{
   margin-top:18px;
   font-size:14px;
 }
-
 .links a{
   color:var(--gold);
   text-decoration:none;
@@ -121,12 +135,12 @@ button:hover{
 
 <body>
 
+<canvas id="particles"></canvas>
+
 <div class="card">
   <img src="logotransparent.png" class="logo">
   <h2>Connexion sécurisée</h2>
-  <div class="subtitle">
-    Accédez à votre espace CIZA GROUP
-  </div>
+  <div class="subtitle">Accédez à votre espace CIZA GROUP</div>
 
   <input id="email" type="email" placeholder="Adresse email">
   <input id="password" type="password" placeholder="Mot de passe">
@@ -140,6 +154,7 @@ button:hover{
   <div id="msg"></div>
 </div>
 
+<!-- FIREBASE LOGIN -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
@@ -174,6 +189,50 @@ window.login = async () => {
     msg.innerText = "Email ou mot de passe incorrect ❌";
   }
 };
+</script>
+
+<!-- PARTICULES DIAMANT -->
+<script>
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+
+function resize(){
+  canvas.width=innerWidth;
+  canvas.height=innerHeight;
+}
+resize();addEventListener("resize",resize);
+
+const diamonds=[];
+for(let i=0;i<90;i++){
+  diamonds.push({
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height,
+    s:Math.random()*4+3,
+    v:Math.random()*0.5+0.2
+  });
+}
+
+function drawDiamond(x,y,s){
+  ctx.beginPath();
+  ctx.moveTo(x,y-s);
+  ctx.lineTo(x+s,y);
+  ctx.lineTo(x,y+s);
+  ctx.lineTo(x-s,y);
+  ctx.closePath();
+  ctx.fill();
+}
+
+(function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle="#F2B840";
+  ctx.globalAlpha=0.28;
+  diamonds.forEach(d=>{
+    drawDiamond(d.x,d.y,d.s);
+    d.y+=d.v;
+    if(d.y>canvas.height+10) d.y=-10;
+  });
+  requestAnimationFrame(animate);
+})();
 </script>
 
 </body>
