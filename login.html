@@ -3,40 +3,135 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Connexion — CIZA GROUP</title>
+<title>Accès sécurisé — CIZA GROUP</title>
 <link rel="icon" href="logotransparent.png">
-<script src="firebase-config.js"></script>
-</head>
 
-<body style="background:#06142E;color:white;font-family:Arial;text-align:center;padding:40px">
+<style>
+body{
+  margin:0;
+  min-height:100vh;
+  background:linear-gradient(135deg,#06142E,#0A3D91);
+  font-family:Arial, sans-serif;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+}
+.card{
+  width:100%;
+  max-width:380px;
+  background:rgba(255,255,255,.08);
+  backdrop-filter:blur(18px);
+  border-radius:22px;
+  padding:30px;
+  text-align:center;
+  border:2px solid #F2B840;
+}
+.card img{width:90px;margin-bottom:15px}
+h2{color:#F2B840;margin-bottom:10px}
+input{
+  width:100%;
+  padding:14px;
+  margin-top:12px;
+  border-radius:14px;
+  border:none;
+  font-size:16px;
+}
+button{
+  margin-top:18px;
+  width:100%;
+  padding:14px;
+  font-size:18px;
+  border:none;
+  border-radius:16px;
+  background:#F2B840;
+  color:#06142E;
+  cursor:pointer;
+}
+#msg{margin-top:12px;font-size:14px;opacity:.9}
+a{color:#7dd3fc;text-decoration:none}
+</style>
 
-<img src="logotransparent.png" width="90"><br><br>
+<!-- Firebase -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-<h2>Connexion</h2>
+const firebaseConfig = {
+  apiKey: "AIzaSyBAiJHbBvRO6cDFpm6C-5mQk6SiTtzcI8o",
+  authDomain: "cizagroup-app.firebaseapp.com",
+  projectId: "cizagroup-app",
+  storageBucket: "cizagroup-app.firebasestorage.app",
+  messagingSenderId: "930936264084",
+  appId: "1:930936264084:web:5395360e54bf17bf492b81"
+};
 
-<input id="email" type="email" placeholder="Email" style="width:90%;padding:14px"><br><br>
-<input id="password" type="password" placeholder="Mot de passe" style="width:90%;padding:14px"><br><br>
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-<button onclick="login()" style="padding:14px;width:90%;background:#F2B840;border:none;font-size:18px">
-Se connecter
-</button>
+window.onload = () => {
+  window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+    size: 'invisible'
+  });
+};
 
-<p id="msg"></p>
+window.sendCode = () => {
+  const phone = document.getElementById("phone").value;
+  if(!phone){
+    msg.innerText = "Entrez votre numéro WhatsApp";
+    return;
+  }
 
-<script>
-function login(){
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-
-  auth.signInWithEmailAndPassword(email, password)
-    .then(()=>{
-      window.location.href = "index.html";
+  signInWithPhoneNumber(auth, phone, window.recaptchaVerifier)
+    .then(result => {
+      window.confirmationResult = result;
+      msg.innerText = "Code SMS envoyé ✔️";
+      document.getElementById("codeBox").style.display="block";
     })
     .catch(err=>{
-      document.getElementById("msg").innerText = "Connexion refusée";
+      msg.innerText = "Erreur SMS. Vérifiez le numéro.";
     });
-}
+};
+
+window.verifyCode = () => {
+  const code = document.getElementById("code").value;
+  if(!code) return;
+
+  window.confirmationResult.confirm(code)
+    .then(()=>{
+      localStorage.setItem("ciza_user_status","active");
+      window.location.href="index.html";
+    })
+    .catch(()=>{
+      msg.innerText="Code invalide";
+    });
+};
 </script>
+</head>
+
+<body>
+
+<div class="card">
+  <img src="logotransparent.png">
+  <h2>Accès sécurisé</h2>
+  <p>Code envoyé par WhatsApp / SMS</p>
+
+  <input id="phone" placeholder="+25779945007">
+  <button onclick="sendCode()">Recevoir le code</button>
+
+  <div id="codeBox" style="display:none">
+    <input id="code" placeholder="Code reçu">
+    <button onclick="verifyCode()">Accéder à l’application</button>
+  </div>
+
+  <div id="recaptcha-container"></div>
+  <p id="msg"></p>
+
+  <p style="margin-top:15px">
+    Besoin d’aide ?  
+    <a href="https://wa.me/25779945007" target="_blank">Contacter un conseiller</a>
+  </p>
+</div>
 
 </body>
 </html>
