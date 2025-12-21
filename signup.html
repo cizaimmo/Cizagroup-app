@@ -5,37 +5,96 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Créer un compte — CIZA GROUP</title>
 <link rel="icon" href="logotransparent.png">
-<script src="firebase-config.js"></script>
+
+<style>
+body{
+  margin:0;
+  background:#06142E;
+  color:white;
+  font-family:Arial,sans-serif;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+.card{
+  width:90%;
+  max-width:360px;
+  background:rgba(255,255,255,.08);
+  border:2px solid #F2B840;
+  border-radius:20px;
+  padding:25px;
+  text-align:center;
+}
+input{
+  width:100%;
+  padding:14px;
+  border-radius:10px;
+  border:none;
+  margin:10px 0;
+  font-size:16px;
+}
+button{
+  width:100%;
+  padding:14px;
+  background:#F2B840;
+  border:none;
+  border-radius:12px;
+  font-size:18px;
+  cursor:pointer;
+}
+#msg{margin-top:12px;font-size:14px}
+</style>
 </head>
 
-<body style="background:#06142E;color:white;font-family:Arial;text-align:center;padding:40px">
+<body>
 
-<img src="logotransparent.png" width="90"><br><br>
+<div class="card">
+  <img src="logotransparent.png" width="90"><br><br>
+  <h2>Créer un compte</h2>
 
-<h2>Créer un compte</h2>
+  <input id="email" type="email" placeholder="Adresse email">
+  <input id="password" type="password" placeholder="Mot de passe (6 caractères minimum)">
 
-<input id="email" type="email" placeholder="Email" style="width:90%;padding:14px"><br><br>
-<input id="password" type="password" placeholder="Mot de passe" style="width:90%;padding:14px"><br><br>
+  <button onclick="signup()">Créer mon compte</button>
 
-<button onclick="signup()" style="padding:14px;width:90%;background:#F2B840;border:none;font-size:18px">
-Créer mon compte
-</button>
+  <div id="msg"></div>
+</div>
 
-<p id="msg"></p>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
 
-<script>
-function signup(){
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
+const firebaseConfig = {
+  apiKey: "AIzaSyBAiJHbBvRO6cDFpm6C-5mQk6SiTtzcI8o",
+  authDomain: "cizagroup-app.firebaseapp.com",
+  projectId: "cizagroup-app",
+  appId: "1:930936264084:web:5395360e54bf17bf492b81"
+};
 
-  auth.createUserWithEmailAndPassword(email, password)
-    .then(()=>{
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+window.signup = async () => {
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
+  const msg = document.getElementById("msg");
+
+  if(!email || !password){
+    msg.innerText = "Veuillez remplir tous les champs";
+    return;
+  }
+
+  try{
+    await createUserWithEmailAndPassword(auth, email, password);
+    msg.innerText = "Compte créé avec succès ✅";
+    setTimeout(()=>{
       window.location.href = "index.html";
-    })
-    .catch(err=>{
-      document.getElementById("msg").innerText = err.message;
-    });
-}
+    }, 800);
+  }catch(e){
+    msg.innerText = e.message.replace("Firebase:", "");
+  }
+};
 </script>
 
 </body>
