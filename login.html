@@ -10,69 +10,48 @@
 :root{
   --bg:#06142E;
   --gold:#F2B840;
-  --glass:rgba(255,255,255,.10);
+  --glass:rgba(255,255,255,.08);
   --border:rgba(255,255,255,.18);
   --txt:#fff;
 }
 
-html,body{
+body{
   margin:0;
-  height:100%;
+  min-height:100vh;
   background:linear-gradient(160deg,#06142E,#0b1c34);
   font-family:Arial,sans-serif;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   color:var(--txt);
-  overflow:hidden;
 }
 
-/* PARTICULES (PLUS DOUX) */
-#particles{
-  position:fixed;
-  inset:0;
-  z-index:0;
-  opacity:.25;
-  pointer-events:none;
-}
-
-/* CARD */
+/* ✅ CARTE STABLE (PAS D’ANIMATION LOURDE) */
 .card{
-  position:relative;
-  z-index:2;
   width:92%;
   max-width:380px;
-  margin:auto;
-  top:50%;
-  transform:translateY(-50%);
   background:var(--glass);
-  backdrop-filter:blur(20px);
   border:1.5px solid var(--border);
-  border-radius:26px;
-  padding:28px 26px 26px;
+  border-radius:24px;
+  padding:30px 26px;
   text-align:center;
-  box-shadow:0 20px 40px rgba(0,0,0,.45);
-  animation:fadeUp .4s ease;
+  box-shadow:0 12px 35px rgba(0,0,0,.45);
+  animation:fadeIn .35s ease-out;
 }
 
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(calc(-50% + 10px))}
-  to{opacity:1;transform:translateY(-50%)}
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:translateY(0)}
 }
 
-/* LOGO */
 .logo{
-  width:90px;
-  margin-bottom:8px;
-  filter:drop-shadow(0 0 20px rgba(242,184,64,.7));
-  animation:logoGlow 2.6s ease-in-out infinite;
-}
-
-@keyframes logoGlow{
-  0%{filter:drop-shadow(0 0 12px rgba(242,184,64,.4))}
-  50%{filter:drop-shadow(0 0 28px rgba(242,184,64,.9))}
-  100%{filter:drop-shadow(0 0 12px rgba(242,184,64,.4))}
+  width:96px;
+  margin-bottom:10px;
+  filter:drop-shadow(0 0 14px rgba(242,184,64,.5));
 }
 
 h2{
-  margin:4px 0 6px;
+  margin:6px 0 4px;
   color:var(--gold);
   font-size:22px;
 }
@@ -80,51 +59,48 @@ h2{
 .subtitle{
   font-size:14px;
   opacity:.85;
-  margin-bottom:18px;
+  margin-bottom:20px;
 }
 
-/* INPUTS */
 input{
   width:100%;
   padding:14px 15px;
   margin-bottom:14px;
-  border-radius:14px;
+  border-radius:12px;
   border:none;
   font-size:15px;
-  outline:none;
   background:#0b1c34;
   color:white;
+  outline:none;
 }
 
-/* BUTTON */
+input::placeholder{opacity:.7}
+
 button{
   width:100%;
   padding:14px;
   border:none;
-  border-radius:16px;
+  border-radius:14px;
   background:linear-gradient(135deg,#F2B840,#ffd977);
   color:#06142E;
   font-size:17px;
   font-weight:bold;
   cursor:pointer;
-  transition:.25s;
 }
-button:active{transform:scale(.98)}
 
-/* LINKS */
 .links{
   margin-top:14px;
   font-size:14px;
 }
+
 .links a{
   color:var(--gold);
   text-decoration:none;
 }
 
-/* MESSAGE */
 #msg{
-  margin-top:10px;
-  min-height:20px;
+  margin-top:12px;
+  min-height:18px;
   font-size:14px;
   opacity:.95;
 }
@@ -132,8 +108,6 @@ button:active{transform:scale(.98)}
 </head>
 
 <body>
-
-<canvas id="particles"></canvas>
 
 <div class="card">
   <img src="logotransparent.png" class="logo">
@@ -150,13 +124,21 @@ button:active{transform:scale(.98)}
   </div>
 
   <div id="msg"></div>
+
+  <!-- ✅ MESSAGE SUPPORT CLIENT -->
+  <div style="margin-top:18px;font-size:13px;opacity:.85;line-height:1.5">
+    Mot de passe oublié ?<br>
+    Contactez le support technique :<br>
+    📲 <b>WhatsApp Canada</b> :
+    <a href="https://wa.me/15145029503" style="color:#F2B840">+1 514 502 9503</a>
+  </div>
 </div>
 
-<!-- FIREBASE -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
 
+/* 🔥 CONFIG FIREBASE — INCHANGÉE */
 const firebaseConfig = {
   apiKey: "AIzaSyBAiJHbBvRO6cDFpm6C-5mQk6SiTtzcI8o",
   authDomain: "cizagroup-app.firebaseapp.com",
@@ -167,9 +149,12 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
+/* ✅ LOGIN STABLE */
 window.login = async () => {
-  const emailVal = email.value.trim();
-  const passVal = password.value.trim();
+  const emailVal = document.getElementById("email").value.trim();
+  const passVal  = document.getElementById("password").value.trim();
+  const msg      = document.getElementById("msg");
+
   msg.innerText = "";
 
   if(!emailVal || !passVal){
@@ -177,60 +162,16 @@ window.login = async () => {
     return;
   }
 
-  msg.innerText = "Connexion en cours…";
+  msg.innerText = "Connexion en cours...";
 
   try{
-    await signInWithEmailAndPassword(auth,emailVal,passVal);
+    await signInWithEmailAndPassword(auth, emailVal, passVal);
     localStorage.setItem("ciza_user_status","active");
     window.location.href = "index.html";
   }catch(e){
     msg.innerText = "Email ou mot de passe incorrect ❌";
   }
 };
-</script>
-
-<!-- PARTICULES DIAMANT -->
-<script>
-const canvas=document.getElementById("particles");
-const ctx=canvas.getContext("2d");
-
-function resize(){
-  canvas.width=innerWidth;
-  canvas.height=innerHeight;
-}
-resize();addEventListener("resize",resize);
-
-const diamonds=[];
-for(let i=0;i<70;i++){
-  diamonds.push({
-    x:Math.random()*canvas.width,
-    y:Math.random()*canvas.height,
-    s:Math.random()*3+2,
-    v:Math.random()*0.35+0.15
-  });
-}
-
-function drawDiamond(x,y,s){
-  ctx.beginPath();
-  ctx.moveTo(x,y-s);
-  ctx.lineTo(x+s,y);
-  ctx.lineTo(x,y+s);
-  ctx.lineTo(x-s,y);
-  ctx.closePath();
-  ctx.fill();
-}
-
-(function animate(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  ctx.fillStyle="#F2B840";
-  ctx.globalAlpha=0.35;
-  diamonds.forEach(d=>{
-    drawDiamond(d.x,d.y,d.s);
-    d.y+=d.v;
-    if(d.y>canvas.height+10) d.y=-10;
-  });
-  requestAnimationFrame(animate);
-})();
 </script>
 
 </body>
