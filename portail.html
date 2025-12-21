@@ -69,7 +69,7 @@ body{
   opacity:.9;
   line-height:1.6;
 }
-.section ul{
+.section ul, .section ol{
   padding-left:18px;
 }
 
@@ -90,9 +90,21 @@ input, textarea{
 }
 textarea{resize:none}
 
+.notice{
+  font-size:13px;
+  opacity:.85;
+  line-height:1.5;
+  margin:16px 0 10px;
+  padding:12px;
+  border-left:3px solid var(--gold);
+  background:rgba(0,0,0,.18);
+  border-radius:10px;
+}
+
 .actions{
   display:flex;
   gap:10px;
+  margin-top:14px;
 }
 .actions button{
   flex:1;
@@ -122,7 +134,7 @@ textarea{resize:none}
 
 .whatsapp{
   display:block;
-  margin-top:14px;
+  margin-top:16px;
   text-align:center;
   color:var(--gold);
   text-decoration:none;
@@ -149,14 +161,14 @@ textarea{resize:none}
   <div class="section">
     <h3>🚘 C’est quoi CizaRide+ VIP ?</h3>
     <p>
-      CizaRide+ VIP est un service de <b>voiture avec chauffeur privé</b>,
-      destiné aux clients qui souhaitent :
+      CizaRide+ VIP est un service de <b>chauffeur privé sur réservation</b>,
+      destiné aux clients recherchant un transport fiable, sécurisé et discret.
     </p>
     <ul>
-      <li>Éviter les taxis ordinaires</li>
-      <li>Voyager en toute discrétion</li>
-      <li>Réserver à l’avance</li>
-      <li>Avoir un service fiable et encadré</li>
+      <li>Service réservé, pas de taxi improvisé</li>
+      <li>Validation humaine par l’équipe CIZA</li>
+      <li>Réservation anticipée obligatoire</li>
+      <li>Accompagnement premium</li>
     </ul>
   </div>
 
@@ -165,54 +177,56 @@ textarea{resize:none}
     <h3>⭐ Pourquoi nous faire confiance ?</h3>
     <ul>
       <li>Chauffeurs sélectionnés et identifiés</li>
-      <li>Réservation confirmée par l’équipe CIZA</li>
-      <li>Aucun paiement improvisé</li>
-      <li>Assistance humaine disponible</li>
+      <li>Traçabilité de chaque réservation</li>
+      <li>Assistance humaine en cas de besoin</li>
+      <li>Respect strict de la confidentialité</li>
     </ul>
   </div>
 
-  <!-- COMMENT ÇA MARCHE -->
+  <!-- COMMENT -->
   <div class="section">
     <h3>📋 Comment ça fonctionne ?</h3>
     <ol>
-      <li>Vous remplissez le formulaire ci-dessous</li>
-      <li>Notre équipe vous contacte pour confirmation</li>
+      <li>Vous remplissez le formulaire VIP</li>
+      <li>Notre équipe confirme votre demande</li>
       <li>Le chauffeur est assigné</li>
-      <li>Le service est exécuté selon l’horaire convenu</li>
+      <li>Le trajet est effectué selon l’horaire validé</li>
     </ol>
   </div>
 
   <!-- PAIEMENT -->
   <div class="section">
-    <h3>💳 Comment le service est payé ?</h3>
+    <h3>💳 Paiement du service</h3>
     <p>
-      Le paiement se fait <b>à l’avance</b> après confirmation :
+      Le paiement se fait <b>après validation</b> par notre équipe :
     </p>
     <ul>
       <li>Au bureau CIZA</li>
-      <li>Ou selon les instructions communiquées par l’équipe</li>
+      <li>Ou selon les instructions communiquées</li>
     </ul>
   </div>
 
   <!-- URGENCE -->
   <div class="section">
-    <h3>🚨 En cas de détresse ou urgence</h3>
+    <h3>🚨 Urgence ou assistance</h3>
     <p>
-      Contactez immédiatement notre support :
+      WhatsApp Support :
     </p>
     <p>
-      📞 Burundi / WhatsApp : <b>+257 79 94 50 07</b><br>
-      📞 Canada / WhatsApp : <b>+1 514 502 9503</b>
+      🇧🇮 Burundi : <b>+257 79 94 50 07</b><br>
+      🇨🇦 Canada : <b>+1 514 502 9503</b>
     </p>
   </div>
-<p style="margin-top:20px;line-height:1.6;opacity:.9;">
-CizaRide+ VIP est un service de transport privé destiné aux clients recherchant
-confort, discrétion et sécurité. Un chauffeur dédié vous est assigné après validation
-manuelle de votre demande par notre équipe.
-</p>
-  <!-- FORMULAIRE -->
+
+  <!-- FORM -->
   <div class="section">
     <h3>📝 Demande de réservation VIP</h3>
+
+    <div class="notice">
+      🔐 <b>Confidentialité & sécurité</b><br>
+      En cliquant sur <b>Envoyer la demande</b>, votre application email s’ouvrira automatiquement.
+      Merci d’envoyer le message afin que notre équipe traite votre demande de manière confidentielle.
+    </div>
 
     <form action="mailto:infos@cizagroup.com" method="post" enctype="text/plain">
       <label>Nom complet</label>
@@ -235,26 +249,18 @@ manuelle de votre demande par notre équipe.
 
       <div class="actions">
         <button type="button" class="back" onclick="history.back()">← Retour</button>
-        <button type="submit" <p style="font-size:13px;opacity:.85;line-height:1.5;margin:18px 0 10px;">
-🔐 <b>Confidentialité garantie</b><br>
-En cliquant sur <b>Envoyer</b>, votre application email s’ouvrira automatiquement.<br>
-Merci d’envoyer le message afin que notre équipe VIP traite votre demande en toute discrétion.
-</p>class="send">Envoyer la demande</button>
+        <button type="submit" class="send">Envoyer la demande VIP</button>
       </div>
     </form>
   </div>
 
   <a class="whatsapp" href="https://wa.me/25779945007" target="_blank">
-    💬 Assistance immédiate via WhatsApp
+    💬 Contacter le support VIP sur WhatsApp
   </a>
 
   <div class="footer">
-    © 2026 CIZA GROUP — Service Premium & Confidentiel 
-    <p style="font-size:12px;opacity:.7;margin-top:20px;">
-Vos informations sont utilisées uniquement pour le traitement de votre réservation VIP.<br>
-CIZA GROUP ne partage aucune donnée avec des tiers.
-</p>
-    
+    © 2026 CIZA GROUP — Service VIP confidentiel<br>
+    Vos données sont utilisées uniquement pour le traitement de votre réservation.
   </div>
 
 </div>
