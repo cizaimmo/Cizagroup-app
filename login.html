@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CIZA GROUP — Connexion Sécurisée</title>
+<title>CIZA GROUP — Accès Sécurisé</title>
 <link rel="icon" href="logotransparent.png">
 
 <style>
@@ -14,54 +14,53 @@
   --border:rgba(255,255,255,.15);
   --txt:#fff;
 }
-*{box-sizing:border-box}
 body{
   margin:0;
-  min-height:100vh;
-  background:var(--bg);
+  height:100vh;
+  background:linear-gradient(135deg,#06142E,#0A3D91);
   font-family:Arial,sans-serif;
-  color:var(--txt);
   display:flex;
   align-items:center;
   justify-content:center;
+  color:var(--txt);
 }
 .card{
   width:100%;
   max-width:380px;
   background:var(--glass);
-  border:2px solid var(--gold);
+  border:1px solid var(--border);
+  backdrop-filter:blur(14px);
   border-radius:22px;
   padding:28px;
-  box-shadow:0 0 30px rgba(242,184,64,.25);
+  text-align:center;
+  box-shadow:0 0 25px rgba(0,0,0,.45);
 }
-.logo{
+.card img{
   width:90px;
-  height:90px;
-  margin:0 auto 15px;
-  background:url('logotransparent.png') center/contain no-repeat;
-  filter:drop-shadow(0 0 12px var(--gold));
+  margin-bottom:10px;
+  filter:drop-shadow(0 0 10px var(--gold));
 }
-h1{
-  text-align:center;
-  color:var(--gold);
-  margin:10px 0;
-  font-size:22px;
+h2{color:var(--gold);margin-bottom:8px}
+p{font-size:14px;opacity:.9}
+
+.info{
+  margin:14px 0;
+  padding:12px;
+  background:rgba(0,0,0,.25);
+  border-left:3px solid var(--gold);
+  border-radius:10px;
+  font-size:13px;
 }
-p{
-  text-align:center;
-  font-size:14px;
-  opacity:.9;
-}
+
 input{
   width:100%;
   margin-top:14px;
-  padding:13px;
+  padding:14px;
   border-radius:12px;
   border:none;
-  background:#0b1c34;
-  color:#fff;
-  font-size:15px;
+  font-size:16px;
 }
+
 button{
   width:100%;
   margin-top:18px;
@@ -74,35 +73,20 @@ button{
   font-size:16px;
   cursor:pointer;
 }
-button:hover{background:#d8a935}
-.note{
-  margin-top:16px;
-  font-size:13px;
-  opacity:.8;
-  text-align:center;
+button:hover{background:#d9a936}
+
+.whatsapp{
+  margin-top:18px;
+  font-size:14px;
 }
-.back{
-  margin-top:14px;
-  text-align:center;
-}
-.back a{
-  color:var(--gold);
+.whatsapp a{
+  color:#25D366;
   text-decoration:none;
-  font-size:14px;
+  font-weight:bold;
 }
-#error{
-  display:none;
-  margin-top:14px;
-  background:#3a0b0b;
-  border:1px solid #ff7070;
-  padding:12px;
-  border-radius:12px;
-  font-size:14px;
-  text-align:center;
-}
+
 footer{
   margin-top:18px;
-  text-align:center;
   font-size:12px;
   opacity:.7;
 }
@@ -112,78 +96,56 @@ footer{
 <body>
 
 <div class="card">
+  <img src="logotransparent.png" alt="CIZA GROUP">
 
-  <div class="logo"></div>
+  <h2>Accès sécurisé</h2>
+  <p>Application privée — CIZA GROUP</p>
 
-  <h1>Connexion sécurisée</h1>
-  <p>
-    Entrez votre <b>code d’accès personnel</b><br>
-    fourni par <b>CIZA GROUP</b>.
-  </p>
-
-  <input
-    type="text"
-    id="accessCode"
-    placeholder="Ex : CIZA-492817"
-    autocomplete="off"
-  >
-
-  <button onclick="validateAccess()">Se connecter</button>
-
-  <div id="error">
-    ❌ Code invalide.<br>
-    Contactez CIZA GROUP pour obtenir votre accès.
+  <div class="info">
+    🔐 L’accès est réservé aux clients autorisés.<br><br>
+    📲 <b>Le code d’accès est envoyé par WhatsApp</b><br>
+    après validation par un conseiller CIZA GROUP.
   </div>
 
-  <div class="note">
-    🔐 Chaque code est <b>unique</b> et lié à un utilisateur.<br>
-    Gardez-le en sécurité.
-  </div>
+  <input type="text" id="code" placeholder="Entrez votre code d’accès">
 
-  <div class="back">
-    <a href="index.html">← Retour à l’accueil</a>
+  <button onclick="checkCode()">Accéder à l’application</button>
+
+  <div class="whatsapp">
+    Besoin d’un accès ?<br>
+    👉 <a href="https://wa.me/15145029503" target="_blank">
+    Contacter un conseiller sur WhatsApp
+    </a>
   </div>
 
   <footer>
-    Sign designed © 2026 CIZA GROUP<br>
-    infos@cizagroup.com
+    © 2026 CIZA GROUP<br>
+    Sign designed by CIZA GROUP
   </footer>
-
 </div>
 
 <script>
-/*
-  🔐 LOGIQUE D’ACCÈS
-  -----------------
-  - Code fourni manuellement au client
-  - Stocké localement après validation
-*/
+/* VERSION GLOBALE — TU CHANGES ICI SI BESOIN */
+const REQUIRED_VERSION = "v1";
 
-// 👉 LISTE DES CODES VALIDES (exemple)
-// Tu ajoutes / enlèves ici
+/* CODES VALIDES (EXEMPLES — TU DONNES MANUELLEMENT) */
 const VALID_CODES = [
   "CIZA-ACCESS-2026",
-  "CIZA-492817",
-  "CIZA-839204"
+  "CIZA-VIP-001",
+  "CIZA-CLIENT-002"
 ];
 
-function validateAccess(){
-  const code = document.getElementById("accessCode").value.trim();
+function checkCode(){
+  const code = document.getElementById("code").value.trim();
 
   if(VALID_CODES.includes(code)){
     localStorage.setItem("ciza_user_status","active");
     localStorage.setItem("ciza_access_code",code);
-
-    // accès accordé → retour app
-    window.location.href = "index.html";
+    localStorage.setItem("ciza_access_version",REQUIRED_VERSION);
+    window.location.href="index.html";
   }else{
-    document.getElementById("error").style.display="block";
+    alert("Code invalide ou non activé.\nVeuillez contacter un conseiller CIZA GROUP.");
   }
-}
-
-// 🔁 Si déjà connecté, accès direct
-if(localStorage.getItem("ciza_user_status")==="active"){
-  window.location.href = "index.html";
 }
 </script>
 
