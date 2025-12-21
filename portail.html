@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CizaRide+ VIP — Réservation</title>
+<link rel="icon" href="logotransparent.png">
+
+<style>
+:root{
+  --bg:#06142E;
+  --gold:#F2B840;
+  --glass:rgba(255,255,255,.08);
+  --border:rgba(255,255,255,.18);
+  --txt:#fff;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  min-height:100vh;
+  background:linear-gradient(160deg,#06142E,#0b1c34);
+  font-family:Arial,sans-serif;
+  color:var(--txt);
+}
+
+/* HEADER */
+header{
+  padding:18px;
+  text-align:center;
+  border-bottom:1px solid var(--border);
+}
+header img{width:70px}
+header h2{
+  margin:10px 0 4px;
+  color:var(--gold);
+  letter-spacing:2px;
+}
+header p{opacity:.85;font-size:14px}
+
+/* CARD */
+.card{
+  width:92%;
+  max-width:420px;
+  margin:30px auto;
+  background:var(--glass);
+  border:1.5px solid var(--border);
+  border-radius:22px;
+  padding:26px;
+  backdrop-filter:blur(16px);
+  box-shadow:0 0 30px rgba(0,0,0,.35);
+}
+
+/* INFO */
+.info{
+  font-size:14px;
+  line-height:1.55;
+  opacity:.9;
+  margin-bottom:18px;
+}
+.info b{color:var(--gold)}
+
+/* INPUTS */
+input, textarea{
+  width:100%;
+  padding:14px;
+  margin-bottom:12px;
+  border-radius:12px;
+  border:none;
+  font-size:15px;
+  background:#0b1c34;
+  color:white;
+  outline:none;
+}
+textarea{resize:none;height:90px}
+
+/* BUTTON */
+button{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:14px;
+  background:linear-gradient(135deg,#F2B840,#ffd977);
+  color:#06142E;
+  font-size:17px;
+  font-weight:bold;
+  cursor:pointer;
+}
+button:hover{
+  box-shadow:0 8px 22px rgba(242,184,64,.45);
+}
+
+/* COPY */
+.copy-box{
+  margin-top:18px;
+  padding:14px;
+  border:1px dashed var(--border);
+  border-radius:12px;
+  font-size:13px;
+  opacity:.9;
+}
+.copy-box b{color:var(--gold)}
+
+/* FOOTER */
+footer{
+  margin:30px 0;
+  text-align:center;
+  font-size:13px;
+  opacity:.75;
+}
+footer a{
+  color:var(--gold);
+  text-decoration:none;
+  display:block;
+  margin-top:6px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <img src="logotransparent.png">
+  <h2>CizaRide+ VIP</h2>
+  <p>Chauffeur privé • Réservation anticipée • Service discret</p>
+</header>
+
+<div class="card">
+
+  <div class="info">
+    Ce service est destiné aux <b>clients VIP</b> souhaitant réserver un chauffeur privé à l’avance.<br><br>
+    ✔ Véhicule sélectionné<br>
+    ✔ Chauffeur professionnel<br>
+    ✔ Paiement sécurisé au bureau ou à l’avance<br>
+    ✔ Confidentialité garantie
+  </div>
+
+  <!-- FORMULAIRE -->
+  <input id="nom" placeholder="Nom & Prénom">
+  <input id="phone" placeholder="Téléphone / WhatsApp">
+  <input id="date" placeholder="Date de la course (ex: 25/12/2025)">
+  <input id="heure" placeholder="Heure (ex: 14h30)">
+  <input id="lieu" placeholder="Lieu de départ">
+  <textarea id="details" placeholder="Détails ou instructions spéciales"></textarea>
+
+  <button onclick="envoyer()">Envoyer la demande VIP</button>
+
+  <!-- COPY -->
+  <div class="copy-box" id="copyBox" style="display:none">
+    <b>Demande enregistrée</b><br><br>
+    Copiez ce message et envoyez-le via WhatsApp :
+    <br><br>
+    <span id="msgCopy"></span>
+  </div>
+
+</div>
+
+<footer>
+© 2026 CIZA GROUP  
+<a href="https://wa.me/15145029503" target="_blank">
+📞 Support WhatsApp Canada : +1 514 502 9503
+</a>
+</footer>
+
+<script>
+function envoyer(){
+  const nom = nomEl = document.getElementById("nom").value;
+  const phone = document.getElementById("phone").value;
+  const date = document.getElementById("date").value;
+  const heure = document.getElementById("heure").value;
+  const lieu = document.getElementById("lieu").value;
+  const details = document.getElementById("details").value;
+
+  if(!nom || !phone || !date || !heure || !lieu){
+    alert("Veuillez remplir les champs essentiels");
+    return;
+  }
+
+  const dossier = "CR-" + Math.floor(100000 + Math.random()*900000);
+
+  const msg =
+`CIZA RIDE+ VIP
+Dossier: ${dossier}
+
+Nom: ${nom}
+Téléphone: ${phone}
+Date: ${date}
+Heure: ${heure}
+Départ: ${lieu}
+
+Détails:
+${details}`;
+
+  document.getElementById("msgCopy").innerText = msg;
+  document.getElementById("copyBox").style.display = "block";
+
+  // OUVERTURE WHATSAPP
+  const wa = "https://wa.me/15145029503?text=" + encodeURIComponent(msg);
+  window.open(wa,"_blank");
+}
+</script>
+
+</body>
+</html>
