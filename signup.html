@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Créer un compte — CIZA GROUP</title>
+<link rel="icon" href="logotransparent.png">
+
+<style>
+:root{
+  --bg:#06142E;
+  --gold:#F2B840;
+  --glass:rgba(255,255,255,.08);
+  --border:rgba(255,255,255,.18);
+  --txt:#fff;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  background:linear-gradient(160deg,#06142E,#0b1c34);
+  font-family:Arial,sans-serif;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--txt);
+}
+
+/* CARD */
+.card{
+  width:92%;
+  max-width:380px;
+  background:var(--glass);
+  backdrop-filter:blur(18px);
+  border:1.5px solid var(--border);
+  border-radius:24px;
+  padding:30px 26px;
+  text-align:center;
+  box-shadow:0 0 30px rgba(0,0,0,.35);
+}
+
+.logo{
+  width:96px;
+  margin-bottom:10px;
+  filter:drop-shadow(0 0 18px rgba(242,184,64,.6));
+}
+
+h2{
+  margin:6px 0 4px;
+  color:var(--gold);
+  font-size:22px;
+}
+
+.subtitle{
+  font-size:14px;
+  opacity:.85;
+  margin-bottom:22px;
+}
+
+/* INPUTS */
+input{
+  width:100%;
+  padding:14px 15px;
+  margin-bottom:14px;
+  border-radius:12px;
+  border:none;
+  font-size:15px;
+  outline:none;
+  background:#0b1c34;
+  color:white;
+}
+
+input::placeholder{opacity:.7}
+
+/* BUTTON */
+button{
+  width:100%;
+  padding:14px;
+  margin-top:6px;
+  border:none;
+  border-radius:14px;
+  background:linear-gradient(135deg,#F2B840,#ffd977);
+  color:#06142E;
+  font-size:17px;
+  font-weight:bold;
+  cursor:pointer;
+  transition:.25s;
+}
+
+button:hover{
+  transform:translateY(-1px);
+  box-shadow:0 8px 20px rgba(242,184,64,.45);
+}
+
+/* LINKS */
+.links{
+  margin-top:18px;
+  font-size:14px;
+}
+
+.links a{
+  color:var(--gold);
+  text-decoration:none;
+}
+
+/* SUPPORT */
+.support{
+  margin-top:18px;
+  font-size:13px;
+  opacity:.9;
+  line-height:1.5;
+}
+
+.support a{
+  color:var(--gold);
+  text-decoration:none;
+  font-weight:bold;
+}
+
+/* MESSAGE */
+#msg{
+  margin-top:14px;
+  min-height:18px;
+  font-size:14px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <img src="logotransparent.png" class="logo">
+
+  <h2>Créer un compte</h2>
+  <div class="subtitle">
+    Rejoignez l’écosystème CIZA GROUP
+  </div>
+
+  <input id="email" type="email" placeholder="Adresse email">
+  <input id="password" type="password" placeholder="Mot de passe (min. 6 caractères)">
+
+  <button onclick="signup()">Créer mon compte</button>
+
+  <div class="links">
+    <a href="login.html">Déjà un compte ? Se connecter</a>
+  </div>
+
+  <div class="support">
+    Mot de passe oublié ou problème ?<br>
+    Contactez le support technique :<br>
+    📱 <a href="https://wa.me/15145029503" target="_blank">
+      WhatsApp Canada : +1 514 502 9503
+    </a>
+  </div>
+
+  <div id="msg"></div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword } from
+"https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+
+/* 🔥 FIREBASE — INCHANGÉ */
+const firebaseConfig = {
+  apiKey: "AIzaSyBAiJHbBvRO6cDFpm6C-5mQk6SiTtzcI8o",
+  authDomain: "cizagroup-app.firebaseapp.com",
+  projectId: "cizagroup-app",
+  appId: "1:930936264084:web:5395360e54bf17bf492b81"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+/* SIGNUP */
+window.signup = async () => {
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
+  const msg = document.getElementById("msg");
+
+  if(!email || !password){
+    msg.innerText = "Veuillez remplir tous les champs";
+    return;
+  }
+
+  msg.innerText = "Création du compte...";
+
+  try{
+    await createUserWithEmailAndPassword(auth, email, password);
+    msg.innerText = "Compte créé avec succès ✅";
+    setTimeout(()=>location.href="login.html",1200);
+  }catch(e){
+    msg.innerText = "Erreur : " + e.message;
+  }
+};
+</script>
+
+</body>
+</html>
