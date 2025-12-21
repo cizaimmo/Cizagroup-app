@@ -3,44 +3,51 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CIZA GROUP — Accès sécurisé</title>
+<title>CIZA GROUP — Admin Accès</title>
 <link rel="icon" href="logotransparent.png">
 
 <style>
-*{box-sizing:border-box}
+:root{
+  --bg:#06142E;
+  --gold:#F2B840;
+  --glass:rgba(255,255,255,.08);
+  --border:rgba(255,255,255,.15);
+  --txt:#fff;
+}
 body{
   margin:0;
-  min-height:100vh;
-  background:#06142E;
   font-family:Arial,sans-serif;
-  color:white;
+  background:var(--bg);
+  color:var(--txt);
   display:flex;
   align-items:center;
   justify-content:center;
+  min-height:100vh;
 }
 
-.card{
-  width:100%;
-  max-width:380px;
-  background:rgba(255,255,255,.08);
-  border:2px solid #F2B840;
-  border-radius:22px;
-  padding:28px;
+.box{
+  width:90%;
+  max-width:420px;
+  background:var(--glass);
+  border:2px solid var(--gold);
+  border-radius:24px;
+  padding:30px;
   text-align:center;
-  box-shadow:0 0 25px rgba(242,184,64,.25);
+  box-shadow:0 0 30px rgba(242,184,64,.25);
 }
 
-.card img{
+/* LOGO */
+.logo{
   width:90px;
-  margin-bottom:12px;
-  filter:drop-shadow(0 0 12px #F2B840);
+  margin:0 auto 14px;
+  filter:drop-shadow(0 0 12px rgba(242,184,64,.6));
 }
 
-h2{
-  color:#F2B840;
-  margin:10px 0;
+h1{
+  margin:0 0 6px;
+  color:var(--gold);
+  font-size:24px;
 }
-
 p{
   font-size:14px;
   opacity:.85;
@@ -48,11 +55,11 @@ p{
 
 input{
   width:100%;
-  margin-top:14px;
   padding:14px;
-  border-radius:12px;
+  margin-top:14px;
+  border-radius:14px;
   border:none;
-  font-size:16px;
+  font-size:15px;
 }
 
 button{
@@ -61,88 +68,94 @@ button{
   padding:14px;
   border:none;
   border-radius:14px;
-  background:#F2B840;
+  background:var(--gold);
   color:#06142E;
   font-weight:bold;
   font-size:16px;
   cursor:pointer;
 }
 
-.note{
-  margin-top:16px;
-  font-size:13px;
-  opacity:.75;
+#codeBox{
+  margin-top:22px;
+  display:none;
+  background:#0b1c34;
+  border:1px solid var(--gold);
+  border-radius:18px;
+  padding:18px;
 }
 
-.links{
-  margin-top:18px;
-  font-size:14px;
+.code{
+  font-size:20px;
+  font-weight:bold;
+  color:var(--gold);
+  letter-spacing:2px;
+  margin:10px 0;
 }
-.links a{
-  color:#F2B840;
-  text-decoration:none;
+
+small{
   display:block;
-  margin-top:8px;
+  margin-top:10px;
+  opacity:.75;
 }
 </style>
 </head>
 
 <body>
 
-<div class="card">
-  <img src="logotransparent.png" alt="CIZA GROUP">
+<div class="box">
 
-  <h2>Accès sécurisé</h2>
-  <p>
-    Cette application est réservée aux clients validés.<br>
-    Votre code d’accès vous sera transmis par WhatsApp.
-  </p>
+  <!-- LOGO -->
+  <img src="logotransparent.png" class="logo" alt="CIZA GROUP">
 
-  <input
-    type="text"
-    id="accessCode"
-    placeholder="Entrer votre code d’accès"
-    autocomplete="off"
-  >
+  <h1>🔐 Admin CIZA GROUP</h1>
+  <p>Génération manuelle de clés d’accès client</p>
 
-  <button onclick="checkAccess()">Accéder à l’application</button>
+  <input type="text" id="clientName" placeholder="Nom du client (ex : Jean N.)">
+  <input type="tel" id="clientPhone" placeholder="Téléphone / WhatsApp">
 
-  <div class="note">
-    🔒 Code personnel • Validation humaine • Accès VIP
+  <button onclick="generateCode()">Générer le code</button>
+
+  <div id="codeBox">
+    <p>✅ Code d’accès client :</p>
+    <div class="code" id="accessCode"></div>
+    <button onclick="copyCode()">📋 Copier le code</button>
+    <small>
+      Envoie ce code au client par WhatsApp.<br>
+      ⚠ Page strictement réservée à l’administration.
+    </small>
   </div>
 
-  <div class="links">
-    <a href="signup.html">Créer un compte</a>
-    <a href="mailto:infos@cizagroup.com">Contacter CIZA GROUP</a>
-  </div>
 </div>
 
 <script>
-/*
-👉 LISTE DES CODES VALIDES
-👉 TU LES GÈRES TOI-MÊME
-👉 Un code = un client
-*/
-const VALID_CODES = [
-  "CIZA-2026-0001",
-  "CIZA-2026-0002",
-  "CIZA-VIP-8451"
-];
+function generateCode(){
+  const name = document.getElementById("clientName").value.trim();
+  const phone = document.getElementById("clientPhone").value.trim();
 
-function checkAccess(){
-  const code = document.getElementById("accessCode").value.trim();
-
-  if(VALID_CODES.includes(code)){
-    localStorage.setItem("ciza_user_status","active");
-    localStorage.setItem("ciza_access_code",code);
-    window.location.href = "index.html";
-  }else{
-    alert(
-      "❌ Code invalide.\n\n" +
-      "Veuillez vérifier le code reçu par WhatsApp.\n" +
-      "Contactez CIZA GROUP si nécessaire."
-    );
+  if(!name || !phone){
+    alert("Veuillez remplir le nom et le numéro du client.");
+    return;
   }
+
+  const d = new Date();
+  const y = d.getFullYear().toString().slice(-2);
+  const m = String(d.getMonth()+1).padStart(2,"0");
+  const day = String(d.getDate()).padStart(2,"0");
+  const rand = Math.floor(1000 + Math.random()*9000);
+
+  const code = `CIZA-${y}${m}${day}-${rand}`;
+
+  document.getElementById("accessCode").textContent = code;
+  document.getElementById("codeBox").style.display = "block";
+
+  /* trace locale (admin seulement) */
+  localStorage.setItem("last_ciza_code", code);
+}
+
+function copyCode(){
+  const code = document.getElementById("accessCode").textContent;
+  navigator.clipboard.writeText(code);
+  alert("Code copié. Envoyez-le au client par WhatsApp.");
 }
 </script>
 
