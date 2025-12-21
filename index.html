@@ -9,7 +9,7 @@
 <!-- 🔐 BARRIÈRE D’ACCÈS -->
 <script>
 if(localStorage.getItem("ciza_user_status") !== "active"){
-  window.location.href = "login.html";
+  window.location.replace("login.html");
 }
 </script>
 
@@ -31,42 +31,49 @@ html,body{
 }
 body{background:var(--bg);color:var(--txt)}
 
-#watermark{
-  position:fixed;
-  bottom:5%;
-  right:5%;
-  opacity:.05;
-  font-size:70px;
-  color:var(--gold);
-  z-index:-1;
-}
-
-/* SPLASH */
+/* ===== SPLASH PREMIUM ===== */
 #splash{
   position:fixed;
   inset:0;
-  background:var(--bg);
+  background:radial-gradient(circle at center,#0b1c34,#06142E);
+  z-index:9999;
   display:flex;
   justify-content:center;
   align-items:center;
-  z-index:9999;
-  animation:fadeOut 1.7s ease 2.9s forwards;
+  overflow:hidden;
+  animation:splashFade 2.8s ease 2.8s forwards;
 }
-#splash img{
-  width:240px;
-  animation:zoom 2.4s ease forwards;
-  filter:drop-shadow(0 0 25px var(--gold));
-}
-@keyframes zoom{
-  0%{transform:scale(.5);opacity:0}
-  60%{transform:scale(1.2);opacity:1}
-  100%{transform:scale(1)}
-}
-@keyframes fadeOut{
-  to{opacity:0;visibility:hidden}
+@keyframes splashFade{to{opacity:0;visibility:hidden}}
+
+#splashCanvas{
+  position:absolute;
+  inset:0;
 }
 
-/* HEADER */
+.splash-content{
+  position:relative;
+  z-index:2;
+  text-align:center;
+}
+.splash-logo{
+  width:200px;
+  filter:drop-shadow(0 0 35px #F2B840);
+  animation:logoFloat 3s ease-in-out infinite;
+}
+@keyframes logoFloat{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-14px)}
+  100%{transform:translateY(0)}
+}
+.splash-text{
+  margin-top:14px;
+  font-size:34px;
+  letter-spacing:4px;
+  color:#F2B840;
+  text-shadow:0 0 25px rgba(242,184,64,.6);
+}
+
+/* ===== HEADER ===== */
 header{
   position:sticky;
   top:0;
@@ -89,7 +96,7 @@ header img{
   cursor:pointer;
 }
 
-/* MENU */
+/* ===== MENU ===== */
 #menu{
   position:fixed;
   top:0;right:0;
@@ -105,7 +112,6 @@ header img{
   z-index:99999;
 }
 #menu.open{transform:translateX(0)}
-
 .menu-close{
   font-size:28px;
   color:var(--gold);
@@ -113,7 +119,6 @@ header img{
   cursor:pointer;
   margin-bottom:20px;
 }
-
 .menu-item{
   font-size:18px;
   padding:14px 0;
@@ -122,7 +127,7 @@ header img{
 }
 .menu-item:hover{color:var(--gold)}
 
-/* HERO */
+/* ===== CONTENT ===== */
 .hero{
   width:90%;
   margin:25px auto;
@@ -133,12 +138,10 @@ header img{
   text-align:center;
 }
 .hero h2{margin:0;color:var(--gold)}
-.hero p{opacity:.85}
 
-/* SECTIONS */
 .section-title{
   width:90%;
-  margin:30px auto 12px;
+  margin:25px auto 10px;
   color:var(--gold);
   font-size:22px;
   font-weight:bold;
@@ -161,14 +164,13 @@ header img{
 }
 .card:hover{transform:scale(1.05)}
 
-/* FOOTER */
+/* ===== FOOTER ===== */
 footer{
-  margin-top:50px;
-  padding:30px 20px;
+  margin-top:40px;
+  padding:30px;
   text-align:center;
   font-size:14px;
-  background:rgba(255,255,255,.05);
-  border-top:1px solid var(--border);
+  opacity:.85;
 }
 footer a{
   color:var(--gold);
@@ -177,7 +179,7 @@ footer a{
   text-decoration:none;
 }
 
-/* TOP */
+/* ===== TOP ===== */
 #toTop{
   position:fixed;
   bottom:20px;
@@ -198,10 +200,13 @@ footer a{
 
 <body>
 
-<div id="watermark">Ciza Group</div>
-
+<!-- SPLASH -->
 <div id="splash">
-  <img src="logotransparent.png">
+  <canvas id="splashCanvas"></canvas>
+  <div class="splash-content">
+    <img src="logotransparent.png" class="splash-logo">
+    <div class="splash-text">CIZA&nbsp;GROUP</div>
+  </div>
 </div>
 
 <header>
@@ -217,23 +222,17 @@ footer a{
   <div class="menu-item" onclick="location.href='signup.html'">📝 Créer un compte</div>
   <div class="menu-item" onclick="location.href='login.html'">🔐 Connexion</div>
   <div class="menu-item" onclick="logout()">🚪 Déconnexion</div>
-  <div class="menu-item" onclick="location.href='delete-account.html'">❌ Supprimer mon compte</div>
   <div class="menu-item" onclick="location.href='legal.html'">📘 Mentions légales</div>
 </div>
 
-<!-- HERO -->
 <div class="hero">
   <h2>CIZA GROUP</h2>
-  <p>Super-App de services • Diaspora • Afrique de l’Est</p>
+  <p>Écosystème de services dans vos mains</p>
 </div>
 
-<!-- DIASPORA -->
 <div class="section-title">🌍 CIZA DIASPORA+</div>
-<div class="card" onclick="location.href='diaspora.html'">
-Services premium pour la diaspora
-</div>
+<div class="card" onclick="location.href='diaspora.html'">🌍 Services Diaspora</div>
 
-<!-- SERVICES LOCAUX -->
 <div class="section-title">🇧🇮 Services Locaux</div>
 <div class="grid">
   <div class="card" onclick="location.href='portail.html'">🚗 CizaRide+</div>
@@ -245,19 +244,14 @@ Services premium pour la diaspora
   <div class="card" onclick="location.href='jobs.html'">💼 CizaJobs</div>
 </div>
 
-<!-- BUSINESS -->
 <div class="section-title">🏢 Solutions Entreprises</div>
-<div class="card" onclick="location.href='business.html'">
-Entreprises • ONG • Institutions
-</div>
+<div class="card" onclick="location.href='business.html'">🏢 Business & ONG</div>
 
-<!-- FOOTER -->
 <footer>
-  © 2026 <b>CIZA GROUP</b> — Tous droits réservés
-  <a href="legal.html">📘 Mentions légales</a>
-  <a href="privacy.html">🔐 Confidentialité</a>
-  <a href="delete-account.html">❌ Supprimer mon compte</a>
-  <a href="mailto:infos@cizagroup.com">📧 infos@cizagroup.com</a>
+Sign designed by © 2026 CIZA GROUP
+  <a href="legal.html">Mentions légales</a>
+  <a href="privacy.html">Confidentialité</a>
+  <a href="mailto:infos@cizagroup.com">Contact</a>
   <a href="https://www.instagram.com/cizagroup_official" target="_blank">
     📸 Instagram : @cizagroup_official
   </a>
@@ -266,20 +260,55 @@ Entreprises • ONG • Institutions
 <div id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
 
 <script>
+/* MENU */
 function toggleMenu(){
   document.getElementById("menu").classList.toggle("open");
 }
 
+/* LOGOUT */
 function logout(){
   localStorage.removeItem("ciza_user_status");
-  alert("Déconnecté");
-  window.location.href="login.html";
+  alert("Déconnecté.");
+  window.location.replace("login.html");
 }
 
+/* SCROLL */
 window.addEventListener("scroll",()=>{
   document.getElementById("toTop").style.display =
-    window.scrollY>300 ? "flex":"none";
+    window.scrollY>300?"flex":"none";
 });
+
+/* PARTICULES SPLASH */
+const canvas=document.getElementById("splashCanvas");
+const ctx=canvas.getContext("2d");
+function resize(){canvas.width=innerWidth;canvas.height=innerHeight}
+resize();addEventListener("resize",resize);
+
+const particles=[];
+for(let i=0;i<160;i++){
+  particles.push({
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height,
+    r:Math.random()*2+0.6,
+    vx:(Math.random()-.5)*0.4,
+    vy:(Math.random()-.5)*0.4
+  });
+}
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle="#F2B840";
+  particles.forEach(p=>{
+    ctx.globalAlpha=.22;
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fill();
+    p.x+=p.vx;p.y+=p.vy;
+    if(p.x<0||p.x>canvas.width)p.vx*=-1;
+    if(p.y<0||p.y>canvas.height)p.vy*=-1;
+  });
+  requestAnimationFrame(animate);
+}
+animate();
 </script>
 
 </body>
