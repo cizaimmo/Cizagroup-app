@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CIZA GROUP — Admin Accès</title>
+<link rel="icon" href="logotransparent.png">
+
+<style>
+:root{
+  --bg:#06142E;
+  --gold:#F2B840;
+  --glass:rgba(255,255,255,.08);
+  --border:rgba(255,255,255,.15);
+  --txt:#fff;
+}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:var(--bg);
+  color:var(--txt);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:100vh;
+}
+
+.box{
+  width:90%;
+  max-width:420px;
+  background:var(--glass);
+  border:2px solid var(--gold);
+  border-radius:22px;
+  padding:30px;
+  text-align:center;
+  box-shadow:0 0 30px rgba(242,184,64,.25);
+}
+
+h1{
+  margin:0 0 10px;
+  color:var(--gold);
+}
+p{
+  font-size:14px;
+  opacity:.85;
+}
+
+input{
+  width:100%;
+  padding:14px;
+  margin-top:14px;
+  border-radius:12px;
+  border:none;
+  font-size:15px;
+}
+
+button{
+  width:100%;
+  margin-top:18px;
+  padding:14px;
+  border:none;
+  border-radius:12px;
+  background:var(--gold);
+  color:#06142E;
+  font-weight:bold;
+  font-size:16px;
+  cursor:pointer;
+}
+
+#codeBox{
+  margin-top:22px;
+  display:none;
+  background:#0b1c34;
+  border:1px solid var(--gold);
+  border-radius:16px;
+  padding:18px;
+}
+
+.code{
+  font-size:20px;
+  font-weight:bold;
+  color:var(--gold);
+  letter-spacing:2px;
+  margin:10px 0;
+}
+
+small{
+  display:block;
+  margin-top:10px;
+  opacity:.75;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+  <h1>🔐 Admin CIZA GROUP</h1>
+  <p>Génération manuelle de clés d’accès client</p>
+
+  <input type="text" id="clientName" placeholder="Nom du client (ex: Jean N.)">
+  <input type="tel" id="clientPhone" placeholder="Téléphone / WhatsApp">
+
+  <button onclick="generateCode()">Générer le code</button>
+
+  <div id="codeBox">
+    <p>✅ Code d’accès client :</p>
+    <div class="code" id="accessCode"></div>
+    <button onclick="copyCode()">📋 Copier le code</button>
+    <small>
+      Envoie ce code au client par WhatsApp.<br>
+      ⚠ Ne partage jamais cette page.
+    </small>
+  </div>
+</div>
+
+<script>
+function generateCode(){
+  const name = document.getElementById("clientName").value.trim();
+  const phone = document.getElementById("clientPhone").value.trim();
+
+  if(!name || !phone){
+    alert("Veuillez remplir le nom et le numéro du client.");
+    return;
+  }
+
+  const date = new Date();
+  const y = date.getFullYear().toString().slice(-2);
+  const m = String(date.getMonth()+1).padStart(2,"0");
+  const d = String(date.getDate()).padStart(2,"0");
+  const rand = Math.floor(1000 + Math.random()*9000);
+
+  const code = `CIZA-${y}${m}${d}-${rand}`;
+
+  document.getElementById("accessCode").textContent = code;
+  document.getElementById("codeBox").style.display = "block";
+
+  /* Sauvegarde locale (optionnelle, pour ton suivi) */
+  localStorage.setItem("last_ciza_code", code);
+}
+
+function copyCode(){
+  const code = document.getElementById("accessCode").textContent;
+  navigator.clipboard.writeText(code);
+  alert("Code copié. Envoie-le au client par WhatsApp.");
+}
+</script>
+
+</body>
+</html>
