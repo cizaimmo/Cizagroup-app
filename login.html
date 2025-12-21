@@ -43,8 +43,16 @@ button{
   font-size:18px;
   cursor:pointer;
 }
-#msg{margin-top:12px;min-height:18px}
-a{color:#F2B840;text-decoration:none;font-size:14px}
+#msg{
+  margin-top:12px;
+  min-height:18px;
+  font-size:14px;
+}
+a{
+  color:#F2B840;
+  text-decoration:none;
+  font-size:14px;
+}
 </style>
 </head>
 
@@ -70,6 +78,7 @@ a{color:#F2B840;text-decoration:none;font-size:14px}
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
 
+/* 🔥 FIREBASE CONFIG */
 const firebaseConfig = {
   apiKey: "AIzaSyBAiJHbBvRO6cDFpm6C-5mQk6SiTtzcI8o",
   authDomain: "cizagroup-app.firebaseapp.com",
@@ -80,12 +89,15 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
+/* 🔐 LOGIN */
 window.login = async () => {
-  const email = email.value.trim();
-  const password = password.value.trim();
+  const emailInput = document.getElementById("email").value.trim();
+  const passwordInput = document.getElementById("password").value.trim();
+  const msg = document.getElementById("msg");
+
   msg.innerText = "";
 
-  if(!email || !password){
+  if(!emailInput || !passwordInput){
     msg.innerText = "Veuillez remplir tous les champs";
     return;
   }
@@ -93,9 +105,14 @@ window.login = async () => {
   msg.innerText = "Connexion en cours...";
 
   try{
-    await signInWithEmailAndPassword(auth,email,password);
-    localStorage.setItem("ciza_user_status","active");
-    window.location.href = "index.html";
+    await signInWithEmailAndPassword(auth, emailInput, passwordInput);
+
+    // ✅ CLÉ POUR L’INDEX
+    localStorage.setItem("ciza_user_status", "active");
+
+    // ✅ REDIRECTION PROPRE
+    window.location.replace("index.html");
+
   }catch(e){
     msg.innerText = "Email ou mot de passe incorrect ❌";
   }
