@@ -225,14 +225,9 @@ footer span{display:block;margin-top:6px}
 </div>
 </section>
 
-<!-- ⭐ AJOUT : LAISSER UN AVIS -->
-<section class="section">
-<h2 class="section-title">⭐ Laisser un avis Diaspora</h2>
-
 <div class="form-box">
-<form action="https://formsubmit.co/infos@cizagroup.com" method="POST">
-  <input type="hidden" name="_subject" value="Nouvel avis Diaspora — CIZA GROUP">
-  <input type="hidden" name="_captcha" value="false">
+<form id="avisForm">
+  <input type="hidden" name="Objet" value="Avis Diaspora — CIZA GROUP">
 
   <input name="Nom" required placeholder="Votre nom">
   <input name="Pays" required placeholder="Pays de résidence">
@@ -246,7 +241,21 @@ Vos informations restent confidentielles.
 Votre avis pourra être publié de manière anonyme.
 </p>
 </div>
-</section>
+
+<div id="avisSuccess" style="
+  display:none;
+  background:#0b1c34;
+  border:1px solid var(--gold);
+  border-radius:18px;
+  padding:26px;
+  text-align:center;
+  margin-top:18px
+">
+<h3 style="color:#F2B840">Merci pour votre avis 🙏</h3>
+<p>
+Votre témoignage a bien été transmis à l’équipe CIZA GROUP.
+</p>
+</div>
 
 <!-- FAQ -->
 <section class="section">
