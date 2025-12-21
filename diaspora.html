@@ -39,7 +39,6 @@ header img{height:42px}
   position:relative;
   padding:110px 20px 90px;
   text-align:center;
-  overflow:hidden;
 }
 .hero::before{
   content:"";
@@ -47,7 +46,7 @@ header img{height:42px}
   background:linear-gradient(135deg,#051026,#0B1C34,#071A33,#0a2240);
   background-size:300% 300%;
   animation:grad 12s ease infinite;
-  z-index:-2;
+  z-index:-1;
 }
 @keyframes grad{
   0%{background-position:0% 50%}
@@ -65,14 +64,8 @@ header img{height:42px}
   50%{transform:translateY(-14px)}
   100%{transform:translateY(0)}
 }
-.hero h1{color:var(--gold);margin:18px 0 8px}
+.hero h1{color:var(--gold)}
 .hero p{max-width:760px;margin:auto;opacity:.9}
-.hero .actions{margin-top:22px}
-.hero .actions button{
-  margin:6px;padding:14px 26px;border:none;
-  border-radius:14px;background:var(--gold);
-  color:#06142E;font-weight:bold;cursor:pointer
-}
 
 .container{max-width:980px;margin:auto;padding:30px 20px}
 .section{margin-top:42px}
@@ -91,19 +84,6 @@ header img{height:42px}
   padding:22px;
 }
 .card h3{color:var(--gold);margin-top:0}
-
-/* TESTIMONIALS */
-.testimonials{
-  display:flex;gap:18px;overflow:hidden
-}
-.testimonial{
-  min-width:280px;
-  animation:slide 30s linear infinite;
-}
-@keyframes slide{
-  0%{transform:translateX(0)}
-  100%{transform:translateX(-100%)}
-}
 
 /* FORM */
 .form-box{
@@ -125,21 +105,11 @@ textarea{min-height:120px}
   font-weight:bold;cursor:pointer
 }
 
-#success{
-  display:none;
-  background:#0b1c34;
-  border:1px solid var(--gold);
-  border-radius:18px;
-  padding:30px;
-  text-align:center;
-}
-
 footer{
   margin-top:60px;
   padding:28px;
   text-align:center;
   font-size:14px;
-  opacity:.9;
   border-top:1px solid var(--border);
 }
 footer span{display:block;margin-top:6px}
@@ -158,24 +128,18 @@ footer span{display:block;margin-top:6px}
 
 <header>
   <button onclick="history.back()">←</button>
-  <img src="logotransparent.png" alt="CIZA GROUP">
+  <img src="logotransparent.png">
   <button onclick="location.reload()">⟳</button>
 </header>
 
+<!-- HERO -->
 <section class="hero">
   <div class="hero-logo"></div>
   <h1>Diaspora Services — CIZA GROUP</h1>
   <p>
-    Solutions premium pour la diaspora burundaise & africaine :
-    immobilier, investissement, assistance administrative
-    et représentation locale sécurisée.
+    Services sécurisés pour la diaspora : immobilier, investissement,
+    assistance administrative et représentation locale.
   </p>
-  <div class="actions">
-    <button onclick="document.getElementById('form').scrollIntoView({behavior:'smooth'})">
-      Déposer une demande
-    </button>
-    <button onclick="history.back()">Retour</button>
-  </div>
 </section>
 
 <div class="container">
@@ -184,23 +148,20 @@ footer span{display:block;margin-top:6px}
 <section class="section">
 <h2 class="section-title">Services Diaspora</h2>
 <div class="cards">
-  <div class="card"><h3>Immobilier sécurisé</h3><p>Achat, construction, suivi à distance.</p></div>
-  <div class="card"><h3>Gestion immobilière</h3><p>Location, entretien, reporting régulier.</p></div>
-  <div class="card"><h3>Investissement local</h3><p>Projets vérifiés & transparents.</p></div>
-  <div class="card"><h3>Création d’entreprise</h3><p>RCCM, NIF, représentation légale.</p></div>
-  <div class="card"><h3>Assistance administrative</h3><p>Documents, démarches, mandats.</p></div>
-  <div class="card"><h3>Logistique diaspora</h3><p>Achats, colis, coordination locale.</p></div>
+  <div class="card"><h3>Immobilier sécurisé</h3><p>Achat, construction et suivi à distance.</p></div>
+  <div class="card"><h3>Gestion immobilière</h3><p>Location, entretien, rapports réguliers.</p></div>
+  <div class="card"><h3>Investissement local</h3><p>Projets validés et transparents.</p></div>
 </div>
 </section>
 
-<!-- PROCESS -->
+<!-- PROCESSUS -->
 <section class="section">
-<h2 class="section-title">Processus</h2>
+<h2 class="section-title">Processus CIZA GROUP</h2>
 <div class="cards">
-  <div class="card"><h3>1</h3><p>Choix du service diaspora</p></div>
-  <div class="card"><h3>2</h3><p>Création du dossier officiel</p></div>
-  <div class="card"><h3>3</h3><p>Contact & validation</p></div>
-  <div class="card"><h3>4</h3><p>Exécution & suivi</p></div>
+  <div class="card"><h3>1️⃣ Demande</h3><p>Vous soumettez votre besoin via le formulaire officiel.</p></div>
+  <div class="card"><h3>2️⃣ Analyse</h3><p>Notre équipe étudie votre demande et crée un dossier.</p></div>
+  <div class="card"><h3>3️⃣ Validation</h3><p>Aucune action ni paiement sans validation écrite.</p></div>
+  <div class="card"><h3>4️⃣ Exécution</h3><p>Le service est exécuté avec suivi et reporting.</p></div>
 </div>
 </section>
 
@@ -208,98 +169,35 @@ footer span{display:block;margin-top:6px}
 <section class="section">
 <h2 class="section-title">Garantie CIZA GROUP</h2>
 <div class="card">
-✔ Numéro de dossier unique<br>
-✔ Présence locale & internationale<br>
-✔ Aucun engagement sans validation<br>
-✔ Suivi transparent et documenté
+✔ Numéro de dossier unique attribué à chaque client<br><br>
+✔ Présence locale au Burundi et coordination internationale<br><br>
+✔ Aucun engagement financier sans validation claire<br><br>
+✔ Suivi humain, transparent et documenté du début à la fin
 </div>
 </section>
 
-<!-- TEMOIGNAGES -->
+<!-- AVIS -->
 <section class="section">
-<h2 class="section-title">Témoignages Diaspora</h2>
-<div class="testimonials">
-  <div class="card testimonial"><p>“J’ai acheté mon terrain depuis le Canada sans stress.”</p><span>— Diaspora, Montréal</span></div>
-  <div class="card testimonial"><p>“CIZA GROUP gère ma maison pendant mon absence.”</p><span>— Diaspora, Bruxelles</span></div>
-  <div class="card testimonial"><p>“Service sérieux et communication claire.”</p><span>— Diaspora, Paris</span></div>
-</div>
-</section>
+<h2 class="section-title">Avis & Témoignages</h2>
 
 <div class="form-box">
 <form id="avisForm">
-  <input type="hidden" name="Objet" value="Avis Diaspora — CIZA GROUP">
+  <input name="Nom" placeholder="Votre nom" required>
+  <input name="Pays" placeholder="Pays de résidence">
+  <textarea name="Avis" placeholder="Votre avis" required></textarea>
 
-  <input name="Nom" required placeholder="Votre nom">
-  <input name="Pays" required placeholder="Pays de résidence">
-  <textarea name="Avis" required placeholder="Votre témoignage"></textarea>
+  <p style="font-size:12px;opacity:.75;margin-top:10px;line-height:1.5">
+    ⚠️ Les avis soumis sont examinés et validés par <b>CIZA GROUP</b>
+    avant publication afin de garantir l’authenticité et le respect
+    de notre communauté.
+  </p>
 
   <button class="btn">Envoyer mon avis</button>
 </form>
 
-<p style="margin-top:12px;font-size:13px;opacity:.7">
-Vos informations restent confidentielles.  
-Votre avis pourra être publié de manière anonyme.
-</p>
+<div id="avisSuccess" style="display:none;text-align:center;margin-top:20px">
+  ✅ Merci, votre avis a bien été reçu et sera vérifié par CIZA GROUP.
 </div>
-
-<div id="avisSuccess" style="
-  display:none;
-  background:#0b1c34;
-  border:1px solid var(--gold);
-  border-radius:18px;
-  padding:26px;
-  text-align:center;
-  margin-top:18px
-">
-<h3 style="color:#F2B840">Merci pour votre avis 🙏</h3>
-<p>
-Votre témoignage a bien été transmis à l’équipe CIZA GROUP.
-</p>
-</div>
-
-<!-- FAQ -->
-<section class="section">
-<h2 class="section-title">FAQ</h2>
-<div class="card"><b>Mes fonds sont-ils sécurisés ?</b><br>Oui, aucun paiement sans validation écrite.</div>
-<div class="card"><b>Puis-je suivre mon dossier ?</b><br>Oui, via votre numéro de dossier.</div>
-<div class="card"><b>Êtes-vous présents au Burundi ?</b><br>Oui, équipe locale + coordination internationale.</div>
-</section>
-
-<!-- FORM -->
-<section class="section" id="form">
-<h2 class="section-title">Formulaire Diaspora</h2>
-
-<div class="form-box">
-<form id="diasporaForm">
-<input type="hidden" name="Numéro de dossier" id="dossier">
-
-<input required placeholder="Nom complet">
-<input type="email" required placeholder="Email">
-<input type="tel" required placeholder="Téléphone">
-
-<select required>
-  <option value="">Service souhaité</option>
-  <option>Immobilier / Construction</option>
-  <option>Gestion immobilière</option>
-  <option>Investissement</option>
-  <option>Création d’entreprise</option>
-  <option>Assistance administrative</option>
-  <option>Logistique diaspora</option>
-</select>
-
-<textarea placeholder="Décrivez votre besoin"></textarea>
-<button class="btn">Envoyer la demande</button>
-</form>
-</div>
-
-<div id="success">
-<h3>Dossier créé avec succès ✅</h3>
-<p>
-Votre numéro de dossier est :<br><br>
-<b id="dossierShow" style="color:#F2B840;font-size:20px"></b><br><br>
-Veuillez conserver ce numéro.<br>
-Un conseiller CIZA GROUP vous contactera rapidement.
-</p>
 </div>
 </section>
 
@@ -307,30 +205,30 @@ Un conseiller CIZA GROUP vous contactera rapidement.
 
 <footer>
 © 2026 CIZA GROUP
-<span>Sign & Designed by CIZA GROUP</span>
-<span>📧 infos@cizagroup.com</span>
-<span>🌍 International : +1 514 502 9503</span>
-<span>🇧🇮 Burundi / East Africa : +257 79 94 50 • +257 79 64 48 93</span>
+<span>infos@cizagroup.com</span>
+<span>Canada : +1 514 502 9503</span>
+<span>Burundi : +257 79 94 50 07</span>
 </footer>
 
 <div id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
 
 <script>
-const dossierId="CIZA-DIAS-"+new Date().toISOString().slice(0,10).replace(/-/g,"")+"-"+Math.floor(1000+Math.random()*9000);
-document.getElementById("dossier").value=dossierId;
-
-document.getElementById("diasporaForm").addEventListener("submit",e=>{
+/* FORM AVIS — ZÉRO PAGE BLANCHE */
+document.getElementById("avisForm").addEventListener("submit",e=>{
   e.preventDefault();
-  fetch("https://formsubmit.co/ajax/infos@cizagroup.com",{method:"POST",body:new FormData(e.target)})
-  .then(()=>{
+  fetch("https://formsubmit.co/ajax/infos@cizagroup.com",{
+    method:"POST",
+    body:new FormData(e.target)
+  }).then(()=>{
     e.target.style.display="none";
-    document.getElementById("success").style.display="block";
-    document.getElementById("dossierShow").textContent=dossierId;
+    document.getElementById("avisSuccess").style.display="block";
   });
 });
 
+/* SCROLL TOP */
 window.addEventListener("scroll",()=>{
-  document.getElementById("topBtn").style.display=window.scrollY>300?"flex":"none";
+  document.getElementById("topBtn").style.display =
+    window.scrollY>300?"flex":"none";
 });
 </script>
 
