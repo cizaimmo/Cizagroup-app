@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Connexion — CIZA GROUP</title>
+<link rel="icon" href="logotransparent.png">
+
+<style>
+:root{
+  --bg:#06142E;
+  --card:#0B1E3A;
+  --gold:#F2B840;
+  --input:#0F2A4F;
+  --txt:#ffffff;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(180deg,#06142E,#050F24);
+  font-family:system-ui,-apple-system,Segoe UI,Roboto;
+  color:var(--txt);
+}
+
+/* ===== CARD ===== */
+.card{
+  width:100%;
+  max-width:420px;
+  background:rgba(255,255,255,0.06);
+  border:2px solid var(--gold);
+  border-radius:28px;
+  padding:30px 26px 34px;
+  text-align:center;
+  box-shadow:0 0 40px rgba(0,0,0,.35);
+}
+
+/* ===== LOGO ===== */
+.card img{
+  width:90px;
+  margin-bottom:10px;
+}
+
+/* ===== TITLES ===== */
+h2{
+  color:var(--gold);
+  margin:10px 0 6px;
+}
+.subtitle{
+  opacity:.85;
+  margin-bottom:22px;
+}
+
+/* ===== INPUTS ===== */
+input{
+  width:100%;
+  padding:16px;
+  margin:10px 0;
+  border-radius:18px;
+  border:none;
+  outline:none;
+  background:var(--input);
+  color:#fff;
+  font-size:15px;
+}
+
+/* ===== BUTTON ===== */
+button{
+  width:100%;
+  padding:16px;
+  margin-top:6px;
+  border-radius:20px;
+  border:none;
+  background:linear-gradient(135deg,#F2B840,#FFD77A);
+  color:#06142E;
+  font-size:17px;
+  font-weight:700;
+  cursor:pointer;
+}
+button:hover{opacity:.9}
+
+/* ===== MESSAGE ===== */
+#msg{
+  margin-top:14px;
+  min-height:18px;
+  font-size:14px;
+}
+
+/* ===== LINKS ===== */
+.links{
+  margin-top:18px;
+  font-size:14px;
+}
+.links a{
+  color:var(--gold);
+  text-decoration:none;
+  font-weight:600;
+}
+.links a:hover{text-decoration:underline}
+
+/* ===== SUPPORT ===== */
+.support{
+  margin-top:22px;
+  font-size:13px;
+  opacity:.9;
+}
+.support span{
+  color:var(--gold);
+  font-weight:700;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <img src="logotransparent.png" alt="CIZA GROUP">
+
+  <h2>Connexion</h2>
+  <div class="subtitle">Accédez à votre espace CIZA GROUP</div>
+
+  <input id="email" type="email" placeholder="Adresse email">
+  <input id="password" type="password" placeholder="Mot de passe">
+
+  <button onclick="login()">Se connecter</button>
+
+  <div id="msg"></div>
+
+  <div class="links">
+    Pas encore de compte ?
+    <a href="signup.html">Créer un compte</a>
+  </div>
+
+  <div class="support">
+    Mot de passe oublié ou problème ?<br>
+    Support technique :<br>
+    📱 <span>WhatsApp Canada : +1 514 502 9503</span>
+  </div>
+</div>
+
+<!-- 🔥 AUTH FIREBASE — INTACT -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+
+/* 🔥 FIREBASE CONFIG */
+const firebaseConfig = {
+  apiKey: "AIzaSyBAiJHbBvRO6cDFpm6C-5mQk6SiTtzcI8o",
+  authDomain: "cizagroup-app.firebaseapp.com",
+  projectId: "cizagroup-app",
+  appId: "1:930936264084:web:5395360e54bf17bf492b81"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+/* 🔐 LOGIN (INCHANGÉ) */
+window.login = async () => {
+  const emailInput = document.getElementById("email").value.trim();
+  const passwordInput = document.getElementById("password").value.trim();
+  const msg = document.getElementById("msg");
+
+  msg.innerText = "";
+
+  if(!emailInput || !passwordInput){
+    msg.innerText = "Veuillez remplir tous les champs";
+    return;
+  }
+
+  msg.innerText = "Connexion en cours...";
+
+  try{
+    await signInWithEmailAndPassword(auth, emailInput, passwordInput);
+
+    localStorage.setItem("ciza_user_status", "active");
+    window.location.replace("index.html");
+
+  }catch(e){
+    msg.innerText = "Email ou mot de passe incorrect ❌";
+  }
+};
+</script>
+
+</body>
+</html>
