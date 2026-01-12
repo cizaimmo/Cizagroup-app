@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Delete Account – CIZA GROUP</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Firebase Web SDK (compat – SAFE) -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+<style>
+:root{
+  --blue:#0a2a5e;
+  --blue-dark:#071733;
+  --gold:#f2b840;
+  --white:#ffffff;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;
+  background:linear-gradient(180deg,var(--blue-dark),var(--blue));
+  color:var(--white);
+}
+
+/* HEADER */
+header{
+  padding:18px 22px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  border-bottom:2px solid var(--gold);
+}
+header img{
+  height:44px;
+}
+header .brand{
+  font-weight:700;
+  letter-spacing:.6px;
+}
+
+/* MAIN */
+.main{
+  max-width:720px;
+  margin:40px auto;
+  padding:0 16px;
+}
+
+/* CARD */
+.card{
+  background:rgba(255,255,255,0.06);
+  border:2px solid var(--gold);
+  border-radius:22px;
+  padding:30px 24px;
+  text-align:center;
+}
+.card h1{
+  margin:0 0 12px;
+  color:var(--gold);
+  letter-spacing:1px;
+}
+.card p{
+  line-height:1.6;
+  opacity:.95;
+}
+
+/* WARNING */
+.warning{
+  margin:20px 0;
+  padding:16px;
+  border-radius:14px;
+  background:rgba(229,57,53,0.15);
+  border:1px solid #e53935;
+  font-size:14px;
+}
+
+/* BUTTON */
+button{
+  margin-top:12px;
+  width:100%;
+  padding:16px;
+  font-size:16px;
+  font-weight:600;
+  background:#e53935;
+  color:#fff;
+  border:none;
+  border-radius:14px;
+  cursor:pointer;
+}
+button:hover{
+  background:#c62828;
+}
+
+/* FOOTER */
+footer{
+  margin:40px auto 20px;
+  text-align:center;
+  font-size:14px;
+  opacity:.9;
+}
+footer a{
+  color:var(--gold);
+  text-decoration:none;
+  font-weight:600;
+}
+footer a:hover{
+  text-decoration:underline;
+}
+footer .sep{
+  margin:0 8px;
+  opacity:.6;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <img src="https://raw.githubusercontent.com/cizaimmo/Cizagroup-app/53fae033625886d4ff57d91a5dbc11b613546799/logotransparent.png" alt="CIZA GROUP Logo">
+  <div class="brand">CIZA GROUP</div>
+</header>
+
+<div class="main">
+  <div class="card">
+    <h1>Delete Account</h1>
+
+    <p>
+      You are about to permanently delete your <strong>CIZA GROUP</strong> account.
+      This action is irreversible.
+    </p>
+
+    <div class="warning">
+      Deleting your account will permanently remove your authentication access.
+      You will be signed out immediately and will no longer be able to log in.
+    </div>
+
+    <button onclick="deleteMyAccount()">Delete My Account</button>
+  </div>
+</div>
+
+<footer>
+  <a href="https://cizaimmo.github.io/cizagroup-website/privacy-policy.html" target="_blank">
+    Politique de confidentialité
+  </a>
+  <span class="sep">|</span>
+  <span>infos@cizagroup.com</span>
+  <span class="sep">|</span>
+  <span>Tel: 514&nbsp;502&nbsp;9503</span>
+</footer>
+
+<script>
+  // 🔐 UTILISE LA MÊME CONFIG FIREBASE QUE TON APP
+  const firebaseConfig = {
+    apiKey: "TON_API_KEY",
+    authDomain: "TON_PROJET.firebaseapp.com",
+    projectId: "TON_PROJECT_ID"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+
+  function deleteMyAccount() {
+    const user = firebase.auth().currentUser;
+
+    if (!user) {
+      alert("Please return to the app and try again.");
+      return;
+    }
+
+    if (!confirm("Are you sure you want to permanently delete your account?")) {
+      return;
+    }
+
+    user.delete()
+      .then(() => {
+        alert("Your account has been permanently deleted.");
+        window.location.href = "/";
+      })
+      .catch(error => {
+        alert("Please re-login and try again.");
+        console.error(error);
+      });
+  }
+</script>
+
+</body>
+</html>
