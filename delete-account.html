@@ -5,10 +5,6 @@
 <title>Delete Account – CIZA GROUP</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Firebase Web SDK (SAFE – Option A) -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-
 <style>
 :root{
   --blue-deep:#071733;
@@ -27,7 +23,7 @@ body{
   color:var(--white);
 }
 
-/* ===== HEADER ===== */
+/* HEADER */
 header{
   padding:22px 26px;
   display:flex;
@@ -48,7 +44,7 @@ header{
   letter-spacing:1px;
 }
 
-/* ===== LANGUAGE SWITCH ===== */
+/* LANGUAGE */
 .lang{
   display:flex;
   gap:10px;
@@ -67,29 +63,23 @@ header{
   color:#071733;
 }
 
-/* ===== MAIN ===== */
+/* MAIN */
 .main{
   max-width:820px;
   margin:50px auto;
   padding:0 18px;
 }
-
-/* ===== GOLD FRAME ===== */
 .frame{
   border:3px solid var(--gold);
   border-radius:34px;
   padding:14px;
 }
-
-/* ===== CARD ===== */
 .card{
   background:linear-gradient(180deg,rgba(255,255,255,0.10),rgba(255,255,255,0.04));
   border-radius:26px;
   padding:46px 30px;
   text-align:center;
 }
-
-/* ===== TEXT ===== */
 .card h1{
   margin:0 0 14px;
   color:var(--gold);
@@ -101,8 +91,6 @@ header{
   line-height:1.7;
   opacity:.95;
 }
-
-/* ===== WARNING ===== */
 .warning{
   margin:26px 0;
   padding:18px;
@@ -111,8 +99,6 @@ header{
   border:1px solid var(--danger);
   font-size:15px;
 }
-
-/* ===== BUTTON ===== */
 button.delete{
   margin-top:10px;
   width:100%;
@@ -129,7 +115,7 @@ button.delete:hover{
   background:#c62828;
 }
 
-/* ===== FOOTER ===== */
+/* FOOTER */
 footer{
   margin:50px auto 24px;
   text-align:center;
@@ -179,7 +165,7 @@ footer a:hover{
           La suppression entraînera la perte définitive de votre accès.
           Vous serez immédiatement déconnecté et ne pourrez plus vous reconnecter.
         </div>
-        <button class="delete" onclick="deleteMyAccount()">
+        <button class="delete" onclick="confirmDeletion()">
           Supprimer mon compte
         </button>
       </div>
@@ -195,7 +181,7 @@ footer a:hover{
           Deleting your account will permanently remove your access.
           You will be signed out immediately and will no longer be able to log in.
         </div>
-        <button class="delete" onclick="deleteMyAccount()">
+        <button class="delete" onclick="confirmDeletion()">
           Delete My Account
         </button>
       </div>
@@ -206,7 +192,7 @@ footer a:hover{
 
 <footer>
   <a href="https://cizaimmo.github.io/cizagroup-website/privacy-policy.html" target="_blank">
-    ©️2026 Ciza Group.
+    Politique de confidentialité
   </a>
   <span class="sep">|</span>
   <span>infos@cizagroup.com</span>
@@ -215,7 +201,6 @@ footer a:hover{
 </footer>
 
 <script>
-/* ===== LANGUAGE SWITCH ===== */
 function setLang(lang){
   document.getElementById('fr').style.display = (lang==='fr') ? 'block' : 'none';
   document.getElementById('en').style.display = (lang==='en') ? 'block' : 'none';
@@ -223,41 +208,15 @@ function setLang(lang){
   document.getElementById('btn-en').classList.toggle('active', lang==='en');
 }
 
-/* ===== FIREBASE CONFIG (À REMPLACER) ===== */
-const firebaseConfig = {
-  apiKey: "TON_API_KEY",
-  authDomain: "TON_PROJET.firebaseapp.com",
-  projectId: "TON_PROJECT_ID"
-};
+function confirmDeletion(){
+  const msgFR = "Êtes-vous sûr de vouloir supprimer définitivement votre compte CIZA GROUP ? Cette action est irréversible.";
+  const msgEN = "Are you sure you want to permanently delete your CIZA GROUP account? This action is irreversible.";
+  const isFR = document.getElementById('fr').style.display !== 'none';
 
-firebase.initializeApp(firebaseConfig);
-
-/* ===== DELETE ACCOUNT (SAFE) ===== */
-function deleteMyAccount(){
-  const user = firebase.auth().currentUser;
-
-  if(!user){
-    alert("Veuillez retourner dans l’application et réessayer.");
-    return;
+  if(confirm(isFR ? msgFR : msgEN)){
+    // 👉 Intercepté par WKWebView (iOS)
+    window.location.href = "ciza://delete-account";
   }
-
-  const confirmMsgFR = "Êtes-vous sûr de vouloir supprimer définitivement votre compte ?";
-  const confirmMsgEN = "Are you sure you want to permanently delete your account?";
-  const msg = (document.getElementById('fr').style.display !== 'none') ? confirmMsgFR : confirmMsgEN;
-
-  if(!confirm(msg)){
-    return;
-  }
-
-  user.delete()
-    .then(()=>{
-      alert("Compte supprimé avec succès / Account deleted successfully.");
-      window.location.href="/";
-    })
-    .catch(err=>{
-      alert("Veuillez vous reconnecter et réessayer.");
-      console.error(err);
-    });
 }
 </script>
 
