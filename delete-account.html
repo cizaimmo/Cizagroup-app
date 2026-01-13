@@ -2,15 +2,15 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Supprimer le compte</title>
+<title>Suppression du compte</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 
 <style>
-body {
-  background:#071733;
+body{
+  background:#06142E;
   color:#fff;
   font-family:system-ui;
   display:flex;
@@ -18,67 +18,77 @@ body {
   align-items:center;
   height:100vh;
 }
-.box {
+.box{
   background:#0a2a5e;
   padding:24px;
   border-radius:16px;
   width:100%;
-  max-width:360px;
+  max-width:380px;
 }
-input, button {
+input,button{
   width:100%;
   margin-top:12px;
   padding:12px;
   border-radius:10px;
   border:none;
 }
-button {
+button{
   background:#e53935;
-  color:white;
+  color:#fff;
   font-weight:bold;
 }
 </style>
 </head>
 
 <body>
+
 <div class="box">
-  <h2>Suppression définitive</h2>
+  <h2>Supprimer définitivement</h2>
+  <p>Confirmez avec vos identifiants.</p>
 
-  <input type="email" id="email" placeholder="Email" />
-  <input type="password" id="password" placeholder="Mot de passe" />
+  <input id="email" type="email" placeholder="Email">
+  <input id="password" type="password" placeholder="Mot de passe">
 
-  <button onclick="deleteAccount()">Supprimer définitivement</button>
+  <button onclick="deleteAccount()">Supprimer mon compte</button>
 </div>
 
 <script>
 firebase.initializeApp({
   apiKey: "TON_API_KEY",
-  authDomain: "cizagroup-app.firebaseapp.com",
-  projectId: "cizagroup-app"
+  authDomain: "TON_PROJECT.firebaseapp.com",
+  projectId: "TON_PROJECT"
 });
 
-async function deleteAccount() {
-  const email = email.value;
-  const password = password.value;
+async function deleteAccount(){
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
 
-  if (!email || !password) {
+  if(!email || !password){
     alert("Email et mot de passe requis");
     return;
   }
 
-  try {
-    const cred = await firebase.auth()
+  try{
+    // 🔐 RE-AUTH DANS LA MÊME PAGE
+    const cred = await firebase
+      .auth()
       .signInWithEmailAndPassword(email, password);
 
+    // 🗑️ SUPPRESSION DÉFINITIVE
     await cred.user.delete();
 
-    alert("Compte supprimé définitivement");
-    window.location.href = "login.html";
+    // 🔓 NETTOYAGE SESSION
+    localStorage.removeItem("ciza_user_status");
 
-  } catch (e) {
+    alert("Compte supprimé définitivement");
+
+    window.location.replace("login.html");
+
+  }catch(e){
     alert("Erreur : " + e.message);
   }
 }
 </script>
+
 </body>
 </html>
