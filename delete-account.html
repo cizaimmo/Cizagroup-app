@@ -2,87 +2,38 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Delete Account – CIZA GROUP</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Delete Account – CIZA GROUP</title>
 
 <style>
-:root{
-  --blue:#0a2a5e;
-  --gold:#f2b840;
-  --danger:#e53935;
-  --white:#ffffff;
-}
 body{
   margin:0;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
-  background:linear-gradient(180deg,#071733,#0a2a5e);
-  color:var(--white);
-}
-.main{
-  max-width:600px;
-  margin:80px auto;
-  padding:20px;
-}
-.card{
-  border:3px solid var(--gold);
-  border-radius:30px;
-  padding:30px;
-  text-align:center;
-}
-h1{
-  color:var(--gold);
-}
-.warning{
-  margin:20px 0;
-  padding:15px;
-  border:1px solid var(--danger);
-  border-radius:15px;
-  background:rgba(229,57,53,0.15);
+  font-family:-apple-system,BlinkMacSystemFont,system-ui;
+  background:#071733;
+  color:white;
 }
 button{
   width:100%;
   padding:18px;
+  background:#e53935;
+  color:white;
   border:none;
-  border-radius:15px;
-  background:var(--danger);
-  color:#fff;
-  font-size:18px;
-  font-weight:600;
-  cursor:pointer;
-}
-button:hover{
-  background:#c62828;
+  border-radius:16px;
+  font-size:17px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="main">
-  <div class="card">
-    <h1>Supprimer le compte</h1>
-    <p>
-      Vous êtes sur le point de supprimer définitivement votre compte
-      <strong>CIZA GROUP</strong>. Cette action est irréversible.
-    </p>
+<h2>Supprimer le compte</h2>
+<p>Cette action est irréversible.</p>
 
-    <div class="warning">
-      Vous serez immédiatement déconnecté et ne pourrez plus vous reconnecter.
-    </div>
-
-    <button onclick="confirmDeletion()">
-      Supprimer mon compte
-    </button>
-  </div>
-</div>
+<button onclick="confirmDeletion()">Supprimer mon compte</button>
 
 <script>
 function confirmDeletion(){
-  const ok = confirm(
-    "Êtes-vous sûr de vouloir supprimer définitivement votre compte CIZA GROUP ?"
-  );
-  if(ok){
-    // 👉 App iOS intercepte ceci
+  if(confirm("Supprimer définitivement votre compte ?")){
     window.location.href = "ciza://delete-account";
   }
 }
