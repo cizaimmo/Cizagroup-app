@@ -6,17 +6,44 @@
 <title>CIZA GROUP — App Officielle</title>
 <link rel="icon" href="logotransparent.png">
 
-<!-- 🔐 BARRIÈRE D’ACCÈS CORRIGÉE -->
+<!-- 🔐 BARRIÈRE LOCALE (CONSERVÉE) -->
 <script>
-const page = location.pathname.split("/").pop();
-const allowedPages = ["login.html", "signup.html", "delete-account.html"];
-
-if (
-  localStorage.getItem("ciza_user_status") !== "active" &&
-  !allowedPages.includes(page)
-) {
+if(localStorage.getItem("ciza_user_status") !== "active"){
   window.location.replace("login.html");
 }
+</script>
+
+<!-- 🔥 BARRIÈRE FIREBASE (AJOUTÉE – APPLE OK) -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBAiJHbBvRO6cDFpm6C-5mQk6SiTtzcI8o",
+  authDomain: "cizagroup-app.firebaseapp.com",
+  projectId: "cizagroup-app",
+  appId: "1:930936264084:web:5395360e54bf17bf492b81"
+};
+
+const app  = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db   = getFirestore(app);
+
+onAuthStateChanged(auth, async (user)=>{
+  if(!user){
+    localStorage.removeItem("ciza_user_status");
+    window.location.replace("login.html");
+    return;
+  }
+
+  const snap = await getDoc(doc(db,"users",user.uid));
+  if(!snap.exists() || snap.data().deleted === true || snap.data().status !== "active"){
+    await signOut(auth);
+    localStorage.removeItem("ciza_user_status");
+    window.location.replace("login.html");
+  }
+});
 </script>
 
 <style>
@@ -30,8 +57,7 @@ html,body{
   background:#06142E;
   color:#fff;
 }
-
-/* ===== SPLASH ===== */
+/* SPLASH */
 #splash{
   position:fixed;
   inset:0;
@@ -43,7 +69,6 @@ html,body{
   animation:fadeSplash 2.5s ease 2.5s forwards;
 }
 @keyframes fadeSplash{to{opacity:0;visibility:hidden}}
-
 .splash-box{text-align:center}
 .splash-logo{
   width:200px;
@@ -61,8 +86,7 @@ html,body{
   letter-spacing:4px;
   color:#F2B840;
 }
-
-/* ===== HEADER ===== */
+/* HEADER */
 header{
   position:sticky;
   top:0;
@@ -77,8 +101,7 @@ header{
 }
 header img{width:55px}
 .menu-btn{font-size:32px;color:#F2B840;cursor:pointer}
-
-/* ===== MENU ===== */
+/* MENU */
 #menu{
   position:fixed;
   top:0;right:0;
@@ -100,8 +123,7 @@ header img{width:55px}
   cursor:pointer;
 }
 .menu-item:hover{color:#F2B840}
-
-/* ===== CONTENT ===== */
+/* CONTENT */
 .hero{
   width:90%;
   margin:25px auto;
@@ -112,7 +134,6 @@ header img{width:55px}
   text-align:center;
 }
 .hero h2{margin:0;color:#F2B840}
-
 .section-title{
   width:90%;
   margin:25px auto 10px;
@@ -136,8 +157,7 @@ header img{width:55px}
   cursor:pointer;
 }
 .card:hover{transform:scale(1.05)}
-
-/* ===== FOOTER ===== */
+/* FOOTER */
 footer{
   margin-top:40px;
   padding:30px;
@@ -175,14 +195,12 @@ footer a{
 
   <div class="menu-item" onclick="location.href='index.html'">🏠 Accueil</div>
   <div class="menu-item" onclick="location.href='about.html'">ℹ️ À propos</div>
-
   <div class="menu-item" id="menu-login" onclick="location.href='login.html'">🔐 Connexion</div>
   <div class="menu-item" id="menu-signup" onclick="location.href='signup.html'">📝 Créer un compte</div>
   <div class="menu-item" id="menu-logout" onclick="logout()">🚪 Déconnexion</div>
 
-  <div class="menu-item"
-       onclick="location.href='delete-account.html'"
-       style="color:#e53935;font-weight:600;">
+  <!-- ✅ CORRIGÉ -->
+  <div class="menu-item" onclick="location.href='delete-account.html'" style="color:#e53935;font-weight:600;">
     🗑️ Supprimer mon compte
   </div>
 
@@ -209,25 +227,27 @@ footer a{
   <div class="card" onclick="location.href='jobs.html'">💼 CizaJobs</div>
 </div>
 
+<div class="section-title">🏢 Solutions Entreprises</div>
+<div class="card" onclick="location.href='business.html'">🏢 Business & ONG</div>
+
 <footer>
 Design and Powered by © 2026 CIZA GROUP
 <a href="legal.html">Mentions légales</a>
 <a href="privacy.html">Confidentialité</a>
 <a href="mailto:infos@cizagroup.com">Contact</a>
+<a href="https://www.instagram.com/cizagroup_official" target="_blank">
+📸 Instagram : @cizagroup_official
+</a>
 </footer>
 
 <script>
 function toggleMenu(){
   document.getElementById("menu").classList.toggle("open");
 }
-
-/* MENU INTELLIGENT */
 const connected = localStorage.getItem("ciza_user_status")==="active";
 document.getElementById("menu-login").style.display  = connected?"none":"block";
 document.getElementById("menu-signup").style.display = connected?"none":"block";
 document.getElementById("menu-logout").style.display = connected?"block":"none";
-
-/* LOGOUT */
 function logout(){
   localStorage.removeItem("ciza_user_status");
   window.location.replace("login.html");
