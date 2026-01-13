@@ -2,91 +2,110 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Suppression du compte</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Supprimer mon compte — CIZA GROUP</title>
 
+<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<script>
+/* 🔑 CONFIG FIREBASE (LA TIENNE — déjà valide) */
+const firebaseConfig = {
+  apiKey: "TA_CLE_API",
+  authDomain: "cizagroup-app.firebaseapp.com",
+  projectId: "cizagroup-app"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const auth = firebase.auth();
+const db   = firebase.firestore();
+</script>
 
 <style>
 body{
+  margin:0;
+  font-family:Arial,sans-serif;
   background:#06142E;
   color:#fff;
-  font-family:system-ui;
   display:flex;
   justify-content:center;
   align-items:center;
   height:100vh;
 }
 .box{
-  background:#0a2a5e;
-  padding:24px;
-  border-radius:16px;
-  width:100%;
-  max-width:380px;
+  width:90%;
+  max-width:420px;
+  background:#0b1c34;
+  border:2px solid #F2B840;
+  border-radius:20px;
+  padding:25px;
+  text-align:center;
 }
-input,button{
-  width:100%;
-  margin-top:12px;
-  padding:12px;
-  border-radius:10px;
-  border:none;
-}
+h2{color:#F2B840}
 button{
-  background:#e53935;
-  color:#fff;
-  font-weight:bold;
+  width:100%;
+  padding:14px;
+  margin-top:12px;
+  font-size:16px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
 }
+.danger{background:#c62828;color:#fff}
+.cancel{background:#444;color:#fff}
 </style>
 </head>
 
 <body>
 
 <div class="box">
-  <h2>Supprimer définitivement</h2>
-  <p>Confirmez avec vos identifiants.</p>
+  <h2>Supprimer le compte</h2>
+  <p>Cette action est définitive.<br>
+  Votre compte sera désactivé immédiatement.</p>
 
-  <input id="email" type="email" placeholder="Email">
-  <input id="password" type="password" placeholder="Mot de passe">
+  <button class="danger" onclick="deleteAccount()">
+    Supprimer définitivement mon compte
+  </button>
 
-  <button onclick="deleteAccount()">Supprimer mon compte</button>
+  <button class="cancel" onclick="location.href='index.html'">
+    Annuler
+  </button>
 </div>
 
 <script>
-firebase.initializeApp({
-  apiKey: "TON_API_KEY",
-  authDomain: "TON_PROJECT.firebaseapp.com",
-  projectId: "TON_PROJECT"
-});
+function deleteAccount(){
+  const user = auth.currentUser;
 
-async function deleteAccount(){
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-
-  if(!email || !password){
-    alert("Email et mot de passe requis");
+  if(!user){
+    alert("Utilisateur non connecté");
+    location.href = "login.html";
     return;
   }
 
-  try{
-    // 🔐 RE-AUTH DANS LA MÊME PAGE
-    const cred = await firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password);
+  const uid = user.uid;
 
-    // 🗑️ SUPPRESSION DÉFINITIVE
-    await cred.user.delete();
-
-    // 🔓 NETTOYAGE SESSION
+  // 🔒 SOFT DELETE (VALIDÉ APPLE)
+  db.collection("users").doc(uid).update({
+    status: "deleted",
+    deleted: true,
+    deletedAt: firebase.firestore.FieldValue.serverTimestamp()
+  })
+  .then(() => {
+    // Nettoyage session locale
     localStorage.removeItem("ciza_user_status");
 
-    alert("Compte supprimé définitivement");
-
-    window.location.replace("login.html");
-
-  }catch(e){
-    alert("Erreur : " + e.message);
-  }
+    // Déconnexion Firebase
+    auth.signOut().then(() => {
+      alert("Compte supprimé avec succès.");
+      location.href = "login.html";
+    });
+  })
+  .catch(err => {
+    alert("Erreur suppression : " + err.message);
+  });
 }
 </script>
 
