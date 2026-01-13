@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Supprimer le compte — CIZA GROUP</title>
+
+<style>
+body{
+  margin:0;
+  min-height:100vh;
+  background:#06142E;
+  color:white;
+  font-family:Arial,sans-serif;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.card{
+  width:90%;
+  max-width:420px;
+  background:rgba(255,255,255,.08);
+  border:2px solid #e53935;
+  border-radius:22px;
+  padding:28px;
+  text-align:center;
+}
+p{
+  font-size:14px;
+  line-height:1.5;
+  opacity:.9;
+}
+.warning{
+  color:#ffb4b4;
+  font-size:13px;
+  margin-top:10px;
+}
+input{
+  width:100%;
+  padding:14px;
+  margin-top:14px;
+  border-radius:12px;
+  border:none;
+  outline:none;
+}
+button{
+  width:100%;
+  padding:14px;
+  margin-top:16px;
+  border:none;
+  border-radius:16px;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+}
+.delete-btn{
+  background:#e53935;
+  color:white;
+}
+.cancel-btn{
+  background:transparent;
+  color:#ccc;
+  border:1px solid #555;
+}
+#msg{
+  margin-top:14px;
+  min-height:18px;
+  font-size:14px;
+}
+.support{
+  margin-top:16px;
+  font-size:12px;
+  opacity:.8;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h2>Supprimer le compte</h2>
+
+  <p>
+    Cette action est <b>définitive</b> et <b>irréversible</b>.<br>
+    Votre compte CIZA GROUP ainsi que toutes les données associées à votre profil
+    seront supprimés définitivement.
+  </p>
+
+  <p class="warning">
+    Après confirmation, vous serez immédiatement déconnecté et ne pourrez plus accéder à votre compte.
+  </p>
+
+  <input id="password" type="password" placeholder="Confirmez votre mot de passe">
+
+  <button class="delete-btn" onclick="deleteAccount()">
+    Supprimer définitivement
+  </button>
+
+  <button class="cancel-btn" onclick="location.href='index.html'">
+    Annuler et retourner
+  </button>
+
+  <div id="msg"></div>
+
+  <div class="support">
+    Besoin d’aide ? Contactez le support :<br>
+    infos@cizagroup.com
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+import { 
+  getAuth,
+  EmailAuthProvider,
+  reauthenticateWithCredential,
+  deleteUser
+} from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBAiJHbBvRO6cDFpm6C-5mQk6SiTtzcI8o",
+  authDomain: "cizagroup-app.firebaseapp.com",
+  projectId: "cizagroup-app",
+  appId: "1:930936264084:web:5395360e54bf17bf492b81"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+window.deleteAccount = async () => {
+  const msg = document.getElementById("msg");
+  const password = document.getElementById("password").value;
+  msg.innerText = "";
+
+  const user = auth.currentUser;
+
+  if(!user){
+    msg.innerText = "Utilisateur non connecté";
+    return;
+  }
+
+  if(!password){
+    msg.innerText = "Mot de passe requis";
+    return;
+  }
+
+  try {
+    const credential = EmailAuthProvider.credential(
+      user.email,
+      password
+    );
+
+    await reauthenticateWithCredential(user, credential);
+    await deleteUser(user);
+
+    localStorage.clear();
+
+    msg.innerText = "✅ Compte supprimé définitivement";
+
+    setTimeout(()=>{
+      location.href="login.html";
+    }, 1500);
+
+  } catch(e){
+    if(e.code === "auth/wrong-password"){
+      msg.innerText = "Mot de passe incorrect";
+    } else if(e.code === "auth/requires-recent-login"){
+      msg.innerText = "Veuillez vous reconnecter puis réessayer";
+    } else {
+      msg.innerText = e.message;
+    }
+  }
+};
+</script>
+
+</body>
+</html>
