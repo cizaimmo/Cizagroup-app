@@ -2,55 +2,126 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Supprimer le compte – CIZA GROUP</title>
+<title>Delete Account – CIZA GROUP</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
 body{
   margin:0;
-  font-family:system-ui,-apple-system;
-  background:#071733;
-  color:white;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
+  font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,system-ui;
+  background:linear-gradient(180deg,#071733,#0a2a5e);
+  color:#fff;
 }
-.card{
-  max-width:360px;
-  padding:30px;
+.container{
+  max-width:420px;
+  margin:80px auto;
+  padding:24px;
+  border-radius:18px;
   border:2px solid #f2b840;
-  border-radius:20px;
+  background:rgba(255,255,255,0.08);
+}
+h1{
+  text-align:center;
+  color:#f2b840;
+}
+p{
+  line-height:1.6;
   text-align:center;
 }
 button{
-  margin-top:20px;
   width:100%;
-  padding:15px;
-  background:#e53935;
+  padding:16px;
+  margin-top:16px;
+  border-radius:14px;
   border:none;
-  border-radius:12px;
-  color:white;
   font-size:16px;
   font-weight:600;
+  cursor:pointer;
+}
+.delete{
+  background:#e53935;
+  color:#fff;
+}
+.cancel{
+  background:#ffffff22;
+  color:#fff;
 }
 </style>
+
+<!-- Firebase Web SDK -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, onAuthStateChanged, deleteUser } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+/* ================================
+   🔥 FIREBASE CONFIG (À REMPLACER)
+================================ */
+const firebaseConfig = {
+  apiKey: "API_KEY",
+  authDomain: "PROJECT_ID.firebaseapp.com",
+  projectId: "PROJECT_ID"
+};
+/* ================================ */
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+let currentUser = null;
+
+onAuthStateChanged(auth, (user) => {
+  if (!user) {
+    alert("Session expirée. Veuillez vous reconnecter.");
+    window.location.href = "ciza://account-deleted";
+    return;
+  }
+  currentUser = user;
+});
+
+window.deleteAccount = async function(){
+  if(!currentUser){
+    alert("Utilisateur non connecté");
+    return;
+  }
+
+  const ok = confirm(
+    "Cette action supprimera définitivement votre compte CIZA GROUP.\n\nVoulez-vous continuer ?"
+  );
+  if(!ok) return;
+
+  try{
+    await deleteUser(currentUser);   // 🔥 SUPPRESSION DÉFINITIVE
+    window.location.href = "ciza://account-deleted";
+  }catch(e){
+    alert(
+      "Pour des raisons de sécurité, veuillez vous reconnecter puis réessayer."
+    );
+  }
+};
+
+window.cancelDelete = function(){
+  window.history.back();
+};
+</script>
 </head>
 
 <body>
-  <div class="card">
-    <h2>Supprimer le compte</h2>
-    <p>Cette action est définitive.</p>
 
-    <button onclick="deleteAccount()">Supprimer mon compte</button>
-  </div>
+<div class="container">
+  <h1>Supprimer le compte</h1>
 
-<script>
-function deleteAccount(){
-  if(confirm("Confirmer la suppression définitive ?")){
-    window.webkit.messageHandlers.deleteAccount.postMessage("delete");
-  }
-}
-</script>
+  <p>
+    Cette action est <strong>définitive</strong>.<br>
+    Votre compte sera supprimé et ne pourra plus être utilisé.
+  </p>
+
+  <button class="delete" onclick="deleteAccount()">
+    Supprimer définitivement mon compte
+  </button>
+
+  <button class="cancel" onclick="cancelDelete()">
+    Annuler
+  </button>
+</div>
 
 </body>
 </html>
