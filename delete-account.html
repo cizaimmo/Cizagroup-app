@@ -2,66 +2,67 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<title>Supprimer le compte — CIZA GROUP</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Supprimer mon compte — CIZA GROUP</title>
 
 <style>
 body{
-  margin:0;
-  min-height:100vh;
   background:#06142E;
-  color:#fff;
   font-family:Arial,sans-serif;
+  color:white;
   display:flex;
-  align-items:center;
   justify-content:center;
+  align-items:center;
+  height:100vh;
 }
-.box{
-  width:90%;
-  max-width:420px;
-  background:#0B1E3A;
+.card{
+  background:#0b1c34;
   border:2px solid #F2B840;
-  border-radius:22px;
-  padding:28px;
+  border-radius:20px;
+  padding:30px;
+  width:90%;
+  max-width:400px;
   text-align:center;
 }
-h2{color:#F2B840;margin-bottom:10px}
-p{opacity:.9}
-button{
+input,button{
   width:100%;
   padding:14px;
-  margin-top:10px;
+  margin-top:12px;
+  border-radius:12px;
   border:none;
-  border-radius:14px;
-  font-size:16px;
-  cursor:pointer;
 }
-.danger{background:#e53935;color:#fff}
-.cancel{background:#444;color:#fff}
+input{
+  background:#122a4a;
+  color:white;
+}
+button{
+  background:#c62828;
+  color:white;
+  font-weight:bold;
+}
+#msg{margin-top:14px;}
 </style>
 </head>
 
 <body>
 
-<div class="box">
+<div class="card">
   <h2>Supprimer le compte</h2>
-  <p>Cette action est définitive. Votre accès sera immédiatement bloqué.</p>
+  <p>Confirmez avec votre mot de passe</p>
 
-  <button class="danger" onclick="confirmDelete()">
-    Supprimer définitivement mon compte
-  </button>
+  <input type="password" id="password" placeholder="Mot de passe">
+  <button onclick="deleteAccount()">Supprimer définitivement</button>
 
-  <button class="cancel" onclick="location.href='index.html'">
-    Annuler
-  </button>
+  <div id="msg"></div>
 </div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
-import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
-import { getFirestore, doc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
+import { getAuth, EmailAuthProvider, reauthenticateWithCredential, deleteUser } 
+from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+import { getFirestore, doc, deleteDoc } 
+from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
 
-/* CONFIG FIREBASE */
 const firebaseConfig = {
   apiKey: "AIzaSyBAiJHbBvRO6cDFpm6C-5mQk6SiTtzcI8o",
   authDomain: "cizagroup-app.firebaseapp.com",
@@ -69,38 +70,41 @@ const firebaseConfig = {
   appId: "1:930936264084:web:5395360e54bf17bf492b81"
 };
 
-const app  = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db   = getFirestore(app);
+const db = getFirestore(app);
 
-window.confirmDelete = async function(){
-  const user = auth.currentUser;
+window.deleteAccount = async () => {
+  const msg = document.getElementById("msg");
+  const password = document.getElementById("password").value;
 
-  if(!user){
-    alert("Utilisateur non connecté");
-    location.href = "login.html";
+  if(!password){
+    msg.innerText = "Mot de passe requis";
     return;
   }
 
-  const ok = confirm("Confirmez-vous la suppression définitive de votre compte ?");
-  if(!ok) return;
+  const user = auth.currentUser;
+
+  if(!user){
+    msg.innerText = "Session expirée. Reconnectez-vous.";
+    return;
+  }
 
   try{
-    // 🔒 SOFT DELETE (Apple OK)
-    await updateDoc(doc(db, "users", user.uid), {
-      status: "deleted",
-      deleted: true,
-      deletedAt: serverTimestamp()
-    });
+    const credential = EmailAuthProvider.credential(user.email, password);
+    await reauthenticateWithCredential(user, credential);
 
-    localStorage.removeItem("ciza_user_status");
-    await signOut(auth);
+    // Supprimer Firestore
+    await deleteDoc(doc(db, "users", user.uid));
 
-    alert("Compte supprimé avec succès.");
-    location.href = "login.html";
+    // Supprimer Auth
+    await deleteUser(user);
+
+    localStorage.clear();
+    window.location.replace("login.html");
 
   }catch(e){
-    alert("Erreur suppression : " + e.message);
+    msg.innerText = "Mot de passe incorrect ou session invalide";
   }
 };
 </script>
