@@ -5,56 +5,38 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Supprimer mon compte — CIZA GROUP</title>
 
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-
-<script>
-/* 🔑 CONFIG FIREBASE (LA TIENNE — déjà valide) */
-const firebaseConfig = {
-  apiKey: "TA_CLE_API",
-  authDomain: "cizagroup-app.firebaseapp.com",
-  projectId: "cizagroup-app"
-};
-
-firebase.initializeApp(firebaseConfig);
-
-const auth = firebase.auth();
-const db   = firebase.firestore();
-</script>
-
 <style>
 body{
   margin:0;
-  font-family:Arial,sans-serif;
+  min-height:100vh;
   background:#06142E;
   color:#fff;
+  font-family:Arial,sans-serif;
   display:flex;
-  justify-content:center;
   align-items:center;
-  height:100vh;
+  justify-content:center;
 }
 .box{
   width:90%;
   max-width:420px;
-  background:#0b1c34;
+  background:#0B1E3A;
   border:2px solid #F2B840;
-  border-radius:20px;
-  padding:25px;
+  border-radius:22px;
+  padding:28px;
   text-align:center;
 }
-h2{color:#F2B840}
+h2{color:#F2B840;margin-bottom:10px}
+p{opacity:.9}
 button{
   width:100%;
   padding:14px;
-  margin-top:12px;
-  font-size:16px;
+  margin-top:10px;
   border:none;
-  border-radius:10px;
+  border-radius:14px;
+  font-size:16px;
   cursor:pointer;
 }
-.danger{background:#c62828;color:#fff}
+.danger{background:#e53935;color:#fff}
 .cancel{background:#444;color:#fff}
 </style>
 </head>
@@ -63,10 +45,9 @@ button{
 
 <div class="box">
   <h2>Supprimer le compte</h2>
-  <p>Cette action est définitive.<br>
-  Votre compte sera désactivé immédiatement.</p>
+  <p>Cette action est définitive. Votre accès sera immédiatement bloqué.</p>
 
-  <button class="danger" onclick="deleteAccount()">
+  <button class="danger" onclick="confirmDelete()">
     Supprimer définitivement mon compte
   </button>
 
@@ -75,8 +56,24 @@ button{
   </button>
 </div>
 
-<script>
-function deleteAccount(){
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+import { getFirestore, doc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
+
+/* CONFIG FIREBASE */
+const firebaseConfig = {
+  apiKey: "AIzaSyBAiJHbBvRO6cDFpm6C-5mQk6SiTtzcI8o",
+  authDomain: "cizagroup-app.firebaseapp.com",
+  projectId: "cizagroup-app",
+  appId: "1:930936264084:web:5395360e54bf17bf492b81"
+};
+
+const app  = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db   = getFirestore(app);
+
+window.confirmDelete = async function(){
   const user = auth.currentUser;
 
   if(!user){
@@ -85,28 +82,27 @@ function deleteAccount(){
     return;
   }
 
-  const uid = user.uid;
+  const ok = confirm("Confirmez-vous la suppression définitive de votre compte ?");
+  if(!ok) return;
 
-  // 🔒 SOFT DELETE (VALIDÉ APPLE)
-  db.collection("users").doc(uid).update({
-    status: "deleted",
-    deleted: true,
-    deletedAt: firebase.firestore.FieldValue.serverTimestamp()
-  })
-  .then(() => {
-    // Nettoyage session locale
-    localStorage.removeItem("ciza_user_status");
-
-    // Déconnexion Firebase
-    auth.signOut().then(() => {
-      alert("Compte supprimé avec succès.");
-      location.href = "login.html";
+  try{
+    // 🔒 SOFT DELETE (Apple OK)
+    await updateDoc(doc(db, "users", user.uid), {
+      status: "deleted",
+      deleted: true,
+      deletedAt: serverTimestamp()
     });
-  })
-  .catch(err => {
-    alert("Erreur suppression : " + err.message);
-  });
-}
+
+    localStorage.removeItem("ciza_user_status");
+    await signOut(auth);
+
+    alert("Compte supprimé avec succès.");
+    location.href = "login.html";
+
+  }catch(e){
+    alert("Erreur suppression : " + e.message);
+  }
+};
 </script>
 
 </body>
