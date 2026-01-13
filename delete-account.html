@@ -2,39 +2,52 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<title>Supprimer le compte – CIZA GROUP</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Delete Account – CIZA GROUP</title>
-
 <style>
 body{
   margin:0;
-  font-family:-apple-system,BlinkMacSystemFont,system-ui;
+  font-family:system-ui,-apple-system;
   background:#071733;
   color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+.card{
+  max-width:360px;
+  padding:30px;
+  border:2px solid #f2b840;
+  border-radius:20px;
+  text-align:center;
 }
 button{
+  margin-top:20px;
   width:100%;
-  padding:18px;
+  padding:15px;
   background:#e53935;
-  color:white;
   border:none;
-  border-radius:16px;
-  font-size:17px;
+  border-radius:12px;
+  color:white;
+  font-size:16px;
+  font-weight:600;
 }
 </style>
 </head>
 
 <body>
+  <div class="card">
+    <h2>Supprimer le compte</h2>
+    <p>Cette action est définitive.</p>
 
-<h2>Supprimer le compte</h2>
-<p>Cette action est irréversible.</p>
-
-<button onclick="confirmDeletion()">Supprimer mon compte</button>
+    <button onclick="deleteAccount()">Supprimer mon compte</button>
+  </div>
 
 <script>
-function confirmDeletion(){
-  if(confirm("Supprimer définitivement votre compte ?")){
-    window.location.href = "ciza://delete-account";
+function deleteAccount(){
+  if(confirm("Confirmer la suppression définitive ?")){
+    window.webkit.messageHandlers.deleteAccount.postMessage("delete");
   }
 }
 </script>
