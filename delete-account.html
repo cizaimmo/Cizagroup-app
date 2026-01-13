@@ -2,45 +2,53 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Supprimer le compte — CIZA GROUP</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Supprimer le compte — CIZA GROUP</title>
 
 <style>
 body{
+  margin:0;
+  min-height:100vh;
   background:#06142E;
-  font-family:Arial,sans-serif;
   color:white;
+  font-family:Arial,sans-serif;
   display:flex;
-  justify-content:center;
   align-items:center;
-  height:100vh;
+  justify-content:center;
 }
 .card{
-  background:#0b1c34;
-  border:2px solid #F2B840;
-  border-radius:20px;
-  padding:30px;
   width:90%;
-  max-width:400px;
+  max-width:420px;
+  background:rgba(255,255,255,.08);
+  border:2px solid #e53935;
+  border-radius:22px;
+  padding:28px;
   text-align:center;
 }
-input,button{
+input{
   width:100%;
   padding:14px;
-  margin-top:12px;
+  margin-top:14px;
   border-radius:12px;
   border:none;
-}
-input{
-  background:#122a4a;
-  color:white;
+  outline:none;
 }
 button{
-  background:#c62828;
+  width:100%;
+  padding:14px;
+  margin-top:18px;
+  border:none;
+  border-radius:16px;
+  background:#e53935;
   color:white;
+  font-size:16px;
   font-weight:bold;
+  cursor:pointer;
 }
-#msg{margin-top:14px;}
+#msg{
+  margin-top:14px;
+  min-height:18px;
+}
 </style>
 </head>
 
@@ -48,9 +56,10 @@ button{
 
 <div class="card">
   <h2>Supprimer le compte</h2>
-  <p>Confirmez avec votre mot de passe</p>
+  <p>Cette action est <b>définitive</b>.</p>
 
-  <input type="password" id="password" placeholder="Mot de passe">
+  <input id="password" type="password" placeholder="Confirmez votre mot de passe">
+
   <button onclick="deleteAccount()">Supprimer définitivement</button>
 
   <div id="msg"></div>
@@ -58,10 +67,12 @@ button{
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
-import { getAuth, EmailAuthProvider, reauthenticateWithCredential, deleteUser } 
-from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
-import { getFirestore, doc, deleteDoc } 
-from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
+import { 
+  getAuth,
+  EmailAuthProvider,
+  reauthenticateWithCredential,
+  deleteUser
+} from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBAiJHbBvRO6cDFpm6C-5mQk6SiTtzcI8o",
@@ -72,39 +83,53 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db = getFirestore(app);
 
 window.deleteAccount = async () => {
   const msg = document.getElementById("msg");
   const password = document.getElementById("password").value;
+
+  msg.innerText = "";
+
+  const user = auth.currentUser;
+
+  if(!user){
+    msg.innerText = "Utilisateur non connecté";
+    return;
+  }
 
   if(!password){
     msg.innerText = "Mot de passe requis";
     return;
   }
 
-  const user = auth.currentUser;
+  try {
+    const credential = EmailAuthProvider.credential(
+      user.email,
+      password
+    );
 
-  if(!user){
-    msg.innerText = "Session expirée. Reconnectez-vous.";
-    return;
-  }
-
-  try{
-    const credential = EmailAuthProvider.credential(user.email, password);
+    // 🔐 ÉTAPE OBLIGATOIRE
     await reauthenticateWithCredential(user, credential);
 
-    // Supprimer Firestore
-    await deleteDoc(doc(db, "users", user.uid));
-
-    // Supprimer Auth
+    // ❌ SUPPRESSION RÉELLE FIREBASE AUTH
     await deleteUser(user);
 
     localStorage.clear();
-    window.location.replace("login.html");
 
-  }catch(e){
-    msg.innerText = "Mot de passe incorrect ou session invalide";
+    msg.innerText = "✅ Compte supprimé définitivement";
+
+    setTimeout(()=>{
+      location.href="login.html";
+    }, 1500);
+
+  } catch(e){
+    if(e.code === "auth/wrong-password"){
+      msg.innerText = "Mot de passe incorrect";
+    } else if(e.code === "auth/requires-recent-login"){
+      msg.innerText = "Veuillez vous reconnecter puis réessayer";
+    } else {
+      msg.innerText = e.message;
+    }
   }
 };
 </script>
