@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CIZA GROUP — App Officielle</title>
+<link rel="icon" href="logotransparent.png">
+
+<script>
+if(localStorage.getItem("ciza_user_status") !== "active"){
+  window.location.replace("login.html");
+}
+</script>
+
+<style>
+*{box-sizing:border-box}
+html,body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#06142E;
+  color:#fff;
+  overflow-x:hidden;
+}
+body.noscroll{overflow:hidden}
+
+/* SPLASH */
+#splash{
+  position:fixed;
+  inset:0;
+  background:radial-gradient(circle,#0b1c34,#06142E);
+  z-index:9999;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  animation:fade 2.5s ease 2.5s forwards;
+}
+@keyframes fade{to{opacity:0;visibility:hidden}}
+.splash-logo{width:180px;filter:drop-shadow(0 0 30px #F2B840)}
+.splash-text{color:#F2B840;font-size:26px;margin-top:12px}
+
+/* HEADER */
+header{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 16px;
+  background:rgba(255,255,255,.08);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid #F2B840;
+}
+header img{width:44px}
+.icon-btn{font-size:22px;color:#F2B840;cursor:pointer}
+
+/* HERO DISTINCT */
+.hero{
+  width:90%;
+  margin:26px auto;
+  padding:28px 22px;
+  border-radius:22px;
+  background:
+    linear-gradient(135deg, rgba(242,184,64,.25), rgba(255,255,255,.05)),
+    rgba(255,255,255,.08);
+  border:2px solid #F2B840;
+  text-align:center;
+  box-shadow:0 10px 30px rgba(0,0,0,.35);
+}
+.hero h2{
+  margin:0;
+  font-size:24px;
+  color:#F2B840;
+}
+.hero p{
+  margin:10px 0 18px;
+  font-size:15px;
+  opacity:.9;
+}
+.hero-btn{
+  display:inline-block;
+  padding:12px 22px;
+  border-radius:30px;
+  background:#F2B840;
+  color:#06142E;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+/* MENU */
+#menuOverlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.45);
+  z-index:9997;
+  display:none;
+}
+#menuOverlay.active{display:block}
+
+#menu{
+  position:fixed;
+  top:0;right:0;
+  width:75%;
+  max-width:320px;
+  height:100vh;
+  background:rgba(255,255,255,.12);
+  backdrop-filter:blur(22px);
+  padding:25px;
+  transform:translateX(100%);
+  transition:.35s;
+  z-index:9998;
+}
+#menu.open{transform:translateX(0)}
+
+.menu-close{
+  text-align:right;
+  font-size:26px;
+  color:#F2B840;
+  cursor:pointer;
+  margin-bottom:10px;
+}
+.menu-item{
+  padding:14px 0;
+  border-bottom:1px solid rgba(255,255,255,.2);
+  cursor:pointer;
+}
+
+/* FLOATING SEARCH */
+#fab{
+  position:fixed;
+  bottom:24px;
+  right:24px;
+  width:58px;
+  height:58px;
+  border-radius:50%;
+  background:#F2B840;
+  color:#06142E;
+  font-size:26px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  z-index:9996;
+}
+
+/* SEARCH */
+#searchOverlay{
+  position:fixed;
+  inset:0;
+  background:rgba(6,20,46,.96);
+  z-index:9999;
+  display:none;
+  padding:30px;
+}
+#searchOverlay.active{display:block}
+
+.search-box{
+  max-width:520px;
+  margin:60px auto 0;
+  position:relative;
+}
+.search-close{
+  position:absolute;
+  top:-40px;
+  right:0;
+  font-size:26px;
+  color:#F2B840;
+  cursor:pointer;
+}
+.search-box input{
+  width:100%;
+  padding:16px;
+  border-radius:30px;
+  border:none;
+  font-size:16px;
+}
+.item{
+  margin-top:12px;
+  padding:14px;
+  border:2px solid #F2B840;
+  border-radius:16px;
+  cursor:pointer;
+  background:rgba(255,255,255,.08);
+}
+.item:hover{background:#F2B840;color:#06142E}
+
+/* CONTENT */
+.section-title{
+  width:90%;
+  margin:30px auto 10px;
+  font-size:22px;
+  color:#F2B840;
+  font-weight:bold;
+}
+.grid{
+  width:90%;
+  margin:auto;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+.card{
+  background:rgba(255,255,255,.08);
+  border:2px solid #F2B840;
+  border-radius:18px;
+  padding:18px;
+  text-align:center;
+  cursor:pointer;
+}
+
+/* FOOTER */
+.footer{
+  margin-top:50px;
+  padding:30px 20px;
+  background:rgba(255,255,255,.05);
+  border-top:1px solid #F2B840;
+  text-align:center;
+}
+.footer-brand img{width:60px}
+.footer-name{color:#F2B840;font-weight:bold}
+.footer-links a{
+  display:block;
+  margin:6px 0;
+  color:#F2B840;
+  text-decoration:none;
+}
+.footer-copy{margin-top:14px;font-size:12px;opacity:.7}
+</style>
+</head>
+
+<body>
+
+<div id="splash">
+  <div align="center">
+    <img src="logotransparent.png" class="splash-logo">
+    <div class="splash-text">CIZA GROUP</div>
+  </div>
+</div>
+
+<header>
+  <img src="logotransparent.png">
+  <div>
+    <span class="icon-btn" onclick="openSearch()">🔍</span>
+    <span class="icon-btn" onclick="openMenu()">☰</span>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <h2>CIZA GROUP</h2>
+  <p>Tous les services essentiels réunis dans une seule application.</p>
+  <div class="hero-btn" onclick="openSearch()">🔍 Accès rapide</div>
+</div>
+
+<div id="menuOverlay" onclick="closeMenu()"></div>
+
+<div id="menu">
+  <div class="menu-close" onclick="closeMenu()">✕</div>
+  <div class="menu-item" onclick="go('index.html')">🏠 Accueil</div>
+  <div class="menu-item" onclick="go('account.html')">👤 Mon compte</div>
+  <div class="menu-item" onclick="go('delete-account.html')">❌ Supprimer le compte</div>
+  <div class="menu-item" onclick="logout()">🚪 Déconnexion</div>
+</div>
+
+<div id="searchOverlay">
+  <div class="search-box">
+    <div class="search-close" onclick="closeSearch()">✕</div>
+    <input placeholder="Rechercher un service ou formulaire…" onkeyup="search(this.value)">
+    <div id="results"></div>
+  </div>
+</div>
+
+<div class="section-title">🌍 CIZA DIASPORA+</div>
+<div class="card" onclick="go('diaspora.html')">🌍 Services Diaspora</div>
+
+<div class="section-title">🇧🇮 Services Locaux</div>
+<div class="grid">
+  <div class="card" onclick="go('portail.html')">🚗 CizaRide+</div>
+  <div class="card" onclick="go('delivery.html')">📦 CizaDelivery</div>
+  <div class="card" onclick="go('carwash.html')">🧼 CizaCarWash+</div>
+  <div class="card" onclick="go('assist.html')">🤝 CizaAssist</div>
+  <div class="card" onclick="go('market.html')">🛒 CizaMarket</div>
+  <div class="card" onclick="go('cizahome.html')">🏠 CizaHome+</div>
+  <div class="card" onclick="go('logistics.html')">🚚 CizaLogistics+</div>
+  <div class="card" onclick="go('jobs.html')">💼 CizaJobs</div>
+</div>
+
+<div class="section-title">🏢 Solutions Entreprises</div>
+<div class="card" onclick="go('business.html')">🏢 Business & ONG</div>
+
+<footer class="footer">
+  <div class="footer-brand">
+    <img src="logotransparent.png">
+    <div class="footer-name">CIZA GROUP</div>
+    <div>Écosystème de services digitaux</div>
+  </div>
+  <div class="footer-links">
+    <a href="legal.html">Mentions légales</a>
+    <a href="privacy.html">Confidentialité</a>
+    <a href="account.html">Mon compte</a>
+    <a href="mailto:infos@cizagroup.com">Contact</a>
+  </div>
+  <div class="footer-copy">© 2026 CIZA GROUP</div>
+</footer>
+
+<div id="fab" onclick="openSearch()">🔍</div>
+
+<script>
+const items=[
+ ["CizaRide+","portail.html"],
+ ["Formulaire CizaRide+","portail.html"],
+ ["CizaDelivery","delivery.html"],
+ ["Formulaire Livraison","delivery.html"],
+ ["CizaCarWash+","carwash.html"],
+ ["Formulaire CarWash","carwash.html"],
+ ["CizaAssist","assist.html"],
+ ["Formulaire Assistance","assist.html"],
+ ["CizaMarket","market.html"],
+ ["CizaHome+","cizahome.html"],
+ ["CizaLogistics+","logistics.html"],
+ ["CizaJobs","jobs.html"],
+ ["Business & ONG","business.html"]
+];
+
+function openMenu(){
+  menu.classList.add("open");
+  menuOverlay.classList.add("active");
+  document.body.classList.add("noscroll");
+}
+function closeMenu(){
+  menu.classList.remove("open");
+  menuOverlay.classList.remove("active");
+  document.body.classList.remove("noscroll");
+}
+function go(url){
+  closeMenu();
+  location.href=url;
+}
+function logout(){
+  localStorage.removeItem("ciza_user_status");
+  location.href="login.html";
+}
+function openSearch(){
+  searchOverlay.classList.add("active");
+  document.body.classList.add("noscroll");
+  results.innerHTML="";
+}
+function closeSearch(){
+  searchOverlay.classList.remove("active");
+  document.body.classList.remove("noscroll");
+}
+function search(q){
+  results.innerHTML="";
+  items.forEach(i=>{
+    if(i[0].toLowerCase().includes(q.toLowerCase())){
+      results.innerHTML+=`<div class="item" onclick="location.href='${i[1]}'">${i[0]}</div>`;
+    }
+  });
+}
+</script>
+
+</body>
+</html>
