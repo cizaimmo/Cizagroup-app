@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mon compte — CIZA GROUP</title>
+<link rel="icon" href="logotransparent.png">
+
+<script>
+if(localStorage.getItem("ciza_user_status") !== "active"){
+  window.location.replace("login.html");
+}
+</script>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#06142E;
+  color:white;
+}
+header{
+  padding:15px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:1px solid #F2B840;
+}
+header button{
+  background:none;
+  border:none;
+  color:#F2B840;
+  font-size:18px;
+}
+.container{
+  padding:20px;
+}
+.card{
+  background:rgba(255,255,255,.08);
+  border:2px solid #F2B840;
+  border-radius:16px;
+  padding:18px;
+  margin-bottom:15px;
+}
+.card h3{margin-top:0;color:#F2B840}
+.btn{
+  display:block;
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  background:#F2B840;
+  color:#06142E;
+  border:none;
+  border-radius:12px;
+  font-size:16px;
+}
+.small{font-size:13px;opacity:.85}
+</style>
+</head>
+
+<body>
+
+<header>
+  <button onclick="history.back()">←</button>
+  <h3>Mon compte</h3>
+  <button onclick="location.reload()">⟳</button>
+</header>
+
+<div class="container">
+
+<div class="card">
+  <h3>👤 Profil</h3>
+  <p class="small">
+    Statut : <b>Connecté</b><br>
+    Accès sécurisé CIZA GROUP
+  </p>
+</div>
+
+<div class="card">
+  <h3>📦 Activité</h3>
+  <p class="small">
+    Dernier service : <span id="lastService">—</span>
+  </p>
+</div>
+
+<div class="card">
+  <h3>🔔 Notifications</h3>
+  <p class="small">
+    Activées (V2+)<br>
+    Messages importants uniquement
+  </p>
+</div>
+
+<div class="card">
+  <h3>⚙️ Paramètres</h3>
+  <button class="btn" onclick="location.href='delete-account.html'">
+    Supprimer mon compte
+  </button>
+</div>
+
+<div class="card">
+  <h3>🚪 Déconnexion</h3>
+  <button class="btn" onclick="logout()">Se déconnecter</button>
+</div>
+
+</div>
+
+<script>
+document.getElementById("lastService").innerText =
+  localStorage.getItem("last_service") || "Aucun";
+
+function logout(){
+  localStorage.removeItem("ciza_user_status");
+  window.location.replace("login.html");
+}
+</script>
+
+</body>
+</html>
