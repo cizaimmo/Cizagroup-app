@@ -4,9 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>FAQ — CizaRide VIP</title>
+<script>
+if(localStorage.getItem("ciza_user_status") !== "active"){
+  window.location.replace("login.html");
+}
+</script>
 <link rel="icon" href="logotransparent.png">
 
-<style>
+<style>*,*::before,*::after{box-sizing:border-box}
 body{
     margin:0;
     font-family:Arial, sans-serif;

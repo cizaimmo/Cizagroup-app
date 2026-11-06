@@ -3,93 +3,145 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0A0A0A">
 <title>CIZA GROUP — Aide & FAQ</title>
+<script>
+if(localStorage.getItem("ciza_user_status") !== "active"){
+  window.location.replace("login.html");
+}
+</script>
 
+<link rel="icon" href="logotransparent.png">
 <style>
-body{
-    background:#06142E;
-    color:white;
-    font-family:Arial;
-    margin:0;
-    padding:20px;
+*{box-sizing:border-box}
+html,body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#0A0A0A;
+  color:#FAF3E3;
+  overflow-x:hidden;
+  -webkit-tap-highlight-color:transparent;
 }
-
-h2{
-    color:#F2B840;
-    text-align:center;
-    margin-bottom:20px;
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(14px)}
+  to{opacity:1;transform:translateY(0)}
 }
-
+header{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px 16px;
+  background:rgba(10,10,10,.85);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid #F2B840;
+}
+header img{width:44px}
+header .back{font-size:22px;color:#F2B840;cursor:pointer;text-decoration:none}
+header h1{font-size:18px;color:#F2B840;margin:0}
+.wrap{width:90%;max-width:560px;margin:0 auto;padding:24px 0 40px;animation:fadeUp .55s ease both}
+h2{color:#F2B840;text-align:center;margin:6px 0 20px;font-size:22px}
 .faq-item{
-    background:rgba(255,255,255,0.06);
-    padding:16px;
-    border-radius:14px;
-    border:1px solid rgba(255,255,255,0.15);
-    margin-bottom:12px;
+  background:#141414;
+  padding:16px;
+  border-radius:16px;
+  border:2px solid #F2B840;
+  margin-bottom:12px;
+  box-shadow:0 4px 14px rgba(0,0,0,.4);
 }
-
 .faq-item h3{
-    margin:0;
-    cursor:pointer;
-    color:#F2B840;
+  margin:0;
+  cursor:pointer;
+  color:#F2B840;
+  font-size:16px;
+  line-height:1.4;
 }
-
 .faq-item p{
-    display:none;
-    margin-top:10px;
-    line-height:1.5;
+  display:none;
+  margin:10px 0 0;
+  line-height:1.55;
+  font-size:15px;
+  opacity:.92;
 }
+.faq-item p a{color:#F2B840}
+.help-card{
+  background:#141414;
+  border:2px solid #F2B840;
+  border-radius:18px;
+  padding:18px;
+  margin-top:22px;
+  text-align:center;
+}
+.help-card h3{color:#F2B840;margin:0 0 12px;font-size:17px}
+.help-link{
+  display:block;
+  padding:12px 6px;
+  border-bottom:1px solid rgba(250,243,227,.12);
+  color:#FAF3E3;
+  text-decoration:none;
+  font-size:15px;
+}
+.help-link:last-child{border-bottom:none}
+.help-link b{color:#F2B840}
 </style>
 </head>
-
 <body>
 
-<h2 data-fr="Aide & FAQ" data-en="Help & FAQ">Aide & FAQ</h2>
+<header>
+  <a class="back" href="index.html">←</a>
+  <img src="logotransparent.png" alt="CIZA GROUP">
+  <h1>Aide &amp; FAQ</h1>
+</header>
 
-<div class="faq-item">
-    <h3 data-fr="Comment fonctionne CizaRide ?" data-en="How does CizaRide work?" 
-        onclick="toggleFAQ(this)">
-        Comment fonctionne CizaRide ?
-    </h3>
-    <p data-fr="Choisissez un service, remplissez le formulaire et un agent vous contacte instantanément."
-       data-en="Choose a service, fill the form and an agent contacts you instantly.">
-       Choisissez un service, remplissez le formulaire et un agent vous contacte instantanément.
-    </p>
-</div>
+<div class="wrap">
+  <h2>Questions fréquentes</h2>
 
-<div class="faq-item">
-    <h3 data-fr="Quels services propose CIZA GROUP ?" 
-        data-en="What services does CIZA GROUP offer?"
-        onclick="toggleFAQ(this)">
-        Quels services propose CIZA GROUP ?
-    </h3>
-    <p data-fr="Mobilité, livraison, carwash, assistance, marché, emplois, diaspora business."
-       data-en="Mobility, delivery, carwash, assistance, marketplace, jobs, diaspora services.">
-       Mobilité, livraison, carwash, assistance, marché, emplois, diaspora business.
-    </p>
-</div>
+  <div class="faq-item">
+    <h3 onclick="toggleFAQ(this)">Quels services propose CIZA GROUP ?</h3>
+    <p>Nos divisions : CIZA SUPPLY (sourcing direct usine, Chine → Burundi), CizaShop, CizaImmo, CizaTech et CizaVerify (bientôt). Nos services locaux : CizaRide+, CizaCarWash+, CizaHome+ et CizaLogistics+. Sans oublier les services Diaspora et les solutions Business &amp; ONG.</p>
+  </div>
 
-<div class="faq-item">
-    <h3 data-fr="Comment contacter le support ?" 
-        data-en="How to contact support?"
-        onclick="toggleFAQ(this)">
-        Comment contacter le support ?
-    </h3>
-    <p data-fr="Via WhatsApp, email ou formulaire de contact."
-       data-en="Via WhatsApp, email or the contact form.">
-       Via WhatsApp, email ou formulaire de contact.
-    </p>
+  <div class="faq-item">
+    <h3 onclick="toggleFAQ(this)">Comment demander un devis CIZA SUPPLY ?</h3>
+    <p>Écrivez-nous sur WhatsApp au +1 514 502 9503 (ou Chine : +86 187 2139 6720) ou par email à infos@cizagroup.com. Le devis est sur demande, sans engagement — puis vous venez retirer votre commande au bureau à Bujumbura.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3 onclick="toggleFAQ(this)">Comment fonctionne CizaRide+ ?</h3>
+    <p>Remplissez le formulaire de réservation dans l'app. Notre équipe valide votre demande, assigne un chauffeur et vous confirme l'horaire. Le paiement se fait après validation, au bureau CIZA ou selon les instructions communiquées.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3 onclick="toggleFAQ(this)">Comment réserver un lavage CizaCarWash+ ?</h3>
+    <p>Choisissez votre formule (Standard, Premium ou Mobile à domicile), réservez dans l'app et notre équipe vous contacte pour confirmer. Paiement par Mobile Money ou en espèces.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3 onclick="toggleFAQ(this)">C'est quoi CizaVerify ?</h3>
+    <p>CizaVerify est notre passeport professionnel vérifié — identité, diplômes, références et casier vérifiés à la source. Le service arrive bientôt : « N'embauchez plus à l'aveugle. »</p>
+  </div>
+
+  <div class="faq-item">
+    <h3 onclick="toggleFAQ(this)">Comment contacter le support ?</h3>
+    <p>Le plus rapide : WhatsApp au +1 514 502 9503. Vous pouvez aussi appeler le Burundi au +257 79 94 50 07, écrire à infos@cizagroup.com, ou utiliser le formulaire de contact dans l'app.</p>
+  </div>
+
+  <div class="help-card">
+    <h3>💬 Besoin d'aide ?</h3>
+    <a class="help-link" href="https://wa.me/15145029503">💬 <b>WhatsApp</b> : +1 514 502 9503</a>
+    <a class="help-link" href="https://wa.me/8618721396720">🇨🇳 <b>Chine</b> : +86 187 2139 6720</a>
+    <a class="help-link" href="tel:+25779945007">🇧🇮 <b>Burundi</b> : +257 79 94 50 07</a>
+    <a class="help-link" href="mailto:infos@cizagroup.com">📧 <b>Email</b> : infos@cizagroup.com</a>
+  </div>
 </div>
 
 <script>
-// Toggle open/close FAQ answers
 function toggleFAQ(el){
-    const p = el.nextElementSibling;
-    p.style.display = (p.style.display === "block") ? "none" : "block";
+  const p = el.nextElementSibling;
+  p.style.display = (p.style.display === "block") ? "none" : "block";
 }
-
-// Apply language engine
-updateLanguage();
 </script>
 
 </body>

@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0A0A0A">
 <title>CIZA GROUP — App Officielle</title>
 <link rel="icon" href="logotransparent.png">
 
@@ -17,26 +18,49 @@ if(localStorage.getItem("ciza_user_status") !== "active"){
 html,body{
   margin:0;
   font-family:Arial,sans-serif;
-  background:#06142E;
-  color:#fff;
+  background:#0A0A0A;
+  color:#FAF3E3;
   overflow-x:hidden;
+  -webkit-tap-highlight-color:transparent;
 }
 body.noscroll{overflow:hidden}
+
+/* ANIMATIONS */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(14px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@keyframes splashFade{
+  0%{opacity:1}
+  100%{opacity:0;visibility:hidden}
+}
+@keyframes logoGlow{
+  0%,100%{filter:drop-shadow(0 0 18px rgba(242,184,64,.55))}
+  50%{filter:drop-shadow(0 0 34px rgba(242,184,64,.9))}
+}
+.hero,.section-title,.grid,.card,.footer{
+  animation:fadeUp .55s ease both;
+}
+.grid .card:nth-child(2){animation-delay:.06s}
+.grid .card:nth-child(3){animation-delay:.12s}
+.grid .card:nth-child(4){animation-delay:.18s}
+.grid .card:nth-child(5){animation-delay:.24s}
+.section-title{animation-delay:.05s}
 
 /* SPLASH */
 #splash{
   position:fixed;
   inset:0;
-  background:radial-gradient(circle,#0b1c34,#06142E);
+  background:radial-gradient(circle,#1a1a1a,#0A0A0A);
   z-index:9999;
   display:flex;
   justify-content:center;
   align-items:center;
-  animation:fade 2.5s ease 2.5s forwards;
+  animation:splashFade 2.5s ease 2.5s forwards;
 }
 @keyframes fade{to{opacity:0;visibility:hidden}}
-.splash-logo{width:180px;filter:drop-shadow(0 0 30px #F2B840)}
-.splash-text{color:#F2B840;font-size:26px;margin-top:12px}
+.splash-logo{width:180px;animation:logoGlow 2.2s ease-in-out infinite}
+.splash-text{color:#F2B840;font-size:26px;margin-top:12px;letter-spacing:2px}
 
 /* HEADER */
 header{
@@ -47,7 +71,7 @@ header{
   justify-content:space-between;
   align-items:center;
   padding:14px 16px;
-  background:rgba(255,255,255,.08);
+  background:rgba(10,10,10,.85);
   backdrop-filter:blur(12px);
   border-bottom:1px solid #F2B840;
 }
@@ -61,11 +85,11 @@ header img{width:44px}
   padding:28px 22px;
   border-radius:22px;
   background:
-    linear-gradient(135deg, rgba(242,184,64,.25), rgba(255,255,255,.05)),
-    rgba(255,255,255,.08);
+    linear-gradient(135deg, rgba(242,184,64,.22), rgba(250,243,227,.04)),
+    #141414;
   border:2px solid #F2B840;
   text-align:center;
-  box-shadow:0 10px 30px rgba(0,0,0,.35);
+  box-shadow:0 10px 30px rgba(0,0,0,.5);
 }
 .hero h2{
   margin:0;
@@ -82,48 +106,133 @@ header img{width:44px}
   padding:12px 22px;
   border-radius:30px;
   background:#F2B840;
-  color:#06142E;
+  color:#0A0A0A;
   font-weight:bold;
   cursor:pointer;
+  transition:transform .2s ease, box-shadow .2s ease;
+  box-shadow:0 4px 16px rgba(242,184,64,.35);
 }
+.hero-btn:active{transform:scale(.96)}
 
 /* MENU */
 #menuOverlay{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.45);
+  background:rgba(0,0,0,.65);
+  backdrop-filter:blur(3px);
   z-index:9997;
   display:none;
+  opacity:0;
+  transition:opacity .3s ease;
 }
-#menuOverlay.active{display:block}
+#menuOverlay.active{display:block;opacity:1}
 
 #menu{
   position:fixed;
   top:0;right:0;
-  width:75%;
-  max-width:320px;
+  width:82%;
+  max-width:340px;
   height:100vh;
-  background:rgba(255,255,255,.12);
-  backdrop-filter:blur(22px);
-  padding:25px;
-  transform:translateX(100%);
-  transition:.35s;
+  height:100dvh;
+  background:linear-gradient(180deg,#141414,#0A0A0A);
+  border-left:1px solid rgba(242,184,64,.35);
+  box-shadow:-20px 0 60px rgba(0,0,0,.6);
+  padding:0 0 24px;
+  transform:translateX(102%);
+  transition:transform .4s cubic-bezier(.22,1,.36,1);
   z-index:9998;
+  overflow-y:auto;
 }
 #menu.open{transform:translateX(0)}
-
+#menu.open .menu-item{animation:menuIn .45s ease both}
+#menu.open .menu-item:nth-child(2){animation-delay:.05s}
+#menu.open .menu-item:nth-child(3){animation-delay:.08s}
+#menu.open .menu-item:nth-child(4){animation-delay:.11s}
+#menu.open .menu-item:nth-child(5){animation-delay:.14s}
+#menu.open .menu-item:nth-child(6){animation-delay:.17s}
+#menu.open .menu-item:nth-child(7){animation-delay:.20s}
+#menu.open .menu-item:nth-child(8){animation-delay:.23s}
+#menu.open .menu-item:nth-child(9){animation-delay:.26s}
+#menu.open .menu-item:nth-child(10){animation-delay:.29s}
+#menu.open .menu-item:nth-child(11){animation-delay:.32s}
+#menu.open .menu-item:nth-child(12){animation-delay:.35s}
+#menu.open .menu-item:nth-child(13){animation-delay:.38s}
+#menu.open .menu-item:nth-child(14){animation-delay:.41s}
+#menu.open .menu-item:nth-child(15){animation-delay:.44s}
+@keyframes menuIn{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:none}}
+.menu-head{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:22px 20px 18px;
+  background:rgba(242,184,64,.06);
+  border-bottom:1px solid rgba(242,184,64,.25);
+}
+.menu-head img{width:52px;height:52px;object-fit:contain}
+.menu-brand{color:#F2B840;font-size:17px;font-weight:800;letter-spacing:2px}
+.menu-sub{font-size:12px;opacity:.75;margin-top:2px}
 .menu-close{
-  text-align:right;
-  font-size:26px;
+  margin-left:auto;
+  width:38px;height:38px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;
   color:#F2B840;
+  border:1px solid rgba(242,184,64,.4);
+  border-radius:50%;
   cursor:pointer;
-  margin-bottom:10px;
+  flex-shrink:0;
+}
+.menu-label{
+  padding:18px 20px 8px;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:2px;
+  color:#F2B840;
+  opacity:.85;
 }
 .menu-item{
-  padding:14px 0;
-  border-bottom:1px solid rgba(255,255,255,.2);
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:13px 20px;
   cursor:pointer;
+  text-decoration:none;
+  color:#FAF3E3;
+  font-size:15px;
+  transition:background .2s ease, padding-left .2s ease;
 }
+.menu-item:hover,.menu-item:active{background:rgba(242,184,64,.1);padding-left:26px}
+.menu-item .mi-ico{font-size:18px;width:26px;text-align:center;flex-shrink:0}
+.menu-item.danger{color:#ff9a9a}
+.menu-foot{
+  margin:22px 20px 0;
+  padding-top:14px;
+  border-top:1px solid rgba(250,243,227,.1);
+  font-size:12px;
+  opacity:.55;
+  text-align:center;
+}
+
+/* HAMBURGER ICON */
+.burger{
+  width:44px;height:44px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+  cursor:pointer;
+  border-radius:50%;
+  transition:background .2s ease;
+}
+.burger:active{background:rgba(242,184,64,.15)}
+.burger span{
+  display:block;
+  width:22px;height:2.5px;
+  background:#F2B840;
+  border-radius:3px;
+  transition:transform .3s ease, opacity .2s ease, width .3s ease;
+}
+.burger span:nth-child(2){width:16px;margin-left:-6px}
+.burger.open span:nth-child(1){transform:translateY(7.5px) rotate(45deg);width:22px;margin-left:0}
+.burger.open span:nth-child(2){opacity:0}
+.burger.open span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg);width:22px}
 
 /* FLOATING SEARCH */
 #fab{
@@ -134,55 +243,116 @@ header img{width:44px}
   height:58px;
   border-radius:50%;
   background:#F2B840;
-  color:#06142E;
+  color:#0A0A0A;
   font-size:26px;
   display:flex;
   align-items:center;
   justify-content:center;
   cursor:pointer;
   z-index:9996;
+  box-shadow:0 6px 20px rgba(242,184,64,.4);
+  transition:transform .2s ease;
 }
+#fab:active{transform:scale(.92)}
 
 /* SEARCH */
 #searchOverlay{
   position:fixed;
   inset:0;
-  background:rgba(6,20,46,.96);
+  background:rgba(10,10,10,.97);
+  backdrop-filter:blur(8px);
   z-index:9999;
   display:none;
-  padding:30px;
+  padding:24px 20px;
+  overflow-y:auto;
 }
-#searchOverlay.active{display:block}
+#searchOverlay.active{display:block;animation:fadeUp .35s ease both}
 
 .search-box{
   max-width:520px;
-  margin:60px auto 0;
+  margin:40px auto 0;
   position:relative;
 }
 .search-close{
   position:absolute;
-  top:-40px;
+  top:-44px;
   right:0;
-  font-size:26px;
+  width:38px;height:38px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;
   color:#F2B840;
+  border:1px solid rgba(242,184,64,.4);
+  border-radius:50%;
   cursor:pointer;
 }
-.search-box input{
-  width:100%;
-  padding:16px;
+.search-input-wrap{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background:#1A1A1A;
+  border:2px solid rgba(242,184,64,.5);
   border-radius:30px;
+  padding:4px 8px 4px 18px;
+}
+.search-input-wrap:focus-within{border-color:#F2B840;box-shadow:0 0 0 4px rgba(242,184,64,.15)}
+.search-input-wrap .s-ico{font-size:19px;flex-shrink:0}
+.search-box input{
+  flex:1;
+  min-width:0;
+  padding:14px 6px;
   border:none;
+  outline:none;
   font-size:16px;
+  background:transparent;
+  color:#FAF3E3;
+}
+.search-box input::placeholder{color:rgba(250,243,227,.5)}
+.search-clear{
+  width:30px;height:30px;
+  display:none;
+  align-items:center;justify-content:center;
+  font-size:16px;
+  color:rgba(250,243,227,.7);
+  background:rgba(250,243,227,.1);
+  border-radius:50%;
+  cursor:pointer;
+  flex-shrink:0;
+}
+.search-clear.show{display:flex}
+.search-hint{
+  margin:18px 4px 8px;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:2px;
+  color:#F2B840;
+  opacity:.85;
 }
 .item{
-  margin-top:12px;
-  padding:14px;
-  border:2px solid #F2B840;
+  margin-top:10px;
+  padding:14px 16px;
+  border:1.5px solid rgba(242,184,64,.45);
   border-radius:16px;
   cursor:pointer;
-  background:rgba(255,255,255,.08);
+  background:#141414;
+  color:#FAF3E3;
+  transition:background .2s ease, border-color .2s ease, transform .2s ease;
+  animation:fadeUp .3s ease both;
 }
-.item:hover{background:#F2B840;color:#06142E}
+.item:hover,.item:active{background:#F2B840;color:#0A0A0A;border-color:#F2B840}
+.item:hover .item-desc,.item:active .item-desc{color:rgba(10,10,10,.75)}
+.item-title{font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px}
+.item-title .go{margin-left:auto;font-size:14px;opacity:.6}
+.item-desc{font-size:13px;opacity:.75;margin-top:3px;line-height:1.4}
+.no-result{
+  margin-top:16px;
+  padding:18px;
+  border:1px dashed rgba(242,184,64,.5);
+  border-radius:16px;
+  text-align:center;
+  font-size:14px;
+  line-height:1.6;
+}
+.no-result a{color:#F2B840;font-weight:700;text-decoration:none}
 
 /* CONTENT */
 .section-title{
@@ -200,19 +370,101 @@ header img{width:44px}
   gap:14px;
 }
 .card{
-  background:rgba(255,255,255,.08);
+  background:#141414;
   border:2px solid #F2B840;
   border-radius:18px;
   padding:18px;
   text-align:center;
   cursor:pointer;
+  color:#FAF3E3;
+  box-shadow:0 4px 14px rgba(0,0,0,.4);
+  transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(242,184,64,.18)}
+.card:active{transform:scale(.97)}
+.card-wide{
+  width:90%;
+  margin:auto;
+}
+.hero-actions{
+  display:flex;
+  gap:10px;
+  justify-content:center;
+  margin-top:14px;
+  flex-wrap:wrap;
+}
+.hero-btn-outline{
+  display:inline-block;
+  padding:11px 18px;
+  border-radius:30px;
+  border:2px solid #F2B840;
+  color:#FAF3E3;
+  font-weight:bold;
+  text-decoration:none;
+  cursor:pointer;
+  transition:transform .2s ease, background .2s ease, color .2s ease;
+}
+.hero-btn-outline:active{transform:scale(.96);background:#F2B840;color:#0A0A0A}
+.card-featured{
+  background:
+    linear-gradient(135deg, rgba(242,184,64,.28), rgba(250,243,227,.04)),
+    #141414;
+  border-width:2px;
+  padding:22px 18px;
+  box-shadow:0 10px 28px rgba(242,184,64,.16);
+}
+.card-featured .card-title{font-size:20px;font-weight:bold;color:#F2B840}
+.card-desc{
+  margin-top:8px;
+  font-size:14px;
+  opacity:.85;
+  line-height:1.45;
+}
+.featured-tag{
+  display:inline-block;
+  margin-bottom:8px;
+  padding:3px 12px;
+  border-radius:20px;
+  background:#F2B840;
+  color:#0A0A0A;
+  font-size:11px;
+  font-weight:bold;
+  letter-spacing:1px;
+}
+.card-promo{
+  background:
+    linear-gradient(135deg, rgba(242,184,64,.22), rgba(250,243,227,.03)),
+    #141414;
+  padding:22px 18px;
+}
+.card-promo .card-title{font-size:19px;font-weight:bold;color:#F2B840}
+.help-link{
+  display:block;
+  padding:13px 6px;
+  border-bottom:1px solid rgba(250,243,227,.12);
+  color:#FAF3E3;
+  text-decoration:none;
+  font-size:15px;
+}
+.help-link:last-child{border-bottom:none}
+.help-link b{color:#F2B840}
+.badge{
+  display:inline-block;
+  margin-top:8px;
+  padding:3px 12px;
+  border-radius:20px;
+  border:1px solid #F2B840;
+  color:#F2B840;
+  font-size:12px;
+  font-weight:bold;
+  letter-spacing:1px;
 }
 
 /* FOOTER */
 .footer{
   margin-top:50px;
   padding:30px 20px;
-  background:rgba(255,255,255,.05);
+  background:rgba(250,243,227,.04);
   border-top:1px solid #F2B840;
   text-align:center;
 }
@@ -241,52 +493,116 @@ header img{width:44px}
   <img src="logotransparent.png">
   <div>
     <span class="icon-btn" onclick="openSearch()">🔍</span>
-    <span class="icon-btn" onclick="openMenu()">☰</span>
+    <span class="burger" id="burgerBtn" onclick="openMenu()"><span></span><span></span><span></span></span>
   </div>
 </header>
 
 <!-- HERO -->
 <div class="hero">
   <h2>CIZA GROUP</h2>
-  <p>Tous les services essentiels réunis dans une seule application.</p>
+  <p>L'écosystème CIZA GROUP réuni dans une seule application.</p>
   <div class="hero-btn" onclick="openSearch()">🔍 Accès rapide</div>
+  <div class="hero-actions">
+    <a class="hero-btn-outline" href="https://wa.me/15145029503">💬 WhatsApp</a>
+    <a class="hero-btn-outline" href="tel:+15145029503">📞 Appeler</a>
+  </div>
 </div>
 
 <div id="menuOverlay" onclick="closeMenu()"></div>
 
 <div id="menu">
-  <div class="menu-close" onclick="closeMenu()">✕</div>
-  <div class="menu-item" onclick="go('index.html')">🏠 Accueil</div>
-  <div class="menu-item" onclick="go('account.html')">👤 Mon compte</div>
-  <div class="menu-item" onclick="go('delete-account.html')">❌ Supprimer le compte</div>
-  <div class="menu-item" onclick="logout()">🚪 Déconnexion</div>
+  <div class="menu-head">
+    <img src="logotransparent.png" alt="CIZA GROUP">
+    <div>
+      <div class="menu-brand">CIZA GROUP</div>
+      <div class="menu-sub">Espace membre</div>
+    </div>
+    <div class="menu-close" onclick="closeMenu()">✕</div>
+  </div>
+
+  <div class="menu-label">NAVIGATION</div>
+  <div class="menu-item" onclick="go('index.html')"><span class="mi-ico">🏠</span>Accueil</div>
+  <div class="menu-item" onclick="go('account.html')"><span class="mi-ico">👤</span>Mon compte</div>
+  <div class="menu-item" onclick="go('help.html')"><span class="mi-ico">❓</span>Aide &amp; FAQ</div>
+
+  <div class="menu-label">SERVICES</div>
+  <div class="menu-item" onclick="go('supply.html')"><span class="mi-ico">📦</span>CIZA SUPPLY</div>
+  <div class="menu-item" onclick="go('https://www.cizashop.com')"><span class="mi-ico">🛒</span>CizaShop</div>
+  <div class="menu-item" onclick="go('immo.html')"><span class="mi-ico">🏠</span>CizaImmo</div>
+  <div class="menu-item" onclick="go('portail.html')"><span class="mi-ico">🚗</span>CizaRide+</div>
+  <div class="menu-item" onclick="go('carwash.html')"><span class="mi-ico">🧼</span>CizaCarWash+</div>
+  <div class="menu-item" onclick="go('cizahome.html')"><span class="mi-ico">🏡</span>CizaHome+</div>
+  <div class="menu-item" onclick="go('logistics.html')"><span class="mi-ico">🚚</span>CizaLogistics+</div>
+  <div class="menu-item" onclick="go('diaspora.html')"><span class="mi-ico">🌍</span>Diaspora</div>
+  <div class="menu-item" onclick="go('business.html')"><span class="mi-ico">🏢</span>Business &amp; ONG</div>
+
+  <div class="menu-label">CONTACT</div>
+  <a class="menu-item" href="https://wa.me/15145029503"><span class="mi-ico">💬</span>WhatsApp</a>
+  <a class="menu-item" href="tel:+15145029503"><span class="mi-ico">📞</span>Appeler</a>
+  <a class="menu-item" href="mailto:infos@cizagroup.com"><span class="mi-ico">📧</span>Email</a>
+
+  <div class="menu-label">COMPTE</div>
+  <div class="menu-item" onclick="go('settings.html')"><span class="mi-ico">⚙️</span>Paramètres</div>
+  <div class="menu-item danger" onclick="go('delete-account.html')"><span class="mi-ico">❌</span>Supprimer le compte</div>
+  <div class="menu-item danger" onclick="logout()"><span class="mi-ico">🚪</span>Déconnexion</div>
+
+  <div class="menu-foot">© 2026 CIZA GROUP — L'écosystème qui connecte l'Afrique au monde.</div>
 </div>
 
 <div id="searchOverlay">
   <div class="search-box">
     <div class="search-close" onclick="closeSearch()">✕</div>
-    <input placeholder="Rechercher un service ou formulaire…" onkeyup="search(this.value)">
+    <div class="search-input-wrap">
+      <span class="s-ico">🔍</span>
+      <input id="searchInput" placeholder="Rechercher un service…" oninput="search(this.value)" autocomplete="off">
+      <span class="search-clear" id="searchClear" onclick="clearSearch()">✕</span>
+    </div>
     <div id="results"></div>
   </div>
 </div>
 
+<div class="section-title">🏢 Divisions CIZA GROUP</div>
+<div class="card card-wide card-featured" onclick="go('supply.html')">
+  <span class="featured-tag">⭐ DIVISION PHARE</span>
+  <div class="card-title">📦 CIZA SUPPLY</div>
+  <div class="card-desc">Sourcing direct usine — Chine → Burundi. Devis sur demande, sans engagement.</div>
+</div>
+<div style="height:14px"></div>
+<div class="grid">
+  <div class="card" onclick="go('https://www.cizashop.com')">🛒 CizaShop</div>
+  <div class="card" onclick="go('immo.html')">🏠 CizaImmo</div>
+  <div class="card" onclick="go('tech.html')">💻 CizaTech</div>
+  <div class="card" onclick="go('verify.html')">✅ CizaVerify<br><span class="badge">Bientôt</span></div>
+</div>
+
+<div class="section-title">☀️ À la une</div>
+<div class="card card-wide card-promo" onclick="go('supply.html')">
+  <div class="card-title">☀️ Kit Maison solaire</div>
+  <div class="card-desc">6 panneaux 650W, onduleur hybride, 2 batteries — l'énergie pour toute la maison. Devis sur demande.</div>
+</div>
+
 <div class="section-title">🌍 CIZA DIASPORA+</div>
-<div class="card" onclick="go('diaspora.html')">🌍 Services Diaspora</div>
+<div class="card card-wide" onclick="go('diaspora.html')">🌍 Services Diaspora</div>
 
 <div class="section-title">🇧🇮 Services Locaux</div>
 <div class="grid">
   <div class="card" onclick="go('portail.html')">🚗 CizaRide+</div>
-  <div class="card" onclick="go('delivery.html')">📦 CizaDelivery</div>
   <div class="card" onclick="go('carwash.html')">🧼 CizaCarWash+</div>
-  <div class="card" onclick="go('assist.html')">🤝 CizaAssist</div>
-  <div class="card" onclick="go('market.html')">🛒 CizaMarket</div>
   <div class="card" onclick="go('cizahome.html')">🏠 CizaHome+</div>
   <div class="card" onclick="go('logistics.html')">🚚 CizaLogistics+</div>
-  <div class="card" onclick="go('jobs.html')">💼 CizaJobs</div>
 </div>
 
 <div class="section-title">🏢 Solutions Entreprises</div>
-<div class="card" onclick="go('business.html')">🏢 Business & ONG</div>
+<div class="card card-wide" onclick="go('business.html')">🏢 Business & ONG</div>
+
+<div class="section-title">💬 Besoin d'aide ?</div>
+<div class="card card-wide">
+  <a class="help-link" href="https://wa.me/15145029503">💬 <b>WhatsApp</b> : +1 514 502 9503</a>
+  <a class="help-link" href="https://wa.me/8618721396720">🇨🇳 <b>Chine</b> : +86 187 2139 6720</a>
+  <a class="help-link" href="tel:+25779945007">🇧🇮 <b>Burundi</b> : +257 79 94 50 07</a>
+  <a class="help-link" href="mailto:infos@cizagroup.com">📧 <b>Email</b> : infos@cizagroup.com</a>
+  <a class="help-link" href="help.html">❓ <b>Aide &amp; FAQ</b> — questions fréquentes</a>
+</div>
 
 <footer class="footer">
   <div class="footer-brand">
@@ -307,30 +623,63 @@ header img{width:44px}
 
 <script>
 const items=[
- ["CizaRide+","portail.html"],
- ["Formulaire CizaRide+","portail.html"],
- ["CizaDelivery","delivery.html"],
- ["Formulaire Livraison","delivery.html"],
- ["CizaCarWash+","carwash.html"],
- ["Formulaire CarWash","carwash.html"],
- ["CizaAssist","assist.html"],
- ["Formulaire Assistance","assist.html"],
- ["CizaMarket","market.html"],
- ["CizaHome+","cizahome.html"],
- ["CizaLogistics+","logistics.html"],
- ["CizaJobs","jobs.html"],
- ["Business & ONG","business.html"]
+ {t:"📦 CIZA SUPPLY",d:"Sourcing direct usine, Chine → Burundi — devis sur demande",u:"supply.html",k:"sourcing chine usine import devis catalogue fournisseur grossiste achat produit solaire panneau quincaillerie telephone beaute mode industriel moto piece auto maison"},
+ {t:"☀️ Kit Maison solaire",d:"6 panneaux 650W, onduleur hybride, 2 batteries — l'énergie pour toute la maison",u:"supply.html",k:"solaire panneau energie electricite batterie onduleur kit maison coupure courant"},
+ {t:"🛒 CizaShop",d:"La marketplace premium — ouverture bientôt (cizashop.com)",u:"https://www.cizashop.com",k:"boutique acheter vendre marche shopping magasin produit commande marketplace"},
+ {t:"🏠 CizaImmo",d:"Achat, location, gestion immobilière & investissement diaspora",u:"immo.html",k:"immobilier appartement maison loyer location acheter vendre gestion locataire bail investissement"},
+ {t:"💻 CizaTech",d:"Sites web, applications & digitalisation pour les PME",u:"tech.html",k:"site web application developpement digital informatique logiciel pme numerique"},
+ {t:"✅ CizaVerify",d:"Vérification professionnelle — identité, diplômes, références, casier",u:"verify.html",k:"verification verifier diplome casier judiciaire identite reference embauche recrutement employeur"},
+ {t:"🚗 CizaRide+",d:"Transport privé haut de gamme — chauffeur sur réservation",u:"portail.html",k:"voiture chauffeur transport taxi course reservation vip deplacement trajet"},
+ {t:"🧼 CizaCarWash+",d:"Lavage auto à domicile ou sur place — réservation en ligne",u:"carwash.html",k:"lavage voiture nettoyer auto propre detailing menage"},
+ {t:"🏡 CizaHome+",d:"Services à domicile — ménage, entretien & aide à la maison",u:"cizahome.html",k:"maison menage domicile nettoyage entretien aide femme menage"},
+ {t:"🚚 CizaLogistics+",d:"Livraison, stockage & aide à la vente au Burundi",u:"logistics.html",k:"livraison colis stockage entrepot transport marchandise aide vente commercant"},
+ {t:"🌍 Services Diaspora",d:"Assistance pour la diaspora qui a de la famille au Burundi",u:"diaspora.html",k:"diaspora famille etranger canada montreal aide envoyer argent investissement"},
+ {t:"🏢 Business & ONG",d:"Solutions pour entreprises, ONG & partenaires",u:"business.html",k:"entreprise ong societe partenariat business projet investissement"},
+ {t:"❓ Aide & FAQ",d:"Questions fréquentes et contacts du support",u:"help.html",k:"aide faq question probleme contacter support assistance"},
+ {t:"👤 Mon compte",d:"Votre profil et vos informations",u:"account.html",k:"compte profil moi parametre reglage"},
+ {t:"⚙️ Paramètres",d:"Réglages de votre compte et notifications",u:"settings.html",k:"parametre reglage notification option configuration"}
 ];
 
+function norm(s){
+  return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+}
+function scoreItem(it, words){
+  const title = norm(it.t), desc = norm(it.d), keys = norm(it.k);
+  let score = 0;
+  for(const w of words){
+    if(!w) continue;
+    if(title.includes(w)) score += 3;
+    else if(keys.split(" ").some(k => k.startsWith(w) || (w.startsWith(k) && k.length > 2))) score += 2;
+    else if(desc.includes(w)) score += 1;
+    else if(keys.includes(w)) score += 2;
+  }
+  return score;
+}
+function renderResults(list, hint){
+  if(!list.length){
+    results.innerHTML = `<div class="no-result">Aucun résultat pour « <b>${hint}</b> ».<br>Essayez un autre mot, ou contactez-nous directement sur <a href="https://wa.me/15145029503">WhatsApp</a>.</div>`;
+    return;
+  }
+  results.innerHTML = list.map(it =>
+    `<div class="item" onclick="location.href='${it.u}'"><div class="item-title">${it.t}<span class="go">›</span></div><div class="item-desc">${it.d}</div></div>`
+  ).join("");
+}
+function showPopular(){
+  results.innerHTML = `<div class="search-hint">RECHERCHES POPULAIRES</div>` + items.slice(0,5).map(it =>
+    `<div class="item" onclick="location.href='${it.u}'"><div class="item-title">${it.t}<span class="go">›</span></div><div class="item-desc">${it.d}</div></div>`
+  ).join("");
+}
 function openMenu(){
   menu.classList.add("open");
   menuOverlay.classList.add("active");
   document.body.classList.add("noscroll");
+  document.getElementById("burgerBtn").classList.add("open");
 }
 function closeMenu(){
   menu.classList.remove("open");
   menuOverlay.classList.remove("active");
   document.body.classList.remove("noscroll");
+  document.getElementById("burgerBtn").classList.remove("open");
 }
 function go(url){
   closeMenu();
@@ -343,19 +692,32 @@ function logout(){
 function openSearch(){
   searchOverlay.classList.add("active");
   document.body.classList.add("noscroll");
-  results.innerHTML="";
+  showPopular();
+  setTimeout(()=>document.getElementById("searchInput").focus(), 100);
 }
 function closeSearch(){
   searchOverlay.classList.remove("active");
   document.body.classList.remove("noscroll");
+  document.getElementById("searchInput").value = "";
+  document.getElementById("searchClear").classList.remove("show");
+}
+function clearSearch(){
+  document.getElementById("searchInput").value = "";
+  document.getElementById("searchClear").classList.remove("show");
+  showPopular();
+  document.getElementById("searchInput").focus();
 }
 function search(q){
-  results.innerHTML="";
-  items.forEach(i=>{
-    if(i[0].toLowerCase().includes(q.toLowerCase())){
-      results.innerHTML+=`<div class="item" onclick="location.href='${i[1]}'">${i[0]}</div>`;
-    }
-  });
+  document.getElementById("searchClear").classList.toggle("show", q.trim().length > 0);
+  const query = norm(q.trim());
+  if(!query){ showPopular(); return; }
+  const words = query.split(/\s+/);
+  const scored = items.map(it => ({it, s: scoreItem(it, words)}))
+    .filter(x => x.s > 0)
+    .sort((a,b) => b.s - a.s)
+    .slice(0, 8)
+    .map(x => x.it);
+  renderResults(scored, q.trim());
 }
 </script>
 

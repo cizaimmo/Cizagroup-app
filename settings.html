@@ -4,9 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Réglages — CIZA GROUP</title>
+<script>
+if(localStorage.getItem("ciza_user_status") !== "active"){
+  window.location.replace("login.html");
+}
+</script>
+
 <link rel="icon" href="logotransparent.png">
 
-<style>
+<style>*,*::before,*::after{box-sizing:border-box}
 body{
     margin:0;
     font-family:Arial, sans-serif;
@@ -160,7 +166,7 @@ header h1{
     </div>
 
     <div class="card">
-        🇧🇮 +257 79 64 48 93
+        🇧🇮 +257 79 94 50 07
     </div>
 </div>
 
@@ -173,7 +179,7 @@ header h1{
     <div class="card" onclick="location.href='faq-royal.html'">💎 Ride Royal</div>
     <div class="card" onclick="location.href='faq-delivery.html'">📦 Delivery</div>
     <div class="card" onclick="location.href='faq-carwash.html'">🧼 CarWash</div>
-    <div class="card" onclick="location.href='faq-market.html'">🛒 Market</div>
+    <div class="card" onclick="location.href='https://www.cizashop.com'">🛒 CizaShop</div>
     <div class="card" onclick="location.href='faq-assist.html'">🤝 Assist</div>
     <div class="card" onclick="location.href='faq-jobs.html'">💼 Jobs</div>
     <div class="card" onclick="location.href='faq-diaspora.html'">🌍 Diaspora</div>

@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0A0A0A">
+
+<title>CizaVerify — CIZA GROUP</title>
+<script>
+if(localStorage.getItem("ciza_user_status") !== "active"){
+  window.location.replace("login.html");
+}
+</script>
+
+<link rel="icon" href="logotransparent.png">
+
+<style>
+:root{
+  --bg:#0A0A0A;
+  --gold:#F2B840;
+  --cream:#FAF3E3;
+  --panel:#141414;
+  --border:rgba(242,184,64,.45);
+}
+*{box-sizing:border-box}
+body{
+    margin:0;
+    background:var(--bg);
+    color:var(--cream);
+    font-family:Arial, sans-serif;
+    -webkit-tap-highlight-color:transparent;
+}
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(14px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* HEADER */
+header{
+    background:rgba(10,10,10,.9);
+    padding:15px;
+    text-align:center;
+    border-bottom:2px solid var(--gold);
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+header h2{
+    margin:0;
+    color:var(--gold);
+    font-size:22px;
+}
+.back-btn{
+    position:absolute;
+    left:15px;
+    top:14px;
+    background:var(--gold);
+    color:#0A0A0A;
+    padding:6px 12px;
+    border-radius:8px;
+    font-weight:bold;
+    cursor:pointer;
+    text-decoration:none;
+    transition:transform .2s ease;
+}
+.back-btn:active{transform:scale(.95)}
+
+/* HERO */
+.hero{
+    text-align:center;
+    padding:38px 20px 10px;
+    animation:fadeUp .55s ease both;
+}
+.hero h1{
+    color:var(--gold);
+    font-size:26px;
+    margin:0 0 10px;
+}
+.hero .badge{
+    display:inline-block;
+    padding:5px 18px;
+    border-radius:20px;
+    border:1px solid var(--gold);
+    color:var(--gold);
+    font-size:13px;
+    font-weight:bold;
+    letter-spacing:2px;
+    margin-bottom:14px;
+}
+.hero .slogan{
+    color:var(--gold);
+    font-size:17px;
+    font-weight:bold;
+    margin:4px 0 12px;
+}
+.hero p{
+    opacity:.9;
+    font-size:15px;
+    max-width:560px;
+    margin:0 auto;
+}
+
+/* CONTAINER */
+.container{
+    text-align:center;
+    padding:30px 20px 40px;
+    max-width:980px;
+    margin:auto;
+}
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:16px;
+    margin-top:10px;
+}
+.card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    padding:24px 20px;
+    border-radius:16px;
+    box-shadow:0 4px 14px rgba(0,0,0,.4);
+    animation:fadeUp .55s ease both;
+    transition:transform .25s ease, box-shadow .25s ease;
+}
+.grid .card:nth-child(2){animation-delay:.06s}
+.grid .card:nth-child(3){animation-delay:.12s}
+.grid .card:nth-child(4){animation-delay:.18s}
+.card:active{transform:scale(.98)}
+.card h3{
+    color:var(--gold);
+    font-size:19px;
+    margin:0 0 8px;
+}
+.card p{
+    opacity:.9;
+    font-size:15px;
+    margin:0;
+}
+
+/* CONTACT */
+.contact{
+    margin-top:28px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:24px 20px;
+    animation:fadeUp .55s ease .2s both;
+}
+.contact h3{
+    color:var(--gold);
+    margin:0 0 8px;
+    font-size:19px;
+}
+.contact p{opacity:.9;font-size:15px;margin:6px 0}
+.wa-btn{
+    display:inline-block;
+    margin-top:14px;
+    padding:14px 28px;
+    border-radius:30px;
+    background:var(--gold);
+    color:#0A0A0A;
+    font-weight:bold;
+    text-decoration:none;
+    font-size:16px;
+    box-shadow:0 4px 16px rgba(242,184,64,.35);
+    transition:transform .2s ease;
+}
+.wa-btn:active{transform:scale(.96)}
+.contact .mail{
+    display:block;
+    margin-top:14px;
+    color:var(--gold);
+    text-decoration:none;
+    font-size:15px;
+}
+
+/* FORMULAIRE PREMIUM */
+.form-card{
+    margin-top:28px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:24px 20px;
+    text-align:left;
+    animation:fadeUp .55s ease .24s both;
+    box-shadow:0 4px 14px rgba(0,0,0,.4);
+}
+.form-card h3{color:var(--gold);margin:0 0 4px;font-size:19px;text-align:center}
+.form-card .form-sub{text-align:center;opacity:.9;font-size:14px;margin:0 0 18px}
+.form-summary{
+    display:none;
+    margin-bottom:16px;
+    padding:14px 16px;
+    border:1.5px solid rgba(242,184,64,.55);
+    border-radius:16px;
+    background:rgba(242,184,64,.08);
+    font-size:14px;
+    line-height:1.5;
+}
+.form-summary.show{display:block;animation:fadeUp .3s ease both}
+.form-summary b{color:var(--gold)}
+.form-card label{display:block;font-size:13px;font-weight:600;opacity:.92;margin:14px 0 6px}
+.form-card input,.form-card select,.form-card textarea{
+    width:100%;
+    padding:14px 16px;
+    border-radius:14px;
+    border:1.5px solid rgba(250,243,227,.14);
+    background:#1A1A1A;
+    color:var(--cream);
+    font-size:15px;
+    outline:none;
+    transition:border-color .2s ease, box-shadow .2s ease;
+}
+.form-card input:focus,.form-card select:focus,.form-card textarea:focus{
+    border-color:var(--gold);
+    box-shadow:0 0 0 4px rgba(242,184,64,.15);
+}
+.form-card input.invalid,.form-card select.invalid{border-color:#ff6b6b;background:rgba(255,107,107,.07)}
+.form-card input.valid,.form-card select.valid{border-color:rgba(74,222,128,.55)}
+.form-card textarea{resize:vertical;min-height:110px}
+.field-error{font-size:13px;color:#ff8a8a;margin:5px 2px 0}
+.form-error{font-size:14px;color:#ff8a8a;text-align:center;margin:14px 0 0}
+.submit-btn{
+    width:100%;
+    margin-top:20px;
+    padding:16px;
+    border:none;
+    border-radius:20px;
+    background:linear-gradient(135deg,#F2B840,#FFD77A);
+    color:#0A0A0A;
+    font-size:16px;
+    font-weight:700;
+    cursor:pointer;
+    box-shadow:0 4px 16px rgba(242,184,64,.35);
+    transition:transform .2s ease;
+}
+.submit-btn:active{transform:scale(.97)}
+.success-box{
+    display:none;
+    margin-top:28px;
+    background:var(--panel);
+    border:1px solid var(--gold);
+    border-radius:16px;
+    padding:28px 20px;
+    text-align:center;
+    animation:fadeUp .55s ease both;
+}
+.success-box h3{color:var(--gold);margin:0 0 8px;font-size:19px}
+.success-box p{opacity:.9;font-size:15px;margin:6px 0}
+.success-box strong{color:var(--gold);font-size:16px}
+
+footer{
+    text-align:center;
+    padding:24px 16px 40px;
+    font-size:13px;
+    opacity:.7;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <a href="index.html" class="back-btn">← Retour</a>
+    <h2>CizaVerify</h2>
+</header>
+
+<div class="hero">
+    <h1>✅ CizaVerify</h1>
+    <div class="badge">Bientôt</div>
+    <div class="slogan">N'embauchez plus à l'aveugle.</div>
+    <p>Le passeport professionnel vérifié : identité, diplômes, références et casier judiciaire vérifiés à la source, avant l'embauche.</p>
+</div>
+
+<div class="container">
+    <div class="grid">
+        <div class="card">
+            <h3>🪪 Identité vérifiée</h3>
+            <p>L'identité du candidat est contrôlée avant toute vérification.</p>
+        </div>
+        <div class="card">
+            <h3>🎓 Diplômes vérifiés</h3>
+            <p>Les diplômes sont vérifiés directement auprès des établissements.</p>
+        </div>
+        <div class="card">
+            <h3>📞 Références vérifiées</h3>
+            <p>Les références professionnelles sont contactées et confirmées.</p>
+        </div>
+        <div class="card">
+            <h3>⚖️ Casier vérifié</h3>
+            <p>Le casier judiciaire est vérifié au registre du greffe, avec procuration.</p>
+        </div>
+    </div>
+
+    <div class="contact">
+        <h3>Être informé du lancement</h3>
+        <p>CizaVerify arrive bientôt. Écrivez-nous pour être informé du lancement.</p>
+        <a class="wa-btn" href="https://wa.me/15145029503?text=Bonjour%20CizaVerify%2C%20je%20souhaite%20%C3%AAtre%20inform%C3%A9%20du%20lancement.">💬 WhatsApp : +1 514 502 9503</a>
+        <a class="mail" href="tel:+15145029503">📞 +1 514 502 9503</a>
+        <a class="mail" href="mailto:infos@cizagroup.com">📧 infos@cizagroup.com</a>
+    </div>
+
+    <div class="form-card" id="formBox">
+        <h3>📋 Être informé du lancement</h3>
+        <p class="form-sub">Laissez vos coordonnées — nous vous préviendrons dès l'ouverture de CizaVerify.</p>
+        <div class="form-summary" id="formSummary"></div>
+        <form id="verifyForm" action="https://api.web3forms.com/submit" method="POST" onsubmit="handleVerifySubmit(event)" novalidate>
+            <input type="hidden" name="access_key" value="5dd75877-534a-4291-b280-5430afd92733">
+            <input type="hidden" name="subject" value="Nouvelle pré-inscription — CizaVerify">
+            <input type="hidden" name="from_name" value="CizaVerify — App CIZA GROUP">
+            <input type="hidden" name="Numéro de dossier" id="dossierField">
+            <label for="fName">Nom complet *</label>
+            <input type="text" name="Nom" id="fName" required placeholder="Nom complet" oninput="clearField(this,'errName')">
+            <div class="field-error" id="errName"></div>
+            <label for="fPhone">Téléphone (WhatsApp) *</label>
+            <input type="tel" name="Téléphone" id="fPhone" required placeholder="+257 79 94 50 07" inputmode="tel" oninput="clearField(this,'errPhone')">
+            <div class="field-error" id="errPhone"></div>
+            <label for="fEmail">Email *</label>
+            <input type="email" name="Email" id="fEmail" required placeholder="vous@exemple.com" inputmode="email" oninput="clearField(this,'errEmail')">
+            <div class="field-error" id="errEmail"></div>
+            <label for="fService">Je suis *</label>
+            <select name="Profil" id="fService" required onchange="updateVerifySummary(this.value)">
+                <option value="">Choisir</option>
+                <option>Employeur</option>
+                <option>Travailleur</option>
+                <option>Autre</option>
+            </select>
+            <div class="field-error" id="errService"></div>
+            <label for="fMessage">Votre besoin (optionnel)</label>
+            <textarea name="Message" id="fMessage" rows="4" placeholder="Décrivez votre besoin…"></textarea>
+            <div class="form-error" id="formError"></div>
+            <button class="submit-btn" type="submit">Me prévenir du lancement</button>
+        </form>
+    </div>
+
+    <div class="success-box" id="successBox">
+        <h3>Merci pour votre confiance 🙏</h3>
+        <p>Votre pré-inscription CizaVerify a bien été enregistrée.</p>
+        <strong id="dossierShow"></strong>
+        <p>Nous vous préviendrons dès le lancement.<br>Veuillez conserver votre numéro de dossier.</p>
+    </div>
+</div>
+
+<footer>© 2026 CIZA GROUP — CizaVerify, division de Ciza Group</footer>
+
+<script>
+
+/* Validation : aucun champ obligatoire vide, vrai email, vrai numéro */
+function isValidEmail(v){
+  return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
+}
+function isValidPhone(v){
+  const d = v.replace(/[\s\-().]/g, "");
+  return /^\+?[1-9]\d{9,14}$/.test(d);
+}
+function setErr(input, errId, msg){
+  input.classList.add("invalid");
+  input.classList.remove("valid");
+  document.getElementById(errId).textContent = msg;
+}
+function clearErr(input, errId){
+  input.classList.remove("invalid");
+  input.classList.add("valid");
+  document.getElementById(errId).textContent = "";
+}
+function clearField(input, errId){
+  input.classList.remove("invalid");
+  document.getElementById(errId).textContent = "";
+}
+function validateContactFields(){
+  let ok = true, firstBad = null;
+  const name = document.getElementById("fName");
+  const phone = document.getElementById("fPhone");
+  const email = document.getElementById("fEmail");
+  const service = document.getElementById("fService");
+  document.getElementById("formError").textContent = "";
+  if(!name.value.trim()){
+    setErr(name, "errName", "Veuillez indiquer votre nom complet.");
+    ok = false; firstBad = firstBad || name;
+  } else if(name.value.trim().length < 2){
+    setErr(name, "errName", "Nom trop court.");
+    ok = false; firstBad = firstBad || name;
+  } else { clearErr(name, "errName"); }
+  if(!phone.value.trim()){
+    setErr(phone, "errPhone", "Veuillez indiquer votre numéro de téléphone.");
+    ok = false; firstBad = firstBad || phone;
+  } else if(!isValidPhone(phone.value.trim())){
+    setErr(phone, "errPhone", "Numéro invalide. Exemple : +257 79 94 50 07 ou +1 514 502 9503.");
+    ok = false; firstBad = firstBad || phone;
+  } else { clearErr(phone, "errPhone"); }
+  if(!email.value.trim()){
+    setErr(email, "errEmail", "Veuillez indiquer votre email.");
+    ok = false; firstBad = firstBad || email;
+  } else if(!isValidEmail(email.value.trim())){
+    setErr(email, "errEmail", "Email invalide. Exemple : vous@exemple.com.");
+    ok = false; firstBad = firstBad || email;
+  } else { clearErr(email, "errEmail"); }
+  if(!service.value){
+    setErr(service, "errService", "Veuillez choisir une option.");
+    ok = false; firstBad = firstBad || service;
+  } else { clearErr(service, "errService"); }
+  if(!ok){
+    document.getElementById("formError").textContent = "Veuillez corriger les champs en rouge avant d'envoyer.";
+    if(firstBad) firstBad.scrollIntoView({behavior:"smooth", block:"center"});
+  }
+  return ok;
+}
+function makeDossier(prefix){
+  return prefix + "-" + new Date().toISOString().slice(0,10).replace(/-/g,"") + "-" + Math.floor(1000 + Math.random()*9000);
+}
+
+const verifyHints = {
+  "Employeur": "Nombre de postes, secteur d'activité…",
+  "Travailleur": "Votre métier, vos diplômes…",
+  "Autre": "Décrivez votre besoin…"
+};
+function updateVerifySummary(service){
+  const box = document.getElementById("formSummary");
+  const msg = document.getElementById("fMessage");
+  if(!service){ box.classList.remove("show"); box.innerHTML = ""; return; }
+  box.innerHTML = "Profil : <b>" + service + "</b><br>Vous serez informé(e) du lancement de CizaVerify.";
+  box.classList.add("show");
+  if(verifyHints[service]) msg.placeholder = verifyHints[service];
+}
+function handleVerifySubmit(e){
+  e.preventDefault();
+  if(!validateContactFields()) return;
+  const form = e.target;
+  const ref = makeDossier("CIZA-VERIF");
+  document.getElementById("dossierField").value = ref;
+  fetch(form.action, {method:"POST", body:new FormData(form), headers:{"Accept":"application/json"}})
+  .then(r => r.json()).then(data => {
+    if(!data || !data.success) throw new Error("Envoi refusé");
+    document.getElementById("formBox").style.display = "none";
+    document.getElementById("successBox").style.display = "block";
+    document.getElementById("dossierShow").textContent = "Numéro de dossier : " + ref;
+    window.scrollTo({top:0, behavior:"smooth"});
+    form.reset();
+  }).catch(() => {
+    alert("La demande n'a pas pu être envoyée. Réessayez ou contactez-nous sur WhatsApp : +1 514 502 9503");
+  });
+}
+</script>
+
+</body>
+</html>

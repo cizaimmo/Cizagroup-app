@@ -4,15 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CizaRide+ — Service VIP</title>
+<script>
+if(localStorage.getItem("ciza_user_status") !== "active"){
+  window.location.replace("login.html");
+}
+</script>
+
 <link rel="icon" href="logotransparent.png">
 
 <style>
 :root{
-  --bg:#06142E;
+  --bg:#0A0A0A;
   --gold:#F2B840;
-  --glass:rgba(255,255,255,.08);
-  --border:rgba(255,255,255,.18);
-  --txt:#fff;
+  --glass:rgba(250,243,227,.08);
+  --border:rgba(250,243,227,.18);
+  --txt:#FAF3E3;
 }
 
 *{box-sizing:border-box}
@@ -20,7 +26,7 @@
 body{
   margin:0;
   min-height:100vh;
-  background:linear-gradient(160deg,#06142E,#0b1c34);
+  background:linear-gradient(160deg,#0A0A0A,#141414);
   font-family:Arial,sans-serif;
   color:var(--txt);
 }
@@ -84,11 +90,21 @@ input, textarea{
   margin:6px 0 14px;
   border-radius:12px;
   border:none;
-  background:#0b1c34;
-  color:white;
+  background:#141414;
+  color:#FAF3E3;
   font-size:15px;
 }
 textarea{resize:none}
+.form-summary{
+  margin:4px 0 16px;
+  padding:14px 16px;
+  border:1.5px solid rgba(242,184,64,.55);
+  border-radius:16px;
+  background:rgba(242,184,64,.08);
+  font-size:14px;
+  line-height:1.5;
+}
+.form-summary b{color:var(--gold)}
 
 .notice{
   font-size:13px;
@@ -116,11 +132,11 @@ textarea{resize:none}
 }
 .back{
   background:#2a2a2a;
-  color:white;
+  color:#FAF3E3;
 }
 .send{
   background:linear-gradient(135deg,#F2B840,#ffd977);
-  color:#06142E;
+  color:#0A0A0A;
   font-weight:bold;
 }
 
@@ -213,8 +229,8 @@ textarea{resize:none}
       WhatsApp Support :
     </p>
     <p>
-      🇧🇮 Burundi : <b>+257 79 94 50 07</b><br>
-      🇨🇦 Canada : <b>+1 514 502 9503</b>
+      🇧🇮 Burundi : <a href="tel:+25779945007" style="color:#F2B840;text-decoration:none;"><b>+257 79 94 50 07</b></a><br>
+      🇨🇦 Canada : <a href="https://wa.me/15145029503" style="color:#F2B840;text-decoration:none;"><b>+1 514 502 9503</b></a>
     </p>
   </div>
 
@@ -224,11 +240,16 @@ textarea{resize:none}
 
     <div class="notice">
       🔐 <b>Confidentialité & sécurité</b><br>
-      En cliquant sur <b>Envoyer la demande</b>, votre application email s’ouvrira automatiquement.
-      Merci d’envoyer le message afin que notre équipe traite votre demande de manière confidentielle.
+      Votre demande est envoyée directement à notre équipe, qui la traite de manière confidentielle.
     </div>
 
-    <form action="mailto:infos@cizagroup.com" method="post" enctype="text/plain">
+    <form id="rideForm" action="https://api.web3forms.com/submit" method="POST" onsubmit="handleRideSubmit(event)">
+      <input type="hidden" name="access_key" value="5dd75877-534a-4291-b280-5430afd92733">
+      <input type="hidden" name="subject" value="Nouvelle réservation CizaRide+ VIP — App">
+      <input type="hidden" name="from_name" value="CizaRide+ — App CIZA GROUP">
+
+      <div class="form-summary" id="rideSummary">Service : <b>CizaRide+ VIP</b> — Chauffeur privé sur réservation.<br>Tarif : <b>Devis sur demande</b> — l'équipe vous contactera pour confirmer.</div>
+
       <label>Nom complet</label>
       <input name="Nom" required>
 
@@ -236,13 +257,13 @@ textarea{resize:none}
       <input name="Téléphone" required>
 
       <label>Date & heure souhaitées</label>
-      <input type="datetime-local" name="Date" required>
+      <input type="datetime-local" name="Date" id="rideDate" required oninput="updateRideSummary()">
 
       <label>Point de départ</label>
-      <input name="Départ" required>
+      <input name="Départ" id="rideFrom" required oninput="updateRideSummary()">
 
       <label>Destination</label>
-      <input name="Destination" required>
+      <input name="Destination" id="rideTo" required oninput="updateRideSummary()">
 
       <label>Message (optionnel)</label>
       <textarea rows="3" name="Message"></textarea>
@@ -252,6 +273,14 @@ textarea{resize:none}
         <button type="submit" class="send">Envoyer la demande VIP</button>
       </div>
     </form>
+
+    <div id="rideSuccess" style="display:none;text-align:center;padding:18px 0;">
+      <h3 style="color:#F2B840;">Merci pour votre confiance 🙏</h3>
+      <p style="font-size:14px;line-height:1.6;opacity:.92;">
+        Votre demande de réservation VIP a bien été envoyée.<br>
+        L'équipe <b>CIZA GROUP</b> vous contactera rapidement pour confirmer.
+      </p>
+    </div>
   </div>
 
   <a class="whatsapp" href="https://wa.me/25779945007" target="_blank">
@@ -264,6 +293,47 @@ textarea{resize:none}
   </div>
 
 </div>
+
+<script>
+/* Formulaire dynamique : le récapitulatif du trajet se met à jour en direct */
+function updateRideSummary(){
+  const from = document.getElementById("rideFrom").value.trim();
+  const to = document.getElementById("rideTo").value.trim();
+  const date = document.getElementById("rideDate").value;
+  const box = document.getElementById("rideSummary");
+  let html = "Service : <b>CizaRide+ VIP</b> — Chauffeur privé sur réservation.";
+  if(from || to){
+    html += "<br>Trajet : <b>" + (from || "…") + " → " + (to || "…") + "</b>";
+  }
+  if(date){
+    const d = new Date(date);
+    html += "<br>Date : <b>" + d.toLocaleDateString("fr-FR", {day:"numeric", month:"long", year:"numeric"}) + " à " + d.toLocaleTimeString("fr-FR", {hour:"2-digit", minute:"2-digit"}) + "</b>";
+  }
+  html += "<br>Tarif : <b>Devis sur demande</b> — l'équipe vous contactera pour confirmer.";
+  box.innerHTML = html;
+}
+
+function handleRideSubmit(e){
+  e.preventDefault();
+  const form = e.target;
+  fetch(form.action, {
+    method: "POST",
+    body: new FormData(form),
+    headers: { "Accept": "application/json" }
+  }).then(r => r.json()).then(data => {
+    if(data && data.success){
+      document.getElementById("rideForm").style.display = "none";
+      document.getElementById("rideSuccess").style.display = "block";
+      window.scrollTo({top: 0, behavior: "smooth"});
+      form.reset();
+    } else {
+      throw new Error("Envoi refusé");
+    }
+  }).catch(() => {
+    alert("La demande n'a pas pu être envoyée. Réessayez ou contactez-nous sur WhatsApp : +1 514 502 9503");
+  });
+}
+</script>
 
 </body>
 </html>

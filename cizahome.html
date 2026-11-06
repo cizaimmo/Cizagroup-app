@@ -4,15 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CizaHome+ — Services à Domicile</title>
+<script>
+if(localStorage.getItem("ciza_user_status") !== "active"){
+  window.location.replace("login.html");
+}
+</script>
+
 <link rel="icon" href="logotransparent.png">
 
-<style>
+<style>*,*::before,*::after{box-sizing:border-box}
 :root{
-  --bg:#06142E;
+  --bg:#0A0A0A;
   --gold:#F2B840;
-  --glass:rgba(255,255,255,.08);
-  --border:rgba(255,255,255,.15);
-  --txt:#fff;
+  --glass:rgba(250,243,227,.08);
+  --border:rgba(250,243,227,.15);
+  --txt:#FAF3E3;
 }
 body{
   margin:0;
@@ -46,7 +52,7 @@ h1,h2,h3{color:var(--gold)}
 .reserve-btn{
   margin-top:15px;width:100%;padding:14px;
   border:none;border-radius:12px;
-  background:var(--gold);color:#06142E;
+  background:var(--gold);color:#0A0A0A;
   font-weight:bold;cursor:pointer;
 }
 .form-box{display:none;margin-top:30px;position:relative}
@@ -58,9 +64,21 @@ input,select,textarea{
   width:100%;margin-top:12px;
   padding:12px;border-radius:10px;border:none;
 }
+.form-summary{
+  display:none;
+  margin-bottom:14px;
+  padding:14px 16px;
+  border:1.5px solid rgba(242,184,64,.55);
+  border-radius:16px;
+  background:rgba(242,184,64,.08);
+  font-size:14px;
+  line-height:1.5;
+}
+.form-summary.show{display:block;animation:fadeUp .3s ease both}
+.form-summary b{color:#F2B840}
 #success{
   display:none;
-  background:#0b1c34;
+  background:#141414;
   border:1px solid var(--gold);
   border-radius:18px;
   padding:25px;
@@ -75,7 +93,7 @@ footer a{color:var(--gold);text-decoration:none;display:block;margin-top:6px}
 #toTop{
   position:fixed;bottom:20px;right:20px;
   width:45px;height:45px;border-radius:50%;
-  background:var(--gold);color:#06142E;
+  background:var(--gold);color:#0A0A0A;
   display:none;justify-content:center;align-items:center;
   cursor:pointer;font-size:22px;
 }
@@ -133,9 +151,12 @@ footer a{color:var(--gold);text-decoration:none;display:block;margin-top:6px}
 <h2>📋 Confirmation de réservation</h2>
 
 <form onsubmit="submitHome(event)">
-<input type="hidden" name="_captcha" value="false">
-<input type="hidden" name="_subject" value="Nouvelle réservation — CizaHome+">
+<input type="hidden" name="access_key" value="5dd75877-534a-4291-b280-5430afd92733">
+<input type="hidden" name="subject" value="Nouvelle réservation — CizaHome+">
+<input type="hidden" name="from_name" value="CizaHome+ — App CIZA GROUP">
 <input type="hidden" name="Numéro de dossier" id="dossierField">
+
+<div class="form-summary" id="formSummary"></div>
 
 <input type="text" name="Nom & Prénom" required placeholder="Nom et prénom">
 <input type="tel" name="Téléphone" required placeholder="Téléphone">
@@ -192,6 +213,9 @@ function selectService(service,price){
   document.getElementById("formBox").style.display="block";
   document.getElementById("serviceField").value=service;
   document.getElementById("priceField").value=price+" BIF";
+  const sum=document.getElementById("formSummary");
+  sum.innerHTML="Service : <b>"+service+"</b><br>Prix estimé : <b>"+price+" BIF</b>";
+  sum.classList.add("show");
   document.getElementById("formBox").scrollIntoView({behavior:"smooth"});
 }
 function closeForm(){
@@ -203,14 +227,18 @@ function submitHome(e){
   document.getElementById("dossierField").value=dossier;
   document.getElementById("dossierDisplay").textContent=dossier;
 
-  fetch("https://formsubmit.co/infos@cizagroup.com",{
+  fetch("https://api.web3forms.com/submit",{
     method:"POST",
-    body:new FormData(e.target)
-  }).then(()=>{
+    body:new FormData(e.target),
+    headers: { "Accept": "application/json" }
+  }).then(r => r.json()).then(data => {
+    if(!data || !data.success) throw new Error("Envoi refusé");
     document.getElementById("formBox").style.display="none";
     document.getElementById("success").style.display="block";
     window.scrollTo({top:0,behavior:'smooth'});
     e.target.reset();
+  }).catch(() => {
+    alert("La réservation n'a pas pu être envoyée. Réessayez ou contactez-nous sur WhatsApp : +1 514 502 9503");
   });
 }
 window.addEventListener("scroll",()=>{

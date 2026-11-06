@@ -4,15 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CizaCarWash+ — Réservation Officielle</title>
+<script>
+if(localStorage.getItem("ciza_user_status") !== "active"){
+  window.location.replace("login.html");
+}
+</script>
+
 <link rel="icon" href="logotransparent.png">
 
-<style>
+<style>*,*::before,*::after{box-sizing:border-box}
 :root{
-  --bg:#06142E;
+  --bg:#0A0A0A;
   --gold:#F2B840;
-  --glass:rgba(255,255,255,.08);
+  --glass:rgba(250,243,227,.08);
   --border:rgba(242,184,64,.55);
-  --txt:#fff;
+  --txt:#FAF3E3;
 }
 body{
   margin:0;
@@ -75,7 +81,7 @@ h1,h2,h3{color:var(--gold)}
   border:none;
   border-radius:12px;
   background:var(--gold);
-  color:#06142E;
+  color:#0A0A0A;
   font-weight:bold;
   cursor:pointer;
 }
@@ -88,6 +94,18 @@ input,select,textarea{
   border-radius:10px;
   border:none;
 }
+.form-summary{
+  display:none;
+  margin-bottom:14px;
+  padding:14px 16px;
+  border:1.5px solid rgba(242,184,64,.55);
+  border-radius:16px;
+  background:rgba(242,184,64,.08);
+  font-size:14px;
+  line-height:1.5;
+}
+.form-summary.show{display:block;animation:fadeUp .3s ease both}
+.form-summary b{color:#F2B840}
 
 #closeForm{
   position:absolute;
@@ -100,7 +118,7 @@ input,select,textarea{
 
 #success{
   display:none;
-  background:#0b1c34;
+  background:#141414;
   border:1px solid var(--gold);
   border-radius:18px;
   padding:30px;
@@ -121,7 +139,7 @@ footer{
   text-align:center;
   font-size:14px;
   opacity:.9;
-  border-top:1px solid rgba(255,255,255,.15);
+  border-top:1px solid rgba(250,243,227,.15);
 }
 footer span{display:block;margin-top:6px}
 
@@ -133,7 +151,7 @@ footer span{display:block;margin-top:6px}
   height:45px;
   border-radius:50%;
   background:var(--gold);
-  color:#06142E;
+  color:#0A0A0A;
   display:none;
   justify-content:center;
   align-items:center;
@@ -149,7 +167,7 @@ footer span{display:block;margin-top:6px}
   height:55px;
   border-radius:50%;
   background:#25D366;
-  color:white;
+  color:#FAF3E3;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -227,17 +245,18 @@ footer span{display:block;margin-top:6px}
 <h2>📋 Confirmation de réservation</h2>
 
 <form
-  action="https://formsubmit.co/infos@cizagroup.com"
+  action="https://api.web3forms.com/submit"
   method="POST"
   target="hidden_iframe"
   onsubmit="handleSubmit()"
 >
-  <input type="hidden" name="_captcha" value="false">
-  <input type="hidden" name="_template" value="table">
-  <input type="hidden" name="_subject" value="Nouvelle réservation CizaCarWash+">
+  <input type="hidden" name="access_key" value="5dd75877-534a-4291-b280-5430afd92733">
+  <input type="hidden" name="subject" value="Nouvelle réservation CizaCarWash+">
+  <input type="hidden" name="from_name" value="CizaCarWash+ — App CIZA GROUP">
 
   <input type="hidden" name="Numéro de dossier" id="dossierField">
-  <input type="hidden" name="_cc" id="ccField">
+
+<div class="form-summary" id="formSummary"></div>
 
   <input type="text" name="Nom et Prénom" required placeholder="Nom et prénom">
   <input type="email" name="email" required placeholder="Email du client">
@@ -285,7 +304,7 @@ Il sera utilisé pour toute communication avec CIZA GROUP.
 <span>Design & signed by CIZA GROUP</span>
 <span>📧 infos@cizagroup.com</span>
 <span>🌍 International : +1 514 502 9503</span>
-<span>🇧🇮 Burundi / East Africa : +257 79 94 50 • +257 79 64 48 93</span>
+<span>🇧🇮 Burundi / East Africa : +257 79 94 50 07</span>
 </footer>
 
 <div id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
@@ -302,6 +321,9 @@ function selectService(service,price){
   basePrice=price;
   document.getElementById("serviceField").value=service;
   document.getElementById("priceField").value=price+" BIF";
+  const sum=document.getElementById("formSummary");
+  sum.innerHTML="Service : <b>"+service+"</b><br>Prix total : <b>"+price+" BIF</b>";
+  sum.classList.add("show");
   document.getElementById("formBox").style.display="block";
   document.getElementById("formBox").scrollIntoView({behavior:"smooth"});
 }
@@ -310,6 +332,9 @@ function adjustPrice(type){
   let final=basePrice;
   if(type.includes("SUV")) final+=10000;
   document.getElementById("priceField").value=final+" BIF";
+  const sum=document.getElementById("formSummary");
+  const svc=document.getElementById("serviceField").value;
+  if(svc){ sum.innerHTML="Service : <b>"+svc+"</b> ("+type+")<br>Prix total : <b>"+final+" BIF</b>"; sum.classList.add("show"); }
 }
 
 function closeForm(){
@@ -317,9 +342,6 @@ function closeForm(){
 }
 
 function handleSubmit(){
-  const email=document.querySelector("input[name='email']").value;
-  document.getElementById("ccField").value=email;
-
   setTimeout(()=>{
     document.getElementById("formBox").style.display="none";
     document.getElementById("success").style.display="block";

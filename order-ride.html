@@ -5,13 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>CizaRide+ — Commander un trajet</title>
+<script>
+if(localStorage.getItem("ciza_user_status") !== "active"){
+  window.location.replace("login.html");
+}
+</script>
 <link rel="icon" href="logotransparent.png">
 
-<style>
+<style>*,*::before,*::after{box-sizing:border-box}
 body{
     margin:0;
-    background:#06142E;
-    color:white;
+    background:#0A0A0A;
+    color:#FAF3E3;
     font-family:Arial, sans-serif;
 }
 header{
@@ -25,7 +30,7 @@ header h2{ color:#F2B840; margin:10px 0 0; }
 .container{
     max-width:420px;
     margin:40px auto;
-    background:#0B1C34;
+    background:#141414;
     padding:25px;
     border-radius:14px;
     border:1px solid #12335C;
@@ -37,14 +42,14 @@ input{
     border:none;
     border-radius:8px;
     background:#112544;
-    color:white;
+    color:#FAF3E3;
 }
 button{
     width:100%;
     padding:12px;
     margin-top:18px;
     background:#0b84ff;
-    color:white;
+    color:#FAF3E3;
     border:none;
     border-radius:8px;
     font-weight:bold;

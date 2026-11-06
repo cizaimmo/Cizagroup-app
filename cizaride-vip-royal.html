@@ -5,14 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>CizaRide+ — VIP ROYAL</title>
+<script>
+if(localStorage.getItem("ciza_user_status") !== "active"){
+  window.location.replace("login.html");
+}
+</script>
 <link rel="icon" href="logotransparent.png">
 
-<style>
+<style>*,*::before,*::after{box-sizing:border-box}
 /* THEME */
 :root{
-    --bg:#06142E;
-    --text:white;
-    --glass:rgba(255,255,255,0.07);
+    --bg:#0A0A0A;
+    --text:#FAF3E3;
+    --glass:rgba(250,243,227,0.07);
     --gold:#F2B840;
     --border:#F2B840;
 }
@@ -111,8 +116,8 @@ input{
     margin-bottom:16px;
     border-radius:10px;
     border:1px solid var(--gold);
-    background:rgba(255,255,255,0.08);
-    color:white;
+    background:rgba(250,243,227,0.08);
+    color:#FAF3E3;
 }
 button{
     width:100%;
@@ -123,7 +128,7 @@ button{
     font-size:16px;
     font-weight:bold;
     cursor:pointer;
-    color:#06142E;
+    color:#0A0A0A;
     box-shadow:0 0 18px rgba(242,184,64,0.5);
 }
 
@@ -132,7 +137,7 @@ button{
     position:fixed;
     bottom:20px; right:20px;
     background:var(--gold);
-    color:#06142E;
+    color:#0A0A0A;
     border:none;
     padding:12px 15px;
     border-radius:50px;

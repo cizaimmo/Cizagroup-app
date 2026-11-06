@@ -3,28 +3,43 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0A0A0A">
 <title>CizaLogistics+ — Demande logistique</title>
+<script>
+if(localStorage.getItem("ciza_user_status") !== "active"){
+  window.location.replace("login.html");
+}
+</script>
+
 
 <style>
 :root{
-  --bg:#06142E;
+  --bg:#0A0A0A;
   --gold:#F2B840;
-  --glass:rgba(255,255,255,0.08);
-  --border:rgba(255,255,255,0.15);
-  --txt:#fff;
+  --glass:rgba(250,243,227,.05);
+  --border:rgba(242,184,64,.45);
+  --txt:#FAF3E3;
 }
 *{box-sizing:border-box}
 body{
   margin:0;
   font-family:system-ui,Roboto,Arial;
-  background:linear-gradient(180deg,#06142E,#050F24);
+  background:linear-gradient(180deg,#0A0A0A,#111111);
   color:var(--txt);
+  -webkit-tap-highlight-color:transparent;
 }
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(14px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.hero,.container .card{animation:fadeUp .55s ease both}
+.container .card:nth-child(2){animation-delay:.06s}
+.container .card:nth-child(3){animation-delay:.12s}
 header{
   position:sticky;top:0;z-index:10;
   display:flex;align-items:center;justify-content:space-between;
   padding:14px 18px;
-  background:rgba(6,20,46,.9);
+  background:rgba(10,10,10,.9);
   border-bottom:1px solid var(--gold);
 }
 header img{height:34px}
@@ -37,10 +52,11 @@ header button{
 .hero{padding:40px 20px}
 .container{max-width:1000px;margin:auto;padding:20px}
 .card{
-  background:var(--glass);
+  background:#141414;
   border:1px solid var(--border);
   border-radius:22px;
   padding:22px;margin-bottom:25px;
+  box-shadow:0 4px 14px rgba(0,0,0,.4);
 }
 h1,h2,h3{color:var(--gold)}
 label{font-size:14px;opacity:.85}
@@ -49,13 +65,28 @@ input,select,textarea{
   padding:14px;border-radius:14px;border:none;
 }
 textarea{resize:none}
+.form-summary{
+  display:none;
+  margin-bottom:16px;
+  padding:14px 16px;
+  border:1.5px solid rgba(242,184,64,.55);
+  border-radius:16px;
+  background:rgba(242,184,64,.08);
+  font-size:14px;
+  line-height:1.5;
+}
+.form-summary.show{display:block;animation:fadeUp .3s ease both}
+.form-summary b{color:var(--gold)}
 .btn{
   width:100%;padding:15px;
   border-radius:16px;border:none;
   background:var(--gold);
-  color:#06142E;font-weight:700;font-size:16px;
+  color:#0A0A0A;font-weight:700;font-size:16px;
   cursor:pointer;
+  transition:transform .2s ease, box-shadow .2s ease;
+  box-shadow:0 4px 16px rgba(242,184,64,.3);
 }
+.btn:active{transform:scale(.97)}
 .small{font-size:13px;opacity:.85}
 #success{display:none;text-align:center}
 footer{text-align:center;padding:25px;font-size:13px;opacity:.85}
@@ -72,7 +103,7 @@ footer{text-align:center;padding:25px;font-size:13px;opacity:.85}
 
 <section class="hero">
   <h1>CizaLogistics+ 🚚</h1>
-  <p>Solutions logistiques professionnelles — Burundi & international.</p>
+  <p>Solutions logistiques professionnelles — Burundi.</p>
 </section>
 
 <div class="container">
@@ -83,7 +114,7 @@ footer{text-align:center;padding:25px;font-size:13px;opacity:.85}
   <ul class="small">
     <li>✔ Traitement humain & suivi réel</li>
     <li>✔ Solutions adaptées à votre activité</li>
-    <li>✔ Réseau local & international</li>
+    <li>✔ Réseau local</li>
     <li>✔ Service sécurisé & structuré</li>
   </ul>
 </div>
@@ -95,7 +126,6 @@ footer{text-align:center;padding:25px;font-size:13px;opacity:.85}
     <li>Transport local & régional</li>
     <li>Stockage & entreposage</li>
     <li>Distribution commerciale</li>
-    <li>Import / Export</li>
   </ul>
 </div>
 
@@ -103,13 +133,16 @@ footer{text-align:center;padding:25px;font-size:13px;opacity:.85}
 <div class="card" id="formBox">
 <h3>Formulaire de demande</h3>
 
-<form action="https://formsubmit.co/infos@cizagroup.com"
+<form action="https://api.web3forms.com/submit"
       method="POST"
       onsubmit="submitLogistics(event)">
 
-<input type="hidden" name="_captcha" value="false">
-<input type="hidden" name="_subject" value="Nouvelle demande — CizaLogistics+">
+<input type="hidden" name="access_key" value="5dd75877-534a-4291-b280-5430afd92733">
+<input type="hidden" name="subject" value="Nouvelle demande — CizaLogistics+">
+<input type="hidden" name="from_name" value="CizaLogistics+ — App CIZA GROUP">
 <input type="hidden" name="Numéro de dossier" id="refInput">
+
+<div class="form-summary" id="formSummary"></div>
 
 <label>Email *</label>
 <input type="email" name="Email" required>
@@ -121,16 +154,15 @@ footer{text-align:center;padding:25px;font-size:13px;opacity:.85}
 <input name="Entreprise">
 
 <label>Type de service *</label>
-<select name="Service logistique" required>
+<select name="Service logistique" id="serviceSelect" required onchange="updateLogisticsSummary(this.value)">
   <option value="">Choisir</option>
   <option>Transport</option>
   <option>Stockage</option>
   <option>Distribution</option>
-  <option>Import / Export</option>
 </select>
 
 <label>Détails de la demande</label>
-<textarea name="Détails" rows="4"
+<textarea name="Détails" id="detailsField" rows="4"
 placeholder="Nature des marchandises, volume, zones concernées…"></textarea>
 
 <button class="btn" type="submit">Envoyer la demande</button>
@@ -165,6 +197,25 @@ infos@cizagroup.com
 </footer>
 
 <script>
+/* Formulaire dynamique : le résumé et les indications s'adaptent au service choisi */
+const logisticsHints = {
+  "Transport": "Nature des marchandises, volume, zones concernées…",
+  "Stockage": "Type de marchandises, volume, durée de stockage…",
+  "Distribution": "Produits, zones de distribution, volumes…"
+};
+function updateLogisticsSummary(service){
+  const box = document.getElementById("formSummary");
+  const details = document.getElementById("detailsField");
+  if(!service){
+    box.classList.remove("show");
+    box.innerHTML = "";
+    return;
+  }
+  box.innerHTML = "Service : <b>" + service + "</b><br>Tarif : <b>Devis sur demande</b> — un agent vous contactera pour validation.";
+  box.classList.add("show");
+  if(logisticsHints[service]) details.placeholder = logisticsHints[service];
+}
+
 function submitLogistics(e){
   e.preventDefault();
   const form = e.target;
@@ -175,16 +226,12 @@ function submitLogistics(e){
 
   document.getElementById("refInput").value = ref;
 
-  // Copie client
-  const email = form.querySelector('input[type="email"]').value;
-  const cc = document.createElement("input");
-  cc.type="hidden"; cc.name="_cc"; cc.value=email;
-  form.appendChild(cc);
-
   fetch(form.action,{
     method:"POST",
-    body:new FormData(form)
-  }).then(()=>{
+    body:new FormData(form),
+    headers: { "Accept": "application/json" }
+  }).then(r => r.json()).then(data => {
+    if(!data || !data.success) throw new Error("Envoi refusé");
     document.getElementById("formBox").style.display="none";
     document.getElementById("success").style.display="block";
     document.getElementById("refShow").innerText = ref;
@@ -192,6 +239,8 @@ function submitLogistics(e){
       "https://wa.me/25779945007?text=Bonjour%20CizaLogistics%20Référence%20"+ref;
     window.scrollTo({top:0,behavior:"smooth"});
     form.reset();
+  }).catch(() => {
+    alert("La demande n'a pas pu être envoyée. Réessayez ou contactez-nous sur WhatsApp : +1 514 502 9503");
   });
 }
 </script>

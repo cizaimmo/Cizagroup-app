@@ -4,13 +4,18 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CizaRide+ — Standard</title>
+<script>
+if(localStorage.getItem("ciza_user_status") !== "active"){
+  window.location.replace("login.html");
+}
+</script>
 
-<style>
+<style>*,*::before,*::after{box-sizing:border-box}
 body{
     margin:0;
-    background:#06142E;
+    background:#0A0A0A;
     font-family:Arial, sans-serif;
-    color:white;
+    color:#FAF3E3;
 }
 
 /* RETOUR */
@@ -54,7 +59,7 @@ h1{
 form{
     width:90%;
     margin:20px auto;
-    background:rgba(255,255,255,0.06);
+    background:rgba(250,243,227,0.06);
     padding:20px;
     border-radius:16px;
     border:1px solid #F2B840;
@@ -69,7 +74,7 @@ input, textarea{
     background:rgba(0,0,0,0.35);
     border:1px solid #F2B84080;
     border-radius:10px;
-    color:white;
+    color:#FAF3E3;
     font-size:15px;
 }
 
@@ -78,7 +83,7 @@ button{
     margin-top:18px;
     padding:14px;
     background:#F2B840;
-    color:#06142E;
+    color:#0A0A0A;
     border:none;
     border-radius:12px;
     font-weight:bold;
@@ -93,7 +98,7 @@ button{
     right:20px;
     background:#F2B840;
     border:none;
-    color:#06142E;
+    color:#0A0A0A;
     padding:10px 14px;
     border-radius:50px;
     font-weight:bold;

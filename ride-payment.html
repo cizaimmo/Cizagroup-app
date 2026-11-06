@@ -5,14 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>Paiement — CizaRide+</title>
+<script>
+if(localStorage.getItem("ciza_user_status") !== "active"){
+  window.location.replace("login.html");
+}
+</script>
 <link rel="icon" href="logotransparent.png">
 
-<style>
+<style>*,*::before,*::after{box-sizing:border-box}
 /* THEME */
 :root{
-    --bg:#06142E;
-    --glass:rgba(255,255,255,0.07);
-    --text:white;
+    --bg:#0A0A0A;
+    --glass:rgba(250,243,227,0.07);
+    --text:#FAF3E3;
     --gold:#F2B840;
     --border:#F2B840;
 }
@@ -108,7 +113,7 @@ header h1{
     margin:25px auto;
     padding:14px;
     background:var(--gold);
-    color:#06142E;
+    color:#0A0A0A;
     border:none;
     border-radius:14px;
     font-size:18px;
@@ -126,7 +131,7 @@ header h1{
     border:none;
     font-weight:bold;
     background:var(--gold);
-    color:#06142E;
+    color:#0A0A0A;
     cursor:pointer;
 }
 </style>

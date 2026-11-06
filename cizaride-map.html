@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CizaRide+ — Map</title>
+<script>
+if(localStorage.getItem("ciza_user_status") !== "active"){
+  window.location.replace("login.html");
+}
+</script>
 
 <!-- Leaflet CSS -->
 <link
@@ -11,13 +16,13 @@
   href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
 />
 
-<style>
+<style>*,*::before,*::after{box-sizing:border-box}
 body{
   margin:0;
   height:100vh;
-  background:#06142E;
+  background:#0A0A0A;
   font-family:system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  color:#fff;
+  color:#FAF3E3;
   display:flex;
   flex-direction:column;
 }
@@ -37,7 +42,7 @@ header button{
   border:none;
   border-radius:10px;
   background:#00A6FF;
-  color:#fff;
+  color:#FAF3E3;
   font-weight:600;
   cursor:pointer;
 }

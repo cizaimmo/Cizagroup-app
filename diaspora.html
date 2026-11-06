@@ -3,23 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0A0A0A">
 <title>CIZA GROUP — Diaspora Services</title>
+<script>
+if(localStorage.getItem("ciza_user_status") !== "active"){
+  window.location.replace("login.html");
+}
+</script>
+
 <link rel="icon" href="logotransparent.png">
 
-<style>
+<style>*,*::before,*::after{box-sizing:border-box}
 :root{
-  --bg:#06142E;
+  --bg:#0A0A0A;
   --gold:#F2B840;
-  --glass:rgba(255,255,255,.08);
+  --glass:rgba(250,243,227,.05);
   --border:rgba(242,184,64,.45);
-  --txt:#fff;
+  --txt:#FAF3E3;
 }
 body{
   margin:0;
   font-family:Arial,sans-serif;
   background:var(--bg);
   color:var(--txt);
+  -webkit-tap-highlight-color:transparent;
 }
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(14px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.hero,.section{animation:fadeUp .55s ease both}
+.section:nth-of-type(2){animation-delay:.06s}
+.section:nth-of-type(3){animation-delay:.12s}
 header{
   position:sticky;top:0;z-index:1000;
   display:flex;align-items:center;justify-content:space-between;
@@ -44,7 +59,7 @@ header img{height:42px}
 .hero::before{
   content:"";
   position:absolute;inset:0;
-  background:linear-gradient(135deg,#051026,#0B1C34,#071A33,#0a2240);
+  background:linear-gradient(135deg,#0A0A0A,#1a1a1a,#141414,#0A0A0A);
   background-size:300% 300%;
   animation:grad 12s ease infinite;
   z-index:-2;
@@ -71,8 +86,11 @@ header img{height:42px}
 .hero .actions button{
   margin:6px;padding:14px 26px;border:none;
   border-radius:14px;background:var(--gold);
-  color:#06142E;font-weight:bold;cursor:pointer
+  color:#0A0A0A;font-weight:bold;cursor:pointer;
+  transition:transform .2s ease, box-shadow .2s ease;
+  box-shadow:0 4px 16px rgba(242,184,64,.3);
 }
+.hero .actions button:active{transform:scale(.96)}
 
 .container{max-width:980px;margin:auto;padding:30px 20px}
 .section{margin-top:42px}
@@ -85,25 +103,15 @@ header img{height:42px}
   gap:20px;
 }
 .card{
-  background:var(--glass);
+  background:#141414;
   border:1px solid var(--border);
   border-radius:16px;
   padding:22px;
+  box-shadow:0 4px 14px rgba(0,0,0,.4);
+  transition:transform .25s ease, box-shadow .25s ease;
 }
+.card:active{transform:scale(.98)}
 .card h3{color:var(--gold);margin-top:0}
-
-/* TESTIMONIALS */
-.testimonials{
-  display:flex;gap:18px;overflow:hidden
-}
-.testimonial{
-  min-width:280px;
-  animation:slide 30s linear infinite;
-}
-@keyframes slide{
-  0%{transform:translateX(0)}
-  100%{transform:translateX(-100%)}
-}
 
 /* FORM */
 .form-box{
@@ -115,19 +123,34 @@ header img{height:42px}
 input,select,textarea{
   width:100%;margin-top:12px;padding:12px;
   border-radius:10px;border:none;
-  background:#0b1c34;color:#fff
+  background:#1A1A1A;color:#FAF3E3
 }
 textarea{min-height:120px}
+.form-summary{
+  display:none;
+  margin-top:12px;
+  padding:14px 16px;
+  border:1.5px solid rgba(242,184,64,.55);
+  border-radius:16px;
+  background:rgba(242,184,64,.08);
+  font-size:14px;
+  line-height:1.5;
+}
+.form-summary.show{display:block;animation:fadeUp .3s ease both}
+.form-summary b{color:var(--gold)}
 .btn{
   margin-top:18px;width:100%;
   padding:14px;border:none;border-radius:12px;
-  background:var(--gold);color:#06142E;
-  font-weight:bold;cursor:pointer
+  background:var(--gold);color:#0A0A0A;
+  font-weight:bold;cursor:pointer;
+  transition:transform .2s ease, box-shadow .2s ease;
+  box-shadow:0 4px 16px rgba(242,184,64,.3);
 }
+.btn:active{transform:scale(.97)}
 
 .success-box{
   display:none;
-  background:#0b1c34;
+  background:#141414;
   border:1px solid var(--gold);
   border-radius:18px;
   padding:30px;
@@ -148,9 +171,10 @@ footer span{display:block;margin-top:6px}
 #topBtn{
   position:fixed;bottom:20px;right:20px;
   width:46px;height:46px;border-radius:50%;
-  background:var(--gold);color:#06142E;
+  background:var(--gold);color:#0A0A0A;
   display:none;align-items:center;justify-content:center;
-  font-size:20px;cursor:pointer
+  font-size:20px;cursor:pointer;
+  box-shadow:0 6px 20px rgba(242,184,64,.4);
 }
 </style>
 </head>
@@ -216,22 +240,14 @@ footer span{display:block;margin-top:6px}
 </div>
 </section>
 
-<!-- TEMOIGNAGES -->
-<section class="section">
-<h2 class="section-title">Témoignages Diaspora</h2>
-<div class="testimonials">
-  <div class="card testimonial">“J’ai acheté mon terrain depuis le Canada sans stress.” — Montréal</div>
-  <div class="card testimonial">“CIZA GROUP gère ma maison pendant mon absence.” — Bruxelles</div>
-  <div class="card testimonial">“Service sérieux et communication claire.” — Paris</div>
-</div>
-</section>
-
 <!-- AVIS -->
 <section class="section">
 <h2 class="section-title">⭐ Laisser un avis Diaspora</h2>
 <div class="form-box">
 <form id="avisForm">
-  <input type="hidden" name="_subject" value="Nouvel avis Diaspora — CIZA GROUP">
+  <input type="hidden" name="access_key" value="5dd75877-534a-4291-b280-5430afd92733">
+  <input type="hidden" name="subject" value="Nouvel avis Diaspora — CIZA GROUP">
+  <input type="hidden" name="from_name" value="Diaspora — App CIZA GROUP">
   <input name="Nom" required placeholder="Votre nom">
   <input name="Pays" required placeholder="Pays de résidence">
   <textarea name="Avis" required placeholder="Votre avis (validé par CIZA GROUP avant publication)"></textarea>
@@ -250,11 +266,15 @@ footer span{display:block;margin-top:6px}
 <h2 class="section-title">Formulaire Diaspora</h2>
 <div class="form-box">
 <form id="diasporaForm">
+<input type="hidden" name="access_key" value="5dd75877-534a-4291-b280-5430afd92733">
+<input type="hidden" name="subject" value="Nouvelle demande Diaspora — CIZA GROUP">
+<input type="hidden" name="from_name" value="Diaspora — App CIZA GROUP">
 <input type="hidden" name="Numéro de dossier" id="dossier">
+<div class="form-summary" id="diasporaSummary"></div>
 <input name="Nom" required placeholder="Nom complet">
 <input type="email" name="Email" required placeholder="Email">
 <input name="Téléphone" required placeholder="Téléphone">
-<select name="Service" required>
+<select name="Service" id="diasporaService" required onchange="updateDiasporaSummary(this.value)">
 <option value="">Service souhaité</option>
 <option>Immobilier / Construction</option>
 <option>Gestion immobilière</option>
@@ -263,7 +283,7 @@ footer span{display:block;margin-top:6px}
 <option>Assistance administrative</option>
 <option>Logistique diaspora</option>
 </select>
-<textarea name="Message" placeholder="Décrivez votre besoin"></textarea>
+<textarea name="Message" id="diasporaMessage" placeholder="Décrivez votre besoin"></textarea>
 <button class="btn">Envoyer la demande</button>
 </form>
 
@@ -293,22 +313,50 @@ Veuillez conserver ce numéro.
 const dossierId="CIZA-DIAS-"+new Date().toISOString().slice(0,10).replace(/-/g,"")+"-"+Math.floor(1000+Math.random()*9000);
 document.getElementById("dossier").value=dossierId;
 
+/* Formulaire dynamique : le résumé et les indications s'adaptent au service choisi */
+const diasporaHints = {
+  "Immobilier / Construction": "Type de bien, budget, zone…",
+  "Gestion immobilière": "Bien à gérer, nombre de logements, zone…",
+  "Investissement": "Montant envisagé, type de projet…",
+  "Création d’entreprise": "Secteur d'activité, forme juridique envisagée…",
+  "Assistance administrative": "Document ou démarche concernée…",
+  "Logistique diaspora": "Colis, destination, volume…"
+};
+function updateDiasporaSummary(service){
+  const box = document.getElementById("diasporaSummary");
+  const msg = document.getElementById("diasporaMessage");
+  if(!service){
+    box.classList.remove("show");
+    box.innerHTML = "";
+    return;
+  }
+  box.innerHTML = "Service : <b>" + service + "</b><br>Tarif : <b>Devis sur demande</b> — un agent vous contactera pour validation.";
+  box.classList.add("show");
+  if(diasporaHints[service]) msg.placeholder = diasporaHints[service];
+}
+
 document.getElementById("diasporaForm").addEventListener("submit",e=>{
   e.preventDefault();
-  fetch("https://formsubmit.co/ajax/infos@cizagroup.com",{method:"POST",body:new FormData(e.target)})
-  .then(()=>{
+  fetch("https://api.web3forms.com/submit",{method:"POST",body:new FormData(e.target),headers:{"Accept":"application/json"}})
+  .then(r => r.json()).then(data => {
+    if(!data || !data.success) throw new Error("Envoi refusé");
     e.target.style.display="none";
     document.getElementById("success").style.display="block";
     document.getElementById("dossierShow").textContent=dossierId;
+  }).catch(() => {
+    alert("La demande n'a pas pu être envoyée. Réessayez ou contactez-nous sur WhatsApp : +1 514 502 9503");
   });
 });
 
 document.getElementById("avisForm").addEventListener("submit",e=>{
   e.preventDefault();
-  fetch("https://formsubmit.co/ajax/infos@cizagroup.com",{method:"POST",body:new FormData(e.target)})
-  .then(()=>{
+  fetch("https://api.web3forms.com/submit",{method:"POST",body:new FormData(e.target),headers:{"Accept":"application/json"}})
+  .then(r => r.json()).then(data => {
+    if(!data || !data.success) throw new Error("Envoi refusé");
     e.target.style.display="none";
     document.getElementById("avisSuccess").style.display="block";
+  }).catch(() => {
+    alert("L'avis n'a pas pu être envoyé. Réessayez ou contactez-nous sur WhatsApp : +1 514 502 9503");
   });
 });
 
