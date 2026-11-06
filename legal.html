@@ -3,89 +3,125 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CIZA GROUP — Legal</title>
+<meta name="theme-color" content="#0A0A0A">
+
+<title>Mentions légales — CIZA GROUP</title>
+<script>
+if(localStorage.getItem("ciza_user_status") !== "active"){
+  window.location.replace("login.html");
+}
+</script>
+
 <link rel="icon" href="logotransparent.png">
 
-<style>*,*::before,*::after{box-sizing:border-box}
+<style>
 :root{
   --bg:#0A0A0A;
   --gold:#F2B840;
-  --glass:rgba(250,243,227,.08);
-  --border:rgba(250,243,227,.15);
-  --txt:#FAF3E3;
+  --cream:#FAF3E3;
+  --panel:#141414;
+  --border:rgba(242,184,64,.45);
 }
+*{box-sizing:border-box}
 body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:var(--bg);
-  color:var(--txt);
+    margin:0;
+    background:var(--bg);
+    color:var(--cream);
+    font-family:Arial, sans-serif;
+    -webkit-tap-highlight-color:transparent;
 }
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(14px)}
+  to{opacity:1;transform:translateY(0)}
+}
+a{color:var(--gold);text-decoration:none}
 
 /* HEADER */
 header{
-  position:sticky;
-  top:0;
-  z-index:1000;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:14px 18px;
-  background:var(--glass);
-  backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--gold);
+    background:rgba(10,10,10,.9);
+    padding:15px;
+    text-align:center;
+    border-bottom:2px solid var(--gold);
+    position:sticky;
+    top:0;
+    z-index:100;
 }
-header img{height:38px}
-header button{
-  background:none;
-  border:none;
-  color:var(--gold);
-  font-size:18px;
-  cursor:pointer;
-  font-weight:bold;
+header h2{
+    margin:0;
+    color:var(--gold);
+    font-size:22px;
+}
+.back-btn{
+    position:absolute;
+    left:15px;
+    top:14px;
+    background:var(--gold);
+    color:#0A0A0A;
+    padding:6px 12px;
+    border-radius:8px;
+    font-weight:bold;
+    cursor:pointer;
+    text-decoration:none;
+    transition:transform .2s ease;
+}
+.back-btn:active{transform:scale(.95)}
+
+/* HERO */
+.hero{
+    text-align:center;
+    padding:38px 20px 10px;
+    animation:fadeUp .55s ease both;
+}
+.hero h1{
+    color:var(--gold);
+    font-size:26px;
+    margin:0 0 10px;
+}
+.hero p{
+    opacity:.9;
+    font-size:15px;
+    max-width:560px;
+    margin:0 auto;
 }
 
-/* CONTENT */
+/* CONTAINER */
 .container{
-  max-width:900px;
-  margin:auto;
-  padding:30px 22px;
+    padding:30px 20px 40px;
+    max-width:900px;
+    margin:auto;
 }
-h1,h2{color:var(--gold)}
 .section{
-  background:var(--glass);
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:24px;
-  margin-bottom:26px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    padding:24px 20px;
+    border-radius:16px;
+    box-shadow:0 4px 14px rgba(0,0,0,.4);
+    margin-bottom:20px;
+    animation:fadeUp .55s ease both;
 }
-.section p{line-height:1.6;opacity:.92}
-
-/* FOOTER */
+.section:nth-child(2){animation-delay:.06s}
+.section:nth-child(3){animation-delay:.12s}
+.section:nth-child(4){animation-delay:.18s}
+.section:nth-child(5){animation-delay:.24s}
+.section:nth-child(6){animation-delay:.3s}
+.section:nth-child(7){animation-delay:.36s}
+.section h2{
+    color:var(--gold);
+    font-size:19px;
+    margin:0 0 10px;
+}
+.section p{
+    opacity:.92;
+    font-size:15px;
+    line-height:1.7;
+    margin:0;
+}
 footer{
-  margin-top:50px;
-  padding:30px;
-  text-align:center;
-  font-size:14px;
-  opacity:.85;
-}
-footer span{display:block;margin-top:6px}
-footer a{color:var(--gold);text-decoration:none}
-
-/* TOP BTN */
-#topBtn{
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  width:46px;
-  height:46px;
-  border-radius:50%;
-  background:var(--gold);
-  color:#0A0A0A;
-  display:none;
-  justify-content:center;
-  align-items:center;
-  font-size:22px;
-  cursor:pointer;
+    text-align:center;
+    padding:24px 16px 40px;
+    font-size:13px;
+    opacity:.7;
+    line-height:1.7;
 }
 </style>
 </head>
@@ -93,116 +129,64 @@ footer a{color:var(--gold);text-decoration:none}
 <body>
 
 <header>
-  <button onclick="history.back()">←</button>
-  <img src="logotransparent.png" alt="CIZA GROUP">
-  <button onclick="toggleLang()" id="langBtn">EN</button>
+    <a href="index.html" class="back-btn">← Retour</a>
+    <h2>Mentions légales</h2>
 </header>
+
+<div class="hero">
+    <h1>Mentions légales</h1>
+    <p>Les informations légales de l'application CIZA GROUP.</p>
+</div>
 
 <div class="container">
 
-<h1 id="title">Legal notice</h1>
+    <div class="section">
+        <h2>1. Éditeur de l'application</h2>
+        <p>La présente application est éditée par :<br><br>
+        <b>CIZA GROUP — Burundi</b><br>
+        Ciza Group SURL — RC 0082870/26 — NIF 4003446905<br>
+        Représentant légal : Ciza Misigaro<br>
+        Email : infos@cizagroup.com / business@cizagroup.com<br>
+        Adresse : 6ème Avenue N° 47, Quartier Buhomba, Zone Mutimbuzi, Commune Ntahangwa, Maramvya, Bujumbura, Burundi.<br>
+        📍 Chine : No. 80, Xiujiang Road, Zhujing Town, Jinshan District, Shanghai</p>
+    </div>
 
-<!-- LEGAL -->
-<div class="section">
-  <h2 id="legalTitle">Legal notice</h2>
-  <p id="legalText">
-    CIZA GROUP is a multi-service platform operating in Burundi,
-    East Africa and internationally.
-  </p>
+    <div class="section">
+        <h2>2. Hébergement</h2>
+        <p>L'application est hébergée gratuitement via GitHub Pages. Les données du domaine sont gérées via Squarespace.</p>
+    </div>
 
-  <h3 style="color:var(--gold)" id="publisherTitle">Publisher</h3>
-  <p id="publisherText">
-    <b>CIZA GROUP</b><br>
-    Email: infos@cizagroup.com<br>
-    International: +1 514 502 9503<br>
-    Burundi / East Africa: +257 79 94 50 07
-  </p>
+    <div class="section">
+        <h2>3. Propriété intellectuelle</h2>
+        <p>Tous les contenus de l'application (textes, logos, images, design, code) sont la propriété exclusive de CIZA GROUP. Toute reproduction sans autorisation est strictement interdite.</p>
+    </div>
 
-  <h3 style="color:var(--gold)" id="liabilityTitle">Liability</h3>
-  <p id="liabilityText">
-    Services are activated after human validation.
-    CIZA GROUP does not provide fully automated services
-    without confirmation.
-  </p>
-</div>
+    <div class="section">
+        <h2>4. Responsabilité</h2>
+        <p>Nous mettons tout en œuvre pour assurer l'exactitude des informations, mais CIZA GROUP ne pourra être tenue responsable en cas d'erreur, interruption, ou indisponibilité du service.</p>
+    </div>
 
-<!-- ABOUT -->
-<div class="section" id="about">
-  <h2 id="aboutTitle">About CIZA GROUP</h2>
-  <p id="aboutText">
-    CIZA GROUP is a Super-App ecosystem designed to centralize
-    essential services for individuals,diaspora and enterprises.
-    Our mission is to provide secure, human-validated and premium
-    solutions adapted to Burundi, East Africa and the international market.
-  </p>
-</div>
+    <div class="section">
+        <h2>5. Données personnelles</h2>
+        <p>Les informations personnelles sont traitées conformément à notre Politique de Confidentialité disponible sur :<br><a href="privacy.html">Politique de Confidentialité</a></p>
+    </div>
 
-<!-- CONTACT -->
-<div class="section" id="contact">
-  <h2 id="contactTitle">Contact</h2>
-  <p>
-    📧 infos@cizagroup.com<br><br>
-    🌍 International: +1 514 502 9503<br>
-    🇧🇮 Burundi / East Africa:<br>
-    +257 79 94 50 07<br>
-  </p>
-</div>
+    <div class="section">
+        <h2>6. Cookies</h2>
+        <p>L'application utilise des cookies techniques pour améliorer l'expérience utilisateur et l'analyse de trafic.</p>
+    </div>
+
+    <div class="section">
+        <h2>7. Contact légal</h2>
+        <p>Pour toute demande légale, vous pouvez nous écrire à :<br><br>
+        📧 infos@cizagroup.com<br>
+        📧 business@cizagroup.com<br>
+        📍 6ème Avenue N° 47, Quartier Buhomba, Zone Mutimbuzi, Commune Ntahangwa, Maramvya, Bujumbura, Burundi</p>
+    </div>
 
 </div>
 
-<footer>
-© 2026 CIZA GROUP  
-<span>Design signed by CIZA GROUP</span>
-</footer>
-
-<div id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
-
-<script>
-let lang="en";
-
-const T={
-  title:{fr:"Mentions légales",en:"Legal notice"},
-  legalTitle:{fr:"Mentions légales",en:"Legal notice"},
-  legalText:{
-    fr:"CIZA GROUP est une plateforme multiservices opérant au Burundi, en Afrique de l’Est et à l’international.",
-    en:"CIZA GROUP is a multi-service platform operating in Burundi, East Africa and internationally."
-  },
-  publisherTitle:{fr:"Éditeur",en:"Publisher"},
-  publisherText:{
-    fr:"CIZA GROUP<br>Email: infos@cizagroup.com<br>International: +1 514 502 9503<br>Burundi / East Africa: +257 79 94 50 07",
-    en:"CIZA GROUP<br>Email: infos@cizagroup.com<br>International: +1 514 502 9503<br>Burundi / East Africa: +257 79 94 50 07"
-  },
-  liabilityTitle:{fr:"Responsabilité",en:"Liability"},
-  liabilityText:{
-    fr:"Les services sont activés après validation humaine. CIZA GROUP ne fournit pas de services entièrement automatisés sans confirmation.",
-    en:"Services are activated after human validation. CIZA GROUP does not provide fully automated services without confirmation."
-  },
-  aboutTitle:{fr:"À propos de CIZA GROUP",en:"About CIZA GROUP"},
-  aboutText:{
-    fr:"CIZA GROUP est une Super-App conçue pour centraliser les services essentiels pour les particuliers, la diaspora et les entreprises.",
-    en:"CIZA GROUP is a Super-App ecosystem designed to centralize essential services for individuals, diaspora and enterprises."
-  },
-  contactTitle:{fr:"Contact",en:"Contact"}
-};
-
-function applyLang(){
-  for(let k in T){
-    const el=document.getElementById(k);
-    if(el) el.innerHTML=T[k][lang];
-  }
-  document.getElementById("langBtn").textContent=lang==="fr"?"EN":"FR";
-}
-function toggleLang(){
-  lang=lang==="fr"?"en":"fr";
-  applyLang();
-}
-applyLang();
-
-window.addEventListener("scroll",()=>{
-  document.getElementById("topBtn").style.display =
-    window.scrollY>300 ? "flex":"none";
-});
-</script>
+<footer>Ciza Group SURL — RC 0082870/26 — NIF 4003446905<br>© 2026 CIZA GROUP — Mentions légales</footer>
 
 </body>
 </html>

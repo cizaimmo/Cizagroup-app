@@ -3,96 +3,180 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CIZA GROUP — Informations légales</title>
+<meta name="theme-color" content="#0A0A0A">
+
+<title>À propos — CIZA GROUP</title>
+<script>
+if(localStorage.getItem("ciza_user_status") !== "active"){
+  window.location.replace("login.html");
+}
+</script>
+
 <link rel="icon" href="logotransparent.png">
 
 <style>
 :root{
-  --bg:#06142E;
+  --bg:#0A0A0A;
   --gold:#F2B840;
-  --glass:rgba(255,255,255,.08);
-  --border:rgba(255,255,255,.15);
-  --txt:#ffffff;
+  --cream:#FAF3E3;
+  --panel:#141414;
+  --border:rgba(242,184,64,.45);
 }
-
 *{box-sizing:border-box}
-
 body{
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:var(--bg);
-  color:var(--txt);
+    margin:0;
+    background:var(--bg);
+    color:var(--cream);
+    font-family:Arial, sans-serif;
+    -webkit-tap-highlight-color:transparent;
+}
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(14px)}
+  to{opacity:1;transform:translateY(0)}
 }
 
+/* HEADER */
 header{
-  position:sticky;
-  top:0;
-  z-index:1000;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:14px 18px;
-  background:var(--glass);
-  backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--gold);
+    background:rgba(10,10,10,.9);
+    padding:15px;
+    text-align:center;
+    border-bottom:2px solid var(--gold);
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+header h2{
+    margin:0;
+    color:var(--gold);
+    font-size:22px;
+}
+.back-btn{
+    position:absolute;
+    left:15px;
+    top:14px;
+    background:var(--gold);
+    color:#0A0A0A;
+    padding:6px 12px;
+    border-radius:8px;
+    font-weight:bold;
+    cursor:pointer;
+    text-decoration:none;
+    transition:transform .2s ease;
+}
+.back-btn:active{transform:scale(.95)}
+
+/* HERO */
+.hero{
+    text-align:center;
+    padding:38px 20px 10px;
+    animation:fadeUp .55s ease both;
+}
+.hero h1{
+    color:var(--gold);
+    font-size:26px;
+    margin:0 0 10px;
+}
+.hero p{
+    opacity:.9;
+    font-size:15px;
+    max-width:560px;
+    margin:0 auto;
 }
 
-header img{
-  height:42px;
-  filter:drop-shadow(0 0 8px var(--gold));
-}
-
-header button{
-  background:none;
-  border:none;
-  color:var(--gold);
-  font-size:18px;
-  cursor:pointer;
-}
-
-#langBtn{
-  background:var(--gold);
-  color:#06142E;
-  padding:6px 12px;
-  border-radius:12px;
-  font-weight:bold;
-}
-
+/* CONTAINER */
 .container{
-  max-width:900px;
-  margin:auto;
-  padding:30px 20px;
+    padding:30px 20px 40px;
+    max-width:980px;
+    margin:auto;
 }
-
 .section{
-  background:var(--glass);
-  border:1px solid var(--border);
-  border-radius:20px;
-  padding:25px;
-  margin-bottom:25px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    padding:24px 20px;
+    border-radius:16px;
+    box-shadow:0 4px 14px rgba(0,0,0,.4);
+    margin-bottom:20px;
+    animation:fadeUp .55s ease both;
 }
-
-h1,h2{
-  color:var(--gold);
-  margin-top:0;
+.section h2{
+    color:var(--gold);
+    font-size:20px;
+    margin:0 0 12px;
 }
-
-p{
-  line-height:1.6;
-  opacity:.95;
+.section h3{
+    color:var(--gold);
+    font-size:17px;
+    margin:18px 0 8px;
 }
-
+.section p{
+    opacity:.92;
+    font-size:15px;
+    line-height:1.7;
+    margin:0 0 10px;
+}
+.section p:last-child{margin-bottom:0}
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:16px;
+    margin-top:10px;
+}
+.card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    padding:20px;
+    border-radius:16px;
+    box-shadow:0 4px 14px rgba(0,0,0,.4);
+    animation:fadeUp .55s ease both;
+}
+.card h3{
+    color:var(--gold);
+    font-size:17px;
+    margin:0 0 8px;
+}
+.card p{
+    opacity:.9;
+    font-size:14px;
+    line-height:1.6;
+    margin:0;
+}
+.ceo-quote{
+    margin-top:16px;
+    font-style:italic;
+    opacity:.95;
+    border-left:3px solid var(--gold);
+    padding-left:14px;
+    font-size:15px;
+    line-height:1.7;
+}
+.cta-btn{
+    display:block;
+    width:100%;
+    padding:16px;
+    background:var(--gold);
+    color:#0A0A0A;
+    text-align:center;
+    font-weight:bold;
+    font-size:16px;
+    border-radius:20px;
+    text-decoration:none;
+    margin-top:12px;
+    box-shadow:0 4px 16px rgba(242,184,64,.35);
+    transition:transform .2s ease;
+}
+.cta-btn:active{transform:scale(.97)}
+.cta-btn.outline{
+    background:transparent;
+    color:var(--gold);
+    border:1.5px solid var(--gold);
+    box-shadow:none;
+}
 footer{
-  margin-top:40px;
-  padding:25px;
-  text-align:center;
-  font-size:14px;
-  opacity:.85;
-}
-
-footer span{
-  display:block;
-  margin-top:6px;
+    text-align:center;
+    padding:24px 16px 40px;
+    font-size:13px;
+    opacity:.7;
+    line-height:1.7;
 }
 </style>
 </head>
@@ -100,110 +184,123 @@ footer span{
 <body>
 
 <header>
-  <button onclick="history.back()">←</button>
-  <img src="logotransparent.png" alt="CIZA GROUP">
-  <button id="langBtn">FR</button>
+    <a href="index.html" class="back-btn">← Retour</a>
+    <h2>À propos</h2>
 </header>
+
+<div class="hero">
+    <h1>CIZA GROUP — Excellence, Innovation, Confiance</h1>
+    <p>Nous construisons les services modernes dont le Burundi et la diaspora ont besoin.</p>
+</div>
 
 <div class="container">
 
-<!-- A PROPOS -->
-<section class="section" id="about">
-  <h1 data-fr="À propos de CIZA GROUP" data-en="About CIZA GROUP"></h1>
-  <p data-fr="
-CIZA GROUP est une super-app multi-services opérant au Burundi, en Afrique de l’Est
-et à l’international. Nous connectons la diaspora, les entreprises et les particuliers
-à des services fiables, sécurisés et validés humainement."
-     data-en="
-CIZA GROUP is a multi-service super-app operating in Burundi, East Africa
-and internationally. We connect diaspora, businesses and individuals
-to reliable, secure, human-validated services.">
-  </p>
-</section>
+    <div class="section">
+        <h2>Notre identité</h2>
+        <p>CIZA GROUP est un écosystème multiservices moderne conçu pour connecter les Burundais, la diaspora, les entreprises et les investisseurs à des solutions fiables, transparentes et professionnelles.</p>
+        <h3>Notre vision 2040–2060</h3>
+        <p>Créer un Burundi moderne, digital et connecté, reconnu pour sa qualité de service et son professionnalisme.</p>
+        <h3>Notre mission</h3>
+        <p>Offrir des services essentiels fiables et hautement professionnels, moderniser les solutions locales et accompagner la diaspora dans tous ses projets.</p>
+    </div>
 
-<!-- MENTIONS LEGALES -->
-<section class="section" id="legal">
-  <h2 data-fr="Mentions légales" data-en="Legal notice"></h2>
-  <p data-fr="
-CIZA GROUP est une plateforme de services opérant au Burundi, en Afrique de l’Est
-et à l’international."
-     data-en="
-CIZA GROUP is a service platform operating in Burundi, East Africa
-and internationally.">
-  </p>
+    <div class="section">
+        <h2>Pourquoi CIZA GROUP ?</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Fiabilité</h3>
+                <p>Chaque service est vérifié, contrôlé et conforme.</p>
+            </div>
+            <div class="card">
+                <h3>Standards internationaux</h3>
+                <p>Nos méthodes internes suivent les normes professionnelles mondiales.</p>
+            </div>
+            <div class="card">
+                <h3>Innovation</h3>
+                <p>Nous adaptons chaque service aux besoins du marché moderne.</p>
+            </div>
+            <div class="card">
+                <h3>Accompagnement</h3>
+                <p>Un suivi personnalisé pour chaque projet.</p>
+            </div>
+        </div>
+    </div>
 
-  <p>
-    <b data-fr="Éditeur :" data-en="Publisher :"></b><br>
-    CIZA GROUP<br>
-    Email : <b>infos@cizagroup.com</b><br>
-    International : <b>+1 514 502 9503</b><br>
-    Burundi / East Africa :
-    <b>+257 79 94 50 07</b>
-  </p>
-</section>
+    <div class="section">
+        <h2>Nos domaines</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>CIZA SUPPLY</h3>
+                <p>Sourcing direct usine Chine → Burundi. Devis sur demande.</p>
+            </div>
+            <div class="card">
+                <h3>CizaShop</h3>
+                <p>Marketplace premium. Pré-lancement.</p>
+            </div>
+            <div class="card">
+                <h3>CizaImmo</h3>
+                <p>Achat, location, gestion.</p>
+            </div>
+            <div class="card">
+                <h3>CizaLogistics</h3>
+                <p>Transport, livraison &amp; colis.</p>
+            </div>
+            <div class="card">
+                <h3>CizaVerify</h3>
+                <p>Passeport professionnel vérifié. Bientôt.</p>
+            </div>
+            <div class="card">
+                <h3>Diaspora</h3>
+                <p>Investissement &amp; assistance aux proches au Burundi.</p>
+            </div>
+            <div class="card">
+                <h3>CizaTech</h3>
+                <p>Solutions digitales.</p>
+            </div>
+            <div class="card">
+                <h3>CizaRide+</h3>
+                <p>Transport sécurisé et moderne.</p>
+            </div>
+        </div>
+    </div>
 
-<!-- RESPONSABILITE -->
-<section class="section">
-  <h2 data-fr="Responsabilité" data-en="Liability"></h2>
-  <p data-fr="
-Les services CIZA GROUP sont activés uniquement après validation humaine.
-Aucun service automatisé n’est exécuté sans confirmation."
-     data-en="
-CIZA GROUP services are activated only after human validation.
-No automated service is executed without confirmation.">
-  </p>
-</section>
+    <div class="section">
+        <h2>Notre processus</h2>
+        <div class="grid">
+            <div class="card"><h3>1. Analyse</h3><p>Compréhension du besoin.</p></div>
+            <div class="card"><h3>2. Étude</h3><p>Solutions adaptées.</p></div>
+            <div class="card"><h3>3. Planification</h3><p>Organisation claire.</p></div>
+            <div class="card"><h3>4. Exécution</h3><p>Mise en œuvre professionnelle.</p></div>
+            <div class="card"><h3>5. Suivi</h3><p>Contrôle qualité.</p></div>
+            <div class="card"><h3>6. Reporting</h3><p>Retour transparent.</p></div>
+        </div>
+    </div>
 
-<!-- SUPPRESSION DE COMPTE -->
-<section class="section" id="delete-account">
-  <h2 data-fr="Suppression de compte" data-en="Account deletion"></h2>
+    <div class="section">
+        <h2>Message du Fondateur &amp; CEO</h2>
+        <p>CIZA GROUP est né d'une conviction forte : offrir au Burundi et à sa diaspora un écosystème de services modernes, transparents et alignés aux standards internationaux.</p>
+        <p>Nous plaçons l'excellence, la transparence et l'innovation au cœur de chaque service pour faciliter les projets, sécuriser les démarches et accompagner chaque client vers la réussite.</p>
+        <p class="ceo-quote">« L'excellence n'est pas un objectif, c'est une discipline quotidienne. » — Fondateur &amp; CEO, CIZA GROUP</p>
+    </div>
 
-  <p data-fr="
-Pour supprimer votre compte CIZA GROUP, envoyez un email à
-infos@cizagroup.com avec l’objet :
-"
-     data-en="
-To delete your CIZA GROUP account, send an email to
-infos@cizagroup.com with the subject:
-">
-  </p>
+    <div class="section">
+        <h2>Nos valeurs</h2>
+        <div class="grid">
+            <div class="card"><h3>Intégrité</h3><p>Éthique &amp; honnêteté.</p></div>
+            <div class="card"><h3>Transparence</h3><p>Aucune surprise.</p></div>
+            <div class="card"><h3>Excellence</h3><p>Niveau international.</p></div>
+            <div class="card"><h3>Proximité</h3><p>Accompagnement humain.</p></div>
+        </div>
+    </div>
 
-  <p><b>“Suppression de compte – CIZA GROUP”</b></p>
-
-  <p data-fr="
-La suppression est effectuée après vérification d’identité,
-conformément aux règles de sécurité et de conformité."
-     data-en="
-Account deletion is processed after identity verification,
-in accordance with security and compliance rules.">
-  </p>
-</section>
+    <div class="section">
+        <a href="contact.html" class="cta-btn">Nous contacter</a>
+        <a href="services.html" class="cta-btn outline">Découvrir nos services</a>
+    </div>
 
 </div>
 
-<footer>
-  © 2026 CIZA GROUP
-  <span>Design & System — CIZA GROUP</span>
-  <span>infos@cizagroup.com</span>
-</footer>
-
-<script>
-let lang = "fr";
-
-function translate(){
-  document.querySelectorAll("[data-fr]").forEach(el=>{
-    el.textContent = (lang==="fr") ? el.dataset.fr : el.dataset.en;
-  });
-}
-
-document.getElementById("langBtn").onclick = ()=>{
-  lang = (lang==="fr") ? "en" : "fr";
-  document.getElementById("langBtn").textContent = lang.toUpperCase();
-  translate();
-};
-
-translate();
-</script>
+<footer>Chine : No. 80, Xiujiang Road, Zhujing Town, Jinshan District, Shanghai<br>Ciza Group SURL — RC 0082870/26 — NIF 4003446905<br>© 2026 CIZA GROUP — Tous droits réservés.</footer>
 
 </body>
 </html>
