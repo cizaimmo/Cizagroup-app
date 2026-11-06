@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0A0A0A">
+
+<title>CizaShop — CIZA GROUP</title>
+<script>
+if(localStorage.getItem("ciza_user_status") !== "active"){
+  window.location.replace("login.html");
+}
+</script>
+
+<link rel="icon" href="logotransparent.png">
+
+<style>
+:root{
+  --bg:#0A0A0A;
+  --gold:#F2B840;
+  --cream:#FAF3E3;
+  --panel:#141414;
+  --border:rgba(242,184,64,.45);
+}
+*{box-sizing:border-box}
+body{
+    margin:0;
+    background:var(--bg);
+    color:var(--cream);
+    font-family:Arial, sans-serif;
+    -webkit-tap-highlight-color:transparent;
+}
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(14px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* HEADER */
+header{
+    background:rgba(10,10,10,.9);
+    padding:15px;
+    text-align:center;
+    border-bottom:2px solid var(--gold);
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+header h2{
+    margin:0;
+    color:var(--gold);
+    font-size:22px;
+}
+.back-btn{
+    position:absolute;
+    left:15px;
+    top:14px;
+    background:var(--gold);
+    color:#0A0A0A;
+    padding:6px 12px;
+    border-radius:8px;
+    font-weight:bold;
+    cursor:pointer;
+    text-decoration:none;
+    transition:transform .2s ease;
+}
+.back-btn:active{transform:scale(.95)}
+
+/* HERO */
+.hero{
+    text-align:center;
+    padding:38px 20px 10px;
+    animation:fadeUp .55s ease both;
+}
+.hero h1{
+    color:var(--gold);
+    font-size:26px;
+    margin:0 0 8px;
+}
+.hero .slogan{
+    color:var(--gold);
+    font-size:14px;
+    letter-spacing:2px;
+    font-weight:bold;
+    margin-bottom:12px;
+}
+.hero p{
+    opacity:.9;
+    font-size:15px;
+    max-width:560px;
+    margin:0 auto;
+}
+
+/* CONTAINER */
+.container{
+    padding:30px 20px 40px;
+    max-width:980px;
+    margin:auto;
+}
+.section-title{
+    color:var(--gold);
+    font-size:21px;
+    font-weight:bold;
+    margin:28px 0 14px;
+}
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+}
+.cat{
+    background:var(--panel);
+    border:1px solid var(--border);
+    padding:18px 14px;
+    border-radius:16px;
+    text-align:center;
+    font-size:15px;
+    font-weight:bold;
+    box-shadow:0 4px 14px rgba(0,0,0,.4);
+    animation:fadeUp .55s ease both;
+    transition:transform .25s ease, box-shadow .25s ease;
+}
+.grid .cat:nth-child(2){animation-delay:.05s}
+.grid .cat:nth-child(3){animation-delay:.1s}
+.grid .cat:nth-child(4){animation-delay:.15s}
+.grid .cat:nth-child(5){animation-delay:.2s}
+.grid .cat:nth-child(6){animation-delay:.25s}
+.grid .cat:nth-child(7){animation-delay:.3s}
+.grid .cat:nth-child(8){animation-delay:.35s}
+.grid .cat:nth-child(9){animation-delay:.4s}
+.grid .cat:nth-child(10){animation-delay:.45s}
+.cat:active{transform:scale(.97)}
+.cat span{display:block;font-size:22px;margin-bottom:6px}
+
+.steps{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:14px;
+}
+.step{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:20px;
+    text-align:center;
+    animation:fadeUp .55s ease both;
+}
+.step h3{color:var(--gold);margin:0 0 6px;font-size:18px}
+.step p{opacity:.9;font-size:14px;margin:0}
+
+/* CONTACT */
+.contact{
+    margin-top:28px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:24px 20px;
+    text-align:center;
+    animation:fadeUp .55s ease .2s both;
+}
+.contact h3{
+    color:var(--gold);
+    margin:0 0 8px;
+    font-size:19px;
+}
+.contact p{opacity:.9;font-size:15px;margin:6px 0}
+.contact .devis{
+    display:inline-block;
+    margin:6px 0 10px;
+    padding:6px 16px;
+    border-radius:20px;
+    border:1px solid var(--gold);
+    color:var(--gold);
+    font-weight:bold;
+    font-size:14px;
+}
+.wa-btn{
+    display:inline-block;
+    margin:8px 6px 0;
+    padding:14px 26px;
+    border-radius:30px;
+    background:var(--gold);
+    color:#0A0A0A;
+    font-weight:bold;
+    text-decoration:none;
+    font-size:16px;
+    box-shadow:0 4px 16px rgba(242,184,64,.35);
+    transition:transform .2s ease;
+}
+.wa-btn:active{transform:scale(.96)}
+.contact .link{
+    display:block;
+    margin-top:16px;
+    color:var(--gold);
+    text-decoration:none;
+    font-size:15px;
+}
+.contact .mail{
+    display:block;
+    margin-top:8px;
+    color:var(--gold);
+    text-decoration:none;
+    font-size:15px;
+}
+footer{
+    text-align:center;
+    padding:24px 16px 40px;
+    font-size:13px;
+    opacity:.7;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <a href="index.html" class="back-btn">← Retour</a>
+    <h2>CizaShop</h2>
+</header>
+
+<div class="hero">
+    <h1>🛒 CizaShop</h1>
+    <div class="slogan">Achetez. Découvrez. Vivez mieux.</div>
+    <p>La marketplace premium — Afrique &amp; international. Ouverture bientôt.</p>
+</div>
+
+<div class="container">
+
+    <div class="section-title">Nos 10 catégories</div>
+    <div class="grid">
+        <div class="cat"><span>👶</span>Bébé &amp; Enfants</div>
+        <div class="cat"><span>📱</span>Électronique &amp; Tech</div>
+        <div class="cat"><span>👗</span>Mode &amp; Style</div>
+        <div class="cat"><span>⚽</span>Sport &amp; Loisirs</div>
+        <div class="cat"><span>💄</span>Beauté &amp; Soins</div>
+        <div class="cat"><span>🚗</span>Auto &amp; Accessoires</div>
+        <div class="cat"><span>🏠</span>Maison &amp; Décoration</div>
+        <div class="cat"><span>💼</span>Bureau &amp; Fournitures</div>
+        <div class="cat"><span>🛒</span>Épicerie &amp; Produits alimentaires</div>
+        <div class="cat"><span>❤️</span>Santé &amp; Bien-être</div>
+    </div>
+
+    <div class="section-title">Comment ça marche</div>
+    <div class="steps">
+        <div class="step"><h3>1. Découvrez</h3><p>Explorez nos 10 catégories de produits.</p></div>
+        <div class="step"><h3>2. Visitez le site</h3><p>Suivez l'ouverture sur cizashop.com.</p></div>
+        <div class="step"><h3>3. Soyez informé</h3><p>Écrivez-nous sur WhatsApp pour être informé du lancement.</p></div>
+    </div>
+
+    <div class="contact">
+        <h3>Être informé du lancement</h3>
+        <div class="devis">Ouverture bientôt — sans engagement</div>
+        <p>Contactez-nous pour être informé du lancement de CizaShop.</p>
+        <a class="wa-btn" href="https://wa.me/15145029503?text=Bonjour%20CizaShop%2C%20je%20souhaite%20%C3%AAtre%20inform%C3%A9%20du%20lancement.">💬 WhatsApp : +1 514 502 9503</a>
+        <a class="mail" href="mailto:infos@cizagroup.com">📧 infos@cizagroup.com</a>
+        <a class="link" href="https://www.cizashop.com">🌐 Voir le site : cizashop.com →</a>
+    </div>
+</div>
+
+<footer>© 2026 CIZA GROUP — CizaShop, division de Ciza Group</footer>
+
+</body>
+</html>
